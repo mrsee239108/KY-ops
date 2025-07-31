@@ -1,0 +1,14 @@
+{
+  "theme": {
+    "background_type": "solid",
+    "background_color": "#1a1a2e",
+    "secondary_color": "#16213e",
+    "accent_color": "#0f3460",
+    "opacity": 0.95
+  },
+  "interface": {
+    "animation_enabled": true,
+    "blur_enabled": true,
+    "transparency_enabled": true
+  }
+}

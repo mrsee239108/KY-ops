@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件管理器</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/file_manager.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="file-manager">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <i class="fas fa-folder"></i>
+                <span>文件管理器</span>
+            </div>
+            <div class="title-bar-right">
+                <div class="window-controls">
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="navigation-bar">
+            <div class="nav-controls">
+                <button class="nav-btn" id="back-btn" disabled title="后退">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-btn" id="forward-btn" disabled title="前进">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button class="nav-btn" id="up-btn" title="向上">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+            </div>
+
+            <div class="address-bar-container">
+                <div class="folder-icon">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="address-bar">
+                    <input type="text" id="path-input" value="/" readonly>
+                </div>
+            </div>
+
+            <div class="toolbar-actions">
+                <button class="nav-btn" id="refresh-btn" title="刷新">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="nav-btn" id="diagnosisBtn" title="系统诊断">
+                    <i class="fas fa-stethoscope"></i>
+                </button>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="搜索文件/目录">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="view-options">
+                    <button class="view-btn active" data-view="grid" title="网格视图">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list" title="列表视图">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <!-- 左侧边栏 -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <i class="fas fa-desktop"></i>
+                        <span>此电脑</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="section-content">
+                        <div class="sidebar-item" data-path="/">
+                            <i class="fas fa-hdd"></i>
+                            <span>/</span>
+                        </div>
+                        <div class="sidebar-item expandable" data-path="/dev">
+                            <i class="fas fa-chevron-right expand-icon"></i>
+                            <i class="fas fa-folder"></i>
+                            <span>dev</span>
+                        </div>
+                        <div class="sidebar-item sub-item" data-path="/dev/sda1" style="display: none;">
+                            <i class="fas fa-hdd"></i>
+                            <span>/dev/sda1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <i class="fas fa-star"></i>
+                        <span>收藏夹</span>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="section-content">
+                        <div class="sidebar-item" data-path="/home">
+                            <i class="fas fa-home"></i>
+                            <span>主目录</span>
+                        </div>
+                        <div class="sidebar-item" data-path="/tmp">
+                            <i class="fas fa-folder"></i>
+                            <span>临时目录</span>
+                        </div>
+                        <div class="sidebar-item" data-path="/var">
+                            <i class="fas fa-folder"></i>
+                            <span>系统变量</span>
+                        </div>
+                        <div class="sidebar-item" data-path="/usr">
+                            <i class="fas fa-folder"></i>
+                            <span>用户程序</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文件列表区域 -->
+            <div class="file-area">
+                <div class="file-grid" id="file-grid">
+                    <!-- 文件项将通过JavaScript动态生成 -->
+                </div>
+
+                <!-- 加载指示器 -->
+                <div class="loading-indicator" id="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    <span>加载中...</span>
+                </div>
+
+                <!-- 空文件夹提示 -->
+                <div class="empty-folder" id="empty-folder" style="display: none;">
+                    <i class="fas fa-folder-open"></i>
+                    <span>此文件夹为空</span>
+                </div>
+            </div>
+
+            <!-- 文件预览面板 -->
+            <div class="preview-panel" id="preview-panel">
+                <div class="preview-header">
+                    <div class="preview-title">
+                        <i class="fas fa-eye"></i>
+                        <span id="preview-filename">文件预览</span>
+                    </div>
+                    <div class="preview-controls">
+                        <button class="preview-btn" id="download-btn" title="下载文件">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="preview-btn" id="close-preview-btn" title="关闭预览">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="preview-content" id="preview-content">
+                    <div class="preview-placeholder">
+                        <i class="fas fa-file"></i>
+                        <span>选择文件以预览</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 状态栏 */
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="item-count">0 个对象</span>
+                <span id="selected-info"></span>
+            </div>
+            <div class="status-right">
+                <span id="file-size-info">文件大小: 计算中</span>
+            </div>
+        </div>
+
+        <!-- 右键菜单 -->
+        <div class="context-menu" id="context-menu">
+            <div class="menu-item" data-action="open">
+                <i class="fas fa-folder-open"></i>
+                <span>打开</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item" data-action="copy">
+                <i class="fas fa-copy"></i>
+                <span>复制</span>
+            </div>
+            <div class="menu-item" data-action="cut">
+                <i class="fas fa-cut"></i>
+                <span>剪切</span>
+            </div>
+            <div class="menu-item" data-action="paste">
+                <i class="fas fa-paste"></i>
+                <span>粘贴</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item" data-action="rename">
+                <i class="fas fa-edit"></i>
+                <span>重命名</span>
+            </div>
+            <div class="menu-item" data-action="delete">
+                <i class="fas fa-trash"></i>
+                <span>删除</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item" data-action="properties">
+                <i class="fas fa-info-circle"></i>
+                <span>属性</span>
+            </div>
+        </div>
+
+        <!-- 属性对话框 -->
+        <div class="modal-overlay" id="properties-modal" style="display: none;">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>属性</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="properties-content">
+                    <!-- 属性内容将通过JavaScript填充 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/file_manager.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理器</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/task_manager.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="task-manager">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <i class="fas fa-tasks"></i>
+                <span>任务管理器</span>
+            </div>
+            <div class="title-bar-right">
+                <div class="window-controls">
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-content">
+        <!-- 左侧导航栏 -->
+        <div class="sidebar">
+            <div class="nav-section">
+                <div class="nav-item active" data-tab="performance">
+                    <i class="fas fa-chart-line"></i>
+                    <span>性能</span>
+                </div>
+                <div class="nav-item" data-tab="processes">
+                    <i class="fas fa-list"></i>
+                    <span>名称</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="section-title">
+                    <span>应用 (<span id="app-count">0</span>)</span>
+                </div>
+                <div class="app-list" id="app-list">
+                    <!-- 应用列表将通过JavaScript填充 -->
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="section-title">
+                    <span>后台进程 (<span id="background-count">0</span>)</span>
+                </div>
+                <div class="background-list" id="background-list">
+                    <!-- 后台进程列表将通过JavaScript填充 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 性能标签页 -->
+            <div class="tab-content active" id="performance-tab">
+                <!-- 系统资源概览 -->
+                <div class="resource-overview">
+                    <div class="resource-card">
+                        <div class="resource-title">内存</div>
+                        <div class="resource-value" id="memory-percent">0%</div>
+                        <div class="resource-detail" id="memory-detail">0 GB / 0 GB</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-title">CPU</div>
+                        <div class="resource-value" id="cpu-percent">0%</div>
+                        <div class="resource-detail" id="cpu-detail">0 核心</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-title">内存</div>
+                        <div class="resource-value" id="memory-percent-2">0%</div>
+                        <div class="resource-detail" id="memory-detail-2">已提交</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-title">磁盘</div>
+                        <div class="resource-value" id="disk-percent">0%</div>
+                        <div class="resource-detail" id="disk-detail">活动时间</div>
+                    </div>
+                </div>
+
+                <!-- 进程列表 -->
+                <div class="process-table-container">
+                    <table class="process-table" id="process-table">
+                        <thead>
+                            <tr>
+                                <th class="process-name">名称</th>
+                                <th class="process-cpu">CPU</th>
+                                <th class="process-memory">内存</th>
+                                <th class="process-network-in">网络 (入)</th>
+                                <th class="process-network-out">网络 (出)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="process-tbody">
+                            <!-- 进程列表将通过JavaScript填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 进程标签页 -->
+            <div class="tab-content" id="processes-tab">
+                <div class="processes-header">
+                    <div class="processes-toolbar">
+                        <button class="toolbar-btn" id="end-task-btn" disabled>
+                            <i class="fas fa-stop"></i>
+                            结束任务
+                        </button>
+                        <button class="toolbar-btn" id="refresh-btn">
+                            <i class="fas fa-sync-alt"></i>
+                            刷新
+                        </button>
+                    </div>
+                </div>
+
+                <div class="detailed-process-table-container">
+                    <table class="detailed-process-table">
+                        <thead>
+                            <tr>
+                                <th>进程名</th>
+                                <th>PID</th>
+                                <th>CPU</th>
+                                <th>内存</th>
+                                <th>状态</th>
+                                <th>用户名</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailed-process-tbody">
+                            <!-- 详细进程列表 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右键菜单 -->
+        <div class="context-menu" id="context-menu">
+            <div class="menu-item" data-action="end-task">
+                <span>结束任务</span>
+            </div>
+            <div class="menu-item" data-action="go-to-details">
+                <span>转到详细信息</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item" data-action="properties">
+                <span>属性</span>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/task_manager.js') }}"></script>
+</body>
+</html>

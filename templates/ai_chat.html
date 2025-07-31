@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 智能助手 - 企业运维系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_chat.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="ai-chat-container">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-content">
+                <div class="title-left">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="title-info">
+                        <h1><i class="fas fa-robot"></i> AI 智能助手</h1>
+                        <span class="subtitle">企业级智能运维助手</span>
+                    </div>
+                </div>
+                <div class="title-right">
+                    <button class="refresh-btn" onclick="refreshPage()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <div class="ai-status">
+                        <div class="status-indicator online" id="ai-status"></div>
+                        <span id="ai-status-text">在线</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-comments"></i> 对话管理</h3>
+                </div>
+                
+                <!-- 新建对话按钮 -->
+                <button class="new-chat-btn" onclick="aiChat.newConversation()">
+                    <i class="fas fa-plus"></i>
+                    新建对话
+                </button>
+
+                <!-- 对话历史 -->
+                <div class="chat-history">
+                    <div class="history-header">
+                        <span>对话历史</span>
+                        <button class="clear-history-btn" onclick="aiChat.clearHistory()">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="history-list" id="history-list">
+                        <!-- 历史对话项目将在这里动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 快捷功能 -->
+                <div class="quick-actions">
+                    <div class="action-header">
+                        <span>快捷功能</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="aiChat.quickAction('system-check')">
+                            <i class="fas fa-desktop"></i>
+                            系统检查
+                        </button>
+                        <button class="action-btn" onclick="aiChat.quickAction('performance-analysis')">
+                            <i class="fas fa-chart-line"></i>
+                            性能分析
+                        </button>
+                        <button class="action-btn" onclick="aiChat.quickAction('security-scan')">
+                            <i class="fas fa-shield-alt"></i>
+                            安全扫描
+                        </button>
+                        <button class="action-btn" onclick="aiChat.quickAction('log-analysis')">
+                            <i class="fas fa-file-alt"></i>
+                            日志分析
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聊天区域 -->
+            <div class="chat-area">
+                <!-- 聊天头部 -->
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <h2 id="current-chat-title">AI 智能助手</h2>
+                        <span class="chat-subtitle" id="current-chat-subtitle">随时为您提供专业的运维支持</span>
+                    </div>
+                    <div class="chat-actions">
+                        <button class="action-btn" onclick="aiChat.exportChat()">
+                            <i class="fas fa-download"></i>
+                            导出对话
+                        </button>
+                        <button class="action-btn" onclick="aiChat.shareChat()">
+                            <i class="fas fa-share"></i>
+                            分享
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 消息容器 -->
+                <div class="messages-container" id="messages-container">
+                    <!-- 欢迎消息 -->
+                    <div class="welcome-message">
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="welcome-content">
+                            <h3>👋 欢迎使用 AI 智能助手</h3>
+                            <p>我是您的专业运维助手，可以帮助您：</p>
+                            <ul>
+                                <li>🔍 系统性能监控与分析</li>
+                                <li>🛡️ 安全威胁检测与处理</li>
+                                <li>📊 数据分析与报告生成</li>
+                                <li>🔧 故障诊断与解决方案</li>
+                                <li>📚 技术文档与最佳实践</li>
+                            </ul>
+                            <p>请输入您的问题，我将为您提供专业的帮助！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 输入区域 -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="message-input" 
+                                placeholder="请输入您的问题..."
+                                rows="1"
+                                maxlength="2000"
+                            ></textarea>
+                            <div class="input-actions">
+                                <button class="attach-btn" onclick="aiChat.attachFile()">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <button class="voice-btn" onclick="aiChat.toggleVoice()">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                                <button class="send-btn" id="send-btn" onclick="aiChat.sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-footer">
+                            <div class="char-count">
+                                <span id="char-count">0</span>/2000
+                            </div>
+                            <div class="input-tips">
+                                按 Ctrl+Enter 发送消息
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载指示器 -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <span>AI 正在思考中...</span>
+        </div>
+    </div>
+
+    <!-- 文件上传模态框 -->
+    <div class="modal" id="file-upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>上传文件</h3>
+                <button class="modal-close" onclick="aiChat.closeModal('file-upload-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>拖拽文件到此处或点击选择文件</p>
+                    <input type="file" id="file-input" multiple accept=".txt,.log,.json,.csv,.xml">
+                </div>
+                <div class="file-list" id="file-list"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="aiChat.closeModal('file-upload-modal')">取消</button>
+                <button class="btn btn-primary" onclick="aiChat.uploadFiles()">上传</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 语音识别模态框 -->
+    <div class="modal" id="voice-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>语音输入</h3>
+                <button class="modal-close" onclick="aiChat.closeModal('voice-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="voice-indicator">
+                    <div class="voice-animation" id="voice-animation">
+                        <div class="voice-wave"></div>
+                        <div class="voice-wave"></div>
+                        <div class="voice-wave"></div>
+                    </div>
+                    <p id="voice-status">点击开始录音</p>
+                </div>
+                <div class="voice-text" id="voice-text"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="aiChat.stopVoice()">停止</button>
+                <button class="btn btn-primary" onclick="aiChat.startVoice()">开始录音</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/ai_chat.js') }}"></script>
+</body>
+</html>

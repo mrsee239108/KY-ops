@@ -1,0 +1,29 @@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.25.57.228:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 270-135-442
+127.0.0.1 - - [29/Jul/2025 11:34:32] "GET /api/system-status HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2025 11:35:32] "GET /api/system-status HTTP/1.1" 200 -
+127.0.0.1 - - [29/Jul/2025 11:36:32] "GET /api/system-status HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:50] "GET / HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:50] "[36mGET /static/css/desktop.css HTTP/1.1[0m" 304 -
+172.25.48.1 - - [29/Jul/2025 11:36:50] "[36mGET /static/js/desktop.js HTTP/1.1[0m" 304 -
+172.25.48.1 - - [29/Jul/2025 11:36:51] "GET /api/system-status HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:52] "GET /performance-monitor HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:52] "GET /static/css/performance_monitor.css HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:52] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+172.25.48.1 - - [29/Jul/2025 11:36:52] "GET /static/js/performance_monitor.js HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:53] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:55] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:57] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:36:59] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:37:01] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:37:03] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:37:05] "GET /api/performance-data HTTP/1.1" 200 -
+172.25.48.1 - - [29/Jul/2025 11:37:07] "GET /api/performance-data HTTP/1.1" 200 -

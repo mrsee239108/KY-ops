@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统设置 - 运维管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="settings-container">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <i class="fas fa-cog"></i>
+                <span>系统设置</span>
+            </div>
+            <div class="title-bar-right">
+                <div class="window-controls">
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-content">
+            <!-- 侧边栏导航 -->
+            <div class="settings-sidebar">
+                <div class="sidebar-header">
+                    <h3>设置分类</h3>
+                </div>
+                <nav class="settings-nav">
+                    <div class="nav-item active" data-section="theme">
+                        <i class="fas fa-palette"></i>
+                        <span>主题外观</span>
+                    </div>
+                    <div class="nav-item" data-section="interface">
+                        <i class="fas fa-desktop"></i>
+                        <span>界面设置</span>
+                    </div>
+                    <div class="nav-item" data-section="system">
+                        <i class="fas fa-cogs"></i>
+                        <span>系统设置</span>
+                    </div>
+                    <div class="nav-item" data-section="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>关于</span>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- 主要设置区域 -->
+            <div class="settings-main">
+                <!-- 主题外观设置 -->
+                <div class="settings-section active" id="theme-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-palette"></i> 主题外观</h2>
+                        <p>自定义系统的视觉外观和颜色主题</p>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>背景设置</h3>
+                        <div class="setting-item">
+                            <label>背景类型</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="background_type" value="gradient" checked>
+                                    <span class="radio-custom"></span>
+                                    渐变背景
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="background_type" value="solid">
+                                    <span class="radio-custom"></span>
+                                    纯色背景
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="background_type" value="image">
+                                    <span class="radio-custom"></span>
+                                    图片背景
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="background-color">主背景色</label>
+                            <div class="color-input-group">
+                                <input type="color" id="background-color" value="#1a1a2e">
+                                <input type="text" id="background-color-text" value="#1a1a2e" placeholder="#1a1a2e">
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="secondary-color">次要颜色</label>
+                            <div class="color-input-group">
+                                <input type="color" id="secondary-color" value="#16213e">
+                                <input type="text" id="secondary-color-text" value="#16213e" placeholder="#16213e">
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="accent-color">强调色</label>
+                            <div class="color-input-group">
+                                <input type="color" id="accent-color" value="#0f3460">
+                                <input type="text" id="accent-color-text" value="#0f3460" placeholder="#0f3460">
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="opacity-slider">透明度</label>
+                            <div class="slider-group">
+                                <input type="range" id="opacity-slider" min="0.1" max="1" step="0.05" value="0.95">
+                                <span class="slider-value">95%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>预设主题</h3>
+                        <div class="theme-presets">
+                            <div class="theme-preset active" data-theme="default">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);"></div>
+                                <span>默认深蓝</span>
+                            </div>
+                            <div class="theme-preset" data-theme="dark">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #2c3e50, #34495e, #1a252f);"></div>
+                                <span>经典黑色</span>
+                            </div>
+                            <div class="theme-preset" data-theme="purple">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);"></div>
+                                <span>紫色梦幻</span>
+                            </div>
+                            <div class="theme-preset" data-theme="green">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #11998e, #38ef7d, #2dd4bf);"></div>
+                                <span>清新绿色</span>
+                            </div>
+                            <div class="theme-preset" data-theme="orange">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef);"></div>
+                                <span>温暖橙色</span>
+                            </div>
+                            <div class="theme-preset" data-theme="blue">
+                                <div class="preset-preview" style="background: linear-gradient(135deg, #667eea, #764ba2, #667eea);"></div>
+                                <span>科技蓝色</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 界面设置 -->
+                <div class="settings-section" id="interface-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-desktop"></i> 界面设置</h2>
+                        <p>调整界面行为和视觉效果</p>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>视觉效果</h3>
+                        <div class="setting-item">
+                            <label>启用动画效果</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="animation-enabled" checked>
+                                <label for="animation-enabled" class="switch"></label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>启用模糊效果</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="blur-enabled" checked>
+                                <label for="blur-enabled" class="switch"></label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>启用透明效果</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="transparency-enabled" checked>
+                                <label for="transparency-enabled" class="switch"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 系统设置 -->
+                <div class="settings-section" id="system-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cogs"></i> 系统设置</h2>
+                        <p>系统相关配置和管理</p>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>系统信息</h3>
+                        <div class="system-info">
+                            <div class="info-item">
+                                <span class="info-label">系统版本:</span>
+                                <span class="info-value" id="system-version">加载中...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">运行时间:</span>
+                                <span class="info-value" id="system-uptime">加载中...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">内存使用:</span>
+                                <span class="info-value" id="memory-usage">加载中...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>操作</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn-warning" id="reset-settings">
+                                <i class="fas fa-undo"></i>
+                                重置所有设置
+                            </button>
+                            <button class="btn btn-info" id="export-settings">
+                                <i class="fas fa-download"></i>
+                                导出设置
+                            </button>
+                            <button class="btn btn-info" id="import-settings">
+                                <i class="fas fa-upload"></i>
+                                导入设置
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 关于 -->
+                <div class="settings-section" id="about-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-info-circle"></i> 关于</h2>
+                        <p>系统信息和版本详情</p>
+                    </div>
+
+                    <div class="about-content">
+                        <div class="app-info">
+                            <div class="app-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="app-details">
+                                <h3>运维管理系统</h3>
+                                <p class="version">版本 1.0.0</p>
+                                <p class="description">
+                                    一个现代化的系统运维管理平台，提供系统监控、文件管理、
+                                    任务管理、网络监控、安全中心和终端控制等功能。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="features-list">
+                            <h4>主要功能</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> 实时系统监控</li>
+                                <li><i class="fas fa-check"></i> 文件管理器</li>
+                                <li><i class="fas fa-check"></i> 任务管理器</li>
+                                <li><i class="fas fa-check"></i> 网络监控</li>
+                                <li><i class="fas fa-check"></i> 安全中心</li>
+                                <li><i class="fas fa-check"></i> 远程终端</li>
+                                <li><i class="fas fa-check"></i> 主题定制</li>
+                            </ul>
+                        </div>
+
+                        <div class="copyright">
+                            <p>&copy; 2024 运维管理系统. 保留所有权利.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部操作栏 -->
+        <div class="settings-footer">
+            <div class="footer-left">
+                <span class="status-text" id="status-text">就绪</span>
+            </div>
+            <div class="footer-right">
+                <button class="btn btn-secondary" id="cancel-btn">取消</button>
+                <button class="btn btn-primary" id="apply-btn">应用</button>
+                <button class="btn btn-success" id="save-btn">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 隐藏的文件输入 -->
+    <input type="file" id="import-file" accept=".json" style="display: none;">
+
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

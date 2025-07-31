@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统管理桌面</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/desktop.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 桌面背景 -->
+    <div class="desktop-background">
+        <!-- 桌面图标区域 -->
+        <div class="desktop-icons">
+            <!-- 系统信息 -->
+            <div class="desktop-icon" data-app="system-info">
+                <div class="icon-image">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <div class="icon-label">系统信息</div>
+            </div>
+
+            <!-- 文件管理器 -->
+            <div class="desktop-icon" data-app="file-manager">
+                <div class="icon-image">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="icon-label">文件管理器</div>
+            </div>
+
+            <!-- 任务管理器 -->
+            <div class="desktop-icon" data-app="task-manager">
+                <div class="icon-image">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="icon-label">任务管理器</div>
+            </div>
+
+            <!-- 性能监控 -->
+            <div class="desktop-icon" data-app="performance-monitor">
+                <div class="icon-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="icon-label">性能监控</div>
+            </div>
+
+            <!-- 网络监控 -->
+            <div class="desktop-icon" data-app="network-monitor">
+                <div class="icon-image">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="icon-label">网络监控</div>
+            </div>
+
+            <!-- 安全中心 -->
+            <div class="desktop-icon" data-app="security-center">
+                <div class="icon-image">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="icon-label">安全中心</div>
+            </div>
+
+            <!-- 终端 -->
+            <div class="desktop-icon" data-app="terminal">
+                <div class="icon-image">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="icon-label">终端</div>
+            </div>
+
+            <!-- AI 智能助手 -->
+            <div class="desktop-icon" data-app="ai-chat">
+                <div class="icon-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="icon-label">AI 助手</div>
+            </div>
+
+            <!-- 回收站 -->
+            <div class="desktop-icon recycle-bin" data-app="recycle">
+                <div class="icon-image">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <div class="icon-label">回收站</div>
+            </div>
+        </div>
+
+        <!-- 任务栏 -->
+        <div class="taskbar">
+            <!-- 开始按钮 -->
+            <div class="start-button" id="start-button">
+                <i class="fab fa-linux"></i>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="在这里输入你要搜索的内容">
+            </div>
+
+            <!-- 任务栏图标 -->
+            <div class="taskbar-icons">
+                <div class="taskbar-icon active" title="文件资源管理器">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="taskbar-icon" title="设置">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+
+            <!-- 系统托盘 -->
+            <div class="system-tray">
+                <!-- 系统图标 -->
+                <div class="tray-icons">
+                    <div class="tray-icon" title="网络">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="tray-icon" title="电池">
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- 通知区域 -->
+                <div class="notification-area">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+
+                <!-- 时间和日期 -->
+                <div class="datetime-display" id="datetime-display">
+                    <div class="time" id="current-time">12:00</div>
+                    <div class="date" id="current-date">2024/1/17</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开始菜单 -->
+        <div class="start-menu" id="start-menu">
+            <div class="start-menu-left">
+                <div class="welcome-section">
+                    <div class="welcome-title">欢迎使用</div>
+                    <div class="welcome-subtitle">您的个人桌面环境<br>快速访问应用和文件</div>
+                    
+                    <div class="system-info">
+                        <div class="info-item">
+                            <span class="info-label">系统版本</span>
+                            <span class="info-value">Linux Desktop 1.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">运行时间</span>
+                            <span class="info-value">2小时 15分钟</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">内存使用</span>
+                            <span class="info-value">4.2GB / 8GB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 所有应用按钮 -->
+                <div class="all-apps-button">
+                    <i class="fas fa-th"></i>
+                    <span>所有应用</span>
+                </div>
+            </div>
+
+            <div class="start-menu-right">
+                <!-- 固定的磁贴 -->
+                <div class="tiles-container">
+                    <div class="tile large" data-app="system-info">
+                        <i class="fas fa-desktop"></i>
+                        <span>系统信息</span>
+                    </div>
+                    <div class="tile medium" data-app="file-manager">
+                        <i class="fas fa-folder"></i>
+                        <span>文件管理</span>
+                    </div>
+                    <div class="tile medium" data-app="task-manager">
+                        <i class="fas fa-tasks"></i>
+                        <span>任务管理</span>
+                    </div>
+                    <div class="tile small" data-app="network-monitor">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="tile small" data-app="security-center">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="tile small" data-app="terminal">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div class="tile small" data-app="ai-chat">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="tile large weather-tile">
+                        <div class="weather-info">
+                            <div class="temperature">22°</div>
+                            <div class="location">北京</div>
+                            <i class="fas fa-sun weather-icon"></i>
+                        </div>
+                    </div>
+                    <div class="tile medium" data-app="performance-monitor">
+                        <i class="fas fa-chart-line"></i>
+                        <span>性能监控</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 用户信息和电源选项 -->
+            <div class="start-menu-bottom">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name">管理员</div>
+                </div>
+                <div class="power-options">
+                    <div class="power-button" title="电源">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右键菜单 -->
+        <div class="context-menu" id="context-menu">
+            <div class="menu-item">
+                <i class="fas fa-sync-alt"></i>
+                <span>刷新</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item">
+                <i class="fas fa-window-restore"></i>
+                <span>窗口管理</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-times-circle"></i>
+                <span>关闭所有窗口</span>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item">
+                <i class="fas fa-sort"></i>
+                <span>排序方式</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-eye"></i>
+                <span>查看</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item">
+                <i class="fas fa-plus"></i>
+                <span>新建</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-separator"></div>
+            <div class="menu-item">
+                <i class="fas fa-desktop"></i>
+                <span>个性化</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/desktop.js') }}"></script>
+</body>
+</html>

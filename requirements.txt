@@ -1,0 +1,6 @@
+Flask
+psutil
+requests
+GPUtil
+py-cpuinfo
+json5

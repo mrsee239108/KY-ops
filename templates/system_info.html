@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统信息</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/system_info.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="window">
+        <!-- 窗口标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <i class="fas fa-info-circle"></i>
+                <span>系统信息</span>
+            </div>
+            <div class="title-bar-right">
+                <div class="window-controls">
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="window-content">
+            <!-- 左侧边栏 -->
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <div class="username">Root</div>
+                        <div class="user-status">在线</div>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-item active">
+                        <i class="fas fa-desktop"></i>
+                        <span>系统状态</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-palette"></i>
+                        <span>个性化</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-users"></i>
+                        <span>用户管理</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>SSH管理</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>系统管理</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>MFA</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-network-wired"></i>
+                        <span>DNS设置</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-memory"></i>
+                        <span>Swap虚拟内存</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-clock"></i>
+                        <span>到期设置</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>许可证</span>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- 主内容区域 -->
+            <div class="main-content">
+                <div class="content-header">
+                    <div class="breadcrumb">
+                        <i class="fas fa-info-circle"></i>
+                        <span>系统信息</span>
+                    </div>
+                </div>
+
+                <div class="content-container">
+                    <!-- 系统状态面板 -->
+                    <div class="content-panel active" id="system-status-panel">
+                        <div class="info-grid">
+                            <div class="info-row">
+                                <div class="info-label">主机名称</div>
+                                <div class="info-value" id="hostname">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">系统名称</div>
+                                <div class="info-value" id="system-name">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">内核版本</div>
+                                <div class="info-value" id="kernel-version">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">CPU型号</div>
+                                <div class="info-value" id="cpu-model">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">CPU架构</div>
+                                <div class="info-value" id="cpu-architecture">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">CPU核心数</div>
+                                <div class="info-value" id="cpu-count">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">内存总大小</div>
+                                <div class="info-value" id="memory-total">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">内存空闲</div>
+                                <div class="info-value" id="memory-free">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">GCC版本</div>
+                                <div class="info-value" id="gcc-version">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">Glibc版本</div>
+                                <div class="info-value" id="glibc-version">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">JDK版本</div>
+                                <div class="info-value" id="jdk-version">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">网络1</div>
+                                <div class="info-value" id="network-info">加载中...</div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <div class="info-label">磁盘1</div>
+                                <div class="info-value" id="disk-info">加载中...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 个性化面板 -->
+                    <div class="content-panel" id="personalization-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-palette"></i> 个性化设置</h3>
+                            <p>自定义您的系统外观和行为</p>
+                        </div>
+                        <div class="settings-grid">
+                            <div class="setting-card">
+                                <div class="setting-icon"><i class="fas fa-paint-brush"></i></div>
+                                <div class="setting-content">
+                                    <h4>主题设置</h4>
+                                    <p>选择您喜欢的界面主题</p>
+                                    <select class="setting-select">
+                                        <option value="dark">深色主题</option>
+                                        <option value="light">浅色主题</option>
+                                        <option value="auto">自动切换</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="setting-card">
+                                <div class="setting-icon"><i class="fas fa-language"></i></div>
+                                <div class="setting-content">
+                                    <h4>语言设置</h4>
+                                    <p>选择系统显示语言</p>
+                                    <select class="setting-select">
+                                        <option value="zh-CN">简体中文</option>
+                                        <option value="en-US">English</option>
+                                        <option value="ja-JP">日本語</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="setting-card">
+                                <div class="setting-icon"><i class="fas fa-desktop"></i></div>
+                                <div class="setting-content">
+                                    <h4>桌面设置</h4>
+                                    <p>自定义桌面布局和图标</p>
+                                    <button class="setting-button">配置桌面</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 用户管理面板 -->
+                    <div class="content-panel" id="user-management-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-users"></i> 用户管理</h3>
+                            <p>管理系统用户账户和权限</p>
+                        </div>
+                        <div class="user-management-content">
+                            <div class="user-actions">
+                                <button class="action-button primary"><i class="fas fa-plus"></i> 添加用户</button>
+                                <button class="action-button"><i class="fas fa-edit"></i> 编辑用户</button>
+                                <button class="action-button danger"><i class="fas fa-trash"></i> 删除用户</button>
+                            </div>
+                            <div class="user-list">
+                                <div class="user-item">
+                                    <div class="user-avatar"><i class="fas fa-user"></i></div>
+                                    <div class="user-details">
+                                        <h4>Root</h4>
+                                        <p>系统管理员</p>
+                                        <span class="user-status online">在线</span>
+                                    </div>
+                                    <div class="user-actions-mini">
+                                        <button class="mini-button"><i class="fas fa-edit"></i></button>
+                                        <button class="mini-button"><i class="fas fa-key"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SSH管理面板 -->
+                    <div class="content-panel" id="ssh-management-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-terminal"></i> SSH管理</h3>
+                            <p>管理SSH连接和密钥</p>
+                        </div>
+                        <div class="ssh-content">
+                            <div class="ssh-status">
+                                <div class="status-card">
+                                    <div class="status-icon active"><i class="fas fa-circle"></i></div>
+                                    <div class="status-info">
+                                        <h4>SSH服务状态</h4>
+                                        <p>运行中 - 端口 22</p>
+                                    </div>
+                                    <button class="status-toggle">停止</button>
+                                </div>
+                            </div>
+                            <div class="ssh-connections">
+                                <h4>活动连接</h4>
+                                <div class="connection-list">
+                                    <div class="connection-item">
+                                        <div class="connection-info">
+                                            <span class="connection-ip">192.168.1.100</span>
+                                            <span class="connection-user">root</span>
+                                            <span class="connection-time">2分钟前</span>
+                                        </div>
+                                        <button class="disconnect-button">断开</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 系统管理面板 -->
+                    <div class="content-panel" id="system-management-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-cogs"></i> 系统管理</h3>
+                            <p>系统服务和进程管理</p>
+                        </div>
+                        <div class="system-management-content">
+                            <div class="service-controls">
+                                <div class="control-group">
+                                    <h4>系统控制</h4>
+                                    <div class="control-buttons">
+                                        <button class="control-button restart"><i class="fas fa-redo"></i> 重启系统</button>
+                                        <button class="control-button shutdown"><i class="fas fa-power-off"></i> 关闭系统</button>
+                                        <button class="control-button update"><i class="fas fa-download"></i> 系统更新</button>
+                                    </div>
+                                </div>
+                                <div class="service-list">
+                                    <h4>系统服务</h4>
+                                    <div class="service-item">
+                                        <span class="service-name">nginx</span>
+                                        <span class="service-status running">运行中</span>
+                                        <div class="service-actions">
+                                            <button class="service-button">重启</button>
+                                            <button class="service-button">停止</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MFA面板 -->
+                    <div class="content-panel" id="mfa-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-shield-alt"></i> 多因素认证 (MFA)</h3>
+                            <p>增强账户安全性</p>
+                        </div>
+                        <div class="mfa-content">
+                            <div class="mfa-status">
+                                <div class="mfa-card">
+                                    <div class="mfa-icon"><i class="fas fa-mobile-alt"></i></div>
+                                    <div class="mfa-info">
+                                        <h4>TOTP认证器</h4>
+                                        <p class="mfa-status-text disabled">未启用</p>
+                                    </div>
+                                    <button class="mfa-button">启用</button>
+                                </div>
+                                <div class="mfa-card">
+                                    <div class="mfa-icon"><i class="fas fa-key"></i></div>
+                                    <div class="mfa-info">
+                                        <h4>硬件密钥</h4>
+                                        <p class="mfa-status-text disabled">未配置</p>
+                                    </div>
+                                    <button class="mfa-button">配置</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DNS设置面板 -->
+                    <div class="content-panel" id="dns-settings-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-network-wired"></i> DNS设置</h3>
+                            <p>配置域名解析服务器</p>
+                        </div>
+                        <div class="dns-content">
+                            <div class="dns-form">
+                                <div class="form-group">
+                                    <label>主DNS服务器</label>
+                                    <input type="text" class="dns-input" value="8.8.8.8" placeholder="主DNS服务器地址">
+                                </div>
+                                <div class="form-group">
+                                    <label>备用DNS服务器</label>
+                                    <input type="text" class="dns-input" value="8.8.4.4" placeholder="备用DNS服务器地址">
+                                </div>
+                                <div class="form-actions">
+                                    <button class="dns-button primary">保存设置</button>
+                                    <button class="dns-button">测试连接</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Swap虚拟内存面板 -->
+                    <div class="content-panel" id="swap-memory-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-memory"></i> Swap虚拟内存</h3>
+                            <p>管理系统虚拟内存设置</p>
+                        </div>
+                        <div class="swap-content">
+                            <div class="swap-status">
+                                <div class="swap-info-card">
+                                    <h4>当前Swap状态</h4>
+                                    <div class="swap-details">
+                                        <div class="swap-detail">
+                                            <span class="label">总容量:</span>
+                                            <span class="value" id="swap-total">加载中...</span>
+                                        </div>
+                                        <div class="swap-detail">
+                                            <span class="label">已使用:</span>
+                                            <span class="value" id="swap-used">加载中...</span>
+                                        </div>
+                                        <div class="swap-detail">
+                                            <span class="label">使用率:</span>
+                                            <span class="value" id="swap-percent">加载中...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 到期设置面板 -->
+                    <div class="content-panel" id="expiry-settings-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-clock"></i> 到期设置</h3>
+                            <p>管理系统和服务到期时间</p>
+                        </div>
+                        <div class="expiry-content">
+                            <div class="expiry-list">
+                                <div class="expiry-item">
+                                    <div class="expiry-icon"><i class="fas fa-certificate"></i></div>
+                                    <div class="expiry-info">
+                                        <h4>SSL证书</h4>
+                                        <p>到期时间: 2024-12-31</p>
+                                        <span class="expiry-status warning">30天后到期</span>
+                                    </div>
+                                    <button class="expiry-button">续期</button>
+                                </div>
+                                <div class="expiry-item">
+                                    <div class="expiry-icon"><i class="fas fa-key"></i></div>
+                                    <div class="expiry-info">
+                                        <h4>许可证</h4>
+                                        <p>到期时间: 2025-06-15</p>
+                                        <span class="expiry-status safe">180天后到期</span>
+                                    </div>
+                                    <button class="expiry-button">查看详情</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 许可证面板 -->
+                    <div class="content-panel" id="license-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-certificate"></i> 许可证管理</h3>
+                            <p>查看和管理系统许可证</p>
+                        </div>
+                        <div class="license-content">
+                            <div class="license-info">
+                                <div class="license-card">
+                                    <div class="license-header">
+                                        <h4>系统许可证</h4>
+                                        <span class="license-status active">有效</span>
+                                    </div>
+                                    <div class="license-details">
+                                        <div class="license-detail">
+                                            <span class="label">许可证类型:</span>
+                                            <span class="value">企业版</span>
+                                        </div>
+                                        <div class="license-detail">
+                                            <span class="label">授权用户:</span>
+                                            <span class="value">无限制</span>
+                                        </div>
+                                        <div class="license-detail">
+                                            <span class="label">到期时间:</span>
+                                            <span class="value">2025-06-15</span>
+                                        </div>
+                                    </div>
+                                    <div class="license-actions">
+                                        <button class="license-button">更新许可证</button>
+                                        <button class="license-button secondary">导出许可证</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/system_info.js') }}"></script>
+    <script>
+        // 页面加载完成后获取系统信息
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSystemInfo();
+        });
+
+        function loadSystemInfo() {
+            // 只从info.txt获取数据
+            fetch('/api/system-info-txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('info.txt文件不存在');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 使用info.txt的数据更新界面
+                    updateSystemInfoFromTxt(data);
+                })
+                .catch(error => {
+                    console.error('从info.txt获取数据失败:', error);
+                    // 显示错误信息
+                    showErrorState();
+                });
+        }
+
+        // 更新元素内容并应用成功样式
+        function updateElementWithSuccess(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = value;
+                element.className = 'info-value success';
+            }
+        }
+
+        function updateSystemInfoFromTxt(data) {
+            try {
+                // 更新基本系统信息
+                updateElementWithSuccess('hostname', data.base_info['主机名'] || '未知');
+                updateElementWithSuccess('system-name', data.base_info['系统版本'] || '未知');
+                updateElementWithSuccess('kernel-version', data.base_info['内核版本'] || '未知');
+                
+                // 更新CPU信息
+                updateElementWithSuccess('cpu-model', data.cpu_info['CPU型号'] || '未知');
+                updateElementWithSuccess('cpu-architecture', data.cpu_info['CPU架构'] || '未知');
+                updateElementWithSuccess('cpu-count', data.cpu_info['CPU核心数'] || '未知');
+                
+                // 更新内存信息
+                const memTotal = data.memory_info['总内存'];
+                const memFree = data.memory_info['空闲内存'];
+                const memAvailable = data.memory_info['可用内存'];
+                
+                if (memTotal) {
+                    // 将KB转换为更友好的格式
+                    const totalBytes = parseInt(memTotal.replace(' KB', '')) * 1024;
+                    updateElementWithSuccess('memory-total', formatBytes(totalBytes));
+                }
+                if (memFree) {
+                    const freeBytes = parseInt(memFree.replace(' KB', '')) * 1024;
+                    updateElementWithSuccess('memory-free', formatBytes(freeBytes));
+                }
+                
+                // 更新开发工具版本
+                updateElementWithSuccess('gcc-version', data.base_info['GCC版本'] || '未知');
+                updateElementWithSuccess('glibc-version', data.base_info['Glibc版本'] || '未知');
+                updateElementWithSuccess('jdk-version', data.base_info['JDK版本'] || '未安装');
+                
+                // 更新网络信息
+                if (data.network_info && data.network_info.length > 0) {
+                    const primaryNet = data.network_info[0];
+                    const netInfo = `${primaryNet['接口名']} (${primaryNet['驱动']}) - ${primaryNet['IP地址']}`;
+                    updateElementWithSuccess('network-info', netInfo);
+                } else {
+                    updateElementWithSuccess('network-info', '未知');
+                }
+                
+                // 更新磁盘信息
+                if (data.disk_info && data.disk_info.length > 0) {
+                    const primaryDisk = data.disk_info[0];
+                    const diskInfo = `${primaryDisk['磁盘名']} - ${primaryDisk['总容量']}`;
+                    updateElementWithSuccess('disk-info', diskInfo);
+                } else {
+                    updateElementWithSuccess('disk-info', '未知');
+                }
+                
+                // 更新新增的系统信息项（设置为示例值）
+                updateElementWithSuccess('boot-time', '2024-01-22 09:30:15');
+                updateElementWithSuccess('uptime', '7天 14小时 25分钟');
+                updateElementWithSuccess('load-average', '0.15, 0.18, 0.12');
+                updateElementWithSuccess('process-count', '156');
+                updateElementWithSuccess('user-sessions', '2');
+                updateElementWithSuccess('network-interfaces', '3');
+                updateElementWithSuccess('disk-partitions', '4');
+                updateElementWithSuccess('python-version', 'Python 3.12.0');
+                updateElementWithSuccess('nodejs-version', 'Node.js 18.17.0');
+                updateElementWithSuccess('docker-version', 'Docker 24.0.6');
+                updateElementWithSuccess('git-version', 'Git 2.42.0');
+                updateElementWithSuccess('system-temperature', '45°C');
+                updateElementWithSuccess('cpu-usage', '12.5%');
+                updateElementWithSuccess('memory-usage', '68.3%');
+                updateElementWithSuccess('disk-usage', '42.1%');
+                
+                console.log('系统信息已从info.txt文件成功加载');
+                
+            } catch (error) {
+                console.error('解析info.txt数据时出错:', error);
+                showErrorState();
+            }
+        }
+
+        function showErrorState() {
+            const elements = [
+                'hostname', 'system-name', 'kernel-version', 'cpu-model', 
+                'cpu-architecture', 'cpu-count', 'memory-total', 'memory-free',
+                'gcc-version', 'glibc-version', 'jdk-version', 'network-info', 'disk-info'
+            ];
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = '加载失败';
+                }
+            });
+        }
+
+        // 格式化字节数
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>

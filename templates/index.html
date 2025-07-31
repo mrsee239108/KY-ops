@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统信息中心</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <div class="username">Root</div>
+                    <div class="user-role">管理员</div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-item active">
+                    <i class="fas fa-desktop"></i>
+                    <span>系统状态</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>性能监控</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>文件管理</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-tasks"></i>
+                    <span>进程管理</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-network-wired"></i>
+                    <span>网络管理</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>系统安全</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>MFA</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-database"></i>
+                    <span>DNS管理</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Swap交换分区</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>计划任务</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-download"></i>
+                    <span>存储库</span>
+                </div>
+            </nav>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2>
+                    <i class="fas fa-info-circle"></i>
+                    系统信息
+                </h2>
+            </div>
+
+            <div class="system-info-panel">
+                <div class="info-grid">
+                    <div class="info-row">
+                        <div class="info-label">主机名</div>
+                        <div class="info-value" id="hostname">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">系统内核版本</div>
+                        <div class="info-value" id="kernel-version">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">外部IP</div>
+                        <div class="info-value" id="external-ip">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">内部IP</div>
+                        <div class="info-value" id="internal-ip">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">CPU</div>
+                        <div class="info-value" id="cpu-info">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">内存信息</div>
+                        <div class="info-value" id="memory-info">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">硬盘信息</div>
+                        <div class="info-value" id="disk-info">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">系统版本</div>
+                        <div class="info-value" id="os-version">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">运行时间</div>
+                        <div class="info-value" id="uptime">加载中...</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">最后时间</div>
+                        <div class="info-value" id="last-update">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

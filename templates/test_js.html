@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript测试页面</title>
+</head>
+<body>
+    <h1>JavaScript测试页面</h1>
+    <div id="output"></div>
+    
+    <script>
+        console.log('JavaScript正在执行...');
+        document.getElementById('output').innerHTML = 'JavaScript正常工作！';
+        
+        // 测试API调用
+        function testAPI() {
+            console.log('开始测试API调用...');
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/performance-data', true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    console.log('API响应状态:', xhr.status);
+                    if (xhr.status === 200) {
+                        console.log('API调用成功:', xhr.responseText.substring(0, 100) + '...');
+                        document.getElementById('output').innerHTML += '<br>API调用成功！';
+                    } else {
+                        console.log('API调用失败:', xhr.status, xhr.statusText);
+                        document.getElementById('output').innerHTML += '<br>API调用失败: ' + xhr.status;
+                    }
+                }
+            };
+            
+            xhr.onerror = function() {
+                console.log('网络错误');
+                document.getElementById('output').innerHTML += '<br>网络错误';
+            };
+            
+            xhr.send();
+        }
+        
+        // 页面加载后立即测试
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM加载完成，开始测试...');
+            testAPI();
+            
+            // 每5秒测试一次
+            setInterval(testAPI, 5000);
+        });
+    </script>
+</body>
+</html>

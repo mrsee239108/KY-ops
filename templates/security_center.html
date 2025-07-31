@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全中心</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/security_center.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="security-center">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <i class="fas fa-shield-alt"></i>
+                <span>安全中心</span>
+            </div>
+            <div class="title-bar-right">
+                <div class="window-controls">
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="main-content">
+            <!-- 安全状态概览 -->
+            <div class="security-overview">
+                <div class="overview-card main-status">
+                    <div class="status-icon-large">
+                        <i class="fas fa-shield-alt" id="main-security-icon"></i>
+                    </div>
+                    <div class="status-content">
+                        <h2 id="security-status-title">系统安全</h2>
+                        <p class="status-message" id="security-status-message">您的设备受到保护</p>
+                        <p class="status-detail" id="security-status-detail">所有安全功能都在正常运行</p>
+                        <div class="status-actions">
+                            <button class="action-btn primary" id="quick-scan-btn">
+                                <i class="fas fa-search"></i>
+                                快速扫描
+                            </button>
+                            <button class="action-btn secondary" id="view-details-btn">
+                                查看详情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 安全功能卡片 -->
+            <div class="security-features">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3>防火墙</h3>
+                            <p class="feature-status enabled" id="firewall-status">已启用</p>
+                        </div>
+                        <div class="feature-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="firewall-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="feature-details">
+                        <p>防火墙正在保护您的设备免受网络威胁</p>
+                        <div class="feature-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">已阻止威胁</span>
+                                <span class="stat-value" id="firewall-blocked">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">最后更新</span>
+                                <span class="stat-value" id="firewall-updated">刚刚</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-virus"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3>病毒防护</h3>
+                            <p class="feature-status enabled" id="antivirus-status">已启用</p>
+                        </div>
+                        <div class="feature-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="antivirus-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="feature-details">
+                        <p>实时保护正在监控您的系统</p>
+                        <div class="feature-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">上次扫描</span>
+                                <span class="stat-value" id="antivirus-scan">今天</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">威胁定义</span>
+                                <span class="stat-value" id="antivirus-definitions">最新</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3>系统更新</h3>
+                            <p class="feature-status warning" id="update-status">有可用更新</p>
+                        </div>
+                        <div class="feature-action">
+                            <button class="feature-btn" id="update-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="feature-details">
+                        <p>保持系统最新以获得最佳安全性</p>
+                        <div class="feature-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">可用更新</span>
+                                <span class="stat-value" id="available-updates">3</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">上次检查</span>
+                                <span class="stat-value" id="last-check">1小时前</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3>账户保护</h3>
+                            <p class="feature-status enabled" id="account-status">已启用</p>
+                        </div>
+                        <div class="feature-action">
+                            <button class="feature-btn" id="account-btn">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="feature-details">
+                        <p>用户账户控制正在保护您的系统</p>
+                        <div class="feature-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">登录尝试</span>
+                                <span class="stat-value" id="login-attempts">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">权限请求</span>
+                                <span class="stat-value" id="permission-requests">2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 安全建议 -->
+            <div class="recommendations-section">
+                <div class="section-header">
+                    <h2>安全建议</h2>
+                    <button class="section-btn" id="refresh-recommendations">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="recommendations-list" id="recommendations-list">
+                    <!-- 安全建议将通过JavaScript填充 -->
+                </div>
+            </div>
+
+            <!-- 安全历史 -->
+            <div class="history-section">
+                <div class="section-header">
+                    <h2>安全历史</h2>
+                    <div class="history-controls">
+                        <button class="history-btn active" data-period="today">今天</button>
+                        <button class="history-btn" data-period="week">本周</button>
+                        <button class="history-btn" data-period="month">本月</button>
+                    </div>
+                </div>
+                <div class="history-list" id="history-list">
+                    <!-- 安全历史将通过JavaScript填充 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 扫描进度对话框 -->
+        <div class="modal-overlay" id="scan-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>系统扫描</h3>
+                    <button class="modal-close" id="scan-modal-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="scan-progress">
+                        <div class="scan-icon">
+                            <i class="fas fa-search scanning"></i>
+                        </div>
+                        <div class="scan-info">
+                            <h4 id="scan-status">正在扫描系统...</h4>
+                            <p id="scan-detail">检查系统文件和设置</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="scan-progress"></div>
+                    </div>
+                    <div class="scan-stats">
+                        <div class="scan-stat">
+                            <span class="stat-label">已扫描文件</span>
+                            <span class="stat-value" id="scanned-files">0</span>
+                        </div>
+                        <div class="scan-stat">
+                            <span class="stat-label">发现威胁</span>
+                            <span class="stat-value" id="threats-found">0</span>
+                        </div>
+                        <div class="scan-stat">
+                            <span class="stat-label">剩余时间</span>
+                            <span class="stat-value" id="time-remaining">计算中...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/security_center.js') }}"></script>
+</body>
+</html>

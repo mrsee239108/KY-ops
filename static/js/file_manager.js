@@ -1077,13 +1077,48 @@ class FileManager {
         
         container.innerHTML = `
             <div class="image-preview">
-                <img src="${data.url}" alt="${fileInfo.name}" onload="this.style.opacity=1" style="opacity:0; transition: opacity 0.3s;">
+                <div class="image-loading" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+                    <div class="spinner"></div>
+                    <span style="margin-left: 10px;">加载中...</span>
+                </div>
+                <img src="${data.url}" alt="${fileInfo.name}" style="display: none; max-width: 100%; max-height: 500px; transition: opacity 0.3s;">
+                <div class="image-error" style="display: none; text-align: center; padding: 20px; color: #e74c3c;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>图片加载失败</div>
+                    <button onclick="this.parentElement.previousElementSibling.src = this.parentElement.previousElementSibling.src" style="margin-top: 10px; padding: 5px 10px; background: #3498db; color: white; border: none; border-radius: 3px; cursor: pointer;">重试</button>
+                </div>
                 <div class="image-info">
                     <div>文件大小: ${fileInfo.size_formatted}</div>
                     <div>修改时间: ${fileInfo.modified}</div>
                 </div>
             </div>
         `;
+        
+        // 获取图片元素并添加事件监听器
+        const img = container.querySelector('img');
+        const loading = container.querySelector('.image-loading');
+        const error = container.querySelector('.image-error');
+        
+        img.onload = function() {
+            loading.style.display = 'none';
+            error.style.display = 'none';
+            this.style.display = 'block';
+            this.style.opacity = '1';
+        };
+        
+        img.onerror = function() {
+            loading.style.display = 'none';
+            this.style.display = 'none';
+            error.style.display = 'block';
+            console.error('图片加载失败:', data.url);
+        };
+        
+        // 添加超时处理
+        setTimeout(() => {
+            if (loading.style.display !== 'none') {
+                img.onerror();
+            }
+        }, 10000); // 10秒超时
     }
 
     renderPdfPreview(data, container) {

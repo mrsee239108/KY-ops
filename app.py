@@ -1602,8 +1602,12 @@ def file_preview():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path or not os.path.isabs(file_path):
+        if '..' in file_path:
             return jsonify({'error': '无效的文件路径'}), 400
+        
+        # 如果不是绝对路径，转换为绝对路径
+        if not os.path.isabs(file_path):
+            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1742,8 +1746,12 @@ def pdf_viewer():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path or not os.path.isabs(file_path):
+        if '..' in file_path:
             return jsonify({'error': '无效的文件路径'}), 400
+        
+        # 如果不是绝对路径，转换为绝对路径
+        if not os.path.isabs(file_path):
+            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1826,6 +1834,8 @@ def file_download():
             '.webp': 'image/webp',
             '.svg': 'image/svg+xml',
             '.ico': 'image/x-icon',
+            '.tiff': 'image/tiff',
+            '.tif': 'image/tiff',
             '.mp3': 'audio/mpeg',
             '.mp4': 'video/mp4',
             '.zip': 'application/zip',
@@ -1836,28 +1846,33 @@ def file_download():
         mimetype = mime_types.get(file_ext, 'application/octet-stream')
         
         # 检查是否为内联显示（图像和PDF）
-        inline_types = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.pdf'}
+        inline_types = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.pdf', '.tiff', '.tif'}
         as_attachment = file_ext not in inline_types
         
-        # 为PDF文件添加特殊处理
-        if file_ext == '.pdf':
-            response = make_response(send_file(
-                file_path,
-                mimetype=mimetype,
-                as_attachment=as_attachment,
-                download_name=file_name
-            ))
-            # 添加允许iframe嵌入的头部
-            response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-            response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
-            return response
-        else:
-            return send_file(
-                file_path,
-                mimetype=mimetype,
-                as_attachment=as_attachment,
-                download_name=file_name
-            )
+        # 创建响应
+        response = make_response(send_file(
+            file_path,
+            mimetype=mimetype,
+            as_attachment=as_attachment,
+            download_name=file_name
+        ))
+        
+        # 为图片和PDF文件添加特殊头部
+        if file_ext in inline_types:
+            # 添加CORS头部
+            response.headers['Access-Control-Allow-Origin'] = '*'
+            response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+            
+            # 添加缓存控制
+            response.headers['Cache-Control'] = 'public, max-age=3600'
+            
+            # 为PDF文件添加iframe支持
+            if file_ext == '.pdf':
+                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+                response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
+        
+        return response
         
     except Exception as e:
         import traceback

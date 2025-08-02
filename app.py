@@ -1802,8 +1802,12 @@ def file_download():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path or not os.path.isabs(file_path):
+        if '..' in file_path:
             return jsonify({'error': '无效的文件路径'}), 400
+        
+        # 如果不是绝对路径，转换为绝对路径
+        if not os.path.isabs(file_path):
+            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1854,7 +1858,7 @@ def file_download():
             file_path,
             mimetype=mimetype,
             as_attachment=as_attachment,
-            download_name=file_name
+            attachment_filename=file_name
         ))
         
         # 为图片和PDF文件添加特殊头部

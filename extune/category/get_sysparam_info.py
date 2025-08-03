@@ -8,10 +8,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # cython:language_level=3
-
-from common.file import FileOperation
-from common.command import Command
-from common.log import Logger
+try:
+    from common.file import FileOperation
+    from common.command import Command
+    from common.log import Logger
+except:
+    from ..common.file import FileOperation
+    from ..common.command import Command
+    from ..common.log import Logger
 
 class SysParamInfo:
     '''

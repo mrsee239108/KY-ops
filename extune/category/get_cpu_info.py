@@ -10,24 +10,119 @@
 # cython:language_level=3
 
 from time import sleep
-from common.customizefunctionthread import CustomizeFunctionThread
-from common.file import FileOperation
-from common.global_call import GlobalCall
-from common.command import Command
-from common.global_parameter import GlobalParameter
-from common.config import Config
-from common.log import Logger
+try:
+    from common.customizefunctionthread import CustomizeFunctionThread
+    from common.file import FileOperation
+    from common.global_call import GlobalCall
+    from common.command import Command
+    from common.global_parameter import GlobalParameter
+    from common.config import Config
+    from common.log import Logger
+except:
+    from ..common.customizefunctionthread import CustomizeFunctionThread
+    from ..common.file import FileOperation
+    from ..common.global_call import GlobalCall
+    from ..common.command import Command
+    from ..common.global_parameter import GlobalParameter
+    from ..common.config import Config
+    from ..common.log import Logger
 
-# CPU class
-class CPUInfo:
+
+import threading
+import time
+import subprocess
+import re
+import json
+try:
+    from common.global_call import GlobalCall
+except:
+    from ..common.global_call import GlobalCall
+
+
+class RealTimeCPU:
+    def __init__(self, interval=2):
+        self.interval = interval
+        self._stop_event = threading.Event()
+        self.thread = None
+        self.data = {
+            'total_usage': 0.0,
+            'core_usage': []
+        }
+        # 添加广播功能
+        GlobalCall.real_time_cpu_data = self.data
+
+    def __collect_real_time_data(self):
+        """使用命令行工具采集实时CPU数据"""
+        try:
+            # 使用 mpstat 命令获取CPU使用率
+            cmd = "mpstat -P ALL 1 1"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+
+            # 解析输出
+            lines = output.splitlines()
+            core_data = []
+            total_usage = 0.0
+
+            for line in lines:
+                if line.startswith('Average:') or line.startswith('平均时间:'):
+                    parts = line.split()
+                    if parts[1] == 'all':
+                        total_usage = 100.0 - float(parts[11])  # %idle
+                    elif parts[1].isdigit():
+                        core_id = int(parts[1])
+                        idle = float(parts[11])
+                        usage = 100.0 - idle
+                        core_data.append(usage)
+
+            # 更新数据
+            self.data = {
+                'model_name': cpu_model,
+                'total_usage': total_usage,
+                'core_usage': core_data
+            }
+            # 广播数据
+            GlobalCall.real_time_cpu_data = self.data
+
+        except Exception as e:
+            print(f"Error collecting CPU data: {e}")
+
+    def start_broadcasting(self):
+        """启动广播线程"""
+        if self.thread is not None and self.thread.is_alive():
+            return
+
+        self._stop_event.clear()
+        self.thread = threading.Thread(target=self._broadcast_loop)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def _broadcast_loop(self):
+        """广播循环"""
+        while not self._stop_event.is_set():
+            print(f"RealTimeCPU: {self.data}")
+            self.__collect_real_time_data()
+            time.sleep(self.interval)
+
+    def stop_broadcasting(self):
+        """停止广播"""
+        self._stop_event.set()
+        if self.thread is not None:
+            self.thread.join(timeout=1)
+
+    def get_current_data(self):
+        """获取当前CPU数据"""
+        return self.data
+
+
+# 在 CPUInfo 类中添加实时监控功能
+class CPUInfo(RealTimeCPU):
+    # 保留原有的静态数据收集功能
     def __init__(self, t_fileName):
+        super().__init__()
         self.__default_file_name = t_fileName
         FileOperation.remove_txt_file(self.__default_file_name)
-        # 默认时间间隔
         self.__interval = GlobalParameter().get_cpu_interval()
-        # 默认执行次数
         self.__times = GlobalParameter().get_cpu_times()
-        # perf stat采样时间
         self.__duration = GlobalParameter().get_perf_stat_duration()
 
     def __get_cpu_info(self):

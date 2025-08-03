@@ -17,13 +17,20 @@ from common.customizefunctionthread import CustomizeFunctionThread
 if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
     sys.setdefaultencoding('utf-8')
-
-from common.decorator_wrap import DecoratorWrap
-from common.file import FileOperation
-from common.global_parameter import GlobalParameter
-from common.log import Logger
-from common.command import Command
-from common.global_call import GlobalCall
+try:
+    from common.decorator_wrap import DecoratorWrap
+    from common.file import FileOperation
+    from common.global_parameter import GlobalParameter
+    from common.log import Logger
+    from common.command import Command
+    from common.global_call import GlobalCall
+except:
+    from ..common.decorator_wrap import DecoratorWrap
+    from ..common.file import FileOperation
+    from ..common.global_parameter import GlobalParameter
+    from ..common.log import Logger
+    from ..common.command import Command
+    from ..common.global_call import GlobalCall
 
 # net class
 @DecoratorWrap.singleton

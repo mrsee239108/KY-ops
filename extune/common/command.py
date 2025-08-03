@@ -13,8 +13,8 @@ import subprocess
 import os
 import sys
 import time
-from common.log import Logger
-from common.file import FileOperation
+from .log import Logger
+from .file import FileOperation
 
 class Command:
     LANG = 'en_US.UTF-8'

@@ -12,7 +12,7 @@
 import io
 import json5
 import os
-from common.config import Config
+from .config import Config
 
 # file operation class
 class FileOperation:

@@ -8,13 +8,21 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # cython:language_level=3
+try:
+    from common.file import FileOperation
+    from common.command import Command
+    from common.global_parameter import GlobalParameter
+    from common.config import Config
+    from common.log import Logger
+    from common.global_call import GlobalCall
+except:
+    from ..common.file import FileOperation
+    from ..common.command import Command
+    from ..common.global_parameter import GlobalParameter
+    from ..common.config import Config
+    from ..common.log import Logger
+    from ..common.global_call import GlobalCall
 
-from common.file import FileOperation
-from common.command import Command
-from common.global_parameter import GlobalParameter
-from common.config import Config
-from common.log import Logger
-from common.global_call import GlobalCall
 import os
 
 class DiskInfo:

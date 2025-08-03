@@ -14,8 +14,8 @@ import logging
 import os
 import sys
 import time
-from common.decorator_wrap import DecoratorWrap
-from common.config import Config
+from .decorator_wrap import DecoratorWrap
+from .config import Config
 
 @DecoratorWrap.singleton
 class Logger:

@@ -10,9 +10,9 @@
 # cython:language_level=3
 
 import sys
-from common.config import Config
-from common.decorator_wrap import DecoratorWrap
-from common.global_call import GlobalCall
+from .config import Config
+from .decorator_wrap import DecoratorWrap
+from .global_call import GlobalCall
 
 @DecoratorWrap.singleton
 class GlobalParameter:

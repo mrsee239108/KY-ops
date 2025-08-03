@@ -14,7 +14,7 @@ import datetime
 import sys
 import platform
 
-from common.command import Command
+from .command import Command
 
 class ToolCmd:
         

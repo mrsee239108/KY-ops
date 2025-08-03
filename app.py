@@ -1,3 +1,4 @@
+from extune import common
 from flask import Flask, render_template, jsonify, request, send_file, make_response
 import psutil
 import platform
@@ -16,6 +17,21 @@ app = Flask(__name__)
 
 # 配置
 app.config['SECRET_KEY'] = 'your-secret-key-here'
+
+# 初始化实时CPU监控
+try:
+    from extune.category.get_cpu_info import RealTimeCPU
+    from extune.common.global_call import GlobalCall
+    real_time_cpu_monitor = RealTimeCPU(interval=2)
+    real_time_cpu_monitor.start_broadcasting()
+    print("CPU实时监控已启动")
+except ImportError as e:
+    print(f"无法导入实时CPU监控: {e}")
+    real_time_cpu_monitor = None
+except Exception as e:
+    print(f"启动实时CPU监控失败: {e}")
+    real_time_cpu_monitor = None
+
 
 # 添加CORS支持
 @app.after_request
@@ -314,15 +330,29 @@ def get_system_info_json():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
 @app.route('/api/system-status')
 def system_status():
-    """获取系统状态信息"""
+    """获取系统状态信息（使用实时CPU数据）"""
     try:
-        cpu_percent = psutil.cpu_percent(interval=1)
+        # 从全局广播获取CPU数据
+        cpu_data = GlobalCall.real_time_cpu_data
+
+        # 如果没有实时数据，使用psutil作为后备
+        if not cpu_data:
+            cpu_percent = psutil.cpu_percent(interval=1)
+            cpu_model = "未知"
+        else:
+            cpu_percent = cpu_data['total_usage']
+            cpu_model = cpu_data['model_name']
+
         memory = psutil.virtual_memory()
-        
+
+        print(cpu_percent)
+
         return jsonify({
             'cpu_usage': cpu_percent,
+            'cpu_model': cpu_model,
             'memory_usage': memory.percent,
             'current_time': datetime.now().strftime('%H:%M'),
             'current_date': datetime.now().strftime('%Y/%m/%d'),
@@ -1602,12 +1632,8 @@ def file_preview():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path:
+        if '..' in file_path or not os.path.isabs(file_path):
             return jsonify({'error': '无效的文件路径'}), 400
-        
-        # 如果不是绝对路径，转换为绝对路径
-        if not os.path.isabs(file_path):
-            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1746,12 +1772,8 @@ def pdf_viewer():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path:
+        if '..' in file_path or not os.path.isabs(file_path):
             return jsonify({'error': '无效的文件路径'}), 400
-        
-        # 如果不是绝对路径，转换为绝对路径
-        if not os.path.isabs(file_path):
-            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1802,12 +1824,8 @@ def file_download():
         file_path = os.path.normpath(file_path)
         
         # 安全检查：防止路径遍历
-        if '..' in file_path:
+        if '..' in file_path or not os.path.isabs(file_path):
             return jsonify({'error': '无效的文件路径'}), 400
-        
-        # 如果不是绝对路径，转换为绝对路径
-        if not os.path.isabs(file_path):
-            file_path = os.path.abspath(file_path)
         
         # 检查文件是否存在
         if not os.path.exists(file_path):
@@ -1838,8 +1856,6 @@ def file_download():
             '.webp': 'image/webp',
             '.svg': 'image/svg+xml',
             '.ico': 'image/x-icon',
-            '.tiff': 'image/tiff',
-            '.tif': 'image/tiff',
             '.mp3': 'audio/mpeg',
             '.mp4': 'video/mp4',
             '.zip': 'application/zip',
@@ -1850,33 +1866,28 @@ def file_download():
         mimetype = mime_types.get(file_ext, 'application/octet-stream')
         
         # 检查是否为内联显示（图像和PDF）
-        inline_types = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.pdf', '.tiff', '.tif'}
+        inline_types = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.pdf'}
         as_attachment = file_ext not in inline_types
         
-        # 创建响应
-        response = make_response(send_file(
-            file_path,
-            mimetype=mimetype,
-            as_attachment=as_attachment,
-            attachment_filename=file_name
-        ))
-        
-        # 为图片和PDF文件添加特殊头部
-        if file_ext in inline_types:
-            # 添加CORS头部
-            response.headers['Access-Control-Allow-Origin'] = '*'
-            response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-            response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-            
-            # 添加缓存控制
-            response.headers['Cache-Control'] = 'public, max-age=3600'
-            
-            # 为PDF文件添加iframe支持
-            if file_ext == '.pdf':
-                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-                response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
-        
-        return response
+        # 为PDF文件添加特殊处理
+        if file_ext == '.pdf':
+            response = make_response(send_file(
+                file_path,
+                mimetype=mimetype,
+                as_attachment=as_attachment,
+                download_name=file_name
+            ))
+            # 添加允许iframe嵌入的头部
+            response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+            response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
+            return response
+        else:
+            return send_file(
+                file_path,
+                mimetype=mimetype,
+                as_attachment=as_attachment,
+                download_name=file_name
+            )
         
     except Exception as e:
         import traceback

@@ -36,7 +36,7 @@ class SummaryInfo:
         '''
             A function that collects all information, called externally
         '''
-                
+
         if GlobalCall.get_json_value('Getting.Common.enable', 1) == 1:
             MemInfo(GlobalCall.output_mem_file).get_info()
             Logger().info(u"内存数据采集完成")
@@ -61,4 +61,20 @@ class SummaryInfo:
         else:
             Logger().warning("配置文件中关闭数据获取功能, Getting.Common.enable = {}".format(GlobalCall.get_json_value('Getting.Common.enable', 1)))
             return False
-            
+
+    @staticmethod
+    def get_info():
+        '''采集所有信息并启动实时监控'''
+        # 原有的静态数据采集
+        if GlobalCall.get_json_value('Getting.Common.enable', 1) == 1:
+            # ... 原有采集代码 ...
+
+            # 启动CPU实时监控
+            cpu_monitor = CPUInfo(GlobalCall.output_cpu_file)
+            cpu_monitor.start_broadcasting()
+            Logger().info(u"CPU实时监控已启动")
+
+            return True
+        else:
+            Logger().warning("配置文件中关闭数据获取功能")
+            return False

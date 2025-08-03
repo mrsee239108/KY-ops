@@ -10,11 +10,18 @@
 # cython:language_level=3
 
 from logging import Logger
-from common.conf_check import ConfCheck
-from common.file import FileOperation
-from common.command import Command
-from common.global_call import GlobalCall
-from common.global_parameter import GlobalParameter
+try:
+    from common.conf_check import ConfCheck
+    from common.file import FileOperation
+    from common.command import Command
+    from common.global_call import GlobalCall
+    from common.global_parameter import GlobalParameter
+except:
+    from ..common.conf_check import ConfCheck
+    from ..common.file import FileOperation
+    from ..common.command import Command
+    from ..common.global_call import GlobalCall
+    from ..common.global_parameter import GlobalParameter
 
 # jvm class
 class JVMInfo:

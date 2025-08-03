@@ -10,8 +10,12 @@
 # cython:language_level=3
 # Copyright (c) 2023 KylinSoft  Co., Ltd. All Rights Reserved.
 
-from common.file import FileOperation
-from common.command import Command
+try:
+    from common.file import FileOperation
+    from common.command import Command
+except:
+    from ..common.file import FileOperation
+    from ..common.command import Command
 
 # System log class
 class SysMessage():

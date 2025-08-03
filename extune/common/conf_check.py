@@ -8,7 +8,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 # cython:language_level=3
-from common.command import Command
+from .command import Command
 import subprocess,shlex
 
 class ConfCheck:

@@ -11,13 +11,15 @@
 
 
 import sys
-from common.threadpool import ThreadPool
-from common.config import Config
-from common.log import Logger
+from .threadpool import ThreadPool
+from .config import Config
+from .log import Logger
 
 
 class GlobalCall:
     # global thread pool object
+    real_time_cpu_data = [] # object to store real-time cpu data
+
     monitor_info_thread_pool = ThreadPool()
     output_cpu_file = "CPUInfo.txt"
     output_net_file = "netInfo.txt"

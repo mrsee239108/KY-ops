@@ -11,8 +11,8 @@
 
 import functools
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from common.log import Logger
-from common.decorator_wrap import DecoratorWrap
+from .log import Logger
+from .decorator_wrap import DecoratorWrap
 
 @DecoratorWrap.singleton
 class ThreadPool():

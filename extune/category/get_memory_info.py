@@ -8,12 +8,18 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # cython:language_level=3
-
-from common.global_parameter import GlobalParameter
-from common.log import Logger
-from common.file import FileOperation
-from common.global_call import GlobalCall
-from common.command import Command
+try:
+    from common.global_parameter import GlobalParameter
+    from common.log import Logger
+    from common.file import FileOperation
+    from common.global_call import GlobalCall
+    from common.command import Command
+except:
+    from ..common.global_parameter import GlobalParameter
+    from ..common.log import Logger
+    from ..common.file import FileOperation
+    from ..common.global_call import GlobalCall
+    from ..common.command import Command
 
 # memory class
 class MemInfo():

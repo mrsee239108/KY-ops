@@ -13,11 +13,20 @@ import io
 import os
 import sys
 import base64
-from common.config import Config
-from common.command import Command
-from common.global_call import GlobalCall
-from common.log import Logger
-from common.file import FileOperation
+
+try:
+    from common.config import Config
+    from common.command import Command
+    from common.global_call import GlobalCall
+    from common.log import Logger
+    from common.file import FileOperation
+except:
+    from ..common.config import Config
+    from ..common.command import Command
+    from ..common.global_call import GlobalCall
+    from ..common.log import Logger
+    from ..common.file import FileOperation
+
 import re
 
 # Global Variable - start

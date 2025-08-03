@@ -280,7 +280,7 @@ body {
     margin-bottom: 16px;
 }
 
-.setting-select, .setting-button {
+.setting-select {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -291,15 +291,9 @@ body {
     transition: all 0.2s ease;
 }
 
-.setting-select:focus, .setting-button:hover {
+.setting-select:focus {
     border-color: #007aff;
     outline: none;
-}
-
-.setting-button {
-    background: #007aff;
-    border-color: #007aff;
-    cursor: pointer;
 }
 
 /* 用户管理样式 */

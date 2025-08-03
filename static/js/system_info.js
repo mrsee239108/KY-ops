@@ -153,13 +153,7 @@ class SystemInfoManager {
             });
         }
 
-        // 桌面设置按钮
-        const desktopButton = document.querySelector('.setting-button');
-        if (desktopButton) {
-            desktopButton.addEventListener('click', () => {
-                this.showNotification('桌面配置功能开发中...');
-            });
-        }
+
     }
 
     changeTheme(theme) {

@@ -28,11 +28,15 @@ class PerformanceMonitor {
         this.init();
     }
 
-    init() {
+    async init() {
         console.log('init()方法开始执行...');
         this.setupEventListeners();
         console.log('事件监听器设置完成');
-        this.initializeCharts();
+        
+        // 等待DOM完全渲染
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        await this.initializeCharts();
         console.log('图表初始化完成');
         this.loadPerformanceData();
         console.log('首次数据加载完成');
@@ -75,20 +79,103 @@ class PerformanceMonitor {
         }, 100);
     }
 
-    initializeCharts() {
-        // 设置Chart.js默认配置
-        Chart.defaults.color = '#ffffff';
-        Chart.defaults.borderColor = '#3c3c3c';
-        Chart.defaults.backgroundColor = 'rgba(0, 255, 136, 0.1)';
+    async initializeCharts() {
+        try {
+            // 检查Chart.js是否已加载
+            if (typeof Chart === 'undefined') {
+                console.log('Chart.js未加载，尝试动态加载...');
+                await this.loadChartJS();
+            }
+            
+            // 设置Chart.js默认配置
+            Chart.defaults.color = '#ffffff';
+            Chart.defaults.borderColor = '#3c3c3c';
+            Chart.defaults.backgroundColor = 'rgba(0, 255, 136, 0.1)';
 
-        // 初始化小图表
-        this.initSmallCharts();
+            // 初始化小图表
+            this.initSmallCharts();
+            
+            // 初始化详细图表
+            this.initDetailedCharts();
+        } catch (error) {
+            console.warn('图表初始化失败，使用简化显示模式:', error);
+            this.showNotification('图表功能暂时不可用，但数据监控正常运行', 'warning');
+            // 降级方案：隐藏图表容器，显示简化的数据展示
+            this.initFallbackMode();
+        }
+    }
+    
+    initFallbackMode() {
+        console.log('启用降级模式：简化数据显示');
+        // 隐藏图表容器
+        const chartContainers = document.querySelectorAll('.chart-container, .small-chart');
+        chartContainers.forEach(container => {
+            if (container) {
+                container.style.display = 'none';
+            }
+        });
         
-        // 初始化详细图表
-        this.initDetailedCharts();
+        // 显示提示信息
+        const mainContent = document.querySelector('.performance-content');
+        if (mainContent) {
+            const notice = document.createElement('div');
+            notice.className = 'chart-fallback-notice';
+            notice.innerHTML = `
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; border-radius: 5px; color: #856404;">
+                    <strong>注意：</strong> 图表库加载失败，当前以简化模式显示数据。数据监控功能正常工作。
+                </div>
+            `;
+            mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+    }
+    
+    loadChartJS() {
+        return new Promise((resolve, reject) => {
+            // 如果Chart.js已经加载，直接resolve
+            if (typeof Chart !== 'undefined') {
+                resolve();
+                return;
+            }
+            
+            const cdnUrls = [
+                'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js',
+                'https://unpkg.com/chart.js@3.9.1/dist/chart.min.js'
+            ];
+            
+            let currentIndex = 0;
+            
+            const tryLoadScript = () => {
+                if (currentIndex >= cdnUrls.length) {
+                    console.warn('所有Chart.js CDN都加载失败，图表功能将不可用');
+                    reject(new Error('Chart.js加载失败'));
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = cdnUrls[currentIndex];
+                script.onload = () => {
+                    console.log(`Chart.js从CDN ${currentIndex + 1}加载成功`);
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.warn(`CDN ${currentIndex + 1}加载失败，尝试下一个...`);
+                    currentIndex++;
+                    tryLoadScript();
+                };
+                document.head.appendChild(script);
+            };
+            
+            tryLoadScript();
+        });
     }
 
     initSmallCharts() {
+        if (typeof Chart === 'undefined') {
+            console.log('Chart.js未加载，跳过小图表初始化');
+            return;
+        }
+        
         const chartOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -108,7 +195,12 @@ class PerformanceMonitor {
         };
 
         // CPU小图表
-        this.charts.cpuSmall = new Chart(document.getElementById('cpu-chart'), {
+        const cpuCanvas = document.getElementById('cpu-chart');
+        if (!cpuCanvas) {
+            console.warn('CPU图表canvas元素未找到');
+            return;
+        }
+        this.charts.cpuSmall = new Chart(cpuCanvas, {
             type: 'line',
             data: {
                 labels: Array(20).fill(''),
@@ -124,7 +216,12 @@ class PerformanceMonitor {
         });
 
         // 内存小图表
-        this.charts.memorySmall = new Chart(document.getElementById('memory-chart'), {
+        const memoryCanvas = document.getElementById('memory-chart');
+        if (!memoryCanvas) {
+            console.warn('内存图表canvas元素未找到');
+            return;
+        }
+        this.charts.memorySmall = new Chart(memoryCanvas, {
             type: 'line',
             data: {
                 labels: Array(20).fill(''),
@@ -140,7 +237,12 @@ class PerformanceMonitor {
         });
 
         // 磁盘小图表
-        this.charts.diskSmall = new Chart(document.getElementById('disk-chart'), {
+        const diskCanvas = document.getElementById('disk-chart');
+        if (!diskCanvas) {
+            console.warn('磁盘图表canvas元素未找到');
+            return;
+        }
+        this.charts.diskSmall = new Chart(diskCanvas, {
             type: 'line',
             data: {
                 labels: Array(20).fill(''),
@@ -156,7 +258,12 @@ class PerformanceMonitor {
         });
 
         // 网络小图表
-        this.charts.networkSmall = new Chart(document.getElementById('network-chart'), {
+        const networkCanvas = document.getElementById('network-chart');
+        if (!networkCanvas) {
+            console.warn('网络图表canvas元素未找到');
+            return;
+        }
+        this.charts.networkSmall = new Chart(networkCanvas, {
             type: 'line',
             data: {
                 labels: Array(20).fill(''),
@@ -173,6 +280,11 @@ class PerformanceMonitor {
     }
 
     initDetailedCharts() {
+        if (typeof Chart === 'undefined') {
+            console.log('Chart.js未加载，跳过详细图表初始化');
+            return;
+        }
+        
         const detailedChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -218,82 +330,94 @@ class PerformanceMonitor {
         };
 
         // CPU详细图表
-        this.charts.cpuDetailed = new Chart(document.getElementById('cpu-detailed-chart'), {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'CPU 使用率 (%)',
-                    data: [],
-                    borderColor: '#00ff88',
-                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                    fill: true,
-                    borderWidth: 2
-                }]
-            },
-            options: detailedChartOptions
-        });
+        const cpuDetailedCanvas = document.getElementById('cpu-detailed-chart');
+        if (cpuDetailedCanvas) {
+            this.charts.cpuDetailed = new Chart(cpuDetailedCanvas, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'CPU 使用率 (%)',
+                        data: [],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        fill: true,
+                        borderWidth: 2
+                    }]
+                },
+                options: detailedChartOptions
+            });
+        }
 
         // 内存详细图表
-        this.charts.memoryDetailed = new Chart(document.getElementById('memory-detailed-chart'), {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '内存使用率 (%)',
-                    data: [],
-                    borderColor: '#00bcd4',
-                    backgroundColor: 'rgba(0, 188, 212, 0.1)',
-                    fill: true,
-                    borderWidth: 2
-                }]
-            },
-            options: detailedChartOptions
-        });
+        const memoryDetailedCanvas = document.getElementById('memory-detailed-chart');
+        if (memoryDetailedCanvas) {
+            this.charts.memoryDetailed = new Chart(memoryDetailedCanvas, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '内存使用率 (%)',
+                        data: [],
+                        borderColor: '#00bcd4',
+                        backgroundColor: 'rgba(0, 188, 212, 0.1)',
+                        fill: true,
+                        borderWidth: 2
+                    }]
+                },
+                options: detailedChartOptions
+            });
+        }
 
         // 磁盘详细图表
-        this.charts.diskDetailed = new Chart(document.getElementById('disk-detailed-chart'), {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '磁盘使用率 (%)',
-                    data: [],
-                    borderColor: '#ff9800',
-                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
-                    fill: true,
-                    borderWidth: 2
-                }]
-            },
-            options: detailedChartOptions
-        });
+        const diskDetailedCanvas = document.getElementById('disk-detailed-chart');
+        if (diskDetailedCanvas) {
+            this.charts.diskDetailed = new Chart(diskDetailedCanvas, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '磁盘使用率 (%)',
+                        data: [],
+                        borderColor: '#ff9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                        fill: true,
+                        borderWidth: 2
+                    }]
+                },
+                options: detailedChartOptions
+            });
+        }
 
         // 网络详细图表
         const networkChartOptions = { ...detailedChartOptions };
         networkChartOptions.scales.y.max = null; // 网络图表不限制最大值
 
-        this.charts.networkDetailed = new Chart(document.getElementById('network-detailed-chart'), {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: '上传 (MB/s)',
-                    data: [],
-                    borderColor: '#00ff88',
-                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                    fill: false,
-                    borderWidth: 2
-                }, {
-                    label: '下载 (MB/s)',
-                    data: [],
-                    borderColor: '#00bcd4',
-                    backgroundColor: 'rgba(0, 188, 212, 0.1)',
-                    fill: false,
-                    borderWidth: 2
-                }]
-            },
-            options: networkChartOptions
-        });
+        const networkDetailedCanvas = document.getElementById('network-detailed-chart');
+        if (networkDetailedCanvas) {
+            this.charts.networkDetailed = new Chart(networkDetailedCanvas, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '上传 (MB/s)',
+                        data: [],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        fill: false,
+                        borderWidth: 2
+                    }, {
+                        label: '下载 (MB/s)',
+                        data: [],
+                        borderColor: '#00bcd4',
+                        backgroundColor: 'rgba(0, 188, 212, 0.1)',
+                        fill: false,
+                        borderWidth: 2
+                    }]
+                },
+                options: networkChartOptions
+            });
+        }
     }
 
     async loadPerformanceData() {
@@ -314,10 +438,27 @@ class PerformanceMonitor {
                         try {
                             const data = JSON.parse(xhr.responseText);
                             console.log('成功获取数据:', data);
-                            console.log('CPU核心数据:', data.cpu_percent);
-                            console.log('CPU平均使用率:', data.cpu_average);
-                            this.updatePerformanceData(data);
-                            this.updateUI(data);
+                            // 转换数据格式以匹配前端期望
+                            const formattedData = {
+                                cpu_average: data.cpu_average || 0,
+                                cpu_percent: data.cpu_percent || [],
+                                cpu_name: data.cpu_name || 'Unknown',
+                                memory_percent: data.memory_percent || 0,
+                                memory_total: data.memory_total || 0,
+                                memory_used: data.memory_used || 0,
+                                memory_available: data.memory_available || 0,
+                                memory_cached: data.memory_cached || 0,
+                                memory_buffers: data.memory_buffers || 0,
+                                disk_usage: data.disk_usage || [],
+                                load_avg: [data.load_avg_1min || 0, data.load_avg_5min || 0, data.load_avg_15min || 0],
+                                network_interfaces: data.network_interfaces || {},
+                                top_processes: data.top_processes || []
+                            };
+                            console.log('格式化后的数据:', formattedData);
+                            this.updatePerformanceData(formattedData);
+                            this.updateUI(formattedData);
+                            // 单独获取进程数据
+                            this.loadTopProcesses();
                         } catch (parseError) {
                             console.error('解析JSON失败:', parseError);
                             console.log('使用模拟数据...');
@@ -344,6 +485,38 @@ class PerformanceMonitor {
             console.log('使用模拟数据继续运行...');
             // 使用模拟数据继续运行
             this.generateMockData();
+        }
+    }
+
+    async loadTopProcesses() {
+        try {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/top-processes', true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const processes = JSON.parse(xhr.responseText);
+                            console.log('成功获取进程数据:', processes);
+                            this.updateTopProcesses(processes);
+                        } catch (parseError) {
+                            console.error('解析进程数据失败:', parseError);
+                        }
+                    } else {
+                        console.error('获取进程数据HTTP错误:', xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            
+            xhr.onerror = () => {
+                console.error('获取进程数据网络错误');
+            };
+            
+            xhr.send();
+        } catch (error) {
+            console.error('加载进程数据失败:', error);
         }
     }
 
@@ -428,7 +601,7 @@ class PerformanceMonitor {
         });
 
         // 更新磁盘数据
-        const diskUsageAvg = data.disk_usage ? 
+        const diskUsageAvg = data.disk_usage && Array.isArray(data.disk_usage) && data.disk_usage.length > 0 ? 
             data.disk_usage.reduce((sum, disk) => sum + disk.percent, 0) / data.disk_usage.length : 0;
         
         this.performanceData.disk.push({
@@ -461,6 +634,12 @@ class PerformanceMonitor {
     }
 
     updateCharts() {
+        // 只有在Chart.js可用时才更新图表
+        if (typeof Chart === 'undefined' || !this.charts) {
+            console.log('Chart.js不可用，跳过图表更新');
+            return;
+        }
+        
         // 更新小图表
         this.updateSmallChart('cpuSmall', this.performanceData.cpu.map(d => d.value));
         this.updateSmallChart('memorySmall', this.performanceData.memory.map(d => d.value));
@@ -493,7 +672,7 @@ class PerformanceMonitor {
     }
 
     updateSmallChart(chartName, data) {
-        const chart = this.charts[chartName];
+        const chart = this.charts && this.charts[chartName];
         if (chart) {
             // 只保留最后20个数据点用于小图表
             const recentData = data.slice(-20);
@@ -503,7 +682,7 @@ class PerformanceMonitor {
     }
 
     updateDetailedChart(chartName, labels, datasets) {
-        const chart = this.charts[chartName];
+        const chart = this.charts && this.charts[chartName];
         if (chart) {
             chart.data.labels = labels;
             datasets.forEach((data, index) => {
@@ -537,7 +716,7 @@ class PerformanceMonitor {
         }
         
         // 计算平均磁盘使用率
-        const avgDiskUsage = data.disk_usage ? 
+        const avgDiskUsage = data.disk_usage && Array.isArray(data.disk_usage) && data.disk_usage.length > 0 ?
             data.disk_usage.reduce((sum, disk) => sum + disk.percent, 0) / data.disk_usage.length : 0;
         this.updateElement('disk-usage', `${Math.round(avgDiskUsage)}%`);
         
@@ -994,11 +1173,13 @@ class PerformanceMonitor {
     }
 
     resizeCharts() {
-        Object.values(this.charts).forEach(chart => {
-            if (chart) {
-                chart.resize();
-            }
-        });
+        if (this.charts) {
+            Object.values(this.charts).forEach(chart => {
+                if (chart) {
+                    chart.resize();
+                }
+            });
+        }
     }
 
     startAutoUpdate() {
@@ -1088,11 +1269,13 @@ class PerformanceMonitor {
         this.stopAutoUpdate();
         
         // 销毁所有图表
-        Object.values(this.charts).forEach(chart => {
-            if (chart) {
-                chart.destroy();
-            }
-        });
+        if (this.charts) {
+            Object.values(this.charts).forEach(chart => {
+                if (chart) {
+                    chart.destroy();
+                }
+            });
+        }
     }
 }
 

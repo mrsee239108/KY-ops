@@ -44,15 +44,87 @@ class RealTimeCPU:
         self.interval = interval
         self._stop_event = threading.Event()
         self.thread = None
+        self.cpu_model = self._get_cpu_model()
         self.data = {
             'total_usage': 0.0,
             'core_usage': []
         }
         # 添加广播功能
         GlobalCall.real_time_cpu_data = self.data
+    
+    def _get_cpu_model(self):
+        """获取CPU型号"""
+        try:
+            import platform
+            if platform.system() == "Windows":
+                # Windows环境下使用wmic命令获取CPU型号
+                cmd = 'wmic cpu get name /value'
+                result = subprocess.check_output(cmd, shell=True, text=True)
+                for line in result.splitlines():
+                    if 'Name=' in line:
+                        cpu_name = line.split('=')[1].strip()
+                        return cpu_name if cpu_name else "Unknown"
+                return "Unknown"
+            else:
+                # Linux环境下使用原有逻辑
+                cmd = 'export LANG="en_US.UTF-8" && lscpu | grep "^Model name:" | cut -d ":" -f 2 | sed -e "s/^[ ]*//g" | sed -e "s/[ ]*$//g"'
+                result = Command.cmd_exec(cmd)
+                return result if result else "Unknown"
+        except Exception as e:
+            print(f"Error getting CPU model: {e}")
+            return "Unknown"
 
     def __collect_real_time_data(self):
         """使用命令行工具采集实时CPU数据"""
+        try:
+            import platform
+            if platform.system() == "Windows":
+                self.__collect_windows_cpu_data()
+            else:
+                self.__collect_linux_cpu_data()
+        except Exception as e:
+            print(f"Error collecting CPU data: {e}")
+    
+    def __collect_windows_cpu_data(self):
+        """Windows环境下的CPU数据收集"""
+        try:
+            # 使用wmic命令获取CPU使用率
+            cmd = 'wmic cpu get loadpercentage /value'
+            output = subprocess.check_output(cmd, shell=True, text=True)
+            
+            # 解析输出获取总体CPU使用率
+            total_usage = 0.0
+            for line in output.splitlines():
+                if 'LoadPercentage=' in line:
+                    total_usage = float(line.split('=')[1].strip())
+                    break
+            
+            # 获取每个核心的使用率（Windows下较复杂，这里使用总体使用率作为近似）
+            import multiprocessing
+            core_count = multiprocessing.cpu_count()
+            core_data = [total_usage] * core_count  # 简化处理，实际应用中可以使用更精确的方法
+            
+            # 更新数据
+            self.data = {
+                'model_name': self.cpu_model,
+                'total_usage': total_usage,
+                'core_usage': core_data
+            }
+            # 广播数据
+            GlobalCall.real_time_cpu_data = self.data
+            
+        except Exception as e:
+            print(f"Error collecting Windows CPU data: {e}")
+            # 提供默认值
+            self.data = {
+                'model_name': self.cpu_model,
+                'total_usage': 0.0,
+                'core_usage': []
+            }
+            GlobalCall.real_time_cpu_data = self.data
+    
+    def __collect_linux_cpu_data(self):
+        """Linux环境下的CPU数据收集（原有逻辑）"""
         try:
             # 使用 mpstat 命令获取CPU使用率
             cmd = "mpstat -P ALL 1 1"
@@ -76,7 +148,7 @@ class RealTimeCPU:
 
             # 更新数据
             self.data = {
-                'model_name': cpu_model,
+                'model_name': self.cpu_model,
                 'total_usage': total_usage,
                 'core_usage': core_data
             }
@@ -84,7 +156,7 @@ class RealTimeCPU:
             GlobalCall.real_time_cpu_data = self.data
 
         except Exception as e:
-            print(f"Error collecting CPU data: {e}")
+            print(f"Error collecting Linux CPU data: {e}")
 
     def start_broadcasting(self):
         """启动广播线程"""

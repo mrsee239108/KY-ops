@@ -13,7 +13,7 @@ class SystemInfoCenter {
 
     async loadSystemInfo() {
         try {
-            const response = await fetch('/api/system-info');
+            const response = await fetch('/api/system-status');
             const data = await response.json();
 
             if (data.error) {

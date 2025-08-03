@@ -838,3 +838,91 @@ body {
     color: #00ff88 !important;
     font-weight: 600;
 }
+
+/* 进程列表样式 */
+.process-section {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.process-section .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.process-section .section-title i {
+    color: #00bcd4;
+}
+
+.process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.process-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.process-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.process-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.process-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.process-pid {
+    font-size: 11px;
+    color: #888888;
+}
+
+.process-usage {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: right;
+}
+
+.cpu-usage {
+    font-size: 12px;
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.memory-usage {
+    font-size: 11px;
+    color: #00bcd4;
+}
+
+.no-processes {
+    text-align: center;
+    color: #888888;
+    font-size: 12px;
+    padding: 16px;
+    font-style: italic;
+}

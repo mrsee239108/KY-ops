@@ -1,4 +1,4 @@
-from extune import common
+# from extune import common
 from flask import Flask, render_template, jsonify, request, send_file, make_response
 import psutil
 import platform
@@ -346,14 +346,61 @@ def system_status():
             cpu_percent = cpu_data['total_usage']
             cpu_model = cpu_data['model_name']
 
+        # 获取内存信息
         memory = psutil.virtual_memory()
-
-        print(cpu_percent)
+        
+        # 获取磁盘信息
+        try:
+            if os.name == 'nt':  # Windows
+                disk = psutil.disk_usage('C:')
+            else:  # Linux/Unix
+                disk = psutil.disk_usage('/')
+            disk_percent = (disk.used / disk.total) * 100 if disk.total > 0 else 0
+        except:
+            disk_percent = 0
+            disk = type('obj', (object,), {'total': 0, 'used': 0, 'free': 0})()
+        
+        # 获取网络I/O信息
+        network_io = psutil.net_io_counters()
+        
+        # 获取磁盘I/O信息
+        disk_io = psutil.disk_io_counters()
+        
+        # 获取负载平均值（Linux系统）
+        load_avg = [0.0, 0.0, 0.0]
+        try:
+            if hasattr(os, 'getloadavg'):
+                load_avg = list(os.getloadavg())
+        except:
+            # Windows系统模拟负载平均值
+            load_avg = [cpu_percent/100, cpu_percent/100*0.8, cpu_percent/100*0.6]
+        
+        # 获取进程信息
+        process_count = len(psutil.pids())
+        active_processes = len([p for p in psutil.process_iter() if p.status() == psutil.STATUS_RUNNING])
 
         return jsonify({
             'cpu_usage': cpu_percent,
             'cpu_model': cpu_model,
-            'memory_usage': memory.percent,
+            'memory_percent': memory.percent,
+            'memory_used': memory.used,
+            'memory_available': memory.available,
+            'memory_total': memory.total,
+            'disk_percent': disk_percent,
+            'disk_used': disk.used,
+            'disk_total': disk.total,
+            'disk_free': disk.free,
+            'network_bytes_sent': network_io.bytes_sent,
+            'network_bytes_recv': network_io.bytes_recv,
+            'network_packets_sent': network_io.packets_sent,
+            'network_packets_recv': network_io.packets_recv,
+            'disk_read_bytes': disk_io.read_bytes if disk_io else 0,
+            'disk_write_bytes': disk_io.write_bytes if disk_io else 0,
+            'load_avg_1min': load_avg[0],
+            'load_avg_5min': load_avg[1],
+            'load_avg_15min': load_avg[2],
+            'process_count': process_count,
+            'active_processes': active_processes,
             'current_time': datetime.now().strftime('%H:%M'),
             'current_date': datetime.now().strftime('%Y/%m/%d'),
             'day_of_week': datetime.now().strftime('%A')
@@ -549,6 +596,30 @@ def get_processes():
         # 按CPU使用率排序
         processes.sort(key=lambda x: x['cpu_percent'] or 0, reverse=True)
         return jsonify(processes)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/top-processes')
+def get_top_processes():
+    """获取CPU占用最高的进程"""
+    try:
+        processes = []
+        for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+            try:
+                proc_info = proc.info
+                if proc_info['cpu_percent'] and proc_info['cpu_percent'] > 0:
+                    processes.append({
+                        'pid': proc_info['pid'],
+                        'name': proc_info['name'],
+                        'cpu_percent': proc_info['cpu_percent'],
+                        'memory_percent': proc_info['memory_percent'] or 0
+                    })
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                pass
+        
+        # 按CPU使用率排序，取前5个
+        processes.sort(key=lambda x: x['cpu_percent'], reverse=True)
+        return jsonify(processes[:5])
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

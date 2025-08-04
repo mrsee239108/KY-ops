@@ -21,6 +21,102 @@ except:
     from ..common.global_call import GlobalCall
     from ..common.command import Command
 
+import threading
+import time
+import subprocess
+import re
+import json
+try:
+    from common.global_call import GlobalCall
+except:
+    from ..common.global_call import GlobalCall
+
+
+class RealTimeMemory:
+    def __init__(self, interval=2):
+        self.interval = interval
+        self._stop_event = threading.Event()
+        self.thread = None
+        self.data = {
+            'total': 0.0,
+            'used': 0.0,
+            'percent': 0.0,
+            'mem_tot': 0.0,
+            'mem_used': 0.0,
+            'swap_tot': 0.0,
+            'swap_used': 0.0
+        }
+        # 添加广播功能
+        GlobalCall.real_time_mem_data = self.data
+
+    def __collect_real_time_data(self):
+        """使用命令行工具采集实时内存数据"""
+        try:
+            # 使用 free 命令获取内存信息
+            cmd = "free -b"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+
+            # 解析输出
+            lines = output.splitlines()
+
+            mem_line = lines[1].split()
+            swap_line = lines[2].split()
+
+            # 提取内存数据（单位：字节）
+            mem_tot = float(mem_line[1])
+            mem_used = float(mem_line[2])
+            swap_tot = float(swap_line[1])
+            swap_used = float(swap_line[2])
+
+            # 计算总内存
+            total = mem_tot + swap_tot
+            used = mem_used + swap_used
+
+            # 计算使用百分比
+            percent = (used / total) * 100 if total > 0 else 0.0
+
+            # 更新数据
+            self.data = {
+                'total': total,
+                'used': used,
+                'percent': percent,
+                'mem_tot': mem_tot,
+                'mem_used': mem_used,
+                'swap_tot': swap_tot,
+                'swap_used': swap_used
+            }
+            # 广播数据
+            GlobalCall.real_time_mem_data = self.data
+
+        except Exception as e:
+            Logger().debug(f"Error collecting memory data: {e}")
+
+    def start_broadcasting(self):
+        """启动广播线程"""
+        if self.thread is not None and self.thread.is_alive():
+            return
+
+        self._stop_event.clear()
+        self.thread = threading.Thread(target=self._broadcast_loop)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def _broadcast_loop(self):
+        """广播循环"""
+        while not self._stop_event.is_set():
+            self.__collect_real_time_data()
+            time.sleep(self.interval)
+
+    def stop_broadcasting(self):
+        """停止广播"""
+        self._stop_event.set()
+        if self.thread is not None:
+            self.thread.join(timeout=1)
+
+    def get_current_data(self):
+        """获取当前内存数据"""
+        return self.data
+
 # memory class
 class MemInfo():
     def __init__(self, t_fileName):

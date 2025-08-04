@@ -32,6 +32,35 @@ except Exception as e:
     print(f"启动实时CPU监控失败: {e}")
     real_time_cpu_monitor = None
 
+# 初始化实时内存监控
+try:
+    from extune.category.get_memory_info import RealTimeMemory
+    from extune.common.global_call import GlobalCall
+    real_time_memory_monitor = RealTimeMemory(interval=2)
+    real_time_memory_monitor.start_broadcasting()
+    print("内存实时监控已启动")
+except ImportError as e:
+    print(f"无法导入实时内存监控: {e}")
+    real_time_memory_monitor = None
+except Exception as e:
+    print(f"启动实时内存监控失败: {e}")
+    real_time_memory_monitor = None
+
+# 初始化实时网络监控
+try:
+    from extune.category.get_net_info import RealTimeNet
+    from extune.common.global_call import GlobalCall
+    real_time_net_monitor = RealTimeNet(interval=2)
+    real_time_net_monitor.start_broadcasting()
+    print("网络实时监控已启动")
+except ImportError as e:
+    print(f"无法导入实时网络监控: {e}")
+    real_time_net_monitor = None
+except Exception as e:
+    print(f"启动实时网络监控失败: {e}")
+    real_time_net_monitor = None
+
+
 
 # 添加CORS支持
 @app.after_request
@@ -337,8 +366,6 @@ def system_status():
     try:
         # 从全局广播获取CPU数据
         cpu_data = GlobalCall.real_time_cpu_data
-
-        # 如果没有实时数据，使用psutil作为后备
         if not cpu_data:
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_model = "未知"
@@ -346,14 +373,37 @@ def system_status():
             cpu_percent = cpu_data['total_usage']
             cpu_model = cpu_data['model_name']
 
-        memory = psutil.virtual_memory()
+        # 从全局广播获取内存数据
+        memory_data = GlobalCall.real_time_mem_data
+        if not memory_data:
+            memory_percent = psutil.virtual_memory().percent
+        else:
+            memory_percent = memory_data['percent']
 
-        print(cpu_percent)
+        # 网络详细信息 - 从全局广播获取网络数据
+        net_data = GlobalCall.real_time_net_data
+        if not net_data:
+            # 如果实时网络数据不可用，使用psutil作为后备
+            net_io = psutil.net_io_counters()
+            net_interfaces = {}
+        else:
+            # 使用RealTimeNet提供的数据
+            net_io = net_data.get('net_io', {})
+            net_interfaces = net_data.get('net_interfaces', {})
 
+
+        # 从全局广播获取磁盘数据
+
+
+
+
+        """整合数据"""
         return jsonify({
             'cpu_usage': cpu_percent,
             'cpu_model': cpu_model,
-            'memory_usage': memory.percent,
+            'memory_usage': memory_percent,
+            'net_interfaces': net_interfaces,
+            'net_io': net_io,
             'current_time': datetime.now().strftime('%H:%M'),
             'current_date': datetime.now().strftime('%Y/%m/%d'),
             'day_of_week': datetime.now().strftime('%A')
@@ -822,11 +872,19 @@ def get_network_stats():
 def get_performance_data():
     """获取详细的性能监控数据"""
     try:
-        # CPU详细信息 - 增加interval时间以获得更准确的数据
-        cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
+        # CPU详细信息 - 从全局广播获取CPU数据
+        cpu_data = GlobalCall.real_time_cpu_data
+        if not cpu_data:
+            cpu_percent = psutil.cpu_percent(interval=1)
+            cpu_count = psutil.cpu_count()
+        else:
+            cpu_percent = cpu_data['total_usage']
+            cpu_count = cpu_data['cpu_count']
+
+
+
         cpu_average = psutil.cpu_percent(interval=0.1)  # 获取平均CPU使用率
         cpu_freq = psutil.cpu_freq()
-        cpu_count = psutil.cpu_count()
         cpu_count_logical = psutil.cpu_count(logical=True)
         
         # 系统负载
@@ -837,9 +895,14 @@ def get_performance_data():
             avg_cpu = sum(cpu_percent) / len(cpu_percent)
             load_avg = [avg_cpu/100, avg_cpu/100, avg_cpu/100]
         
-        # 内存详细信息
-        memory = psutil.virtual_memory()
-        swap = psutil.swap_memory()
+        # 内存详细信息 - 从全局广播获取内存数据
+        memory_data = GlobalCall.real_time_mem_data
+        if not memory_data:
+            memory = psutil.virtual_memory()
+            swap = psutil.swap_memory()
+        else:
+            memory = memory_data['mem_used'] + memory_data['swap_used']
+            swap = memory_data['swap_used']
         
         # 磁盘详细信息
         disk_usage = []
@@ -861,37 +924,33 @@ def get_performance_data():
                 })
             except PermissionError:
                 continue
-        
-        # 网络详细信息
-        net_io = psutil.net_io_counters()
-        net_interfaces = {}
-        
-        # 获取网络接口详细信息
-        net_if_stats = psutil.net_if_stats()
-        net_if_addrs = psutil.net_if_addrs()
-        
-        for interface_name, interface_stats in net_if_stats.items():
-            if interface_name in net_if_addrs:
-                addresses = []
-                for addr in net_if_addrs[interface_name]:
-                    if addr.family == 2:  # IPv4
-                        addresses.append({
-                            'type': 'IPv4',
-                            'address': addr.address,
-                            'netmask': addr.netmask
-                        })
-                    elif addr.family == 17:  # MAC
-                        addresses.append({
-                            'type': 'MAC',
-                            'address': addr.address
-                        })
-                
-                net_interfaces[interface_name] = {
-                    'is_up': interface_stats.isup,
-                    'speed': interface_stats.speed,
-                    'mtu': interface_stats.mtu,
-                    'addresses': addresses
-                }
+
+        # 网络详细信息 - 从全局广播获取网络数据
+        net_data = GlobalCall.real_time_net_data
+        if not net_data:
+            # 如果实时网络数据不可用，使用psutil作为后备
+            net_io = psutil.net_io_counters()
+            net_interfaces = {}
+        else:
+            # 使用RealTimeNet提供的数据
+            net_io = net_data.get('net_io', {})
+            net_interfaces = net_data.get('net_interfaces', {})
+
+            # 计算总的网络IO统计
+            total_io = {
+                'bytes_sent': 0,
+                'bytes_recv': 0,
+                'packets_sent': 0,
+                'packets_recv': 0,
+                'errin': 0,
+                'errout': 0,
+                'dropin': 0,
+                'dropout': 0
+            }
+
+            for iface, stats in net_io.items():
+                for key in total_io.keys():
+                    total_io[key] += stats.get(key, 0)
         
         # 进程信息
         processes = []
@@ -976,7 +1035,7 @@ def get_performance_data():
             },
             
             # 网络信息
-            'network_io': {
+            'network_io': total_io if net_data else {
                 'bytes_sent': net_io.bytes_sent,
                 'bytes_recv': net_io.bytes_recv,
                 'packets_sent': net_io.packets_sent,

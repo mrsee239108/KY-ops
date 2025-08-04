@@ -312,7 +312,7 @@ class PerformanceMonitor {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         try {
-                            const data = JSON.parse(xhr.responseText);
+                            const data = JSON.parse(xhr.responseText); // 解析JSON数据
                             console.log('成功获取数据:', data);
                             console.log('CPU核心数据:', data.cpu_percent);
                             console.log('CPU平均使用率:', data.cpu_average);
@@ -321,12 +321,12 @@ class PerformanceMonitor {
                         } catch (parseError) {
                             console.error('解析JSON失败:', parseError);
                             console.log('使用模拟数据...');
-                            this.generateMockData();
+                            //this.generateMockData();
                         }
                     } else {
                         console.error('HTTP错误:', xhr.status, xhr.statusText);
                         console.log('使用模拟数据...');
-                        this.generateMockData();
+                        //this.generateMockData();
                     }
                 }
             };
@@ -334,16 +334,16 @@ class PerformanceMonitor {
             xhr.onerror = () => {
                 console.error('网络错误');
                 console.log('使用模拟数据...');
-                this.generateMockData();
+                //this.generateMockData();
             };
             
-            xhr.send();
+            xhr.send(); // 使用异步请求
             
         } catch (error) {
             console.error('加载性能数据失败:', error);
             console.log('使用模拟数据继续运行...');
             // 使用模拟数据继续运行
-            this.generateMockData();
+            //this.generateMockData();
         }
     }
 

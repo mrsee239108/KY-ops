@@ -11,8 +11,12 @@
 #!coding=utf-8
 
 import os
+import struct
 import sys
-from common.customizefunctionthread import CustomizeFunctionThread
+try:
+    from common.customizefunctionthread import CustomizeFunctionThread
+except:
+    from ..common.customizefunctionthread import CustomizeFunctionThread
 
 if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
@@ -31,6 +35,272 @@ except:
     from ..common.log import Logger
     from ..common.command import Command
     from ..common.global_call import GlobalCall
+
+import threading
+import time
+import subprocess
+import re
+import os
+import json
+import socket
+
+
+class RealTimeNet:
+    def __init__(self, interval=2):
+        self.interval = interval
+        self._stop_event = threading.Event()
+        self.thread = None
+        self.data = {
+            'net_interface': '',
+            'rx_speed': 0.0,  # 下行速度 (KB/s)
+            'net_io': {},      # 网络IO统计信息
+            'net_interfaces': {}  # 网络接口详细信息
+        }
+        # 添加广播功能
+        GlobalCall.real_time_net_data = self.data
+        # 初始化最后一次统计值
+        self.last_stats = {}
+        # 状态信息更新计数器
+        self.status_counter = 0
+
+    def __get_all_interfaces(self):
+        """获取所有网络接口"""
+        ifc_all_dir = '/sys/class/net/'
+        if not os.path.exists(ifc_all_dir):
+            return []
+        return os.listdir(ifc_all_dir)
+
+    def __get_interface_stats(self):
+        """获取网络接口统计信息（类似psutil）"""
+        interfaces = {}
+
+        # 1. 获取网络接口状态
+        net_if_stats = {}
+        try:
+            for iface in self.__get_all_interfaces():
+                operstate_path = f'/sys/class/net/{iface}/operstate'
+                speed_path = f'/sys/class/net/{iface}/speed'
+                mtu_path = f'/sys/class/net/{iface}/mtu'
+
+                is_up = False
+                speed = 0
+                mtu = 1500
+
+                if os.path.exists(operstate_path):
+                    with open(operstate_path, 'r') as f:
+                        is_up = 'up' in f.read().strip().lower()
+
+                if os.path.exists(speed_path):
+                    try:
+                        with open(speed_path, 'r') as f:
+                            speed = int(f.read().strip())
+                    except:
+                        pass
+
+                if os.path.exists(mtu_path):
+                    try:
+                        with open(mtu_path, 'r') as f:
+                            mtu = int(f.read().strip())
+                    except:
+                        pass
+
+                net_if_stats[iface] = {
+                    'is_up': is_up,
+                    'speed': speed,
+                    'mtu': mtu
+                }
+        except Exception as e:
+            Logger().error(f"Error getting interface stats: {e}")
+
+        # 2. 获取网络接口地址信息
+        net_if_addrs = {}
+        try:
+            for iface in self.__get_all_interfaces():
+                addrs = []
+                try:
+                    # 使用ip命令获取地址信息
+                    cmd = f"ip addr show {iface}"
+                    result = Command.cmd_run(cmd)
+
+                    # 解析IPv4地址
+                    ipv4_match = re.search(r'inet (\d+\.\d+\.\d+\.\d+/\d+)', result)
+                    if ipv4_match:
+                        ip, prefix = ipv4_match.group(1).split('/')
+                        addrs.append({
+                            'type': 'IPv4',
+                            'address': ip,
+                            'netmask': self.prefix_to_netmask(int(prefix)),
+                            'prefix': prefix
+                        })
+
+                    # 解析IPv6地址
+                    ipv6_match = re.search(r'inet6 ([a-f0-9:]+/\d+)', result)
+                    if ipv6_match:
+                        ip, prefix = ipv6_match.group(1).split('/')
+                        addrs.append({
+                            'type': 'IPv6',
+                            'address': ip,
+                            'prefix': prefix
+                        })
+
+                    # 解析MAC地址
+                    mac_match = re.search(r'link/ether ([\da-f:]+)', result, re.I)
+                    if mac_match:
+                        addrs.append({
+                            'type': 'MAC',
+                            'address': mac_match.group(1)
+                        })
+                except Exception as e:
+                    Logger().error(f"Error getting addresses for {iface}: {e}")
+
+                net_if_addrs[iface] = addrs
+        except Exception as e:
+            Logger().error(f"Error getting interface addresses: {e}")
+
+        # 3. 合并结果
+        for iface in self.__get_all_interfaces():
+            interfaces[iface] = {
+                'stats': net_if_stats.get(iface, {}),
+                'addrs': net_if_addrs.get(iface, [])
+            }
+
+        return interfaces
+
+    def prefix_to_netmask(self, prefix):
+        """将前缀长度转换为子网掩码"""
+        mask = (0xffffffff << (32 - prefix)) & 0xffffffff
+        return socket.inet_ntoa(struct.pack('>I', mask))
+
+    def __get_active_interface(self):
+        """获取活动网卡（参考get_net_info的__get_devices_info）"""
+        for iface in self.__get_all_interfaces():
+            cmd = f"ethtool {iface} | grep 'Link detected:'"
+            result = subprocess.getoutput(cmd)
+            if 'yes' in result.lower():
+                return iface
+        return ""
+
+    def __collect_real_time_data(self):
+        """使用/proc/net/dev采集实时网络数据"""
+        try:
+            # 获取所有接口的当前统计
+            current_stats = {}
+            try:
+                with open('/proc/net/dev', 'r') as f:
+                    lines = f.readlines()
+
+                # 跳过前两行标题
+                for line in lines[2:]:
+                    if ':' not in line:
+                        continue
+
+                    # 解析行数据
+                    parts = re.split(r'\s+', line.strip())
+                    iface = parts[0].rstrip(':')
+
+                    # 提取统计信息
+                    rx_bytes = int(parts[1])
+                    tx_bytes = int(parts[9])
+                    rx_packets = int(parts[2])
+                    tx_packets = int(parts[10])
+                    rx_errors = int(parts[3])
+                    tx_errors = int(parts[11])
+                    rx_dropped = int(parts[4])
+                    tx_dropped = int(parts[12])
+
+                    current_stats[iface] = {
+                        'bytes_sent': tx_bytes,
+                        'bytes_recv': rx_bytes,
+                        'packets_sent': tx_packets,
+                        'packets_recv': rx_packets,
+                        'errin': rx_errors,
+                        'errout': tx_errors,
+                        'dropin': rx_dropped,
+                        'dropout': tx_dropped,
+                        'timestamp': time.time()
+                    }
+            except Exception as e:
+                Logger().error(f"Error reading /proc/net/dev: {e}")
+
+            # 计算速度（如果存在上一次统计）
+            if self.last_stats:
+                time_diff = time.time() - min([stat['timestamp'] for stat in self.last_stats.values()])
+                if time_diff > 0:
+                    for iface, current in current_stats.items():
+                        if iface in self.last_stats:
+                            last = self.last_stats[iface]
+                            rx_diff = current['bytes_recv'] - last['bytes_recv']
+                            tx_diff = current['bytes_sent'] - last['bytes_sent']
+
+                            rx_speed = rx_diff / time_diff / 1024  # KB/s
+                            tx_speed = tx_diff / time_diff / 1024  # KB/s
+
+                            current['rx_speed'] = rx_speed
+                            current['tx_speed'] = tx_speed
+                        else:
+                            current['rx_speed'] = 0.0
+                            current['tx_speed'] = 0.0
+                else:
+                    for iface in current_stats:
+                        current_stats[iface]['rx_speed'] = 0.0
+                        current_stats[iface]['tx_speed'] = 0.0
+
+            # 更新最后一次统计
+            self.last_stats = current_stats
+
+            # 定期更新接口状态信息（每10次循环更新一次）
+            if self.status_counter % 10 == 0:
+                net_interfaces = self.__get_interface_stats()
+                active_iface = self.__get_active_interface()
+                self.status_counter = 0
+            else:
+                net_interfaces = self.data.get('net_interfaces', {})
+                active_iface = self.data.get('net_interface', "")
+
+            self.status_counter += 1
+
+            # 更新数据
+            self.data = {
+                'net_interface': active_iface,
+                'rx_speed': current_stats.get(active_iface, {}).get('rx_speed', 0.0),
+                'net_io': current_stats,
+                'net_interfaces': net_interfaces
+            }
+
+            # 广播数据
+            GlobalCall.real_time_net_data = self.data
+
+        except Exception as e:
+            Logger().error(f"Error collecting network data: {e}")
+
+    def start_broadcasting(self):
+        """启动广播线程"""
+        if self.thread and self.thread.is_alive():
+            return
+
+        self._stop_event.clear()
+        self.thread = threading.Thread(target=self._broadcast_loop)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def _broadcast_loop(self):
+        """广播循环"""
+        # 初始化最后一次统计
+        self.__collect_real_time_data()
+
+        while not self._stop_event.is_set():
+            self.__collect_real_time_data()
+            time.sleep(self.interval)
+
+    def stop_broadcasting(self):
+        """停止广播"""
+        self._stop_event.set()
+        if self.thread:
+            self.thread.join(timeout=1)
+
+    def get_current_data(self):
+        """获取当前网络数据"""
+        return self.data
 
 # net class
 @DecoratorWrap.singleton

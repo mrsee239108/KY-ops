@@ -45,8 +45,10 @@ class RealTimeCPU:
         self._stop_event = threading.Event()
         self.thread = None
         self.data = {
+            'model_name': '',
             'total_usage': 0.0,
-            'core_usage': []
+            'core_usage': [],
+            'cpu_count': 0
         }
         # 添加广播功能
         GlobalCall.real_time_cpu_data = self.data
@@ -62,6 +64,7 @@ class RealTimeCPU:
             lines = output.splitlines()
             core_data = []
             total_usage = 0.0
+            cpu_counter = 0
 
             for line in lines:
                 if line.startswith('Average:') or line.startswith('平均时间:'):
@@ -70,15 +73,33 @@ class RealTimeCPU:
                         total_usage = 100.0 - float(parts[11])  # %idle
                     elif parts[1].isdigit():
                         core_id = int(parts[1])
+                        cpu_counter = cpu_counter + 1
                         idle = float(parts[11])
                         usage = 100.0 - idle
                         core_data.append(usage)
 
+            # 解析输出
+
+            # 使用 cat /proc/cpuinfo 命令获取CPU型号
+            cmd = "cat /proc/cpuinfo | grep 'model name' | head -n 1"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+
+            # 解析输出
+            lines = output.splitlines()
+            model_name = ''
+            for line in lines:
+                if line.startswith('model name'):
+                    parts = line.split(':')
+                    model_name = parts[1].strip()
+                    break
+
+
             # 更新数据
             self.data = {
-                'model_name': cpu_model,
+                'model_name': model_name,
                 'total_usage': total_usage,
-                'core_usage': core_data
+                'core_usage': core_data,
+                'cpu_count': cpu_counter
             }
             # 广播数据
             GlobalCall.real_time_cpu_data = self.data

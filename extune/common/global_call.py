@@ -19,6 +19,11 @@ from .log import Logger
 class GlobalCall:
     # global thread pool object
     real_time_cpu_data = [] # object to store real-time cpu data
+    real_time_mem_data = []
+    real_time_net_data = []
+    real_time_disk_data = []
+    real_time_jvm_data = []
+
 
     monitor_info_thread_pool = ThreadPool()
     output_cpu_file = "CPUInfo.txt"

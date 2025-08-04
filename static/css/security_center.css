@@ -4,28 +4,99 @@
     box-sizing: border-box;
 }
 
+/* 定义颜色变量 - 深色模式 */
+:root {
+    /* 背景色 */
+    --bg-primary: #2d2d2d;
+    --bg-secondary: #3c3c3c;
+    --bg-tertiary: rgba(255, 255, 255, 0.1);
+    --bg-quaternary: rgba(255, 255, 255, 0.05);
+    --bg-gradient: linear-gradient(135deg, rgba(179, 222, 239, 0.1) 0%, rgba(1, 67, 128, 0.1) 100%);
+    --bg-body-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    
+    /* 文本色 */
+    --text-primary: #ffffff;
+    --text-secondary: #8e8e93;
+    --text-success: #30d158;
+    --text-danger: #ff453a;
+    --text-warning: #ff9f0a;
+    --text-accent: #007aff;
+    
+    /* 边框色 */
+    --border-primary: #4a4a4a;
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-tertiary: rgba(255, 255, 255, 0.2);
+    
+    /* 特殊元素背景 */
+    --bg-success: rgba(48, 209, 88, 0.2);
+    --bg-danger: rgba(255, 69, 58, 0.1);
+    --bg-warning: rgba(255, 159, 10, 0.2);
+    --bg-accent: rgba(0, 122, 255, 0.2);
+    --bg-accent-light: rgba(0, 122, 255, 0.1);
+    
+    /* 阴影 */
+    --shadow-primary: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-secondary: 0 8px 24px rgba(0, 0, 0, 0.3);
+    
+    /* 卡片背景 */
+    --bg-card: rgba(45, 45, 45, 0.95);
+}
+
+/* 更新body样式 */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
-    color: #333333;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 更新模态框样式 */
+.modal {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+}
+
+.modal-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.modal-header h3 {
+    color: var(--text-primary);
+}
+
+/* 更新推荐项和历史项文本颜色 */
+.recommendation-title, .history-title {
+    color: var(--text-primary);
+}
+
+.recommendation-description, .history-description {
+    color: var(--text-secondary);
+}
+
+/* 更新扫描统计文本颜色 */
+.scan-stat .stat-value {
+    color: var(--text-primary);
 }
 
 .security-center {
     min-height: 100vh;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    background: var(--bg-primary);
+    transition: background-color 0.3s ease;
 }
 
 /* 标题栏 */
 .title-bar {
     height: 32px;
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    border-bottom: 1px solid #4a4a4a;
+    border-bottom: 1px solid var(--border-primary);
     -webkit-app-region: drag;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .title-bar-left {
@@ -33,12 +104,13 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     -webkit-app-region: no-drag;
+    transition: color 0.3s ease;
 }
 
 .title-bar-left i {
-    color: #ffa500;
+    color: var(--text-warning);
 }
 
 .window-controls {
@@ -66,11 +138,11 @@ body {
 }
 
 .control-btn.refresh {
-    background-color: #28ca42;
+    background-color: var(--text-success);
 }
 
 .control-btn.back {
-    background-color: #ff5f57;
+    background-color: var(--text-danger);
 }
 
 .title-content {
@@ -81,13 +153,14 @@ body {
 
 .title-content i {
     font-size: 24px;
-    color: #107c10;
+    color: var(--text-success);
 }
 
 .title-content h1 {
     font-size: 28px;
     font-weight: 300;
-    color: #333333;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .title-actions {
@@ -101,7 +174,7 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #666666;
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -111,8 +184,8 @@ body {
 }
 
 .title-btn:hover {
-    background-color: rgba(16, 124, 16, 0.1);
-    color: #107c10;
+    background-color: var(--bg-success);
+    color: var(--text-success);
 }
 
 /* 主要内容 */
@@ -124,20 +197,21 @@ body {
 
 /* 统一卡片样式 */
 .security-overview, .security-card, .recommendations-section, .history-section {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-secondary);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-primary);
     transition: all 0.3s ease;
+    color: var(--text-primary);
 }
 
 .security-overview:hover, .security-card:hover, .recommendations-section:hover, .history-section:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    border-color: rgba(179, 222, 239, 0.4);
+    box-shadow: var(--shadow-secondary);
+    border-color: rgba(179, 222, 239, 0.6);
 }
 
 /* 安全状态概览 */
@@ -146,17 +220,18 @@ body {
 }
 
 .overview-card {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--bg-card);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 40px;
     display: flex;
     align-items: center;
     gap: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-primary);
+    border: 1px solid var(--border-secondary);
     position: relative;
     overflow: hidden;
+    color: var(--text-primary);
 }
 
 .overview-card::before {
@@ -166,14 +241,14 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #107c10, #16c60c);
+    background: linear-gradient(90deg, var(--text-success), var(--text-success));
 }
 
 .status-icon-large {
     width: 80px;
     height: 80px;
     border-radius: 20px;
-    background: linear-gradient(135deg, #107c10, #16c60c);
+    background: linear-gradient(135deg, var(--text-success), var(--text-success));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,8 +265,9 @@ body {
 .status-content h2 {
     font-size: 32px;
     font-weight: 300;
-    color: #333333;
+    color: var(--text-primary);
     margin-bottom: 8px;
+    transition: color 0.3s ease;
 }
 
 .status-message {
@@ -203,7 +279,7 @@ body {
 
 .status-detail {
     font-size: 14px;
-    color: #666666;
+    color: #b0b0b0;
     margin-bottom: 25px;
 }
 
@@ -237,12 +313,12 @@ body {
 
 .action-btn.secondary {
     background-color: transparent;
-    color: #0078d4;
-    border: 1px solid #0078d4;
+    color: #00a0ff;
+    border: 1px solid #00a0ff;
 }
 
 .action-btn.secondary:hover {
-    background-color: rgba(0, 120, 212, 0.1);
+    background-color: rgba(0, 120, 212, 0.2);
 }
 
 /* 安全功能卡片 */
@@ -254,18 +330,19 @@ body {
 }
 
 .feature-card {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(45, 45, 45, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    color: #ffffff;
 }
 
 .feature-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .feature-header {
@@ -295,7 +372,7 @@ body {
 .feature-info h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #333333;
+    color: #ffffff;
     margin-bottom: 3px;
 }
 
@@ -390,7 +467,7 @@ input:checked + .toggle-slider:before {
 }
 
 .feature-btn:hover {
-    background-color: rgba(0, 120, 212, 0.2);
+    background-color: rgba(0, 120, 212, 0.3);
 }
 
 .feature-details {
@@ -400,7 +477,7 @@ input:checked + .toggle-slider:before {
 
 .feature-details p {
     font-size: 14px;
-    color: #666666;
+    color: #b0b0b0;
     margin-bottom: 15px;
 }
 
@@ -418,25 +495,26 @@ input:checked + .toggle-slider:before {
 
 .stat-label {
     font-size: 12px;
-    color: #888888;
+    color: #d0d0d0;
 }
 
 .stat-value {
     font-size: 14px;
     font-weight: 600;
-    color: #333333;
+    color: #ffffff;
 }
 
 /* 安全建议 */
 .recommendations-section,
 .history-section {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(45, 45, 45, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .section-header {
@@ -451,7 +529,7 @@ input:checked + .toggle-slider:before {
 .section-header h2 {
     font-size: 20px;
     font-weight: 600;
-    color: #333333;
+    color: #ffffff;
 }
 
 .section-btn {
@@ -460,7 +538,7 @@ input:checked + .toggle-slider:before {
     border: none;
     border-radius: 8px;
     background-color: transparent;
-    color: #666666;
+    color: #b0b0b0;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -469,14 +547,14 @@ input:checked + .toggle-slider:before {
 }
 
 .section-btn:hover {
-    background-color: rgba(0, 120, 212, 0.1);
-    color: #0078d4;
+    background-color: rgba(0, 120, 212, 0.2);
+    color: #00a0ff;
 }
 
 .history-controls {
     display: flex;
     gap: 5px;
-    background-color: #f5f5f5;
+    background-color: #3a3a3a;
     border-radius: 8px;
     padding: 4px;
 }
@@ -486,7 +564,7 @@ input:checked + .toggle-slider:before {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #666666;
+    color: #b0b0b0;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -494,8 +572,8 @@ input:checked + .toggle-slider:before {
 }
 
 .history-btn:hover {
-    background-color: rgba(0, 120, 212, 0.1);
-    color: #0078d4;
+    background-color: rgba(0, 120, 212, 0.2);
+    color: #00a0ff;
 }
 
 .history-btn.active {

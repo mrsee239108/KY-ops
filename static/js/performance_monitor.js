@@ -383,7 +383,7 @@ class PerformanceMonitor {
             memory_percent: Math.random() * 30 + 15,
             memory_used: 8 * 1024 * 1024 * 1024, // 8GB
             memory_total: 31 * 1024 * 1024 * 1024, // 31GB
-            memory_available: 23 * 1024 * 1024 * 1024, // 23GB
+            memory_free: 23 * 1024 * 1024 * 1024, // 23GB
             memory_cached: 128 * 1024 * 1024, // 128MB
             memory_buffers: 64 * 1024 * 1024, // 64MB
             disk_usage: Math.random() * 40 + 20,
@@ -422,7 +422,7 @@ class PerformanceMonitor {
             value: data.memory_percent || 0,
             used: data.memory_used || 0,
             total: data.memory_total || 0,
-            available: data.memory_available || 0,
+            available: data.memory_free || 0,
             cached: data.memory_cached || 0,
             buffers: data.memory_buffers || 0
         });
@@ -441,8 +441,9 @@ class PerformanceMonitor {
         // 更新网络数据
         this.performanceData.network.push({
             timestamp,
-            sent: data.network_io ? data.network_io.bytes_sent / 1024 / 1024 : 0,
-            recv: data.network_io ? data.network_io.bytes_recv / 1024 / 1024 : 0,
+            // KB/s -> MB/s
+            sent: data.network_io ? data.tx_speed / 1024 : 0,
+            recv: data.network_io ? data.rx_speed / 1024 : 0,
             interfaces: data.network_interfaces || {}
         });
 
@@ -519,44 +520,61 @@ class PerformanceMonitor {
         console.log('开始更新UI，接收到的数据:', data);
         
         // 更新概览页面的数值
-        this.updateElement('cpu-usage', `${Math.round(data.cpu_average || 0)}%`);
-        this.updateElement('cpu-usage-text', `${Math.round(data.cpu_average || 0)}%`);
-        this.updateElement('memory-usage', `${Math.round(data.memory_percent || 0)}%`);
-        
+        this.updateElement('cpu-usage', `${(data.cpu_average || 0).toFixed(2)}%`);
+        this.updateElement('cpu-usage-text', `${(data.cpu_average || 0).toFixed(2)}%`);
+        this.updateElement('memory-usage', `${(data.memory_percent || 0).toFixed(2)}%`);
+        this.updateElement('memory-usage-text', `已使用：${this.formatBytes(data.memory_used || 0)}`);
         // 更新CPU名称和详细信息
         if (data.cpu_name) {
             this.updateElement('cpu-model', data.cpu_name);
-            this.updateElement('cpu-details-header', `${data.cpu_name} - ${Math.round(data.cpu_average || 0)}%`);
+            this.updateElement('cpu-details-header', `${data.cpu_name} - ${(data.cpu_average || 0).toFixed(2)}%`);
         }
         
         // 更新内存大小和详细信息
         if (data.memory_total) {
             this.updateElement('memory-size', this.formatBytes(data.memory_total));
             this.updateElement('memory-details-header', 
-                `${this.formatBytes(data.memory_total)} 总内存 - ${Math.round(data.memory_percent || 0)}% 已使用`);
+                `${this.formatBytes(data.memory_total)} 总内存 - ${(data.memory_percent || 0).toFixed(2)}% 已使用`);
         }
         
         // 计算平均磁盘使用率
         const avgDiskUsage = data.disk_usage ? 
             data.disk_usage.reduce((sum, disk) => sum + disk.percent, 0) / data.disk_usage.length : 0;
-        this.updateElement('disk-usage', `${Math.round(avgDiskUsage)}%`);
-        
+        this.updateElement('disk-usage', `${(avgDiskUsage).toFixed(2)}%`);
+        this.updateElement('disk-usage-text',`${(avgDiskUsage).toFixed(2)}%`)
+
         // 计算总体负载
-        const totalLoad = data.load_avg ? Math.round(data.load_avg[0] * 100) : Math.round(data.cpu_average || 0);
-        this.updateElement('total-load', `${totalLoad}%`);
+        //const totalLoad = data.load_avg ? Math.round(data.load_avg[0] * 100) : Math.round(data.cpu_average || 0);
+        //改成小数：
+        const totalLoad = data.load_avg ? data.load_avg[0] : data.cpu_average || 0;
+        this.updateElement('total-load', `${100*((totalLoad)?.toFixed(2))}%`);
 
         // 更新负载平均值
         if (data.load_avg) {
-            this.updateElement('load-1min', data.load_avg[0]?.toFixed(2) || '0.00');
-            this.updateElement('load-5min', data.load_avg[1]?.toFixed(2) || '0.00');
-            this.updateElement('load-15min', data.load_avg[2]?.toFixed(2) || '0.00');
+            this.updateElement('load-1min', `${(data.load_avg[0]?.toFixed(2)*100)}%` || '0%');
+            this.updateElement('load-5min', `${(data.load_avg[1]?.toFixed(2)*100)}%` || '0%');
+            this.updateElement('load-15min', `${(data.load_avg[2]?.toFixed(2)*100)}%` || '0%');
         }
+
+        //是否有CPU详细信息
+        this.updateElement('usr', data.cpu_details.usr?.toFixed(2) || '0.00');
+        this.updateElement('nice', data.cpu_details.nice?.toFixed(2) || '0.00');
+        this.updateElement('sys', data.cpu_details.sys?.toFixed(2) || '0.00');
+        this.updateElement('iowait', data.cpu_details.iowait?.toFixed(2) || '0.00');
+        this.updateElement('irq', data.cpu_details.irq?.toFixed(2) || '0.00');
+        this.updateElement('soft', data.cpu_details.soft?.toFixed(2) || '0.00');
+        this.updateElement('steal', data.cpu_details.steal?.toFixed(2) || '0.00');
+        this.updateElement('guest', data.cpu_details.guest?.toFixed(2) || '0.00');
+        this.updateElement('gnice', data.cpu_details.gnice?.toFixed(2) || '0.00');
+        this.updateElement('idle', data.cpu_details.idle?.toFixed(2) || '0.00');
+
 
         // 更新内存详细信息
         this.updateElement('memory-used', this.formatBytes(data.memory_used || 0));
-        this.updateElement('memory-available', this.formatBytes(data.memory_available || 0));
+        this.updateElement('memory-free', this.formatBytes(data.memory_free || 0));
         this.updateElement('memory-cached', this.formatBytes(data.memory_cached || 0));
         this.updateElement('memory-buffers', this.formatBytes(data.memory_buffers || 0));
+
 
         // 更新CPU详细信息
         this.updateCpuDetails(data);
@@ -567,9 +585,9 @@ class PerformanceMonitor {
         console.log('CPU核心数据是否为数组:', Array.isArray(data.cpu_percent));
         if (data.cpu_percent) {
             console.log('CPU核心数据长度:', data.cpu_percent.length);
-            console.log('前5个核心数据:', data.cpu_percent.slice(0, 5));
+            console.log('核心数据:', data.cpu_percent_per_core);
         }
-        this.updateCpuCores(data.cpu_percent || []);
+        this.updateCpuCores(data.cpu_percent_per_core || []);
 
         // 更新磁盘列表
         this.updateDiskList(data.disk_usage || []);
@@ -703,9 +721,9 @@ class PerformanceMonitor {
             }
             
             // 显示每个核心的频率信息
-            if (cores.length > 0) {
-                this.updateCoreFrequencies(cores);
-            }
+            // if (cores.length > 0) {
+            //     this.updateCoreFrequencies(cores);
+            // }
         }
         
         // 更新CPU核心数
@@ -779,17 +797,17 @@ class PerformanceMonitor {
 
     updateTopProcesses(processes) {
         const container = document.getElementById('top-processes');
-        if (!container) return;
+        if (!container || !Array.isArray(processes)) return;
 
         container.innerHTML = '';
         processes.slice(0, 5).forEach((proc, index) => {
             const processItem = document.createElement('div');
             processItem.className = 'process-item';
             processItem.innerHTML = `
-                <div class="process-name">${proc.name || 'Unknown'}</div>
+                <div class="process-name">${proc.command || 'Unknown'}</div>
                 <div class="process-pid">PID: ${proc.pid || 'N/A'}</div>
                 <div class="process-cpu">${(proc.cpu_percent || 0).toFixed(1)}%</div>
-                <div class="process-memory">${(proc.memory_percent || 0).toFixed(1)}%</div>
+                <div class="process-memory">${(proc.mem_percent || 0).toFixed(1)}%</div>
             `;
             container.appendChild(processItem);
         });
@@ -824,164 +842,100 @@ class PerformanceMonitor {
     }
 
     updateCpuCores(coreData) {
-        const container = document.getElementById('cpu-core-grid');
-        if (!container) return;
-
         // 确保coreData是数组且有数据
         if (!Array.isArray(coreData) || coreData.length === 0) {
             console.log('CPU核心数据为空或无效:', coreData);
             return;
         }
 
-        console.log('更新CPU核心数据:', coreData);
+        const container = document.getElementById('cpu-core-grid');
+        if (!container) return;
 
-        // 检查是否需要初始化CPU核心卡片
-        const existingCores = container.querySelectorAll('.cpu-core-item');
-        
-        if (existingCores.length !== coreData.length) {
-            // 只有在核心数量不匹配时才重建
-            container.innerHTML = '';
-            coreData.forEach((usage, index) => {
-                const coreItem = document.createElement('div');
-                coreItem.className = 'cpu-core-item';
-                coreItem.innerHTML = `
-                    <h4>核心 ${index + 1}</h4>
-                    <div class="cpu-core-usage" id="cpu-core-${index}">${Math.round(usage || 0)}%</div>
-                `;
-                container.appendChild(coreItem);
-            });
-        } else {
-            // 只更新数字参数
-            coreData.forEach((usage, index) => {
-                const usageElement = document.getElementById(`cpu-core-${index}`);
-                if (usageElement) {
-                    const roundedUsage = Math.round(usage || 0);
-                    usageElement.textContent = `${roundedUsage}%`;
-                    console.log(`核心 ${index + 1}: ${roundedUsage}%`);
-                }
-            });
-        }
+        // 清空容器并重新创建核心项
+        container.innerHTML = '';
+        coreData.forEach((usage, index) => {
+            const coreItem = document.createElement('div');
+            coreItem.className = 'cpu-core-item';
+            coreItem.innerHTML = `
+                <h4>核心 ${index + 1}</h4>
+                <div class="cpu-core-usage">${Math.round(usage || 0)}%</div>
+            `;
+            container.appendChild(coreItem);
+        });
     }
 
-    updateDiskList() {
+    updateDiskList(disks) {
         const container = document.getElementById('disk-list');
-        if (!container) return;
+        if (!container || !Array.isArray(disks)) return;
 
-        const mockDisks = [
-            { name: 'C:', path: '/dev/vda1', usage: Math.random() * 40 + 20, used: '45 GB', total: '167 GB' },
-            { name: 'D:', path: '/dev/vda2', usage: Math.random() * 30 + 10, used: '23 GB', total: '150 GB' }
-        ];
-
-        // 检查是否需要初始化磁盘卡片
-        const existingDisks = container.querySelectorAll('.disk-item');
-        
-        if (existingDisks.length !== mockDisks.length) {
-            // 只有在磁盘数量不匹配时才重建
-            container.innerHTML = '';
-            mockDisks.forEach((disk, index) => {
-                const diskItem = document.createElement('div');
-                diskItem.className = 'disk-item';
-                diskItem.innerHTML = `
-                    <div class="disk-info-detailed">
-                        <div class="disk-name-detailed">${disk.name}</div>
-                        <div class="disk-path">${disk.path}</div>
+        container.innerHTML = '';
+        disks.forEach((disk, index) => {
+            const diskItem = document.createElement('div');
+            diskItem.className = 'disk-item';
+            diskItem.innerHTML = `
+                <div class="disk-info-detailed">
+                    <div class="disk-name-detailed">${disk.device || disk.mountpoint}</div>
+                    <div class="disk-path">${disk.mountpoint}</div>
+                </div>
+                <div class="disk-usage-detailed">
+                    <div class="disk-usage-percent">${Math.round(disk.percent)}%</div>
+                    <div class="disk-usage-size">
+                        ${this.formatBytes(disk.used)} / ${this.formatBytes(disk.total)}
                     </div>
-                    <div class="disk-usage-detailed">
-                        <div class="disk-usage-percent" id="disk-usage-${index}">${Math.round(disk.usage)}%</div>
-                        <div class="disk-usage-size" id="disk-size-${index}">${disk.used} / ${disk.total}</div>
-                    </div>
-                `;
-                container.appendChild(diskItem);
-            });
-        } else {
-            // 只更新数字参数
-            mockDisks.forEach((disk, index) => {
-                const usageElement = document.getElementById(`disk-usage-${index}`);
-                const sizeElement = document.getElementById(`disk-size-${index}`);
-                
-                if (usageElement) {
-                    usageElement.textContent = `${Math.round(disk.usage)}%`;
-                }
-                if (sizeElement) {
-                    sizeElement.textContent = `${disk.used} / ${disk.total}`;
-                }
-            });
-        }
+                </div>
+            `;
+            container.appendChild(diskItem);
+        });
     }
 
-    updateNetworkInterfaces() {
-        const container = document.getElementById('network-interfaces');
-        if (!container) return;
+updateNetworkInterfaces(interfaces) {
+    const container = document.getElementById('network-interfaces');
+    if (!container || typeof interfaces !== 'object') return;
 
-        const mockInterfaces = [
-            {
-                name: 'Wi-Fi (WLAN)',
-                status: '已连接',
-                sent: `${(Math.random() * 2).toFixed(1)} MB/s`,
-                received: `${(Math.random() * 10 + 2).toFixed(1)} MB/s`,
-                ip: '192.168.1.100',
-                mac: '00:1B:44:11:3A:B7'
-            },
-            {
-                name: '以太网',
-                status: '已断开',
-                sent: '0 MB/s',
-                received: '0 MB/s',
-                ip: '未分配',
-                mac: '00:1B:44:11:3A:B8'
-            }
-        ];
+    container.innerHTML = '';
+    Object.keys(interfaces).forEach((ifaceName, index) => {
+        const iface = interfaces[ifaceName];
+        const stats = iface.stats || {};
 
-        // 检查是否需要初始化网络接口卡片
-        const existingInterfaces = container.querySelectorAll('.network-interface');
-        
-        if (existingInterfaces.length !== mockInterfaces.length) {
-            // 只有在接口数量不匹配时才重建
-            container.innerHTML = '';
-            mockInterfaces.forEach((iface, index) => {
-                const interfaceItem = document.createElement('div');
-                interfaceItem.className = 'network-interface';
-                interfaceItem.innerHTML = `
-                    <div class="interface-header">
-                        <div class="interface-name">${iface.name}</div>
-                        <div class="interface-status" id="interface-status-${index}">${iface.status}</div>
-                    </div>
-                    <div class="interface-stats">
-                        <div class="interface-stat">
-                            <span class="stat-label">发送</span>
-                            <span class="stat-value" id="interface-sent-${index}">${iface.sent}</span>
-                        </div>
-                        <div class="interface-stat">
-                            <span class="stat-label">接收</span>
-                            <span class="stat-value" id="interface-received-${index}">${iface.received}</span>
-                        </div>
-                        <div class="interface-stat">
-                            <span class="stat-label">IP 地址</span>
-                            <span class="stat-value" id="interface-ip-${index}">${iface.ip}</span>
-                        </div>
-                        <div class="interface-stat">
-                            <span class="stat-label">MAC 地址</span>
-                            <span class="stat-value" id="interface-mac-${index}">${iface.mac}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(interfaceItem);
-            });
-        } else {
-            // 只更新动态数字参数
-            mockInterfaces.forEach((iface, index) => {
-                const statusElement = document.getElementById(`interface-status-${index}`);
-                const sentElement = document.getElementById(`interface-sent-${index}`);
-                const receivedElement = document.getElementById(`interface-received-${index}`);
-                const ipElement = document.getElementById(`interface-ip-${index}`);
-                
-                if (statusElement) statusElement.textContent = iface.status;
-                if (sentElement) sentElement.textContent = iface.sent;
-                if (receivedElement) receivedElement.textContent = iface.received;
-                if (ipElement) ipElement.textContent = iface.ip;
-            });
-        }
-    }
+        // 提取IPv4地址和MAC地址
+        const ipv4Addr = iface.addrs?.find(addr => addr.type === 'IPv4')?.address || 'N/A';
+        const macAddr = iface.addrs?.find(addr => addr.type === 'MAC')?.address || 'N/A';
+
+        // 格式化网络速度
+        const formatSpeed = (speed) => {
+            if (speed === 0) return 'N/A';
+            return speed >= 1000 ? `${speed/1000} Gbps` : `${speed} Mbps`;
+        };
+
+        const interfaceItem = document.createElement('div');
+        interfaceItem.className = 'network-interface';
+        interfaceItem.innerHTML = `
+            <div class="interface-header">
+                <div class="interface-name">${ifaceName}</div>
+                <div class="interface-status">${stats.is_up ? '已连接' : '已断开'}</div>
+            </div>
+            <div class="interface-stats">
+                <div class="interface-stat">
+                    <span class="stat-label">IP 地址</span>
+                    <span class="stat-value">${ipv4Addr}</span>
+                </div>
+                <div class="interface-stat">
+                    <span class="stat-label">MAC 地址</span>
+                    <span class="stat-value">${macAddr}</span>
+                </div>
+                <div class="interface-stat">
+                    <span class="stat-label">MTU</span>
+                    <span class="stat-value">${stats.mtu || 'N/A'}</span>
+                </div>
+                <div class="interface-stat">
+                    <span class="stat-label">速度</span>
+                    <span class="stat-value">${formatSpeed(stats.speed || 0)}</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(interfaceItem);
+    });
+}
 
     formatBytes(bytes) {
         if (bytes === 0) return '0 B';

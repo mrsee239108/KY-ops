@@ -23,7 +23,96 @@ except:
     from ..common.log import Logger
     from ..common.global_call import GlobalCall
 
+import threading
+import time
+import subprocess
+import re
 import os
+import psutil
+
+
+class RealTimeDisk:
+    def __init__(self, interval=2):
+        self.interval = interval
+        self._stop_event = threading.Event()
+        self.thread = None
+        self.data = {
+            'disk_usage': [],
+            'disk_io': {
+                'read_bytes': 0,
+                'write_bytes': 0,
+                'read_count': 0,
+                'write_count': 0
+            }
+        }
+        # 添加广播功能
+        GlobalCall.real_time_disk_data = self.data
+
+    def __collect_real_time_data(self):
+        try:
+            # 1. 收集磁盘使用情况
+            disk_usage = []
+            partitions = psutil.disk_partitions()
+            for partition in partitions:
+                try:
+                    usage = psutil.disk_usage(partition.mountpoint)
+                    disk_usage.append({
+                        'device': partition.device,
+                        'mountpoint': partition.mountpoint,
+                        'fstype': partition.fstype,
+                        'total': usage.total,
+                        'used': usage.used,
+                        'free': usage.free,
+                        'percent': usage.percent
+                    })
+                except Exception:
+                    continue
+
+            # 2. 收集磁盘IO信息
+            disk_io = psutil.disk_io_counters()
+            disk_io_data = {
+                'read_bytes': disk_io.read_bytes,
+                'write_bytes': disk_io.write_bytes,
+                'read_count': disk_io.read_count,
+                'write_count': disk_io.write_count
+            }
+
+            # 更新数据
+            self.data = {
+                'disk_usage': disk_usage,
+                'disk_io': disk_io_data
+            }
+            # 广播数据
+            GlobalCall.real_time_disk_data = self.data
+
+        except Exception as e:
+            print(f"Error collecting disk data: {e}")
+
+    def start_broadcasting(self):
+        """启动广播线程"""
+        if self.thread is not None and self.thread.is_alive():
+            return
+
+        self._stop_event.clear()
+        self.thread = threading.Thread(target=self._broadcast_loop)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def _broadcast_loop(self):
+        """广播循环"""
+        while not self._stop_event.is_set():
+            self.__collect_real_time_data()
+            time.sleep(self.interval)
+
+    def stop_broadcasting(self):
+        """停止广播"""
+        self._stop_event.set()
+        if self.thread is not None:
+            self.thread.join(timeout=1)
+
+    def get_current_data(self):
+        """获取当前磁盘数据"""
+        return self.data
 
 class DiskInfo:
     def __init__(self, t_fileName):

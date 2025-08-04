@@ -113,7 +113,7 @@
                         <div class="card-content">
                             <div class="disk-info">
                                 <div class="disk-name">Vda1</div>
-                                <div class="disk-usage-text">27%</div>
+                                <div class="disk-usage-text", id="disk-usage-text">27%</div>
                             </div>
                             <div class="chart-container">
                                 <canvas id="disk-chart"></canvas>
@@ -166,27 +166,27 @@
                     <div class="process-stats">
                         <div class="process-row">
                             <span class="process-label">user</span>
-                            <span class="process-value">1.9</span>
+                            <span class="process-value" id="usr">1.9</span>
                             <span class="process-label">nice</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="nice">0</span>
                             <span class="process-label">system</span>
-                            <span class="process-value">1.4</span>
+                            <span class="process-value" id="sys">1.4</span>
                             <span class="process-label">idle</span>
-                            <span class="process-value">96</span>
+                            <span class="process-value" id="idle">96</span>
                             <span class="process-label">iowait</span>
-                            <span class="process-value">0.7</span>
+                            <span class="process-value" id="iowait">0.7</span>
                             <span class="process-label">irq</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="irq">0</span>
                         </div>
                         <div class="process-row">
                             <span class="process-label">softirq</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="soft">0</span>
                             <span class="process-label">steal</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="steal">0</span>
                             <span class="process-label">guest</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="guest">0</span>
                             <span class="process-label">guest_nice</span>
-                            <span class="process-value">0</span>
+                            <span class="process-value" id="gnice">0</span>
                             <span class="process-label">总进程数</span>
                             <span class="process-value">136</span>
                             <span class="process-label">活动进程数</span>
@@ -297,16 +297,16 @@
                     </div>
                     <div class="memory-item">
                         <span class="memory-type">可用</span>
-                        <span class="memory-value" id="memory-available">加载中...</span>
+                        <span class="memory-value" id="memory-free">加载中...</span>
                     </div>
                     <div class="memory-item">
                         <span class="memory-type">缓存</span>
                         <span class="memory-value" id="memory-cached">加载中...</span>
                     </div>
-                    <div class="memory-item">
-                        <span class="memory-type">缓冲区</span>
-                        <span class="memory-value" id="memory-buffers">加载中...</span>
-                    </div>
+{#                    <div class="memory-item">#}
+{#                        <span class="memory-type">缓冲区</span>#}
+{#                        <span class="memory-value" id="memory-buffers">加载中...</span>#}
+{#                    </div>#}
                 </div>
             </div>
 
@@ -342,219 +342,7 @@
                 </div>
         </div>
     </div>
+<script src="{{ url_for('static', filename='js/performance_monitor.js') }}"></script>
 
-    <script>
-        // 页面加载完成后初始化性能监控
-        document.addEventListener('DOMContentLoaded', function() {
-            initializePerformanceMonitor();
-            loadSystemInfo();
-            loadPerformanceData();
-            
-            // 每5秒更新一次性能数据
-            setInterval(loadPerformanceData, 5000);
-        });
-
-        function loadSystemInfo() {
-            fetch('/api/system-info')
-                .then(response => response.json())
-                .then(data => {
-                    // 更新CPU信息
-                    const cpuModel = document.getElementById('cpu-model');
-                    if (cpuModel) {
-                        cpuModel.textContent = data.cpu_model || '未知CPU';
-                    }
-                    
-                    // 更新内存大小信息
-                    const memorySize = document.getElementById('memory-size');
-                    if (memorySize) {
-                        memorySize.textContent = data.memory_total || '未知';
-                    }
-                    
-                    // 更新CPU详细信息
-                    const cpuDetailsHeader = document.getElementById('cpu-details-header');
-                    if (cpuDetailsHeader) {
-                        cpuDetailsHeader.textContent = `${data.cpu_model || '未知CPU'} - ${data.cpu_count || 'N/A'} 核心`;
-                    }
-                    
-                    // 更新内存详细信息
-                    const memoryDetailsHeader = document.getElementById('memory-details-header');
-                    if (memoryDetailsHeader) {
-                        memoryDetailsHeader.textContent = `总内存: ${data.memory_total || '未知'}`;
-                    }
-                    
-                    // 更新CPU核心信息
-                    const cpuCoresPhysical = document.getElementById('cpu-cores-physical');
-                    const cpuCoresLogical = document.getElementById('cpu-cores-logical');
-                    if (cpuCoresPhysical) {
-                        cpuCoresPhysical.textContent = data.cpu_count || 'N/A';
-                    }
-                    if (cpuCoresLogical) {
-                        cpuCoresLogical.textContent = data.cpu_count || 'N/A';
-                    }
-                    
-                    // 更新CPU频率信息
-                    const cpuFreqCurrent = document.getElementById('cpu-frequency-current');
-                    const cpuFreqMax = document.getElementById('cpu-frequency-max');
-                    if (cpuFreqCurrent && data.cpu_frequency) {
-                        cpuFreqCurrent.textContent = `${(data.cpu_frequency / 1000).toFixed(2)} GHz`;
-                    }
-                    if (cpuFreqMax) {
-                        cpuFreqMax.textContent = 'N/A'; // 从extunerData中无法获取最大频率
-                    }
-                })
-                .catch(error => {
-                    console.error('获取系统信息失败:', error);
-                });
-        }
-
-        function loadPerformanceData() {
-            fetch('/api/system-status')
-                .then(response => response.json())
-                .then(data => {
-                    // 更新CPU使用率
-                    updateCpuUsage(data.cpu_usage || 0);
-                    
-                    // 更新内存使用率
-                    updateMemoryUsage(data.memory_usage || 0, data);
-                    
-                    // 更新磁盘使用率
-                    updateDiskUsage(data.disk_percent || 0, data);
-                    
-                    // 更新网络信息
-                    updateNetworkInfo(data);
-                    
-                    // 更新负载平均值（模拟数据，因为extunerData中没有直接的负载平均值）
-                    updateLoadAverages(data.cpu_usage || 0);
-                    
-                    // 更新进程统计（使用模拟数据）
-                    updateProcessStats(data.cpu_usage || 0);
-                })
-                .catch(error => {
-                    console.error('获取性能数据失败:', error);
-                });
-        }
-
-        function updateCpuUsage(usage) {
-            const cpuUsageElements = document.querySelectorAll('#cpu-usage, .usage-percent');
-            cpuUsageElements.forEach(element => {
-                if (element.id === 'cpu-usage' || element.closest('.info-card')?.querySelector('h3')?.textContent === 'CPU') {
-                    element.textContent = `${usage.toFixed(1)}%`;
-                }
-            });
-            
-            const cpuUsageText = document.getElementById('cpu-usage-text');
-            if (cpuUsageText) {
-                cpuUsageText.textContent = `${usage.toFixed(1)}%`;
-            }
-        }
-
-        function updateMemoryUsage(percent, data) {
-            const memoryUsageElements = document.querySelectorAll('#memory-usage');
-            memoryUsageElements.forEach(element => {
-                element.textContent = `${percent.toFixed(1)}%`;
-            });
-            
-            const memoryUsageText = document.getElementById('memory-usage-text');
-            if (memoryUsageText) {
-                memoryUsageText.textContent = `${percent.toFixed(1)}%`;
-            }
-            
-            // 更新内存详细信息
-            const memoryUsed = document.getElementById('memory-used');
-            const memoryAvailable = document.getElementById('memory-available');
-            const memoryCached = document.getElementById('memory-cached');
-            const memoryBuffers = document.getElementById('memory-buffers');
-            
-            if (memoryUsed && data.memory_used) {
-                memoryUsed.textContent = formatBytes(data.memory_used);
-            }
-            if (memoryAvailable && data.memory_available) {
-                memoryAvailable.textContent = formatBytes(data.memory_available);
-            }
-            if (memoryCached) {
-                memoryCached.textContent = 'N/A'; // extunerData中没有缓存信息
-            }
-            if (memoryBuffers) {
-                memoryBuffers.textContent = 'N/A'; // extunerData中没有缓冲区信息
-            }
-        }
-
-        function updateDiskUsage(percent, data) {
-            const diskUsageElements = document.querySelectorAll('#disk-usage');
-            diskUsageElements.forEach(element => {
-                element.textContent = `${percent.toFixed(0)}%`;
-            });
-        }
-
-        function updateNetworkInfo(data) {
-            // 更新网络状态
-            const networkStatus = document.querySelector('.network-status');
-            if (networkStatus) {
-                networkStatus.textContent = 'ens160'; // 基于netInfo.txt中的接口名
-            }
-            
-            const networkName = document.querySelector('.network-name');
-            if (networkName) {
-                networkName.textContent = 'ens160';
-            }
-            
-            const networkType = document.querySelector('.network-type');
-            if (networkType) {
-                networkType.textContent = 'vmxnet3'; // 基于netInfo.txt中的驱动
-            }
-        }
-
-        function updateLoadAverages(cpuUsage) {
-            // 模拟负载平均值（基于CPU使用率）
-            const load1min = document.getElementById('load-1min');
-            const load5min = document.getElementById('load-5min');
-            const load15min = document.getElementById('load-15min');
-            
-            const simulatedLoad = (cpuUsage / 100).toFixed(2);
-            
-            if (load1min) load1min.textContent = simulatedLoad;
-            if (load5min) load5min.textContent = (simulatedLoad * 0.8).toFixed(2);
-            if (load15min) load15min.textContent = (simulatedLoad * 0.6).toFixed(2);
-            
-            // 更新总负载
-            const totalLoadElements = document.querySelectorAll('#total-load');
-            totalLoadElements.forEach(element => {
-                element.textContent = `${cpuUsage.toFixed(1)}%`;
-            });
-        }
-
-        function updateProcessStats(cpuUsage) {
-            // 更新进程统计（模拟数据）
-            const processValues = document.querySelectorAll('.process-value');
-            if (processValues.length >= 12) {
-                processValues[0].textContent = (cpuUsage * 0.6).toFixed(1); // user
-                processValues[1].textContent = '0'; // nice
-                processValues[2].textContent = (cpuUsage * 0.4).toFixed(1); // system
-                processValues[3].textContent = (100 - cpuUsage).toFixed(0); // idle
-                processValues[4].textContent = '0.7'; // iowait
-                processValues[5].textContent = '0'; // irq
-                processValues[6].textContent = '0'; // softirq
-                processValues[7].textContent = '0'; // steal
-                processValues[8].textContent = '0'; // guest
-                processValues[9].textContent = '0'; // guest_nice
-                processValues[10].textContent = '136'; // 总进程数（模拟）
-                processValues[11].textContent = Math.max(1, Math.floor(cpuUsage / 10)); // 活动进程数
-            }
-        }
-
-        function initializePerformanceMonitor() {
-            // 不再需要外部的PerformanceMonitor类
-            console.log('性能监控初始化完成');
-        }
-
-        // 格式化字节数
-        function formatBytes(bytes) {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
 </body>
 </html>

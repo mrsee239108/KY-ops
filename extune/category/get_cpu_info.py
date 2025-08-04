@@ -48,7 +48,11 @@ class RealTimeCPU:
             'model_name': '',
             'total_usage': 0.0,
             'core_usage': [],
-            'cpu_count': 0
+            'cpu_count': 0,
+            'load_avg': [0.0, 0.0, 0.0],  # 新增：1分钟,5分钟,15分钟平均负载
+            'cpu_freq': 0.0,  # 新增：CPU当前频率
+            'logical_cpu_count': 0,  # 新增：逻辑CPU数量
+            'top_processes': []  # 新增：top进程列表
         }
         # 添加广播功能
         GlobalCall.real_time_cpu_data = self.data
@@ -56,21 +60,40 @@ class RealTimeCPU:
     def __collect_real_time_data(self):
         """使用命令行工具采集实时CPU数据"""
         try:
-            # 使用 mpstat 命令获取CPU使用率
+            # 1. 获取CPU使用率
             cmd = "mpstat -P ALL 1 1"
             output = subprocess.check_output(cmd, shell=True, text=True)
-
-            # 解析输出
             lines = output.splitlines()
             core_data = []
             total_usage = 0.0
             cpu_counter = 0
+            usr = 0.0
+            nice = 0.0
+            sys = 0.0
+            iowait = 0.0
+            irq = 0.0
+            soft = 0.0
+            steal = 0.0
+            guest = 0.0
+            gnice = 0.0
+            idle = 0.0
 
             for line in lines:
                 if line.startswith('Average:') or line.startswith('平均时间:'):
                     parts = line.split()
                     if parts[1] == 'all':
-                        total_usage = 100.0 - float(parts[11])  # %idle
+                        total_usage = 100.0 - float(parts[11])  # 100 - %idle
+                        # %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+                        usr = float(parts[2])
+                        nice = float(parts[3])
+                        sys = float(parts[4])
+                        iowait = float(parts[5])
+                        irq = float(parts[6])
+                        soft = float(parts[7])
+                        steal = float(parts[8])
+                        guest = float(parts[9])
+                        gnice = float(parts[10])
+                        idle = float(parts[11])
                     elif parts[1].isdigit():
                         core_id = int(parts[1])
                         cpu_counter = cpu_counter + 1
@@ -78,28 +101,90 @@ class RealTimeCPU:
                         usage = 100.0 - idle
                         core_data.append(usage)
 
-            # 解析输出
-
-            # 使用 cat /proc/cpuinfo 命令获取CPU型号
+            # 2. 获取CPU型号
             cmd = "cat /proc/cpuinfo | grep 'model name' | head -n 1"
             output = subprocess.check_output(cmd, shell=True, text=True)
-
-            # 解析输出
-            lines = output.splitlines()
             model_name = ''
-            for line in lines:
+            for line in output.splitlines():
                 if line.startswith('model name'):
                     parts = line.split(':')
                     model_name = parts[1].strip()
                     break
 
+            # 3. 获取平均负载
+            with open('/proc/loadavg', 'r') as f:
+                load_avg_str = f.read().split()
+                load_avg = list(map(float, load_avg_str[:3]))
+
+            # 4. 获取CPU频率
+            cmd = "lscpu | grep 'CPU MHz' | awk '{print $NF}'"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+            cpu_freq = float(output.strip())
+
+            # 5. 获取逻辑CPU数量
+            cmd = "nproc"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+            logical_cpu_count = int(output.strip())
+
+            # 6. 获取top进程信息
+            cmd = "top -b -n 1"
+            output = subprocess.check_output(cmd, shell=True, text=True)
+            processes = []
+            header_passed = False  # 添加标志位跟踪是否已过表头
+
+            for line in output.splitlines():
+                # 跳过空行
+                if not line.strip():
+                    continue
+
+                parts = line.split()
+
+                # 检测表头行 ("PID USER ... %CPU %MEM ...")
+                if not header_passed and '%CPU' in line:
+                    header_passed = True
+                    continue  # 跳过表头行
+
+                # 只处理包含数字PID的行
+                if header_passed and parts[0].isdigit() and len(parts) >= 12:
+                    try:
+                        processes.append({
+                            'pid': parts[0],
+                            'user': parts[1],
+                            'pr': parts[2],
+                            'ni': parts[3],
+                            'virt': parts[4],
+                            'res': parts[5],
+                            'shr': parts[6],
+                            's': parts[7],
+                            'cpu_percent': float(parts[8]),
+                            'mem_percent': float(parts[9]),
+                            'time': parts[10],
+                            'command': ' '.join(parts[11:])
+                        })
+                    except (ValueError, IndexError):
+                        # 忽略转换错误
+                        continue
 
             # 更新数据
             self.data = {
                 'model_name': model_name,
                 'total_usage': total_usage,
                 'core_usage': core_data,
-                'cpu_count': cpu_counter
+                'cpu_count': cpu_counter,
+                'load_avg': load_avg,
+                'cpu_freq': cpu_freq,
+                'logical_cpu_count': logical_cpu_count,
+                'top_processes': processes,
+                'usr': usr,
+                'nice': nice,
+                'sys': sys,
+                'iowait': iowait,
+                'irq': irq,
+                'soft': soft,
+                'steal': steal,
+                'guest': guest,
+                'gnice': gnice,
+                'idle': idle
             }
             # 广播数据
             GlobalCall.real_time_cpu_data = self.data

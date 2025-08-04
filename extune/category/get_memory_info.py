@@ -38,13 +38,16 @@ class RealTimeMemory:
         self._stop_event = threading.Event()
         self.thread = None
         self.data = {
-            'total': 0.0,
-            'used': 0.0,
-            'percent': 0.0,
-            'mem_tot': 0.0,
+            'mem_total': 0.0,
             'mem_used': 0.0,
-            'swap_tot': 0.0,
-            'swap_used': 0.0
+            'mem_available': 0.0,
+            'mem_percent': 0.0,
+            'mem_cached': 0.0,
+            'mem_buffers': 0.0,
+            'swap_total': 0.0,
+            'swap_used': 0.0,
+            'swap_free': 0.0,
+            'swap_percent': 0.0
         }
         # 添加广播功能
         GlobalCall.real_time_mem_data = self.data
@@ -58,39 +61,45 @@ class RealTimeMemory:
 
             # 解析输出
             lines = output.splitlines()
-
             mem_line = lines[1].split()
             swap_line = lines[2].split()
 
             # 提取内存数据（单位：字节）
-            mem_tot = float(mem_line[1])
-            mem_used = float(mem_line[2])
-            swap_tot = float(swap_line[1])
+            mem_total = float(mem_line[1])
+            mem_free = float(mem_line[3])
+            if len(mem_line) > 6:
+                mem_available = float(mem_line[6])
+            mem_used = mem_total - mem_available
+            mem_buffers = float(mem_line[5])
+            mem_cached = float(mem_line[5])
+
+            # 提取交换内存数据
+            swap_total = float(swap_line[1])
             swap_used = float(swap_line[2])
+            swap_free = float(swap_line[3])
 
-            # 计算总内存
-            total = mem_tot + swap_tot
-            used = mem_used + swap_used
-
-            # 计算使用百分比
-            percent = (used / total) * 100 if total > 0 else 0.0
+            # 计算百分比
+            mem_percent = ((mem_total - mem_available) / mem_total) * 100 if mem_total > 0 else 0.0
+            swap_percent = (swap_used / swap_total) * 100 if swap_total > 0 else 0.0
 
             # 更新数据
             self.data = {
-                'total': total,
-                'used': used,
-                'percent': percent,
-                'mem_tot': mem_tot,
+                'mem_total': mem_total,
                 'mem_used': mem_used,
-                'swap_tot': swap_tot,
-                'swap_used': swap_used
+                'mem_free': mem_free,
+                'mem_percent': mem_percent,
+                'mem_cached': mem_cached,
+                'mem_buffers': mem_buffers,
+                'swap_total': swap_total,
+                'swap_used': swap_used,
+                'swap_free': swap_free,
+                'swap_percent': swap_percent,
             }
             # 广播数据
             GlobalCall.real_time_mem_data = self.data
 
         except Exception as e:
             Logger().debug(f"Error collecting memory data: {e}")
-
     def start_broadcasting(self):
         """启动广播线程"""
         if self.thread is not None and self.thread.is_alive():

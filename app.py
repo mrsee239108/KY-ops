@@ -60,6 +60,19 @@ except Exception as e:
     print(f"启动实时网络监控失败: {e}")
     real_time_net_monitor = None
 
+# 初始化实时磁盘监控
+try:
+    from extune.category.get_disk_info import RealTimeDisk
+    from extune.common.global_call import GlobalCall
+    real_time_disk_monitor = RealTimeDisk(interval=2)
+    real_time_disk_monitor.start_broadcasting()
+    print("磁盘实时监控已启动")
+except ImportError as e:
+    print(f"无法导入实时磁盘监控: {e}")
+    real_time_disk_monitor = None
+except Exception as e:
+    print(f"启动实时磁盘监控失败: {e}")
+    real_time_disk_monitor = None
 
 
 # 添加CORS支持
@@ -367,18 +380,80 @@ def system_status():
         # 从全局广播获取CPU数据
         cpu_data = GlobalCall.real_time_cpu_data
         if not cpu_data:
+            # 如果实时数据不可用，使用psutil作为后备
             cpu_percent = psutil.cpu_percent(interval=1)
-            cpu_model = "未知"
+            cpu_percent_per_core = [psutil.cpu_percent(interval=1, percpu=True)[i] for i in range(psutil.cpu_count())]
+            cpu_count = psutil.cpu_count()
+            cpu_name = f"Unknown CPU ({cpu_count} cores)"
+            load_avg = psutil.getloadavg() if hasattr(psutil, 'getloadavg') else [0, 0, 0]
+            cpu_freq = psutil.cpu_freq().current if hasattr(psutil, 'cpu_freq') else 0
+            logical_cpu_count = psutil.cpu_count(logical=True)
+            usr = 0
+            nice = 0
+            sys = 0
+            iowait = 0
+            irq = 0
+            soft = 0
+            steal = 0
+            guest = 0
+            gnice = 0
+            idle = 0
+            # 进程信息
+            processes = []
+            for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+                try:
+                    proc_info = proc.info
+                    if proc_info['cpu_percent'] > 0 or proc_info['memory_percent'] > 0:
+                        processes.append(proc_info)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+
+            # 按CPU使用率排序，取前10个
+            top_processes = sorted(processes, key=lambda x: x['cpu_percent'] or 0, reverse=True)[:10]
+
         else:
+            # 使用RealTimeCPU提供的数据
             cpu_percent = cpu_data['total_usage']
-            cpu_model = cpu_data['model_name']
+            cpu_percent_per_core = cpu_data['core_usage']
+            cpu_count = cpu_data['cpu_count']
+            cpu_name = cpu_data['model_name']
+            load_avg = cpu_data['load_avg']
+            cpu_freq = cpu_data['cpu_freq']
+            logical_cpu_count = cpu_data['logical_cpu_count']
+            top_processes = cpu_data['top_processes']
+            usr = cpu_data['usr']
+            nice = cpu_data['nice']
+            sys = cpu_data['sys']
+            iowait = cpu_data['iowait']
+            irq = cpu_data['irq']
+            soft = cpu_data['soft']
+            steal = cpu_data['steal']
+            guest = cpu_data['guest']
+            gnice = cpu_data['gnice']
+            idle = cpu_data['idle']
 
         # 从全局广播获取内存数据
         memory_data = GlobalCall.real_time_mem_data
         if not memory_data:
-            memory_percent = psutil.virtual_memory().percent
+            # 如果实时内存数据不可用，使用psutil作为后备
+            memory = psutil.virtual_memory()
+            swap = psutil.swap_memory()
         else:
-            memory_percent = memory_data['percent']
+            # 使用RealTimeMemory提供的数据
+            memory = type('obj', (object,), {
+                'total': memory_data['mem_total'],
+                'used': memory_data['mem_used'],
+                'free': memory_data['mem_free'],
+                'percent': memory_data['mem_percent'],
+                'cached': memory_data['mem_cached'],
+                'buffers': memory_data['mem_buffers']
+            })()
+            swap = type('obj', (object,), {
+                'total': memory_data['swap_total'],
+                'used': memory_data['swap_used'],
+                'free': memory_data['swap_free'],
+                'percent': memory_data['swap_percent']
+            })()
 
         # 网络详细信息 - 从全局广播获取网络数据
         net_data = GlobalCall.real_time_net_data
@@ -386,24 +461,95 @@ def system_status():
             # 如果实时网络数据不可用，使用psutil作为后备
             net_io = psutil.net_io_counters()
             net_interfaces = {}
+            rx_speed = 0.0
+            tx_speed = 0.0
         else:
             # 使用RealTimeNet提供的数据
             net_io = net_data.get('net_io', {})
             net_interfaces = net_data.get('net_interfaces', {})
+            rx_speed = net_data.get('rx_speed', 0.0)
+            tx_speed = net_data.get('tx_speed', 0.0)
 
 
         # 从全局广播获取磁盘数据
+        disk_data = GlobalCall.real_time_disk_data
+        if not disk_data:
+            # 如果实时数据不可用，使用psutil作为后备
+            disk_usage = []
+            partitions = psutil.disk_partitions()
+            for partition in partitions:
+                try:
+                    usage = psutil.disk_usage(partition.mountpoint)
+                    disk_usage.append({
+                        'device': partition.device,
+                        'mountpoint': partition.mountpoint,
+                        'fstype': partition.fstype,
+                        'total': usage.total,
+                        'used': usage.used,
+                        'free': usage.free,
+                        'percent': usage.percent
+                    })
+                except Exception:
+                    continue
 
-
+            disk_io = psutil.disk_io_counters()
+            disk_io_data = {
+                'read_bytes': disk_io.read_bytes if disk_io else 0,
+                'write_bytes': disk_io.write_bytes if disk_io else 0,
+                'read_count': disk_io.read_count if disk_io else 0,
+                'write_count': disk_io.write_count if disk_io else 0
+            }
+        else:
+            # 使用RealTimeDisk提供的数据
+            disk_usage = disk_data['disk_usage']
+            disk_io_data = disk_data['disk_io']
 
 
         """整合数据"""
         return jsonify({
             'cpu_usage': cpu_percent,
-            'cpu_model': cpu_model,
-            'memory_usage': memory_percent,
+            'cpu_percent_per_core': cpu_percent_per_core,
+            'cpu_model': cpu_name,
+            'cpu_count': cpu_count,
+            'cpu_frequency': cpu_freq,
+            'cpu_details': {
+                'usr': usr,
+                'nice': nice,
+                'sys': sys,
+                'iowait': iowait,
+                'irq': irq,
+                'soft': soft,
+                'steal': steal,
+                'guest': guest,
+                'gnice': gnice,
+                'idle': idle
+            },
+            'logical_cpu_count': logical_cpu_count,
+            'load_avg': load_avg,
+            'top_processes': top_processes,
+            'memory_usage': memory.percent,
+            'memory_total': {  # 内存信息
+                'memory_percent': memory.percent,
+                'memory_used': memory.used,
+                'memory_total': memory.total,
+                'memory_free': memory.free,
+                'memory_cached': memory.cached,
+                'memory_buffers': memory.buffers,
+
+                # 交换内存信息
+                'swap_percent': swap.percent,
+                'swap_used': swap.used,
+                'swap_total': swap.total,
+                'swap_free': swap.free
+            },
+            'disk_info': {
+                'disk_usage': disk_usage,
+                'disk_io': disk_io_data
+            },
             'net_interfaces': net_interfaces,
             'net_io': net_io,
+            'rx_speed': rx_speed,
+            'tx_speed': tx_speed,
             'current_time': datetime.now().strftime('%H:%M'),
             'current_date': datetime.now().strftime('%Y/%m/%d'),
             'day_of_week': datetime.now().strftime('%A')
@@ -536,7 +682,7 @@ def get_system_info():
             'cpu_count': extune_data['cpu_count'],
             'cpu_usage': cpu_percent,
             'cpu_frequency': cpu_freq.current if cpu_freq else 0,
-            
+
             # 内存信息
             'memory_total': extune_data['memory_total'],
             'memory_free': extune_data['memory_free'],
@@ -875,55 +1021,126 @@ def get_performance_data():
         # CPU详细信息 - 从全局广播获取CPU数据
         cpu_data = GlobalCall.real_time_cpu_data
         if not cpu_data:
+            # 如果实时数据不可用，使用psutil作为后备
             cpu_percent = psutil.cpu_percent(interval=1)
+            cpu_percent_per_core = [psutil.cpu_percent(interval=1, percpu=True)[i] for i in range(psutil.cpu_count())]
             cpu_count = psutil.cpu_count()
+            cpu_name = f"Unknown CPU ({cpu_count} cores)"
+            load_avg = psutil.getloadavg() if hasattr(psutil, 'getloadavg') else [0, 0, 0]
+            cpu_freq = psutil.cpu_freq().current if hasattr(psutil, 'cpu_freq') else 0
+            logical_cpu_count = psutil.cpu_count(logical=True)
+            usr = 0
+            nice = 0
+            sys = 0
+            iowait = 0
+            irq = 0
+            soft = 0
+            steal = 0
+            guest = 0
+            gnice = 0
+            idle = 0
+            # 进程信息
+            processes = []
+            for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+                try:
+                    proc_info = proc.info
+                    if proc_info['cpu_percent'] > 0 or proc_info['memory_percent'] > 0:
+                        processes.append(proc_info)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+
+            # 按CPU使用率排序，取前10个
+            top_processes = sorted(processes, key=lambda x: x['cpu_percent'] or 0, reverse=True)[:10]
+
         else:
+            # 使用RealTimeCPU提供的数据
             cpu_percent = cpu_data['total_usage']
+            cpu_percent_per_core = cpu_data['core_usage']
             cpu_count = cpu_data['cpu_count']
+            cpu_name = cpu_data['model_name']
+            load_avg = cpu_data['load_avg']
+            cpu_freq = cpu_data['cpu_freq']
+            logical_cpu_count = cpu_data['logical_cpu_count']
+            top_processes = cpu_data['top_processes']
+            usr = cpu_data['usr']
+            nice = cpu_data['nice']
+            sys = cpu_data['sys']
+            iowait = cpu_data['iowait']
+            irq = cpu_data['irq']
+            soft = cpu_data['soft']
+            steal = cpu_data['steal']
+            guest = cpu_data['guest']
+            gnice = cpu_data['gnice']
+            idle = cpu_data['idle']
 
-
-
-        cpu_average = psutil.cpu_percent(interval=0.1)  # 获取平均CPU使用率
-        cpu_freq = psutil.cpu_freq()
-        cpu_count_logical = psutil.cpu_count(logical=True)
-        
-        # 系统负载
-        try:
-            load_avg = psutil.getloadavg()
-        except AttributeError:
-            # Windows系统没有getloadavg，使用CPU使用率模拟
-            avg_cpu = sum(cpu_percent) / len(cpu_percent)
-            load_avg = [avg_cpu/100, avg_cpu/100, avg_cpu/100]
+        # 构建CPU频率信息
+        cpu_frequency_info = {
+            'current': cpu_freq,
+            'min': cpu_freq * 0.8,  # 假设最小值
+            'max': cpu_freq * 1.2,   # 假设最大值
+            'base': cpu_freq,
+            'turbo_max': cpu_freq * 1.2,
+            'boost': cpu_freq > (cpu_freq * 0.8 * 1.1),
+            'cores': [cpu_freq] * logical_cpu_count
+        }
         
         # 内存详细信息 - 从全局广播获取内存数据
         memory_data = GlobalCall.real_time_mem_data
         if not memory_data:
+            # 如果实时内存数据不可用，使用psutil作为后备
             memory = psutil.virtual_memory()
             swap = psutil.swap_memory()
         else:
-            memory = memory_data['mem_used'] + memory_data['swap_used']
-            swap = memory_data['swap_used']
-        
-        # 磁盘详细信息
-        disk_usage = []
-        disk_io = psutil.disk_io_counters()
-        
-        # 获取所有磁盘分区
-        partitions = psutil.disk_partitions()
-        for partition in partitions:
-            try:
-                partition_usage = psutil.disk_usage(partition.mountpoint)
-                disk_usage.append({
-                    'device': partition.device,
-                    'mountpoint': partition.mountpoint,
-                    'fstype': partition.fstype,
-                    'total': partition_usage.total,
-                    'used': partition_usage.used,
-                    'free': partition_usage.free,
-                    'percent': (partition_usage.used / partition_usage.total) * 100
-                })
-            except PermissionError:
-                continue
+            # 使用RealTimeMemory提供的数据
+            memory = type('obj', (object,), {
+                'total': memory_data['mem_total'],
+                'used': memory_data['mem_used'],
+                'free': memory_data['mem_free'],
+                'percent': memory_data['mem_percent'],
+                'cached': memory_data['mem_cached'],
+                'buffers': memory_data['mem_buffers']
+            })()
+            swap = type('obj', (object,), {
+                'total': memory_data['swap_total'],
+                'used': memory_data['swap_used'],
+                'free': memory_data['swap_free'],
+                'percent': memory_data['swap_percent']
+            })()
+
+        # 磁盘详细信息 - 从全局广播获取磁盘数据
+        disk_data = GlobalCall.real_time_disk_data
+        if not disk_data:
+            # 如果实时数据不可用，使用psutil作为后备
+            disk_usage = []
+            partitions = psutil.disk_partitions()
+            for partition in partitions:
+                try:
+                    usage = psutil.disk_usage(partition.mountpoint)
+                    disk_usage.append({
+                        'device': partition.device,
+                        'mountpoint': partition.mountpoint,
+                        'fstype': partition.fstype,
+                        'total': usage.total,
+                        'used': usage.used,
+                        'free': usage.free,
+                        'percent': usage.percent
+                    })
+                except Exception:
+                    continue
+
+            disk_io = psutil.disk_io_counters()
+            disk_io_data = {
+                'read_bytes': disk_io.read_bytes if disk_io else 0,
+                'write_bytes': disk_io.write_bytes if disk_io else 0,
+                'read_count': disk_io.read_count if disk_io else 0,
+                'write_count': disk_io.write_count if disk_io else 0
+            }
+        else:
+            # 使用RealTimeDisk提供的数据
+            disk_usage = disk_data['disk_usage']
+            disk_io_data = disk_data['disk_io']
+
+
 
         # 网络详细信息 - 从全局广播获取网络数据
         net_data = GlobalCall.real_time_net_data
@@ -931,10 +1148,14 @@ def get_performance_data():
             # 如果实时网络数据不可用，使用psutil作为后备
             net_io = psutil.net_io_counters()
             net_interfaces = {}
+            rx_speed = 0.0
+            tx_speed = 0.0
         else:
             # 使用RealTimeNet提供的数据
             net_io = net_data.get('net_io', {})
             net_interfaces = net_data.get('net_interfaces', {})
+            rx_speed = net_data.get('rx_speed', 0.0)
+            tx_speed = net_data.get('tx_speed', 0.0)
 
             # 计算总的网络IO统计
             total_io = {
@@ -952,19 +1173,7 @@ def get_performance_data():
                 for key in total_io.keys():
                     total_io[key] += stats.get(key, 0)
         
-        # 进程信息
-        processes = []
-        for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
-            try:
-                proc_info = proc.info
-                if proc_info['cpu_percent'] > 0 or proc_info['memory_percent'] > 0:
-                    processes.append(proc_info)
-            except (psutil.NoSuchProcess, psutil.AccessDenied):
-                continue
-        
-        # 按CPU使用率排序，取前10个
-        processes = sorted(processes, key=lambda x: x['cpu_percent'] or 0, reverse=True)[:10]
-        
+
         # 电池信息（如果是笔记本电脑）
         battery = None
         try:
@@ -978,48 +1187,53 @@ def get_performance_data():
         except AttributeError:
             pass
         
-        # 获取CPU名称 - 从system_info.json文件中读取
-        cpu_name = "Unknown CPU"
-        try:
-            system_info_path = os.path.join(os.path.dirname(__file__), 'system_info.json')
-            if os.path.exists(system_info_path):
-                with open(system_info_path, 'r', encoding='utf-8') as f:
-                    system_info_data = json.load(f)
-                    cpu_name = system_info_data.get('cpu_info', 'Unknown CPU')
-        except Exception as e:
-            print(f"读取system_info.json失败: {e}")
-            # 如果读取失败，使用platform.processor()作为备选
-            cpu_name = platform.processor()
-            if not cpu_name or cpu_name.strip() == '':
-                cpu_name = f"Unknown CPU ({cpu_count} cores)"
+        # # 获取CPU名称 - 从system_info.json文件中读取
+        # cpu_name = "Unknown CPU"
+        # try:
+        #     system_info_path = os.path.join(os.path.dirname(__file__), 'system_info.json')
+        #     if os.path.exists(system_info_path):
+        #         with open(system_info_path, 'r', encoding='utf-8') as f:
+        #             system_info_data = json.load(f)
+        #             cpu_name = system_info_data.get('cpu_info', 'Unknown CPU')
+        # except Exception as e:
+        #     print(f"读取system_info.json失败: {e}")
+        #     # 如果读取失败，使用platform.processor()作为备选
+        #     cpu_name = platform.processor()
+        #     if not cpu_name or cpu_name.strip() == '':
+        #         cpu_name = f"Unknown CPU ({cpu_count} cores)"
         
         return jsonify({
             # CPU信息
             'cpu_percent': cpu_percent,
-            'cpu_average': cpu_average,  # 使用单独获取的平均CPU使用率
-            'cpu_name': cpu_name,  # 添加cpu_name字段
-            'cpu_frequency': {
-                'current': cpu_freq.current if cpu_freq else 0,
-                'min': cpu_freq.min if cpu_freq else 0,
-                'max': cpu_freq.max if cpu_freq else 0,
-                'base': cpu_freq.current if cpu_freq else 0,  # 基准频率
-                'turbo_max': cpu_freq.max if cpu_freq else 0,  # Turbo最大频率
-                'boost': True if cpu_freq and cpu_freq.current > cpu_freq.min * 1.1 else False,  # Boost状态
-                'cores': []  # 每个核心的频率（psutil不直接支持，留空）
-            },
+            'cpu_percent_per_core': cpu_percent_per_core,
+            'cpu_average': cpu_percent,  # 直接使用总使用率
+            'cpu_name': cpu_name,
+            'cpu_frequency': cpu_frequency_info,
             'cpu_count_physical': cpu_count,
-            'cpu_count_logical': cpu_count_logical,
+            'cpu_count_logical': logical_cpu_count,
             'load_avg': load_avg,
-            
+            'cpu_details': {
+                'usr': usr,
+                'nice': nice,
+                'sys': sys,
+                'iowait': iowait,
+                'irq': irq,
+                'soft': soft,
+                'steal': steal,
+                'guest': guest,
+                'gnice': gnice,
+                'idle': idle
+            },
+
             # 内存信息
             'memory_percent': memory.percent,
             'memory_used': memory.used,
             'memory_total': memory.total,
-            'memory_available': memory.available,
-            'memory_cached': getattr(memory, 'cached', 0),
-            'memory_buffers': getattr(memory, 'buffers', 0),
-            
-            # 交换内存
+            'memory_free': memory.free,
+            'memory_cached': memory.cached,
+            'memory_buffers': memory.buffers,
+
+            # 交换内存信息
             'swap_percent': swap.percent,
             'swap_used': swap.used,
             'swap_total': swap.total,
@@ -1027,12 +1241,7 @@ def get_performance_data():
             
             # 磁盘信息
             'disk_usage': disk_usage,
-            'disk_io': {
-                'read_bytes': disk_io.read_bytes if disk_io else 0,
-                'write_bytes': disk_io.write_bytes if disk_io else 0,
-                'read_count': disk_io.read_count if disk_io else 0,
-                'write_count': disk_io.write_count if disk_io else 0
-            },
+            'disk_io': disk_io_data,
             
             # 网络信息
             'network_io': total_io if net_data else {
@@ -1043,12 +1252,14 @@ def get_performance_data():
                 'errin': net_io.errin,
                 'errout': net_io.errout,
                 'dropin': net_io.dropin,
-                'dropout': net_io.dropout
+                'dropout': net_io.dropout,
             },
+            'rx_speed': rx_speed,
+            'tx_speed': tx_speed,
             'network_interfaces': net_interfaces,
             
             # 进程信息
-            'top_processes': processes,
+            'top_processes': top_processes,
             'process_count': len(list(psutil.process_iter())),
             
             # 电池信息

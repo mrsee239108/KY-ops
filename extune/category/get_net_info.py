@@ -53,6 +53,7 @@ class RealTimeNet:
         self.data = {
             'net_interface': '',
             'rx_speed': 0.0,  # 下行速度 (KB/s)
+            'tx_speed': 0.0,  # 上行速度 (KB/s)
             'net_io': {},      # 网络IO统计信息
             'net_interfaces': {}  # 网络接口详细信息
         }
@@ -223,27 +224,40 @@ class RealTimeNet:
                 Logger().error(f"Error reading /proc/net/dev: {e}")
 
             # 计算速度（如果存在上一次统计）
+            # 初始化总速度和活动接口速度
+            total_rx_speed = 0.0
+            total_tx_speed = 0.0
+            active_rx = 0.0
+            active_tx = 0.0
+            active_iface = self.__get_active_interface()  # 提前获取活动接口
+
             if self.last_stats:
-                time_diff = time.time() - min([stat['timestamp'] for stat in self.last_stats.values()])
-                if time_diff > 0:
-                    for iface, current in current_stats.items():
-                        if iface in self.last_stats:
-                            last = self.last_stats[iface]
+                for iface, current in current_stats.items():
+                    if iface in self.last_stats:
+                        last = self.last_stats[iface]
+                        # 修正：使用当前接口的时间差
+                        time_diff = current['timestamp'] - last['timestamp']
+
+                        if time_diff > 0:
                             rx_diff = current['bytes_recv'] - last['bytes_recv']
                             tx_diff = current['bytes_sent'] - last['bytes_sent']
 
-                            rx_speed = rx_diff / time_diff / 1024  # KB/s
-                            tx_speed = tx_diff / time_diff / 1024  # KB/s
+                            # 计算当前接口速度 (KB/s)
+                            iface_rx = rx_diff / time_diff / 1024
+                            iface_tx = tx_diff / time_diff / 1024
 
-                            current['rx_speed'] = rx_speed
-                            current['tx_speed'] = tx_speed
-                        else:
-                            current['rx_speed'] = 0.0
-                            current['tx_speed'] = 0.0
-                else:
-                    for iface in current_stats:
-                        current_stats[iface]['rx_speed'] = 0.0
-                        current_stats[iface]['tx_speed'] = 0.0
+                            # 更新总速度
+                            total_rx_speed += iface_rx
+                            total_tx_speed += iface_tx
+
+                            # 更新活动接口速度
+                            if iface == active_iface:
+                                active_rx = iface_rx
+                                active_tx = iface_tx
+
+                            # 保存到当前统计
+                            current['rx_speed'] = iface_rx
+                            current['tx_speed'] = iface_tx
 
             # 更新最后一次统计
             self.last_stats = current_stats
@@ -262,7 +276,10 @@ class RealTimeNet:
             # 更新数据
             self.data = {
                 'net_interface': active_iface,
-                'rx_speed': current_stats.get(active_iface, {}).get('rx_speed', 0.0),
+                'rx_speed': active_rx,  # 使用活动接口的RX
+                'tx_speed': active_tx,  # 使用活动接口的TX
+                'total_rx_speed': total_rx_speed,
+                'total_tx_speed': total_tx_speed,
                 'net_io': current_stats,
                 'net_interfaces': net_interfaces
             }

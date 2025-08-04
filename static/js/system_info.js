@@ -21,9 +21,16 @@ class SystemInfoManager {
     }
 
     init() {
-        this.setupEventListeners();
-        this.loadSystemInfo();
+    this.setupEventListeners();
+    this.loadSystemInfo();
+    // 加载保存的主题
+    const savedTheme = localStorage.getItem('systemTheme') || 'dark';
+    const themeSelect = document.querySelector('.setting-select');
+    if (themeSelect) {
+        themeSelect.value = savedTheme;
+        this.changeTheme(savedTheme); // 应用保存的主题
     }
+}
 
     setupEventListeners() {
         // 导航项点击事件
@@ -152,14 +159,25 @@ class SystemInfoManager {
                 this.changeTheme(e.target.value);
             });
         }
-
-
     }
 
     changeTheme(theme) {
-        this.showNotification(`主题已切换到: ${theme}`);
-        // 这里可以实现实际的主题切换逻辑
+    const body = document.body;
+    // 移除所有主题类，避免样式冲突
+    body.classList.remove('theme-dark', 'theme-light');
+    
+    // 根据选择的主题添加对应类
+    if (theme === 'dark') {
+        body.classList.add('theme-dark');
+        this.showNotification('已切换到深色主题');
+    } else if (theme === 'light') {
+        body.classList.add('theme-light');
+        this.showNotification('已切换到浅色主题');
     }
+    
+    // 保存主题设置到本地存储（可选，用于页面刷新后保持状态）
+    localStorage.setItem('systemTheme', theme);
+}
 
     // 加载用户管理
     loadUserManagement() {

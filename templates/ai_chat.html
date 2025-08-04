@@ -8,30 +8,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="ai-chat-container">
-        <!-- 标题栏 -->
-        <div class="title-bar">
-            <div class="title-content">
-                <div class="title-left">
-                    <button class="back-btn" onclick="goBack()">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="title-info">
-                        <h1><i class="fas fa-robot"></i> AI 智能助手</h1>
-                        <span class="subtitle">企业级智能运维助手</span>
-                    </div>
-                </div>
-                <div class="title-right">
-                    <button class="refresh-btn" onclick="refreshPage()">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                    <div class="ai-status">
-                        <div class="status-indicator online" id="ai-status"></div>
-                        <span id="ai-status-text">在线</span>
-                    </div>
-                </div>
+    <div class="window">
+    <!-- 窗口标题栏 -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <i class="fas fa-robot"></i> <!-- AI 专属图标 -->
+            <span>AI 智能助手</span>
+        </div>
+        <div class="title-bar-right">
+            <div class="window-controls">
+                <!-- 刷新按钮 -->
+                <button class="control-btn refresh" onclick="refreshPage()" title="刷新">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <!-- 返回按钮 -->
+                <button class="control-btn back" onclick="goBack()" title="返回">
+                    <i class="fas fa-arrow-left"></i> 
+                </button>
             </div>
         </div>
+    </div>
 
         <!-- 主要内容区域 -->
         <div class="main-content">

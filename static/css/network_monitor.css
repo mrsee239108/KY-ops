@@ -6,14 +6,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
-    color: #333333;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #ffffff;
     overflow-x: hidden;
 }
 
 .network-monitor {
     min-height: 100vh;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
 }
 
 /* 标题栏 */
@@ -87,7 +87,7 @@ body {
 .title-content h1 {
     font-size: 28px;
     font-weight: 300;
-    color: #333333;
+    color: #ffffff;
 }
 
 .title-actions {
@@ -101,18 +101,17 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #666666;
+    color: #b0b0b0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    font-size: 16px;
 }
 
 .title-btn:hover {
-    background-color: rgba(0, 120, 212, 0.1);
-    color: #0078d4;
+    background-color: rgba(0, 120, 212, 0.25);
+    color: #00a0ff;
 }
 
 /* 主要内容 */
@@ -132,21 +131,21 @@ body {
 
 /* 统一卡片样式 - 优化对比度 */
 .status-card, .chart-section, .network-section, .tools-section {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(45, 45, 45, 0.95);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
 
 .status-card:hover, .chart-section:hover, .network-section:hover, .tools-section:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     border-color: rgba(0, 120, 212, 0.4);
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(60, 60, 60, 0.98);
 }
 
 .status-card {
@@ -201,27 +200,27 @@ body {
 .status-info h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #ffffff;
     margin-bottom: 5px;
 }
 
 .status-text {
     font-size: 18px;
     font-weight: 500;
-    color: #0078d4;
+    color: #00a0ff;
     margin-bottom: 3px;
 }
 
 .status-value {
     font-size: 24px;
     font-weight: 600;
-    color: #0078d4;
+    color: #00a0ff;
     margin-bottom: 3px;
 }
 
 .status-detail {
     font-size: 13px;
-    color: #4a4a4a;
+    color: #b0b0b0;
 }
 
 .status-indicator {
@@ -264,13 +263,13 @@ body {
 .section-header h2 {
     font-size: 22px;
     font-weight: 600;
-    color: #333333;
+    color: #ffffff;
 }
 
 .chart-controls {
     display: flex;
     gap: 5px;
-    background-color: #f5f5f5;
+    background-color: rgba(60, 60, 60, 0.9);
     border-radius: 8px;
     padding: 4px;
 }
@@ -280,7 +279,7 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #666666;
+    color: #b0b0b0;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -288,8 +287,8 @@ body {
 }
 
 .chart-btn:hover {
-    background-color: rgba(0, 120, 212, 0.1);
-    color: #0078d4;
+    background-color: rgba(0, 120, 212, 0.25);
+    color: #00a0ff;
 }
 
 .chart-btn.active {
@@ -317,12 +316,12 @@ body {
 
 .adapters-panel,
 .connections-panel {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(45, 45, 45, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .panel-header {
@@ -337,7 +336,7 @@ body {
 .panel-header h2 {
     font-size: 18px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #ffffff;
 }
 
 .panel-btn {
@@ -346,7 +345,7 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #4a4a4a;
+    color: #b0b0b0;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -355,8 +354,8 @@ body {
 }
 
 .panel-btn:hover {
-    background-color: rgba(0, 120, 212, 0.15);
-    color: #0078d4;
+    background-color: rgba(0, 120, 212, 0.25);
+    color: #00a0ff;
 }
 
 .adapters-list,
@@ -369,18 +368,18 @@ body {
 .adapter-item,
 .connection-item {
     padding: 15px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     transition: all 0.2s ease;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(60, 60, 60, 0.8);
 }
 
 .adapter-item:hover,
 .connection-item:hover {
-    border-color: #0078d4;
-    background-color: rgba(0, 120, 212, 0.08);
-    box-shadow: 0 2px 8px rgba(0, 120, 212, 0.1);
+    border-color: #00a0ff;
+    background-color: rgba(0, 120, 212, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 120, 212, 0.2);
 }
 
 .adapter-header,
@@ -395,7 +394,7 @@ body {
 .connection-name {
     font-size: 16px;
     font-weight: 500;
-    color: #1a1a1a;
+    color: #ffffff;
 }
 
 .adapter-status,
@@ -423,18 +422,19 @@ body {
 .adapter-details,
 .connection-details {
     font-size: 13px;
-    color: #4a4a4a;
+    color: #b0b0b0;
     line-height: 1.4;
 }
 
 /* 工具部分 */
 .tools-section {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(45, 45, 45, 0.98);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .tools-grid {
@@ -444,8 +444,8 @@ body {
 }
 
 .tool-card {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #d0d0d0;
+    background-color: rgba(60, 60, 60, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 25px;
     text-align: center;
@@ -459,9 +459,9 @@ body {
 
 .tool-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 120, 212, 0.15);
-    border-color: #0078d4;
-    background-color: rgba(0, 120, 212, 0.08);
+    box-shadow: 0 8px 25px rgba(0, 120, 212, 0.3);
+    border-color: #00a0ff;
+    background-color: rgba(0, 120, 212, 0.15);
 }
 
 .tool-card i {
@@ -472,13 +472,13 @@ body {
 .tool-card h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #ffffff;
     margin: 0;
 }
 
 .tool-card p {
     font-size: 13px;
-    color: #4a4a4a;
+    color: #b0b0b0;
     margin: 0;
 }
 
@@ -498,15 +498,15 @@ body {
 }
 
 .modal {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(45, 45, 45, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
     max-height: 80vh;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     animation: modalSlideIn 0.3s ease-out;
-    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes modalSlideIn {
@@ -525,14 +525,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
-    border-bottom: 1px solid #d0d0d0;
-    background-color: rgba(248, 249, 250, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 30, 0.95);
 }
 
 .modal-header h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #ffffff;
 }
 
 .modal-close {
@@ -541,7 +541,7 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #4a4a4a;
+    color: #b0b0b0;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -550,14 +550,15 @@ body {
 }
 
 .modal-close:hover {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: #1a1a1a;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .modal-body {
     padding: 25px;
     max-height: 60vh;
     overflow-y: auto;
+    color: #ffffff;
 }
 
 /* 工具输出样式 */
@@ -584,22 +585,22 @@ body {
 .tool-input input {
     flex: 1;
     padding: 10px 15px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     font-size: 14px;
     outline: none;
     transition: border-color 0.2s ease;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #1a1a1a;
+    background-color: rgba(60, 60, 60, 0.95);
+    color: #ffffff;
 }
 
 .tool-input input:focus {
-    border-color: #0078d4;
-    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+    border-color: #00a0ff;
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
 }
 
 .tool-input input::placeholder {
-    color: #6a6a6a;
+    color: #8e8e93;
 }
 
 .tool-input button {

@@ -277,14 +277,14 @@ class PerformanceMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: '上传 (MB/s)',
+                    label: '上传 (KB/s)',
                     data: [],
                     borderColor: '#00ff88',
                     backgroundColor: 'rgba(0, 255, 136, 0.1)',
                     fill: false,
                     borderWidth: 2
                 }, {
-                    label: '下载 (MB/s)',
+                    label: '下载 (KB/s)',
                     data: [],
                     borderColor: '#00bcd4',
                     backgroundColor: 'rgba(0, 188, 212, 0.1)',
@@ -428,8 +428,7 @@ class PerformanceMonitor {
         });
 
         // 更新磁盘数据
-        const diskUsageAvg = data.disk_usage ? 
-            data.disk_usage.reduce((sum, disk) => sum + disk.percent, 0) / data.disk_usage.length : 0;
+        const diskUsageAvg = data.total_utilization;
         
         this.performanceData.disk.push({
             timestamp,
@@ -441,7 +440,7 @@ class PerformanceMonitor {
         // 更新网络数据
         this.performanceData.network.push({
             timestamp,
-            // KB/s -> MB/s
+            // bytes/s -> KB/s
             sent: data.network_io ? data.tx_speed / 1024 : 0,
             recv: data.network_io ? data.rx_speed / 1024 : 0,
             interfaces: data.network_interfaces || {}
@@ -538,10 +537,10 @@ class PerformanceMonitor {
         }
         
         // 计算平均磁盘使用率
-        const avgDiskUsage = data.disk_usage ? 
-            data.disk_usage.reduce((sum, disk) => sum + disk.percent, 0) / data.disk_usage.length : 0;
+        const avgDiskUsage = data.total_utilization;
         this.updateElement('disk-usage', `${(avgDiskUsage).toFixed(2)}%`);
         this.updateElement('disk-usage-text',`${(avgDiskUsage).toFixed(2)}%`)
+        this.updateElement('disk-details-header', `平均磁盘使用率：${(avgDiskUsage).toFixed(2)}%`);
 
         // 计算总体负载
         //const totalLoad = data.load_avg ? Math.round(data.load_avg[0] * 100) : Math.round(data.cpu_average || 0);
@@ -594,7 +593,17 @@ class PerformanceMonitor {
 
         // 更新网络接口
         this.updateNetworkInterfaces(data.network_interfaces || {});
-        
+
+        let info = '';
+        info = `↑${this.formatBytes(data.tx_speed)}/s  ↓${this.formatBytes(data.rx_speed)}/s`;
+        this.updateElement('network-status', info);
+
+        // 获取第一个网络接口的名称
+        const firstInterfaceName = data.network_interfaces && Object.keys(data.network_interfaces).length > 0
+            ? Object.keys(data.network_interfaces)[0]
+            : 'N/A';
+        this.updateElement('network-name', firstInterfaceName);
+
         // 更新进程信息
         this.updateTopProcesses(data.top_processes || []);
         
@@ -878,7 +887,7 @@ class PerformanceMonitor {
                     <div class="disk-path">${disk.mountpoint}</div>
                 </div>
                 <div class="disk-usage-detailed">
-                    <div class="disk-usage-percent">${Math.round(disk.percent)}%</div>
+                    <div class="disk-usage-percent">已用空间：${Math.round(disk.percent)}%</div>
                     <div class="disk-usage-size">
                         ${this.formatBytes(disk.used)} / ${this.formatBytes(disk.total)}
                     </div>

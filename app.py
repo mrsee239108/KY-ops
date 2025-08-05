@@ -467,8 +467,8 @@ def system_status():
             # 使用RealTimeNet提供的数据
             net_io = net_data.get('net_io', {})
             net_interfaces = net_data.get('net_interfaces', {})
-            rx_speed = net_data.get('rx_speed', 0.0)
-            tx_speed = net_data.get('tx_speed', 0.0)
+            rx_speed = net_data.get('total_rx_speed', 0.0)
+            tx_speed = net_data.get('total_tx_speed', 0.0)
 
 
         # 从全局广播获取磁盘数据
@@ -487,7 +487,8 @@ def system_status():
                         'total': usage.total,
                         'used': usage.used,
                         'free': usage.free,
-                        'percent': usage.percent
+                        'percent': usage.percent,
+                        'utilization': 0.0
                     })
                 except Exception:
                     continue
@@ -497,12 +498,14 @@ def system_status():
                 'read_bytes': disk_io.read_bytes if disk_io else 0,
                 'write_bytes': disk_io.write_bytes if disk_io else 0,
                 'read_count': disk_io.read_count if disk_io else 0,
-                'write_count': disk_io.write_count if disk_io else 0
+                'write_count': disk_io.write_count if disk_io else 0,
             }
+            total_utilization = psutil.disk_io_counters(perdisk=True)
         else:
             # 使用RealTimeDisk提供的数据
             disk_usage = disk_data['disk_usage']
             disk_io_data = disk_data['disk_io']
+            total_utilization = disk_data['total_utilization']
 
 
         """整合数据"""
@@ -544,7 +547,8 @@ def system_status():
             },
             'disk_info': {
                 'disk_usage': disk_usage,
-                'disk_io': disk_io_data
+                'disk_io': disk_io_data,
+                'total_utilization': total_utilization
             },
             'net_interfaces': net_interfaces,
             'net_io': net_io,
@@ -1123,7 +1127,8 @@ def get_performance_data():
                         'total': usage.total,
                         'used': usage.used,
                         'free': usage.free,
-                        'percent': usage.percent
+                        'percent': usage.percent,
+                        'utilization': 0.0
                     })
                 except Exception:
                     continue
@@ -1133,12 +1138,14 @@ def get_performance_data():
                 'read_bytes': disk_io.read_bytes if disk_io else 0,
                 'write_bytes': disk_io.write_bytes if disk_io else 0,
                 'read_count': disk_io.read_count if disk_io else 0,
-                'write_count': disk_io.write_count if disk_io else 0
+                'write_count': disk_io.write_count if disk_io else 0,
             }
+            total_utilization = psutil.disk_io_counters(perdisk=True) if hasattr(psutil, 'disk_io_counters') else {}
         else:
             # 使用RealTimeDisk提供的数据
             disk_usage = disk_data['disk_usage']
             disk_io_data = disk_data['disk_io']
+            total_utilization = disk_data['total_utilization']
 
 
 
@@ -1154,8 +1161,8 @@ def get_performance_data():
             # 使用RealTimeNet提供的数据
             net_io = net_data.get('net_io', {})
             net_interfaces = net_data.get('net_interfaces', {})
-            rx_speed = net_data.get('rx_speed', 0.0)
-            tx_speed = net_data.get('tx_speed', 0.0)
+            rx_speed = net_data.get('total_rx_speed', 0.0)
+            tx_speed = net_data.get('total_tx_speed', 0.0)
 
             # 计算总的网络IO统计
             total_io = {
@@ -1242,6 +1249,7 @@ def get_performance_data():
             # 磁盘信息
             'disk_usage': disk_usage,
             'disk_io': disk_io_data,
+            'total_utilization': total_utilization,
             
             # 网络信息
             'network_io': total_io if net_data else {

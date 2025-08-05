@@ -242,9 +242,9 @@ class RealTimeNet:
                             rx_diff = current['bytes_recv'] - last['bytes_recv']
                             tx_diff = current['bytes_sent'] - last['bytes_sent']
 
-                            # 计算当前接口速度 (KB/s)
-                            iface_rx = rx_diff / time_diff / 1024
-                            iface_tx = tx_diff / time_diff / 1024
+                            # 计算当前接口速度 (bytes/s)
+                            iface_rx = rx_diff / time_diff
+                            iface_tx = tx_diff / time_diff
 
                             # 更新总速度
                             total_rx_speed += iface_rx

@@ -112,7 +112,7 @@
                         </div>
                         <div class="card-content">
                             <div class="disk-info">
-                                <div class="disk-name">Vda1</div>
+                                <div class="disk-name">平均使用率</div>
                                 <div class="disk-usage-text", id="disk-usage-text">27%</div>
                             </div>
                             <div class="chart-container">
@@ -124,12 +124,12 @@
                     <!-- 网络信息 -->
                     <div class="info-card">
                         <div class="card-header">
-                            <h3>网络 - ens160</h3>
-                            <span class="network-status">vmxnet3</span>
+                            <h3>网络</h3>
+                            <span class="network-status" id ="network-status">vmxnet3</span>
                         </div>
                         <div class="card-content">
                             <div class="network-info">
-                                <div class="network-name">ens160</div>
+                                <div class="network-name" id="network-name">ens160</div>
                                 <div class="network-type">vmxnet3</div>
                             </div>
                             <div class="chart-container">
@@ -315,7 +315,7 @@
                 <div class="section-header">
                     <h2>磁盘使用情况</h2>
                     <div class="disk-details">
-                        <span>C: (Vda1) - 27% 已使用</span>
+                        <span id="disk-details-header">27% 已使用</span>
                     </div>
                 </div>
                 <div class="detailed-chart-container">

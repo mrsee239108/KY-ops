@@ -49,10 +49,10 @@ class RealTimeCPU:
             'total_usage': 0.0,
             'core_usage': [],
             'cpu_count': 0,
-            'load_avg': [0.0, 0.0, 0.0],  # 新增：1分钟,5分钟,15分钟平均负载
-            'cpu_freq': 0.0,  # 新增：CPU当前频率
-            'logical_cpu_count': 0,  # 新增：逻辑CPU数量
-            'top_processes': []  # 新增：top进程列表
+            'load_avg': [0.0, 0.0, 0.0],  # 1分钟,5分钟,15分钟平均负载
+            'cpu_freq': 0.0,  # CPU当前频率
+            'logical_cpu_count': 0,  # 逻辑CPU数量
+            'top_processes': []  # top进程列表
         }
         # 添加广播功能
         GlobalCall.real_time_cpu_data = self.data

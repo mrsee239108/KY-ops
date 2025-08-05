@@ -36,14 +36,11 @@ class RealTimeDisk:
         self.interval = interval
         self._stop_event = threading.Event()
         self.thread = None
+        self.prev_io_counters = None  # 新增：用于存储上一次的IO计数器
         self.data = {
             'disk_usage': [],
-            'disk_io': {
-                'read_bytes': 0,
-                'write_bytes': 0,
-                'read_count': 0,
-                'write_count': 0
-            }
+            'disk_io': {},  # 修改为字典，按设备名存储
+            'total_utilization': 0.0
         }
         # 添加广播功能
         GlobalCall.real_time_disk_data = self.data
@@ -68,19 +65,50 @@ class RealTimeDisk:
                 except Exception:
                     continue
 
-            # 2. 收集磁盘IO信息
-            disk_io = psutil.disk_io_counters()
-            disk_io_data = {
-                'read_bytes': disk_io.read_bytes,
-                'write_bytes': disk_io.write_bytes,
-                'read_count': disk_io.read_count,
-                'write_count': disk_io.write_count
-            }
+            # 2. 修改：按设备收集磁盘IO和活动率
+            disk_io_data = {}
+            total_utilization = 0.0
+
+            # 获取每个设备的IO计数器
+            per_disk_io = psutil.disk_io_counters(perdisk=True)
+            current_io = per_disk_io
+
+            if self.prev_io_counters is not None:
+                for device, io in current_io.items():
+                    if device in self.prev_io_counters:
+                        prev_io = self.prev_io_counters[device]
+
+                        # 计算活动率
+                        utilization = 0.0
+                        if hasattr(io, 'busy_time') and hasattr(prev_io, 'busy_time'):
+                            busy_time_diff = io.busy_time - prev_io.busy_time
+                            utilization = (busy_time_diff / (self.interval * 1000)) * 100
+                        else:
+                            read_time_diff = io.read_time - prev_io.read_time
+                            write_time_diff = io.write_time - prev_io.write_time
+                            utilization = (read_time_diff + write_time_diff) / (self.interval * 10)
+
+                        # 限制在0-100%范围内
+                        utilization = max(0.0, min(100.0, utilization))
+                        total_utilization = (utilization + total_utilization) / 2.0
+
+                        # 存储设备IO信息和活动率
+                        disk_io_data[device] = {
+                            'read_bytes': io.read_bytes,
+                            'write_bytes': io.write_bytes,
+                            'read_count': io.read_count,
+                            'write_count': io.write_count,
+                            'utilization': utilization  # 将活动率存入IO信息
+                        }
+
+            # 更新上一次的IO计数器
+            self.prev_io_counters = current_io
 
             # 更新数据
             self.data = {
                 'disk_usage': disk_usage,
-                'disk_io': disk_io_data
+                'disk_io': disk_io_data,  # 修改为按设备存储的结构
+                'total_utilization': total_utilization
             }
             # 广播数据
             GlobalCall.real_time_disk_data = self.data

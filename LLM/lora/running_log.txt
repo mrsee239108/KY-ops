@@ -1,0 +1,1954 @@
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file vocab.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file merges.txt
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file tokenizer.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file added_tokens.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file special_tokens_map.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file tokenizer_config.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file chat_template.jinja
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2299 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+[INFO|2025-08-05 22:55:07] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 22:55:07] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file vocab.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file merges.txt
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file tokenizer.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file added_tokens.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file special_tokens_map.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file tokenizer_config.json
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2021 >> loading file chat_template.jinja
+[INFO|2025-08-05 22:55:07] tokenization_utils_base.py:2299 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+[INFO|2025-08-05 22:55:07] logging.py:143 >> Loading dataset alpaca.json...
+[INFO|2025-08-05 22:55:31] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 22:55:31] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 22:55:31] logging.py:143 >> Quantizing model to 8 bit with bitsandbytes.
+[INFO|2025-08-05 22:55:31] logging.py:143 >> KV cache is disabled during training.
+[INFO|2025-08-05 22:55:31] modeling_utils.py:1148 >> loading weights file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\model.safetensors
+[INFO|2025-08-05 22:55:31] modeling_utils.py:2241 >> Instantiating Qwen3ForCausalLM model under default dtype torch.bfloat16.
+[INFO|2025-08-05 22:55:31] configuration_utils.py:1135 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "use_cache": false
+}
+
+[INFO|2025-08-05 22:55:33] modeling_utils.py:5131 >> All model checkpoint weights were used when initializing Qwen3ForCausalLM.
+
+[INFO|2025-08-05 22:55:33] modeling_utils.py:5139 >> All the weights of Qwen3ForCausalLM were initialized from the model checkpoint at C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use Qwen3ForCausalLM for predictions without further training.
+[INFO|2025-08-05 22:55:33] configuration_utils.py:1088 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\generation_config.json
+[INFO|2025-08-05 22:55:33] configuration_utils.py:1135 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "do_sample": true,
+  "eos_token_id": [
+    151645,
+    151643
+  ],
+  "pad_token_id": 151643,
+  "temperature": 0.6,
+  "top_k": 20,
+  "top_p": 0.95
+}
+
+[INFO|2025-08-05 22:55:33] logging.py:143 >> Gradient checkpointing enabled.
+[INFO|2025-08-05 22:55:33] logging.py:143 >> Using torch SDPA for faster training and inference.
+[INFO|2025-08-05 22:55:33] logging.py:143 >> Upcasting trainable params to float32.
+[INFO|2025-08-05 22:55:33] logging.py:143 >> Fine-tuning method: LoRA
+[INFO|2025-08-05 22:55:33] logging.py:143 >> Found linear modules: down_proj,v_proj,q_proj,gate_proj,k_proj,o_proj,up_proj
+[INFO|2025-08-05 22:55:33] logging.py:143 >> trainable params: 5,046,272 || all params: 601,096,192 || trainable%: 0.8395
+[INFO|2025-08-05 22:55:33] trainer.py:756 >> Using auto half precision backend
+[INFO|2025-08-05 22:55:33] trainer.py:2409 >> ***** Running training *****
+[INFO|2025-08-05 22:55:33] trainer.py:2410 >>   Num examples = 7,811
+[INFO|2025-08-05 22:55:33] trainer.py:2411 >>   Num Epochs = 3
+[INFO|2025-08-05 22:55:33] trainer.py:2412 >>   Instantaneous batch size per device = 1
+[INFO|2025-08-05 22:55:33] trainer.py:2415 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|2025-08-05 22:55:33] trainer.py:2416 >>   Gradient Accumulation steps = 8
+[INFO|2025-08-05 22:55:33] trainer.py:2417 >>   Total optimization steps = 2,931
+[INFO|2025-08-05 22:55:33] trainer.py:2418 >>   Number of trainable parameters = 5,046,272
+[INFO|2025-08-05 22:55:50] logging.py:143 >> {'loss': 2.1687, 'learning_rate': 5.0000e-05, 'epoch': 0.01, 'throughput': 3226.15}
+[INFO|2025-08-05 22:56:05] logging.py:143 >> {'loss': 2.2124, 'learning_rate': 4.9999e-05, 'epoch': 0.01, 'throughput': 3199.53}
+[INFO|2025-08-05 22:56:21] logging.py:143 >> {'loss': 2.1812, 'learning_rate': 4.9997e-05, 'epoch': 0.02, 'throughput': 3111.28}
+[INFO|2025-08-05 22:56:36] logging.py:143 >> {'loss': 2.1041, 'learning_rate': 4.9995e-05, 'epoch': 0.02, 'throughput': 3092.53}
+[INFO|2025-08-05 22:56:52] logging.py:143 >> {'loss': 2.1172, 'learning_rate': 4.9992e-05, 'epoch': 0.03, 'throughput': 3095.87}
+[INFO|2025-08-05 22:57:08] logging.py:143 >> {'loss': 2.0583, 'learning_rate': 4.9988e-05, 'epoch': 0.03, 'throughput': 3147.30}
+[INFO|2025-08-05 22:57:24] logging.py:143 >> {'loss': 2.0024, 'learning_rate': 4.9983e-05, 'epoch': 0.04, 'throughput': 3088.91}
+[INFO|2025-08-05 22:57:41] logging.py:143 >> {'loss': 2.0371, 'learning_rate': 4.9978e-05, 'epoch': 0.04, 'throughput': 3098.81}
+[INFO|2025-08-05 22:57:57] logging.py:143 >> {'loss': 1.9740, 'learning_rate': 4.9972e-05, 'epoch': 0.05, 'throughput': 3104.15}
+[INFO|2025-08-05 22:58:13] logging.py:143 >> {'loss': 2.0132, 'learning_rate': 4.9966e-05, 'epoch': 0.05, 'throughput': 3103.15}
+[INFO|2025-08-05 22:58:29] logging.py:143 >> {'loss': 2.0000, 'learning_rate': 4.9958e-05, 'epoch': 0.06, 'throughput': 3105.97}
+[INFO|2025-08-05 22:58:45] logging.py:143 >> {'loss': 2.0059, 'learning_rate': 4.9950e-05, 'epoch': 0.06, 'throughput': 3080.76}
+[INFO|2025-08-05 22:59:00] logging.py:143 >> {'loss': 1.9720, 'learning_rate': 4.9941e-05, 'epoch': 0.07, 'throughput': 3066.02}
+[INFO|2025-08-05 22:59:16] logging.py:143 >> {'loss': 1.9741, 'learning_rate': 4.9932e-05, 'epoch': 0.07, 'throughput': 3063.11}
+[INFO|2025-08-05 22:59:32] logging.py:143 >> {'loss': 2.0055, 'learning_rate': 4.9921e-05, 'epoch': 0.08, 'throughput': 3060.82}
+[INFO|2025-08-05 22:59:48] logging.py:143 >> {'loss': 1.8934, 'learning_rate': 4.9910e-05, 'epoch': 0.08, 'throughput': 3053.31}
+[INFO|2025-08-05 23:00:04] logging.py:143 >> {'loss': 1.9998, 'learning_rate': 4.9899e-05, 'epoch': 0.09, 'throughput': 3049.17}
+[INFO|2025-08-05 23:00:21] logging.py:143 >> {'loss': 1.9283, 'learning_rate': 4.9886e-05, 'epoch': 0.09, 'throughput': 3053.94}
+[INFO|2025-08-05 23:00:37] logging.py:143 >> {'loss': 1.9288, 'learning_rate': 4.9873e-05, 'epoch': 0.10, 'throughput': 3062.86}
+[INFO|2025-08-05 23:00:53] logging.py:143 >> {'loss': 1.8997, 'learning_rate': 4.9859e-05, 'epoch': 0.10, 'throughput': 3064.69}
+[INFO|2025-08-05 23:00:53] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:00:53] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:00:53] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:03:15] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-100
+[INFO|2025-08-05 23:03:15] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:03:15] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:03:15] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-100\chat_template.jinja
+[INFO|2025-08-05 23:03:15] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-100\tokenizer_config.json
+[INFO|2025-08-05 23:03:15] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-100\special_tokens_map.json
+[INFO|2025-08-05 23:03:32] logging.py:143 >> {'loss': 1.9343, 'learning_rate': 4.9845e-05, 'epoch': 0.11, 'throughput': 2161.90}
+[INFO|2025-08-05 23:03:48] logging.py:143 >> {'loss': 1.8646, 'learning_rate': 4.9830e-05, 'epoch': 0.11, 'throughput': 2191.76}
+[INFO|2025-08-05 23:04:04] logging.py:143 >> {'loss': 1.9454, 'learning_rate': 4.9814e-05, 'epoch': 0.12, 'throughput': 2225.25}
+[INFO|2025-08-05 23:04:20] logging.py:143 >> {'loss': 1.9867, 'learning_rate': 4.9797e-05, 'epoch': 0.12, 'throughput': 2246.38}
+[INFO|2025-08-05 23:04:36] logging.py:143 >> {'loss': 1.9192, 'learning_rate': 4.9780e-05, 'epoch': 0.13, 'throughput': 2275.31}
+[INFO|2025-08-05 23:04:53] logging.py:143 >> {'loss': 1.9075, 'learning_rate': 4.9761e-05, 'epoch': 0.13, 'throughput': 2305.48}
+[INFO|2025-08-05 23:05:10] logging.py:143 >> {'loss': 1.9226, 'learning_rate': 4.9743e-05, 'epoch': 0.14, 'throughput': 2330.51}
+[INFO|2025-08-05 23:05:26] logging.py:143 >> {'loss': 1.8597, 'learning_rate': 4.9723e-05, 'epoch': 0.14, 'throughput': 2351.84}
+[INFO|2025-08-05 23:05:42] logging.py:143 >> {'loss': 1.9720, 'learning_rate': 4.9703e-05, 'epoch': 0.15, 'throughput': 2369.96}
+[INFO|2025-08-05 23:05:57] logging.py:143 >> {'loss': 1.9393, 'learning_rate': 4.9682e-05, 'epoch': 0.15, 'throughput': 2384.27}
+[INFO|2025-08-05 23:06:13] logging.py:143 >> {'loss': 1.9028, 'learning_rate': 4.9660e-05, 'epoch': 0.16, 'throughput': 2403.81}
+[INFO|2025-08-05 23:06:29] logging.py:143 >> {'loss': 1.9507, 'learning_rate': 4.9638e-05, 'epoch': 0.16, 'throughput': 2424.30}
+[INFO|2025-08-05 23:06:46] logging.py:143 >> {'loss': 1.9918, 'learning_rate': 4.9615e-05, 'epoch': 0.17, 'throughput': 2439.42}
+[INFO|2025-08-05 23:07:02] logging.py:143 >> {'loss': 1.8929, 'learning_rate': 4.9591e-05, 'epoch': 0.17, 'throughput': 2456.00}
+[INFO|2025-08-05 23:07:18] logging.py:143 >> {'loss': 1.9504, 'learning_rate': 4.9566e-05, 'epoch': 0.18, 'throughput': 2466.23}
+[INFO|2025-08-05 23:07:34] logging.py:143 >> {'loss': 1.8777, 'learning_rate': 4.9541e-05, 'epoch': 0.18, 'throughput': 2484.54}
+[INFO|2025-08-05 23:07:51] logging.py:143 >> {'loss': 1.8396, 'learning_rate': 4.9515e-05, 'epoch': 0.19, 'throughput': 2508.15}
+[INFO|2025-08-05 23:08:08] logging.py:143 >> {'loss': 1.7795, 'learning_rate': 4.9489e-05, 'epoch': 0.19, 'throughput': 2518.52}
+[INFO|2025-08-05 23:08:23] logging.py:143 >> {'loss': 1.8200, 'learning_rate': 4.9461e-05, 'epoch': 0.20, 'throughput': 2518.29}
+[INFO|2025-08-05 23:08:39] logging.py:143 >> {'loss': 1.9756, 'learning_rate': 4.9433e-05, 'epoch': 0.20, 'throughput': 2529.58}
+[INFO|2025-08-05 23:08:39] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:08:39] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:08:39] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:10:57] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-200
+[INFO|2025-08-05 23:10:57] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:10:57] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:10:57] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-200\chat_template.jinja
+[INFO|2025-08-05 23:10:57] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-200\tokenizer_config.json
+[INFO|2025-08-05 23:10:57] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-200\special_tokens_map.json
+[INFO|2025-08-05 23:11:13] logging.py:143 >> {'loss': 1.8125, 'learning_rate': 4.9405e-05, 'epoch': 0.21, 'throughput': 2164.38}
+[INFO|2025-08-05 23:11:30] logging.py:143 >> {'loss': 1.9285, 'learning_rate': 4.9375e-05, 'epoch': 0.22, 'throughput': 2182.19}
+[INFO|2025-08-05 23:11:46] logging.py:143 >> {'loss': 1.8151, 'learning_rate': 4.9345e-05, 'epoch': 0.22, 'throughput': 2196.44}
+[INFO|2025-08-05 23:12:02] logging.py:143 >> {'loss': 1.8017, 'learning_rate': 4.9314e-05, 'epoch': 0.23, 'throughput': 2211.70}
+[INFO|2025-08-05 23:12:18] logging.py:143 >> {'loss': 1.8178, 'learning_rate': 4.9283e-05, 'epoch': 0.23, 'throughput': 2225.76}
+[INFO|2025-08-05 23:12:34] logging.py:143 >> {'loss': 1.8406, 'learning_rate': 4.9251e-05, 'epoch': 0.24, 'throughput': 2244.08}
+[INFO|2025-08-05 23:12:49] logging.py:143 >> {'loss': 1.8719, 'learning_rate': 4.9218e-05, 'epoch': 0.24, 'throughput': 2257.18}
+[INFO|2025-08-05 23:13:05] logging.py:143 >> {'loss': 1.8874, 'learning_rate': 4.9184e-05, 'epoch': 0.25, 'throughput': 2275.71}
+[INFO|2025-08-05 23:13:20] logging.py:143 >> {'loss': 1.7639, 'learning_rate': 4.9150e-05, 'epoch': 0.25, 'throughput': 2288.38}
+[INFO|2025-08-05 23:13:36] logging.py:143 >> {'loss': 1.9183, 'learning_rate': 4.9115e-05, 'epoch': 0.26, 'throughput': 2303.36}
+[INFO|2025-08-05 23:13:51] logging.py:143 >> {'loss': 1.8799, 'learning_rate': 4.9079e-05, 'epoch': 0.26, 'throughput': 2315.92}
+[INFO|2025-08-05 23:14:06] logging.py:143 >> {'loss': 1.9013, 'learning_rate': 4.9043e-05, 'epoch': 0.27, 'throughput': 2327.63}
+[INFO|2025-08-05 23:14:21] logging.py:143 >> {'loss': 1.8445, 'learning_rate': 4.9006e-05, 'epoch': 0.27, 'throughput': 2339.46}
+[INFO|2025-08-05 23:14:37] logging.py:143 >> {'loss': 1.8690, 'learning_rate': 4.8968e-05, 'epoch': 0.28, 'throughput': 2355.31}
+[INFO|2025-08-05 23:14:52] logging.py:143 >> {'loss': 1.8503, 'learning_rate': 4.8930e-05, 'epoch': 0.28, 'throughput': 2366.10}
+[INFO|2025-08-05 23:15:08] logging.py:143 >> {'loss': 1.7755, 'learning_rate': 4.8890e-05, 'epoch': 0.29, 'throughput': 2379.39}
+[INFO|2025-08-05 23:15:24] logging.py:143 >> {'loss': 1.8225, 'learning_rate': 4.8851e-05, 'epoch': 0.29, 'throughput': 2392.77}
+[INFO|2025-08-05 23:15:39] logging.py:143 >> {'loss': 1.8330, 'learning_rate': 4.8810e-05, 'epoch': 0.30, 'throughput': 2403.40}
+[INFO|2025-08-05 23:15:53] logging.py:143 >> {'loss': 1.8606, 'learning_rate': 4.8769e-05, 'epoch': 0.30, 'throughput': 2412.70}
+[INFO|2025-08-05 23:16:08] logging.py:143 >> {'loss': 1.7749, 'learning_rate': 4.8727e-05, 'epoch': 0.31, 'throughput': 2419.43}
+[INFO|2025-08-05 23:16:08] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:16:08] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:16:08] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:18:20] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-300
+[INFO|2025-08-05 23:18:20] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:18:20] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:18:20] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-300\chat_template.jinja
+[INFO|2025-08-05 23:18:20] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-300\tokenizer_config.json
+[INFO|2025-08-05 23:18:20] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-300\special_tokens_map.json
+[INFO|2025-08-05 23:18:35] logging.py:143 >> {'loss': 1.7956, 'learning_rate': 4.8685e-05, 'epoch': 0.31, 'throughput': 2195.22}
+[INFO|2025-08-05 23:18:50] logging.py:143 >> {'loss': 1.8233, 'learning_rate': 4.8641e-05, 'epoch': 0.32, 'throughput': 2206.81}
+[INFO|2025-08-05 23:19:06] logging.py:143 >> {'loss': 1.8034, 'learning_rate': 4.8597e-05, 'epoch': 0.32, 'throughput': 2220.71}
+[INFO|2025-08-05 23:19:21] logging.py:143 >> {'loss': 1.8088, 'learning_rate': 4.8553e-05, 'epoch': 0.33, 'throughput': 2234.04}
+[INFO|2025-08-05 23:19:37] logging.py:143 >> {'loss': 1.7120, 'learning_rate': 4.8508e-05, 'epoch': 0.33, 'throughput': 2245.39}
+[INFO|2025-08-05 23:19:51] logging.py:143 >> {'loss': 1.7682, 'learning_rate': 4.8462e-05, 'epoch': 0.34, 'throughput': 2253.19}
+[INFO|2025-08-05 23:20:07] logging.py:143 >> {'loss': 1.8030, 'learning_rate': 4.8415e-05, 'epoch': 0.34, 'throughput': 2265.33}
+[INFO|2025-08-05 23:20:22] logging.py:143 >> {'loss': 1.7748, 'learning_rate': 4.8368e-05, 'epoch': 0.35, 'throughput': 2273.55}
+[INFO|2025-08-05 23:20:37] logging.py:143 >> {'loss': 1.8342, 'learning_rate': 4.8320e-05, 'epoch': 0.35, 'throughput': 2282.71}
+[INFO|2025-08-05 23:20:53] logging.py:143 >> {'loss': 1.7911, 'learning_rate': 4.8271e-05, 'epoch': 0.36, 'throughput': 2296.23}
+[INFO|2025-08-05 23:21:08] logging.py:143 >> {'loss': 1.7587, 'learning_rate': 4.8222e-05, 'epoch': 0.36, 'throughput': 2307.19}
+[INFO|2025-08-05 23:21:24] logging.py:143 >> {'loss': 1.7463, 'learning_rate': 4.8172e-05, 'epoch': 0.37, 'throughput': 2319.42}
+[INFO|2025-08-05 23:21:40] logging.py:143 >> {'loss': 1.7647, 'learning_rate': 4.8121e-05, 'epoch': 0.37, 'throughput': 2329.27}
+[INFO|2025-08-05 23:21:55] logging.py:143 >> {'loss': 1.8644, 'learning_rate': 4.8070e-05, 'epoch': 0.38, 'throughput': 2338.39}
+[INFO|2025-08-05 23:22:10] logging.py:143 >> {'loss': 1.7995, 'learning_rate': 4.8018e-05, 'epoch': 0.38, 'throughput': 2348.26}
+[INFO|2025-08-05 23:22:26] logging.py:143 >> {'loss': 1.7896, 'learning_rate': 4.7965e-05, 'epoch': 0.39, 'throughput': 2358.61}
+[INFO|2025-08-05 23:22:41] logging.py:143 >> {'loss': 1.7973, 'learning_rate': 4.7912e-05, 'epoch': 0.39, 'throughput': 2367.65}
+[INFO|2025-08-05 23:22:57] logging.py:143 >> {'loss': 1.8661, 'learning_rate': 4.7858e-05, 'epoch': 0.40, 'throughput': 2377.53}
+[INFO|2025-08-05 23:23:13] logging.py:143 >> {'loss': 1.8979, 'learning_rate': 4.7804e-05, 'epoch': 0.40, 'throughput': 2387.98}
+[INFO|2025-08-05 23:23:28] logging.py:143 >> {'loss': 1.8208, 'learning_rate': 4.7748e-05, 'epoch': 0.41, 'throughput': 2394.83}
+[INFO|2025-08-05 23:23:28] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:23:28] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:23:28] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:25:40] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-400
+[INFO|2025-08-05 23:25:40] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:25:40] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:25:40] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-400\chat_template.jinja
+[INFO|2025-08-05 23:25:40] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-400\tokenizer_config.json
+[INFO|2025-08-05 23:25:40] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-400\special_tokens_map.json
+[INFO|2025-08-05 23:25:56] logging.py:143 >> {'loss': 1.8335, 'learning_rate': 4.7692e-05, 'epoch': 0.41, 'throughput': 2229.57}
+[INFO|2025-08-05 23:26:11] logging.py:143 >> {'loss': 1.7978, 'learning_rate': 4.7636e-05, 'epoch': 0.42, 'throughput': 2238.30}
+[INFO|2025-08-05 23:26:26] logging.py:143 >> {'loss': 1.8190, 'learning_rate': 4.7579e-05, 'epoch': 0.43, 'throughput': 2247.82}
+[INFO|2025-08-05 23:26:42] logging.py:143 >> {'loss': 1.8474, 'learning_rate': 4.7521e-05, 'epoch': 0.43, 'throughput': 2256.06}
+[INFO|2025-08-05 23:26:57] logging.py:143 >> {'loss': 1.8280, 'learning_rate': 4.7462e-05, 'epoch': 0.44, 'throughput': 2262.65}
+[INFO|2025-08-05 23:27:12] logging.py:143 >> {'loss': 1.6864, 'learning_rate': 4.7403e-05, 'epoch': 0.44, 'throughput': 2271.81}
+[INFO|2025-08-05 23:27:28] logging.py:143 >> {'loss': 1.8399, 'learning_rate': 4.7343e-05, 'epoch': 0.45, 'throughput': 2281.80}
+[INFO|2025-08-05 23:27:44] logging.py:143 >> {'loss': 1.7992, 'learning_rate': 4.7283e-05, 'epoch': 0.45, 'throughput': 2288.55}
+[INFO|2025-08-05 23:27:59] logging.py:143 >> {'loss': 1.7556, 'learning_rate': 4.7222e-05, 'epoch': 0.46, 'throughput': 2294.43}
+[INFO|2025-08-05 23:28:14] logging.py:143 >> {'loss': 1.7566, 'learning_rate': 4.7160e-05, 'epoch': 0.46, 'throughput': 2302.88}
+[INFO|2025-08-05 23:28:30] logging.py:143 >> {'loss': 1.6362, 'learning_rate': 4.7098e-05, 'epoch': 0.47, 'throughput': 2311.32}
+[INFO|2025-08-05 23:28:45] logging.py:143 >> {'loss': 1.8271, 'learning_rate': 4.7035e-05, 'epoch': 0.47, 'throughput': 2320.39}
+[INFO|2025-08-05 23:29:02] logging.py:143 >> {'loss': 1.8027, 'learning_rate': 4.6971e-05, 'epoch': 0.48, 'throughput': 2330.55}
+[INFO|2025-08-05 23:29:17] logging.py:143 >> {'loss': 1.7679, 'learning_rate': 4.6907e-05, 'epoch': 0.48, 'throughput': 2337.79}
+[INFO|2025-08-05 23:29:33] logging.py:143 >> {'loss': 1.8017, 'learning_rate': 4.6842e-05, 'epoch': 0.49, 'throughput': 2347.06}
+[INFO|2025-08-05 23:29:49] logging.py:143 >> {'loss': 1.7353, 'learning_rate': 4.6777e-05, 'epoch': 0.49, 'throughput': 2356.19}
+[INFO|2025-08-05 23:30:05] logging.py:143 >> {'loss': 1.8319, 'learning_rate': 4.6711e-05, 'epoch': 0.50, 'throughput': 2363.81}
+[INFO|2025-08-05 23:30:20] logging.py:143 >> {'loss': 1.7266, 'learning_rate': 4.6644e-05, 'epoch': 0.50, 'throughput': 2370.03}
+[INFO|2025-08-05 23:30:36] logging.py:143 >> {'loss': 1.8015, 'learning_rate': 4.6577e-05, 'epoch': 0.51, 'throughput': 2377.59}
+[INFO|2025-08-05 23:30:52] logging.py:143 >> {'loss': 1.7646, 'learning_rate': 4.6509e-05, 'epoch': 0.51, 'throughput': 2387.00}
+[INFO|2025-08-05 23:30:52] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:30:52] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:30:52] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:33:04] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-500
+[INFO|2025-08-05 23:33:04] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:33:04] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:33:04] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-500\chat_template.jinja
+[INFO|2025-08-05 23:33:04] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-500\tokenizer_config.json
+[INFO|2025-08-05 23:33:04] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-500\special_tokens_map.json
+[INFO|2025-08-05 23:33:19] logging.py:143 >> {'loss': 1.7437, 'learning_rate': 4.6440e-05, 'epoch': 0.52, 'throughput': 2252.28}
+[INFO|2025-08-05 23:33:34] logging.py:143 >> {'loss': 1.7573, 'learning_rate': 4.6371e-05, 'epoch': 0.52, 'throughput': 2258.04}
+[INFO|2025-08-05 23:33:50] logging.py:143 >> {'loss': 1.7598, 'learning_rate': 4.6301e-05, 'epoch': 0.53, 'throughput': 2265.28}
+[INFO|2025-08-05 23:34:05] logging.py:143 >> {'loss': 1.7771, 'learning_rate': 4.6230e-05, 'epoch': 0.53, 'throughput': 2271.39}
+[INFO|2025-08-05 23:34:20] logging.py:143 >> {'loss': 1.7774, 'learning_rate': 4.6159e-05, 'epoch': 0.54, 'throughput': 2279.12}
+[INFO|2025-08-05 23:34:37] logging.py:143 >> {'loss': 1.8384, 'learning_rate': 4.6088e-05, 'epoch': 0.54, 'throughput': 2289.65}
+[INFO|2025-08-05 23:34:52] logging.py:143 >> {'loss': 1.8139, 'learning_rate': 4.6016e-05, 'epoch': 0.55, 'throughput': 2295.78}
+[INFO|2025-08-05 23:35:07] logging.py:143 >> {'loss': 1.8008, 'learning_rate': 4.5943e-05, 'epoch': 0.55, 'throughput': 2300.50}
+[INFO|2025-08-05 23:35:23] logging.py:143 >> {'loss': 1.7010, 'learning_rate': 4.5869e-05, 'epoch': 0.56, 'throughput': 2307.86}
+[INFO|2025-08-05 23:35:38] logging.py:143 >> {'loss': 1.6899, 'learning_rate': 4.5795e-05, 'epoch': 0.56, 'throughput': 2314.28}
+[INFO|2025-08-05 23:35:54] logging.py:143 >> {'loss': 1.8320, 'learning_rate': 4.5720e-05, 'epoch': 0.57, 'throughput': 2321.61}
+[INFO|2025-08-05 23:36:09] logging.py:143 >> {'loss': 1.7411, 'learning_rate': 4.5645e-05, 'epoch': 0.57, 'throughput': 2327.42}
+[INFO|2025-08-05 23:36:25] logging.py:143 >> {'loss': 1.7915, 'learning_rate': 4.5569e-05, 'epoch': 0.58, 'throughput': 2333.30}
+[INFO|2025-08-05 23:36:41] logging.py:143 >> {'loss': 1.7684, 'learning_rate': 4.5493e-05, 'epoch': 0.58, 'throughput': 2340.56}
+[INFO|2025-08-05 23:36:56] logging.py:143 >> {'loss': 1.8333, 'learning_rate': 4.5416e-05, 'epoch': 0.59, 'throughput': 2346.42}
+[INFO|2025-08-05 23:37:11] logging.py:143 >> {'loss': 1.7109, 'learning_rate': 4.5338e-05, 'epoch': 0.59, 'throughput': 2351.87}
+[INFO|2025-08-05 23:37:27] logging.py:143 >> {'loss': 1.7612, 'learning_rate': 4.5260e-05, 'epoch': 0.60, 'throughput': 2358.43}
+[INFO|2025-08-05 23:37:42] logging.py:143 >> {'loss': 1.8391, 'learning_rate': 4.5181e-05, 'epoch': 0.60, 'throughput': 2365.33}
+[INFO|2025-08-05 23:37:57] logging.py:143 >> {'loss': 1.7864, 'learning_rate': 4.5102e-05, 'epoch': 0.61, 'throughput': 2369.52}
+[INFO|2025-08-05 23:38:13] logging.py:143 >> {'loss': 1.8006, 'learning_rate': 4.5022e-05, 'epoch': 0.61, 'throughput': 2374.83}
+[INFO|2025-08-05 23:38:13] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:38:13] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:38:13] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:40:24] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-600
+[INFO|2025-08-05 23:40:24] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:40:24] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:40:24] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-600\chat_template.jinja
+[INFO|2025-08-05 23:40:24] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-600\tokenizer_config.json
+[INFO|2025-08-05 23:40:24] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-600\special_tokens_map.json
+[INFO|2025-08-05 23:40:39] logging.py:143 >> {'loss': 1.7161, 'learning_rate': 4.4941e-05, 'epoch': 0.62, 'throughput': 2263.51}
+[INFO|2025-08-05 23:40:55] logging.py:143 >> {'loss': 1.6633, 'learning_rate': 4.4860e-05, 'epoch': 0.62, 'throughput': 2269.08}
+[INFO|2025-08-05 23:41:10] logging.py:143 >> {'loss': 1.8340, 'learning_rate': 4.4779e-05, 'epoch': 0.63, 'throughput': 2273.49}
+[INFO|2025-08-05 23:41:25] logging.py:143 >> {'loss': 1.7832, 'learning_rate': 4.4696e-05, 'epoch': 0.64, 'throughput': 2277.97}
+[INFO|2025-08-05 23:41:40] logging.py:143 >> {'loss': 1.7382, 'learning_rate': 4.4614e-05, 'epoch': 0.64, 'throughput': 2284.62}
+[INFO|2025-08-05 23:41:56] logging.py:143 >> {'loss': 1.8020, 'learning_rate': 4.4530e-05, 'epoch': 0.65, 'throughput': 2289.78}
+[INFO|2025-08-05 23:42:11] logging.py:143 >> {'loss': 1.7213, 'learning_rate': 4.4446e-05, 'epoch': 0.65, 'throughput': 2294.12}
+[INFO|2025-08-05 23:42:26] logging.py:143 >> {'loss': 1.7771, 'learning_rate': 4.4362e-05, 'epoch': 0.66, 'throughput': 2298.39}
+[INFO|2025-08-05 23:42:42] logging.py:143 >> {'loss': 1.7736, 'learning_rate': 4.4277e-05, 'epoch': 0.66, 'throughput': 2305.08}
+[INFO|2025-08-05 23:42:58] logging.py:143 >> {'loss': 1.8369, 'learning_rate': 4.4191e-05, 'epoch': 0.67, 'throughput': 2311.89}
+[INFO|2025-08-05 23:43:14] logging.py:143 >> {'loss': 1.8049, 'learning_rate': 4.4105e-05, 'epoch': 0.67, 'throughput': 2317.86}
+[INFO|2025-08-05 23:43:29] logging.py:143 >> {'loss': 1.7227, 'learning_rate': 4.4018e-05, 'epoch': 0.68, 'throughput': 2322.39}
+[INFO|2025-08-05 23:43:44] logging.py:143 >> {'loss': 1.7417, 'learning_rate': 4.3931e-05, 'epoch': 0.68, 'throughput': 2327.67}
+[INFO|2025-08-05 23:44:00] logging.py:143 >> {'loss': 1.7088, 'learning_rate': 4.3843e-05, 'epoch': 0.69, 'throughput': 2336.12}
+[INFO|2025-08-05 23:44:16] logging.py:143 >> {'loss': 1.6694, 'learning_rate': 4.3755e-05, 'epoch': 0.69, 'throughput': 2341.97}
+[INFO|2025-08-05 23:44:31] logging.py:143 >> {'loss': 1.8131, 'learning_rate': 4.3666e-05, 'epoch': 0.70, 'throughput': 2346.90}
+[INFO|2025-08-05 23:44:47] logging.py:143 >> {'loss': 1.8397, 'learning_rate': 4.3577e-05, 'epoch': 0.70, 'throughput': 2353.47}
+[INFO|2025-08-05 23:45:03] logging.py:143 >> {'loss': 1.7075, 'learning_rate': 4.3487e-05, 'epoch': 0.71, 'throughput': 2358.13}
+[INFO|2025-08-05 23:45:19] logging.py:143 >> {'loss': 1.7870, 'learning_rate': 4.3396e-05, 'epoch': 0.71, 'throughput': 2364.49}
+[INFO|2025-08-05 23:45:34] logging.py:143 >> {'loss': 1.8145, 'learning_rate': 4.3305e-05, 'epoch': 0.72, 'throughput': 2370.38}
+[INFO|2025-08-05 23:45:34] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:45:34] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:45:34] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:47:46] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-700
+[INFO|2025-08-05 23:47:46] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:47:46] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:47:46] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-700\chat_template.jinja
+[INFO|2025-08-05 23:47:46] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-700\tokenizer_config.json
+[INFO|2025-08-05 23:47:46] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-700\special_tokens_map.json
+[INFO|2025-08-05 23:48:02] logging.py:143 >> {'loss': 1.6720, 'learning_rate': 4.3214e-05, 'epoch': 0.72, 'throughput': 2275.72}
+[INFO|2025-08-05 23:48:18] logging.py:143 >> {'loss': 1.8205, 'learning_rate': 4.3122e-05, 'epoch': 0.73, 'throughput': 2283.01}
+[INFO|2025-08-05 23:48:33] logging.py:143 >> {'loss': 1.7901, 'learning_rate': 4.3029e-05, 'epoch': 0.73, 'throughput': 2287.53}
+[INFO|2025-08-05 23:48:49] logging.py:143 >> {'loss': 1.6914, 'learning_rate': 4.2936e-05, 'epoch': 0.74, 'throughput': 2293.84}
+[INFO|2025-08-05 23:49:04] logging.py:143 >> {'loss': 1.7619, 'learning_rate': 4.2843e-05, 'epoch': 0.74, 'throughput': 2297.72}
+[INFO|2025-08-05 23:49:18] logging.py:143 >> {'loss': 1.7261, 'learning_rate': 4.2749e-05, 'epoch': 0.75, 'throughput': 2300.62}
+[INFO|2025-08-05 23:49:33] logging.py:143 >> {'loss': 1.6825, 'learning_rate': 4.2654e-05, 'epoch': 0.75, 'throughput': 2304.33}
+[INFO|2025-08-05 23:49:48] logging.py:143 >> {'loss': 1.8234, 'learning_rate': 4.2559e-05, 'epoch': 0.76, 'throughput': 2306.92}
+[INFO|2025-08-05 23:50:03] logging.py:143 >> {'loss': 1.7971, 'learning_rate': 4.2463e-05, 'epoch': 0.76, 'throughput': 2310.53}
+[INFO|2025-08-05 23:50:19] logging.py:143 >> {'loss': 1.7904, 'learning_rate': 4.2367e-05, 'epoch': 0.77, 'throughput': 2315.10}
+[INFO|2025-08-05 23:50:34] logging.py:143 >> {'loss': 1.7262, 'learning_rate': 4.2270e-05, 'epoch': 0.77, 'throughput': 2318.76}
+[INFO|2025-08-05 23:50:49] logging.py:143 >> {'loss': 1.7721, 'learning_rate': 4.2173e-05, 'epoch': 0.78, 'throughput': 2322.56}
+[INFO|2025-08-05 23:51:04] logging.py:143 >> {'loss': 1.8376, 'learning_rate': 4.2076e-05, 'epoch': 0.78, 'throughput': 2325.52}
+[INFO|2025-08-05 23:51:19] logging.py:143 >> {'loss': 1.7852, 'learning_rate': 4.1978e-05, 'epoch': 0.79, 'throughput': 2330.18}
+[INFO|2025-08-05 23:51:34] logging.py:143 >> {'loss': 1.8022, 'learning_rate': 4.1879e-05, 'epoch': 0.79, 'throughput': 2335.64}
+[INFO|2025-08-05 23:51:50] logging.py:143 >> {'loss': 1.8004, 'learning_rate': 4.1780e-05, 'epoch': 0.80, 'throughput': 2339.92}
+[INFO|2025-08-05 23:52:05] logging.py:143 >> {'loss': 1.7705, 'learning_rate': 4.1680e-05, 'epoch': 0.80, 'throughput': 2343.46}
+[INFO|2025-08-05 23:52:19] logging.py:143 >> {'loss': 1.7865, 'learning_rate': 4.1580e-05, 'epoch': 0.81, 'throughput': 2346.93}
+[INFO|2025-08-05 23:52:35] logging.py:143 >> {'loss': 1.7777, 'learning_rate': 4.1480e-05, 'epoch': 0.81, 'throughput': 2351.17}
+[INFO|2025-08-05 23:52:50] logging.py:143 >> {'loss': 1.7893, 'learning_rate': 4.1379e-05, 'epoch': 0.82, 'throughput': 2355.55}
+[INFO|2025-08-05 23:52:50] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-05 23:52:50] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-05 23:52:50] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-05 23:55:01] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-800
+[INFO|2025-08-05 23:55:01] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-05 23:55:01] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-05 23:55:01] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-800\chat_template.jinja
+[INFO|2025-08-05 23:55:01] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-800\tokenizer_config.json
+[INFO|2025-08-05 23:55:01] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-800\special_tokens_map.json
+[INFO|2025-08-05 23:55:16] logging.py:143 >> {'loss': 1.7488, 'learning_rate': 4.1277e-05, 'epoch': 0.82, 'throughput': 2271.64}
+[INFO|2025-08-05 23:55:32] logging.py:143 >> {'loss': 1.7367, 'learning_rate': 4.1176e-05, 'epoch': 0.83, 'throughput': 2276.28}
+[INFO|2025-08-05 23:55:47] logging.py:143 >> {'loss': 1.7774, 'learning_rate': 4.1073e-05, 'epoch': 0.83, 'throughput': 2279.98}
+[INFO|2025-08-05 23:56:02] logging.py:143 >> {'loss': 1.7994, 'learning_rate': 4.0970e-05, 'epoch': 0.84, 'throughput': 2283.26}
+[INFO|2025-08-05 23:56:18] logging.py:143 >> {'loss': 1.7486, 'learning_rate': 4.0867e-05, 'epoch': 0.84, 'throughput': 2288.56}
+[INFO|2025-08-05 23:56:33] logging.py:143 >> {'loss': 1.7647, 'learning_rate': 4.0763e-05, 'epoch': 0.85, 'throughput': 2292.34}
+[INFO|2025-08-05 23:56:49] logging.py:143 >> {'loss': 1.7203, 'learning_rate': 4.0659e-05, 'epoch': 0.86, 'throughput': 2296.71}
+[INFO|2025-08-05 23:57:04] logging.py:143 >> {'loss': 1.7874, 'learning_rate': 4.0554e-05, 'epoch': 0.86, 'throughput': 2301.58}
+[INFO|2025-08-05 23:57:20] logging.py:143 >> {'loss': 1.7150, 'learning_rate': 4.0449e-05, 'epoch': 0.87, 'throughput': 2306.02}
+[INFO|2025-08-05 23:57:36] logging.py:143 >> {'loss': 1.7654, 'learning_rate': 4.0344e-05, 'epoch': 0.87, 'throughput': 2309.72}
+[INFO|2025-08-05 23:57:51] logging.py:143 >> {'loss': 1.7826, 'learning_rate': 4.0238e-05, 'epoch': 0.88, 'throughput': 2312.87}
+[INFO|2025-08-05 23:58:06] logging.py:143 >> {'loss': 1.7713, 'learning_rate': 4.0131e-05, 'epoch': 0.88, 'throughput': 2317.14}
+[INFO|2025-08-05 23:58:22] logging.py:143 >> {'loss': 1.7025, 'learning_rate': 4.0024e-05, 'epoch': 0.89, 'throughput': 2322.50}
+[INFO|2025-08-05 23:58:37] logging.py:143 >> {'loss': 1.6851, 'learning_rate': 3.9917e-05, 'epoch': 0.89, 'throughput': 2325.66}
+[INFO|2025-08-05 23:58:52] logging.py:143 >> {'loss': 1.7639, 'learning_rate': 3.9809e-05, 'epoch': 0.90, 'throughput': 2329.49}
+[INFO|2025-08-05 23:59:08] logging.py:143 >> {'loss': 1.6965, 'learning_rate': 3.9701e-05, 'epoch': 0.90, 'throughput': 2334.63}
+[INFO|2025-08-05 23:59:25] logging.py:143 >> {'loss': 1.7385, 'learning_rate': 3.9593e-05, 'epoch': 0.91, 'throughput': 2341.15}
+[INFO|2025-08-05 23:59:40] logging.py:143 >> {'loss': 1.7447, 'learning_rate': 3.9484e-05, 'epoch': 0.91, 'throughput': 2344.13}
+[INFO|2025-08-05 23:59:55] logging.py:143 >> {'loss': 1.7222, 'learning_rate': 3.9374e-05, 'epoch': 0.92, 'throughput': 2347.94}
+[INFO|2025-08-06 00:00:11] logging.py:143 >> {'loss': 1.7092, 'learning_rate': 3.9264e-05, 'epoch': 0.92, 'throughput': 2352.62}
+[INFO|2025-08-06 00:00:11] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:00:11] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:00:11] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:02:22] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-900
+[INFO|2025-08-06 00:02:22] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:02:22] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:02:22] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-900\chat_template.jinja
+[INFO|2025-08-06 00:02:22] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-900\tokenizer_config.json
+[INFO|2025-08-06 00:02:22] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-900\special_tokens_map.json
+[INFO|2025-08-06 00:02:38] logging.py:143 >> {'loss': 1.7429, 'learning_rate': 3.9154e-05, 'epoch': 0.93, 'throughput': 2279.29}
+[INFO|2025-08-06 00:02:53] logging.py:143 >> {'loss': 1.7873, 'learning_rate': 3.9043e-05, 'epoch': 0.93, 'throughput': 2282.98}
+[INFO|2025-08-06 00:03:09] logging.py:143 >> {'loss': 1.6964, 'learning_rate': 3.8932e-05, 'epoch': 0.94, 'throughput': 2287.15}
+[INFO|2025-08-06 00:03:24] logging.py:143 >> {'loss': 1.7630, 'learning_rate': 3.8821e-05, 'epoch': 0.94, 'throughput': 2290.86}
+[INFO|2025-08-06 00:03:39] logging.py:143 >> {'loss': 1.7494, 'learning_rate': 3.8709e-05, 'epoch': 0.95, 'throughput': 2293.62}
+[INFO|2025-08-06 00:03:54] logging.py:143 >> {'loss': 1.7725, 'learning_rate': 3.8597e-05, 'epoch': 0.95, 'throughput': 2296.95}
+[INFO|2025-08-06 00:04:09] logging.py:143 >> {'loss': 1.7919, 'learning_rate': 3.8484e-05, 'epoch': 0.96, 'throughput': 2300.06}
+[INFO|2025-08-06 00:04:25] logging.py:143 >> {'loss': 1.7317, 'learning_rate': 3.8371e-05, 'epoch': 0.96, 'throughput': 2304.23}
+[INFO|2025-08-06 00:04:40] logging.py:143 >> {'loss': 1.7240, 'learning_rate': 3.8258e-05, 'epoch': 0.97, 'throughput': 2307.33}
+[INFO|2025-08-06 00:04:55] logging.py:143 >> {'loss': 1.7371, 'learning_rate': 3.8144e-05, 'epoch': 0.97, 'throughput': 2310.27}
+[INFO|2025-08-06 00:05:11] logging.py:143 >> {'loss': 1.6965, 'learning_rate': 3.8030e-05, 'epoch': 0.98, 'throughput': 2314.27}
+[INFO|2025-08-06 00:05:26] logging.py:143 >> {'loss': 1.7631, 'learning_rate': 3.7915e-05, 'epoch': 0.98, 'throughput': 2317.61}
+[INFO|2025-08-06 00:05:41] logging.py:143 >> {'loss': 1.6960, 'learning_rate': 3.7800e-05, 'epoch': 0.99, 'throughput': 2321.29}
+[INFO|2025-08-06 00:05:57] logging.py:143 >> {'loss': 1.7308, 'learning_rate': 3.7685e-05, 'epoch': 0.99, 'throughput': 2325.14}
+[INFO|2025-08-06 00:06:12] logging.py:143 >> {'loss': 1.6724, 'learning_rate': 3.7570e-05, 'epoch': 1.00, 'throughput': 2328.34}
+[INFO|2025-08-06 00:06:25] logging.py:143 >> {'loss': 1.7273, 'learning_rate': 3.7454e-05, 'epoch': 1.00, 'throughput': 2330.90}
+[INFO|2025-08-06 00:06:40] logging.py:143 >> {'loss': 1.6977, 'learning_rate': 3.7337e-05, 'epoch': 1.01, 'throughput': 2333.47}
+[INFO|2025-08-06 00:06:55] logging.py:143 >> {'loss': 1.7395, 'learning_rate': 3.7220e-05, 'epoch': 1.01, 'throughput': 2337.13}
+[INFO|2025-08-06 00:07:11] logging.py:143 >> {'loss': 1.7040, 'learning_rate': 3.7103e-05, 'epoch': 1.02, 'throughput': 2340.62}
+[INFO|2025-08-06 00:07:27] logging.py:143 >> {'loss': 1.7530, 'learning_rate': 3.6986e-05, 'epoch': 1.02, 'throughput': 2344.80}
+[INFO|2025-08-06 00:07:27] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:07:27] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:07:27] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:09:39] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1000
+[INFO|2025-08-06 00:09:39] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:09:39] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:09:39] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1000\chat_template.jinja
+[INFO|2025-08-06 00:09:39] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1000\tokenizer_config.json
+[INFO|2025-08-06 00:09:39] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1000\special_tokens_map.json
+[INFO|2025-08-06 00:09:54] logging.py:143 >> {'loss': 1.6930, 'learning_rate': 3.6868e-05, 'epoch': 1.03, 'throughput': 2278.26}
+[INFO|2025-08-06 00:10:10] logging.py:143 >> {'loss': 1.8440, 'learning_rate': 3.6750e-05, 'epoch': 1.03, 'throughput': 2281.44}
+[INFO|2025-08-06 00:10:26] logging.py:143 >> {'loss': 1.7117, 'learning_rate': 3.6632e-05, 'epoch': 1.04, 'throughput': 2286.53}
+[INFO|2025-08-06 00:10:41] logging.py:143 >> {'loss': 1.6509, 'learning_rate': 3.6513e-05, 'epoch': 1.04, 'throughput': 2289.53}
+[INFO|2025-08-06 00:10:56] logging.py:143 >> {'loss': 1.6907, 'learning_rate': 3.6394e-05, 'epoch': 1.05, 'throughput': 2292.11}
+[INFO|2025-08-06 00:11:11] logging.py:143 >> {'loss': 1.7393, 'learning_rate': 3.6274e-05, 'epoch': 1.05, 'throughput': 2295.23}
+[INFO|2025-08-06 00:11:26] logging.py:143 >> {'loss': 1.7031, 'learning_rate': 3.6155e-05, 'epoch': 1.06, 'throughput': 2298.25}
+[INFO|2025-08-06 00:11:41] logging.py:143 >> {'loss': 1.7537, 'learning_rate': 3.6035e-05, 'epoch': 1.06, 'throughput': 2301.26}
+[INFO|2025-08-06 00:11:56] logging.py:143 >> {'loss': 1.8255, 'learning_rate': 3.5914e-05, 'epoch': 1.07, 'throughput': 2303.87}
+[INFO|2025-08-06 00:12:12] logging.py:143 >> {'loss': 1.6943, 'learning_rate': 3.5794e-05, 'epoch': 1.07, 'throughput': 2307.49}
+[INFO|2025-08-06 00:12:27] logging.py:143 >> {'loss': 1.7612, 'learning_rate': 3.5673e-05, 'epoch': 1.08, 'throughput': 2311.26}
+[INFO|2025-08-06 00:12:43] logging.py:143 >> {'loss': 1.6582, 'learning_rate': 3.5551e-05, 'epoch': 1.09, 'throughput': 2314.85}
+[INFO|2025-08-06 00:12:59] logging.py:143 >> {'loss': 1.7347, 'learning_rate': 3.5430e-05, 'epoch': 1.09, 'throughput': 2318.62}
+[INFO|2025-08-06 00:13:14] logging.py:143 >> {'loss': 1.7540, 'learning_rate': 3.5308e-05, 'epoch': 1.10, 'throughput': 2321.26}
+[INFO|2025-08-06 00:13:29] logging.py:143 >> {'loss': 1.6992, 'learning_rate': 3.5186e-05, 'epoch': 1.10, 'throughput': 2324.09}
+[INFO|2025-08-06 00:13:44] logging.py:143 >> {'loss': 1.7292, 'learning_rate': 3.5063e-05, 'epoch': 1.11, 'throughput': 2326.84}
+[INFO|2025-08-06 00:13:59] logging.py:143 >> {'loss': 1.7199, 'learning_rate': 3.4940e-05, 'epoch': 1.11, 'throughput': 2330.40}
+[INFO|2025-08-06 00:14:15] logging.py:143 >> {'loss': 1.7367, 'learning_rate': 3.4817e-05, 'epoch': 1.12, 'throughput': 2333.68}
+[INFO|2025-08-06 00:14:31] logging.py:143 >> {'loss': 1.6288, 'learning_rate': 3.4694e-05, 'epoch': 1.12, 'throughput': 2338.74}
+[INFO|2025-08-06 00:14:47] logging.py:143 >> {'loss': 1.7256, 'learning_rate': 3.4570e-05, 'epoch': 1.13, 'throughput': 2342.48}
+[INFO|2025-08-06 00:14:47] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:14:47] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:14:47] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:16:59] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1100
+[INFO|2025-08-06 00:16:59] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:16:59] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:16:59] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1100\chat_template.jinja
+[INFO|2025-08-06 00:16:59] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1100\tokenizer_config.json
+[INFO|2025-08-06 00:16:59] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1100\special_tokens_map.json
+[INFO|2025-08-06 00:17:14] logging.py:143 >> {'loss': 1.6361, 'learning_rate': 3.4446e-05, 'epoch': 1.13, 'throughput': 2281.36}
+[INFO|2025-08-06 00:17:29] logging.py:143 >> {'loss': 1.7580, 'learning_rate': 3.4322e-05, 'epoch': 1.14, 'throughput': 2283.48}
+[INFO|2025-08-06 00:17:44] logging.py:143 >> {'loss': 1.6800, 'learning_rate': 3.4198e-05, 'epoch': 1.14, 'throughput': 2286.18}
+[INFO|2025-08-06 00:17:59] logging.py:143 >> {'loss': 1.5995, 'learning_rate': 3.4073e-05, 'epoch': 1.15, 'throughput': 2288.90}
+[INFO|2025-08-06 00:18:14] logging.py:143 >> {'loss': 1.7870, 'learning_rate': 3.3948e-05, 'epoch': 1.15, 'throughput': 2291.74}
+[INFO|2025-08-06 00:18:31] logging.py:143 >> {'loss': 1.7289, 'learning_rate': 3.3823e-05, 'epoch': 1.16, 'throughput': 2296.48}
+[INFO|2025-08-06 00:18:46] logging.py:143 >> {'loss': 1.7462, 'learning_rate': 3.3697e-05, 'epoch': 1.16, 'throughput': 2299.43}
+[INFO|2025-08-06 00:19:01] logging.py:143 >> {'loss': 1.7413, 'learning_rate': 3.3571e-05, 'epoch': 1.17, 'throughput': 2302.46}
+[INFO|2025-08-06 00:19:16] logging.py:143 >> {'loss': 1.7459, 'learning_rate': 3.3446e-05, 'epoch': 1.17, 'throughput': 2304.71}
+[INFO|2025-08-06 00:19:31] logging.py:143 >> {'loss': 1.6734, 'learning_rate': 3.3319e-05, 'epoch': 1.18, 'throughput': 2307.00}
+[INFO|2025-08-06 00:19:45] logging.py:143 >> {'loss': 1.7586, 'learning_rate': 3.3193e-05, 'epoch': 1.18, 'throughput': 2308.75}
+[INFO|2025-08-06 00:20:00] logging.py:143 >> {'loss': 1.6771, 'learning_rate': 3.3066e-05, 'epoch': 1.19, 'throughput': 2311.41}
+[INFO|2025-08-06 00:20:15] logging.py:143 >> {'loss': 1.6660, 'learning_rate': 3.2939e-05, 'epoch': 1.19, 'throughput': 2314.59}
+[INFO|2025-08-06 00:20:31] logging.py:143 >> {'loss': 1.7286, 'learning_rate': 3.2812e-05, 'epoch': 1.20, 'throughput': 2318.19}
+[INFO|2025-08-06 00:20:47] logging.py:143 >> {'loss': 1.7534, 'learning_rate': 3.2685e-05, 'epoch': 1.20, 'throughput': 2321.36}
+[INFO|2025-08-06 00:21:02] logging.py:143 >> {'loss': 1.7365, 'learning_rate': 3.2557e-05, 'epoch': 1.21, 'throughput': 2324.22}
+[INFO|2025-08-06 00:21:17] logging.py:143 >> {'loss': 1.6944, 'learning_rate': 3.2429e-05, 'epoch': 1.21, 'throughput': 2326.38}
+[INFO|2025-08-06 00:21:33] logging.py:143 >> {'loss': 1.7381, 'learning_rate': 3.2301e-05, 'epoch': 1.22, 'throughput': 2329.68}
+[INFO|2025-08-06 00:21:48] logging.py:143 >> {'loss': 1.6923, 'learning_rate': 3.2173e-05, 'epoch': 1.22, 'throughput': 2332.34}
+[INFO|2025-08-06 00:22:03] logging.py:143 >> {'loss': 1.6910, 'learning_rate': 3.2044e-05, 'epoch': 1.23, 'throughput': 2334.91}
+[INFO|2025-08-06 00:22:03] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:22:03] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:22:03] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:24:14] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1200
+[INFO|2025-08-06 00:24:14] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:24:14] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:24:14] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1200\chat_template.jinja
+[INFO|2025-08-06 00:24:14] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1200\tokenizer_config.json
+[INFO|2025-08-06 00:24:14] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1200\special_tokens_map.json
+[INFO|2025-08-06 00:24:30] logging.py:143 >> {'loss': 1.6859, 'learning_rate': 3.1916e-05, 'epoch': 1.23, 'throughput': 2280.48}
+[INFO|2025-08-06 00:24:46] logging.py:143 >> {'loss': 1.6518, 'learning_rate': 3.1787e-05, 'epoch': 1.24, 'throughput': 2284.00}
+[INFO|2025-08-06 00:25:01] logging.py:143 >> {'loss': 1.6718, 'learning_rate': 3.1658e-05, 'epoch': 1.24, 'throughput': 2286.36}
+[INFO|2025-08-06 00:25:16] logging.py:143 >> {'loss': 1.7450, 'learning_rate': 3.1529e-05, 'epoch': 1.25, 'throughput': 2289.14}
+[INFO|2025-08-06 00:25:32] logging.py:143 >> {'loss': 1.6480, 'learning_rate': 3.1399e-05, 'epoch': 1.25, 'throughput': 2292.23}
+[INFO|2025-08-06 00:25:47] logging.py:143 >> {'loss': 1.6059, 'learning_rate': 3.1270e-05, 'epoch': 1.26, 'throughput': 2294.91}
+[INFO|2025-08-06 00:26:02] logging.py:143 >> {'loss': 1.6883, 'learning_rate': 3.1140e-05, 'epoch': 1.26, 'throughput': 2297.59}
+[INFO|2025-08-06 00:26:17] logging.py:143 >> {'loss': 1.8080, 'learning_rate': 3.1010e-05, 'epoch': 1.27, 'throughput': 2299.55}
+[INFO|2025-08-06 00:26:32] logging.py:143 >> {'loss': 1.6960, 'learning_rate': 3.0880e-05, 'epoch': 1.27, 'throughput': 2301.78}
+[INFO|2025-08-06 00:26:47] logging.py:143 >> {'loss': 1.7880, 'learning_rate': 3.0749e-05, 'epoch': 1.28, 'throughput': 2304.60}
+[INFO|2025-08-06 00:27:03] logging.py:143 >> {'loss': 1.6196, 'learning_rate': 3.0619e-05, 'epoch': 1.28, 'throughput': 2307.66}
+[INFO|2025-08-06 00:27:18] logging.py:143 >> {'loss': 1.7377, 'learning_rate': 3.0488e-05, 'epoch': 1.29, 'throughput': 2309.79}
+[INFO|2025-08-06 00:27:33] logging.py:143 >> {'loss': 1.7885, 'learning_rate': 3.0358e-05, 'epoch': 1.29, 'throughput': 2312.58}
+[INFO|2025-08-06 00:27:49] logging.py:143 >> {'loss': 1.6715, 'learning_rate': 3.0227e-05, 'epoch': 1.30, 'throughput': 2315.95}
+[INFO|2025-08-06 00:28:04] logging.py:143 >> {'loss': 1.6169, 'learning_rate': 3.0096e-05, 'epoch': 1.31, 'throughput': 2317.65}
+[INFO|2025-08-06 00:28:20] logging.py:143 >> {'loss': 1.6963, 'learning_rate': 2.9964e-05, 'epoch': 1.31, 'throughput': 2320.84}
+[INFO|2025-08-06 00:28:35] logging.py:143 >> {'loss': 1.5959, 'learning_rate': 2.9833e-05, 'epoch': 1.32, 'throughput': 2323.00}
+[INFO|2025-08-06 00:28:51] logging.py:143 >> {'loss': 1.7950, 'learning_rate': 2.9701e-05, 'epoch': 1.32, 'throughput': 2325.92}
+[INFO|2025-08-06 00:29:05] logging.py:143 >> {'loss': 1.6876, 'learning_rate': 2.9570e-05, 'epoch': 1.33, 'throughput': 2327.47}
+[INFO|2025-08-06 00:29:21] logging.py:143 >> {'loss': 1.6360, 'learning_rate': 2.9438e-05, 'epoch': 1.33, 'throughput': 2330.14}
+[INFO|2025-08-06 00:29:21] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:29:21] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:29:21] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:31:32] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1300
+[INFO|2025-08-06 00:31:32] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:31:32] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:31:32] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1300\chat_template.jinja
+[INFO|2025-08-06 00:31:32] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1300\tokenizer_config.json
+[INFO|2025-08-06 00:31:32] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1300\special_tokens_map.json
+[INFO|2025-08-06 00:31:48] logging.py:143 >> {'loss': 1.8121, 'learning_rate': 2.9306e-05, 'epoch': 1.34, 'throughput': 2279.79}
+[INFO|2025-08-06 00:32:03] logging.py:143 >> {'loss': 1.7184, 'learning_rate': 2.9174e-05, 'epoch': 1.34, 'throughput': 2282.41}
+[INFO|2025-08-06 00:32:18] logging.py:143 >> {'loss': 1.6575, 'learning_rate': 2.9042e-05, 'epoch': 1.35, 'throughput': 2284.52}
+[INFO|2025-08-06 00:32:34] logging.py:143 >> {'loss': 1.7743, 'learning_rate': 2.8910e-05, 'epoch': 1.35, 'throughput': 2287.64}
+[INFO|2025-08-06 00:32:49] logging.py:143 >> {'loss': 1.6928, 'learning_rate': 2.8777e-05, 'epoch': 1.36, 'throughput': 2289.82}
+[INFO|2025-08-06 00:33:04] logging.py:143 >> {'loss': 1.6997, 'learning_rate': 2.8645e-05, 'epoch': 1.36, 'throughput': 2291.99}
+[INFO|2025-08-06 00:33:19] logging.py:143 >> {'loss': 1.7345, 'learning_rate': 2.8512e-05, 'epoch': 1.37, 'throughput': 2294.53}
+[INFO|2025-08-06 00:33:34] logging.py:143 >> {'loss': 1.7271, 'learning_rate': 2.8379e-05, 'epoch': 1.37, 'throughput': 2296.78}
+[INFO|2025-08-06 00:33:50] logging.py:143 >> {'loss': 1.7479, 'learning_rate': 2.8247e-05, 'epoch': 1.38, 'throughput': 2299.95}
+[INFO|2025-08-06 00:34:05] logging.py:143 >> {'loss': 1.7221, 'learning_rate': 2.8114e-05, 'epoch': 1.38, 'throughput': 2302.39}
+[INFO|2025-08-06 00:34:20] logging.py:143 >> {'loss': 1.6833, 'learning_rate': 2.7981e-05, 'epoch': 1.39, 'throughput': 2304.36}
+[INFO|2025-08-06 00:34:36] logging.py:143 >> {'loss': 1.6066, 'learning_rate': 2.7848e-05, 'epoch': 1.39, 'throughput': 2307.53}
+[INFO|2025-08-06 00:34:51] logging.py:143 >> {'loss': 1.7278, 'learning_rate': 2.7714e-05, 'epoch': 1.40, 'throughput': 2309.97}
+[INFO|2025-08-06 00:35:07] logging.py:143 >> {'loss': 1.7658, 'learning_rate': 2.7581e-05, 'epoch': 1.40, 'throughput': 2313.04}
+[INFO|2025-08-06 00:35:23] logging.py:143 >> {'loss': 1.7894, 'learning_rate': 2.7448e-05, 'epoch': 1.41, 'throughput': 2316.16}
+[INFO|2025-08-06 00:35:39] logging.py:143 >> {'loss': 1.7047, 'learning_rate': 2.7315e-05, 'epoch': 1.41, 'throughput': 2319.22}
+[INFO|2025-08-06 00:35:54] logging.py:143 >> {'loss': 1.6322, 'learning_rate': 2.7181e-05, 'epoch': 1.42, 'throughput': 2321.42}
+[INFO|2025-08-06 00:36:10] logging.py:143 >> {'loss': 1.6985, 'learning_rate': 2.7048e-05, 'epoch': 1.42, 'throughput': 2324.26}
+[INFO|2025-08-06 00:36:25] logging.py:143 >> {'loss': 1.7314, 'learning_rate': 2.6914e-05, 'epoch': 1.43, 'throughput': 2326.58}
+[INFO|2025-08-06 00:36:40] logging.py:143 >> {'loss': 1.6772, 'learning_rate': 2.6780e-05, 'epoch': 1.43, 'throughput': 2328.36}
+[INFO|2025-08-06 00:36:40] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:36:40] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:36:40] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:38:52] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1400
+[INFO|2025-08-06 00:38:52] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:38:52] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:38:52] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1400\chat_template.jinja
+[INFO|2025-08-06 00:38:52] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1400\tokenizer_config.json
+[INFO|2025-08-06 00:38:52] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1400\special_tokens_map.json
+[INFO|2025-08-06 00:39:07] logging.py:143 >> {'loss': 1.5521, 'learning_rate': 2.6647e-05, 'epoch': 1.44, 'throughput': 2280.81}
+[INFO|2025-08-06 00:39:22] logging.py:143 >> {'loss': 1.7810, 'learning_rate': 2.6513e-05, 'epoch': 1.44, 'throughput': 2283.52}
+[INFO|2025-08-06 00:39:38] logging.py:143 >> {'loss': 1.7093, 'learning_rate': 2.6379e-05, 'epoch': 1.45, 'throughput': 2286.85}
+[INFO|2025-08-06 00:39:53] logging.py:143 >> {'loss': 1.6376, 'learning_rate': 2.6246e-05, 'epoch': 1.45, 'throughput': 2288.84}
+[INFO|2025-08-06 00:40:09] logging.py:143 >> {'loss': 1.7328, 'learning_rate': 2.6112e-05, 'epoch': 1.46, 'throughput': 2292.15}
+[INFO|2025-08-06 00:40:25] logging.py:143 >> {'loss': 1.7471, 'learning_rate': 2.5978e-05, 'epoch': 1.46, 'throughput': 2294.98}
+[INFO|2025-08-06 00:40:40] logging.py:143 >> {'loss': 1.6595, 'learning_rate': 2.5844e-05, 'epoch': 1.47, 'throughput': 2297.45}
+[INFO|2025-08-06 00:40:56] logging.py:143 >> {'loss': 1.7384, 'learning_rate': 2.5710e-05, 'epoch': 1.47, 'throughput': 2300.30}
+[INFO|2025-08-06 00:41:12] logging.py:143 >> {'loss': 1.6594, 'learning_rate': 2.5576e-05, 'epoch': 1.48, 'throughput': 2303.53}
+[INFO|2025-08-06 00:41:27] logging.py:143 >> {'loss': 1.7857, 'learning_rate': 2.5442e-05, 'epoch': 1.48, 'throughput': 2305.99}
+[INFO|2025-08-06 00:41:43] logging.py:143 >> {'loss': 1.7071, 'learning_rate': 2.5308e-05, 'epoch': 1.49, 'throughput': 2308.71}
+[INFO|2025-08-06 00:41:58] logging.py:143 >> {'loss': 1.6606, 'learning_rate': 2.5174e-05, 'epoch': 1.49, 'throughput': 2310.51}
+[INFO|2025-08-06 00:42:14] logging.py:143 >> {'loss': 1.6786, 'learning_rate': 2.5040e-05, 'epoch': 1.50, 'throughput': 2313.17}
+[INFO|2025-08-06 00:42:29] logging.py:143 >> {'loss': 1.6736, 'learning_rate': 2.4906e-05, 'epoch': 1.50, 'throughput': 2315.25}
+[INFO|2025-08-06 00:42:44] logging.py:143 >> {'loss': 1.7130, 'learning_rate': 2.4772e-05, 'epoch': 1.51, 'throughput': 2318.03}
+[INFO|2025-08-06 00:43:00] logging.py:143 >> {'loss': 1.8040, 'learning_rate': 2.4638e-05, 'epoch': 1.52, 'throughput': 2320.57}
+[INFO|2025-08-06 00:43:16] logging.py:143 >> {'loss': 1.7243, 'learning_rate': 2.4504e-05, 'epoch': 1.52, 'throughput': 2323.90}
+[INFO|2025-08-06 00:43:31] logging.py:143 >> {'loss': 1.7287, 'learning_rate': 2.4370e-05, 'epoch': 1.53, 'throughput': 2326.26}
+[INFO|2025-08-06 00:43:47] logging.py:143 >> {'loss': 1.7674, 'learning_rate': 2.4236e-05, 'epoch': 1.53, 'throughput': 2328.75}
+[INFO|2025-08-06 00:44:03] logging.py:143 >> {'loss': 1.6927, 'learning_rate': 2.4103e-05, 'epoch': 1.54, 'throughput': 2331.10}
+[INFO|2025-08-06 00:44:03] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:44:03] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:44:03] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:46:14] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1500
+[INFO|2025-08-06 00:46:14] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:46:14] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:46:14] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1500\chat_template.jinja
+[INFO|2025-08-06 00:46:14] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1500\tokenizer_config.json
+[INFO|2025-08-06 00:46:14] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1500\special_tokens_map.json
+[INFO|2025-08-06 00:46:30] logging.py:143 >> {'loss': 1.7373, 'learning_rate': 2.3969e-05, 'epoch': 1.54, 'throughput': 2288.03}
+[INFO|2025-08-06 00:46:46] logging.py:143 >> {'loss': 1.7364, 'learning_rate': 2.3835e-05, 'epoch': 1.55, 'throughput': 2290.59}
+[INFO|2025-08-06 00:47:01] logging.py:143 >> {'loss': 1.6232, 'learning_rate': 2.3701e-05, 'epoch': 1.55, 'throughput': 2292.78}
+[INFO|2025-08-06 00:47:17] logging.py:143 >> {'loss': 1.7014, 'learning_rate': 2.3567e-05, 'epoch': 1.56, 'throughput': 2294.82}
+[INFO|2025-08-06 00:47:32] logging.py:143 >> {'loss': 1.7580, 'learning_rate': 2.3433e-05, 'epoch': 1.56, 'throughput': 2296.35}
+[INFO|2025-08-06 00:47:47] logging.py:143 >> {'loss': 1.7410, 'learning_rate': 2.3300e-05, 'epoch': 1.57, 'throughput': 2298.87}
+[INFO|2025-08-06 00:48:02] logging.py:143 >> {'loss': 1.7615, 'learning_rate': 2.3166e-05, 'epoch': 1.57, 'throughput': 2300.84}
+[INFO|2025-08-06 00:48:19] logging.py:143 >> {'loss': 1.6840, 'learning_rate': 2.3033e-05, 'epoch': 1.58, 'throughput': 2304.10}
+[INFO|2025-08-06 00:48:33] logging.py:143 >> {'loss': 1.6895, 'learning_rate': 2.2899e-05, 'epoch': 1.58, 'throughput': 2305.64}
+[INFO|2025-08-06 00:48:48] logging.py:143 >> {'loss': 1.6685, 'learning_rate': 2.2765e-05, 'epoch': 1.59, 'throughput': 2308.00}
+[INFO|2025-08-06 00:49:04] logging.py:143 >> {'loss': 1.6400, 'learning_rate': 2.2632e-05, 'epoch': 1.59, 'throughput': 2310.53}
+[INFO|2025-08-06 00:49:20] logging.py:143 >> {'loss': 1.7334, 'learning_rate': 2.2499e-05, 'epoch': 1.60, 'throughput': 2313.33}
+[INFO|2025-08-06 00:49:35] logging.py:143 >> {'loss': 1.7319, 'learning_rate': 2.2365e-05, 'epoch': 1.60, 'throughput': 2314.65}
+[INFO|2025-08-06 00:49:50] logging.py:143 >> {'loss': 1.6313, 'learning_rate': 2.2232e-05, 'epoch': 1.61, 'throughput': 2317.06}
+[INFO|2025-08-06 00:50:06] logging.py:143 >> {'loss': 1.7547, 'learning_rate': 2.2099e-05, 'epoch': 1.61, 'throughput': 2319.93}
+[INFO|2025-08-06 00:50:22] logging.py:143 >> {'loss': 1.7428, 'learning_rate': 2.1966e-05, 'epoch': 1.62, 'throughput': 2322.32}
+[INFO|2025-08-06 00:50:36] logging.py:143 >> {'loss': 1.8148, 'learning_rate': 2.1833e-05, 'epoch': 1.62, 'throughput': 2323.95}
+[INFO|2025-08-06 00:50:52] logging.py:143 >> {'loss': 1.6952, 'learning_rate': 2.1700e-05, 'epoch': 1.63, 'throughput': 2325.84}
+[INFO|2025-08-06 00:51:07] logging.py:143 >> {'loss': 1.6704, 'learning_rate': 2.1568e-05, 'epoch': 1.63, 'throughput': 2328.10}
+[INFO|2025-08-06 00:51:22] logging.py:143 >> {'loss': 1.7152, 'learning_rate': 2.1435e-05, 'epoch': 1.64, 'throughput': 2330.07}
+[INFO|2025-08-06 00:51:22] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:51:22] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:51:22] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 00:53:34] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1600
+[INFO|2025-08-06 00:53:34] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 00:53:34] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 00:53:34] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1600\chat_template.jinja
+[INFO|2025-08-06 00:53:34] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1600\tokenizer_config.json
+[INFO|2025-08-06 00:53:34] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1600\special_tokens_map.json
+[INFO|2025-08-06 00:53:49] logging.py:143 >> {'loss': 1.6665, 'learning_rate': 2.1302e-05, 'epoch': 1.64, 'throughput': 2288.13}
+[INFO|2025-08-06 00:54:05] logging.py:143 >> {'loss': 1.6709, 'learning_rate': 2.1170e-05, 'epoch': 1.65, 'throughput': 2290.94}
+[INFO|2025-08-06 00:54:20] logging.py:143 >> {'loss': 1.6454, 'learning_rate': 2.1038e-05, 'epoch': 1.65, 'throughput': 2293.76}
+[INFO|2025-08-06 00:54:35] logging.py:143 >> {'loss': 1.7225, 'learning_rate': 2.0905e-05, 'epoch': 1.66, 'throughput': 2295.88}
+[INFO|2025-08-06 00:54:50] logging.py:143 >> {'loss': 1.7267, 'learning_rate': 2.0773e-05, 'epoch': 1.66, 'throughput': 2297.54}
+[INFO|2025-08-06 00:55:06] logging.py:143 >> {'loss': 1.6536, 'learning_rate': 2.0641e-05, 'epoch': 1.67, 'throughput': 2299.97}
+[INFO|2025-08-06 00:55:21] logging.py:143 >> {'loss': 1.7518, 'learning_rate': 2.0509e-05, 'epoch': 1.67, 'throughput': 2301.72}
+[INFO|2025-08-06 00:55:36] logging.py:143 >> {'loss': 1.6819, 'learning_rate': 2.0378e-05, 'epoch': 1.68, 'throughput': 2303.56}
+[INFO|2025-08-06 00:55:51] logging.py:143 >> {'loss': 1.6738, 'learning_rate': 2.0246e-05, 'epoch': 1.68, 'throughput': 2305.35}
+[INFO|2025-08-06 00:56:06] logging.py:143 >> {'loss': 1.7418, 'learning_rate': 2.0115e-05, 'epoch': 1.69, 'throughput': 2307.12}
+[INFO|2025-08-06 00:56:22] logging.py:143 >> {'loss': 1.6660, 'learning_rate': 1.9983e-05, 'epoch': 1.69, 'throughput': 2309.09}
+[INFO|2025-08-06 00:56:37] logging.py:143 >> {'loss': 1.7349, 'learning_rate': 1.9852e-05, 'epoch': 1.70, 'throughput': 2311.03}
+[INFO|2025-08-06 00:56:52] logging.py:143 >> {'loss': 1.6360, 'learning_rate': 1.9721e-05, 'epoch': 1.70, 'throughput': 2312.90}
+[INFO|2025-08-06 00:57:08] logging.py:143 >> {'loss': 1.6857, 'learning_rate': 1.9590e-05, 'epoch': 1.71, 'throughput': 2315.20}
+[INFO|2025-08-06 00:57:23] logging.py:143 >> {'loss': 1.6990, 'learning_rate': 1.9459e-05, 'epoch': 1.71, 'throughput': 2316.97}
+[INFO|2025-08-06 00:57:38] logging.py:143 >> {'loss': 1.6916, 'learning_rate': 1.9329e-05, 'epoch': 1.72, 'throughput': 2318.94}
+[INFO|2025-08-06 00:57:55] logging.py:143 >> {'loss': 1.6886, 'learning_rate': 1.9198e-05, 'epoch': 1.73, 'throughput': 2321.84}
+[INFO|2025-08-06 00:58:10] logging.py:143 >> {'loss': 1.6644, 'learning_rate': 1.9068e-05, 'epoch': 1.73, 'throughput': 2323.56}
+[INFO|2025-08-06 00:58:24] logging.py:143 >> {'loss': 1.6711, 'learning_rate': 1.8938e-05, 'epoch': 1.74, 'throughput': 2324.54}
+[INFO|2025-08-06 00:58:39] logging.py:143 >> {'loss': 1.7237, 'learning_rate': 1.8808e-05, 'epoch': 1.74, 'throughput': 2326.19}
+[INFO|2025-08-06 00:58:39] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 00:58:39] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 00:58:39] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:00:51] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1700
+[INFO|2025-08-06 01:00:51] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:00:51] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:00:51] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1700\chat_template.jinja
+[INFO|2025-08-06 01:00:51] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1700\tokenizer_config.json
+[INFO|2025-08-06 01:00:51] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1700\special_tokens_map.json
+[INFO|2025-08-06 01:01:07] logging.py:143 >> {'loss': 1.6620, 'learning_rate': 1.8678e-05, 'epoch': 1.75, 'throughput': 2287.63}
+[INFO|2025-08-06 01:01:22] logging.py:143 >> {'loss': 1.6910, 'learning_rate': 1.8549e-05, 'epoch': 1.75, 'throughput': 2289.31}
+[INFO|2025-08-06 01:01:37] logging.py:143 >> {'loss': 1.7907, 'learning_rate': 1.8420e-05, 'epoch': 1.76, 'throughput': 2291.66}
+[INFO|2025-08-06 01:01:52] logging.py:143 >> {'loss': 1.6381, 'learning_rate': 1.8290e-05, 'epoch': 1.76, 'throughput': 2293.43}
+[INFO|2025-08-06 01:02:08] logging.py:143 >> {'loss': 1.7072, 'learning_rate': 1.8161e-05, 'epoch': 1.77, 'throughput': 2295.19}
+[INFO|2025-08-06 01:02:22] logging.py:143 >> {'loss': 1.7613, 'learning_rate': 1.8033e-05, 'epoch': 1.77, 'throughput': 2296.71}
+[INFO|2025-08-06 01:02:37] logging.py:143 >> {'loss': 1.6571, 'learning_rate': 1.7904e-05, 'epoch': 1.78, 'throughput': 2298.33}
+[INFO|2025-08-06 01:02:53] logging.py:143 >> {'loss': 1.6992, 'learning_rate': 1.7776e-05, 'epoch': 1.78, 'throughput': 2300.67}
+[INFO|2025-08-06 01:03:09] logging.py:143 >> {'loss': 1.7333, 'learning_rate': 1.7648e-05, 'epoch': 1.79, 'throughput': 2302.90}
+[INFO|2025-08-06 01:03:24] logging.py:143 >> {'loss': 1.6985, 'learning_rate': 1.7520e-05, 'epoch': 1.79, 'throughput': 2304.84}
+[INFO|2025-08-06 01:03:39] logging.py:143 >> {'loss': 1.7148, 'learning_rate': 1.7392e-05, 'epoch': 1.80, 'throughput': 2306.96}
+[INFO|2025-08-06 01:03:55] logging.py:143 >> {'loss': 1.6782, 'learning_rate': 1.7264e-05, 'epoch': 1.80, 'throughput': 2309.41}
+[INFO|2025-08-06 01:04:11] logging.py:143 >> {'loss': 1.6559, 'learning_rate': 1.7137e-05, 'epoch': 1.81, 'throughput': 2311.53}
+[INFO|2025-08-06 01:04:25] logging.py:143 >> {'loss': 1.6333, 'learning_rate': 1.7010e-05, 'epoch': 1.81, 'throughput': 2312.92}
+[INFO|2025-08-06 01:04:40] logging.py:143 >> {'loss': 1.6709, 'learning_rate': 1.6883e-05, 'epoch': 1.82, 'throughput': 2314.43}
+[INFO|2025-08-06 01:04:56] logging.py:143 >> {'loss': 1.6662, 'learning_rate': 1.6757e-05, 'epoch': 1.82, 'throughput': 2316.64}
+[INFO|2025-08-06 01:05:11] logging.py:143 >> {'loss': 1.7459, 'learning_rate': 1.6630e-05, 'epoch': 1.83, 'throughput': 2318.35}
+[INFO|2025-08-06 01:05:27] logging.py:143 >> {'loss': 1.6671, 'learning_rate': 1.6504e-05, 'epoch': 1.83, 'throughput': 2320.43}
+[INFO|2025-08-06 01:05:43] logging.py:143 >> {'loss': 1.7047, 'learning_rate': 1.6378e-05, 'epoch': 1.84, 'throughput': 2322.81}
+[INFO|2025-08-06 01:05:59] logging.py:143 >> {'loss': 1.7089, 'learning_rate': 1.6253e-05, 'epoch': 1.84, 'throughput': 2325.01}
+[INFO|2025-08-06 01:05:59] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:05:59] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:05:59] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:08:10] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1800
+[INFO|2025-08-06 01:08:10] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:08:10] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:08:11] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1800\chat_template.jinja
+[INFO|2025-08-06 01:08:11] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1800\tokenizer_config.json
+[INFO|2025-08-06 01:08:11] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1800\special_tokens_map.json
+[INFO|2025-08-06 01:08:26] logging.py:143 >> {'loss': 1.7039, 'learning_rate': 1.6127e-05, 'epoch': 1.85, 'throughput': 2288.29}
+[INFO|2025-08-06 01:08:41] logging.py:143 >> {'loss': 1.6440, 'learning_rate': 1.6002e-05, 'epoch': 1.85, 'throughput': 2289.97}
+[INFO|2025-08-06 01:08:56] logging.py:143 >> {'loss': 1.6796, 'learning_rate': 1.5877e-05, 'epoch': 1.86, 'throughput': 2291.87}
+[INFO|2025-08-06 01:09:12] logging.py:143 >> {'loss': 1.6865, 'learning_rate': 1.5753e-05, 'epoch': 1.86, 'throughput': 2294.34}
+[INFO|2025-08-06 01:09:27] logging.py:143 >> {'loss': 1.6382, 'learning_rate': 1.5628e-05, 'epoch': 1.87, 'throughput': 2296.52}
+[INFO|2025-08-06 01:09:43] logging.py:143 >> {'loss': 1.6675, 'learning_rate': 1.5504e-05, 'epoch': 1.87, 'throughput': 2298.65}
+[INFO|2025-08-06 01:09:59] logging.py:143 >> {'loss': 1.6250, 'learning_rate': 1.5380e-05, 'epoch': 1.88, 'throughput': 2300.91}
+[INFO|2025-08-06 01:10:14] logging.py:143 >> {'loss': 1.7970, 'learning_rate': 1.5257e-05, 'epoch': 1.88, 'throughput': 2302.82}
+[INFO|2025-08-06 01:10:29] logging.py:143 >> {'loss': 1.7511, 'learning_rate': 1.5134e-05, 'epoch': 1.89, 'throughput': 2305.10}
+[INFO|2025-08-06 01:10:44] logging.py:143 >> {'loss': 1.6496, 'learning_rate': 1.5011e-05, 'epoch': 1.89, 'throughput': 2306.46}
+[INFO|2025-08-06 01:11:00] logging.py:143 >> {'loss': 1.7586, 'learning_rate': 1.4888e-05, 'epoch': 1.90, 'throughput': 2308.94}
+[INFO|2025-08-06 01:11:16] logging.py:143 >> {'loss': 1.6044, 'learning_rate': 1.4766e-05, 'epoch': 1.90, 'throughput': 2311.71}
+[INFO|2025-08-06 01:11:32] logging.py:143 >> {'loss': 1.6994, 'learning_rate': 1.4643e-05, 'epoch': 1.91, 'throughput': 2313.25}
+[INFO|2025-08-06 01:11:47] logging.py:143 >> {'loss': 1.6679, 'learning_rate': 1.4522e-05, 'epoch': 1.91, 'throughput': 2314.47}
+[INFO|2025-08-06 01:12:03] logging.py:143 >> {'loss': 1.6773, 'learning_rate': 1.4400e-05, 'epoch': 1.92, 'throughput': 2316.98}
+[INFO|2025-08-06 01:12:18] logging.py:143 >> {'loss': 1.7176, 'learning_rate': 1.4279e-05, 'epoch': 1.92, 'throughput': 2318.61}
+[INFO|2025-08-06 01:12:34] logging.py:143 >> {'loss': 1.6830, 'learning_rate': 1.4158e-05, 'epoch': 1.93, 'throughput': 2320.72}
+[INFO|2025-08-06 01:12:50] logging.py:143 >> {'loss': 1.7079, 'learning_rate': 1.4038e-05, 'epoch': 1.94, 'throughput': 2322.75}
+[INFO|2025-08-06 01:13:06] logging.py:143 >> {'loss': 1.7116, 'learning_rate': 1.3917e-05, 'epoch': 1.94, 'throughput': 2325.17}
+[INFO|2025-08-06 01:13:21] logging.py:143 >> {'loss': 1.7861, 'learning_rate': 1.3797e-05, 'epoch': 1.95, 'throughput': 2327.67}
+[INFO|2025-08-06 01:13:21] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:13:21] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:13:21] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:15:33] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1900
+[INFO|2025-08-06 01:15:33] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:15:33] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:15:33] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1900\chat_template.jinja
+[INFO|2025-08-06 01:15:33] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1900\tokenizer_config.json
+[INFO|2025-08-06 01:15:33] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-1900\special_tokens_map.json
+[INFO|2025-08-06 01:15:49] logging.py:143 >> {'loss': 1.6919, 'learning_rate': 1.3678e-05, 'epoch': 1.95, 'throughput': 2293.62}
+[INFO|2025-08-06 01:16:05] logging.py:143 >> {'loss': 1.7292, 'learning_rate': 1.3558e-05, 'epoch': 1.96, 'throughput': 2295.68}
+[INFO|2025-08-06 01:16:20] logging.py:143 >> {'loss': 1.7148, 'learning_rate': 1.3439e-05, 'epoch': 1.96, 'throughput': 2296.60}
+[INFO|2025-08-06 01:16:35] logging.py:143 >> {'loss': 1.7018, 'learning_rate': 1.3321e-05, 'epoch': 1.97, 'throughput': 2298.59}
+[INFO|2025-08-06 01:16:50] logging.py:143 >> {'loss': 1.6383, 'learning_rate': 1.3203e-05, 'epoch': 1.97, 'throughput': 2299.64}
+[INFO|2025-08-06 01:17:05] logging.py:143 >> {'loss': 1.7165, 'learning_rate': 1.3085e-05, 'epoch': 1.98, 'throughput': 2300.85}
+[INFO|2025-08-06 01:17:20] logging.py:143 >> {'loss': 1.6042, 'learning_rate': 1.2967e-05, 'epoch': 1.98, 'throughput': 2302.50}
+[INFO|2025-08-06 01:17:35] logging.py:143 >> {'loss': 1.6459, 'learning_rate': 1.2850e-05, 'epoch': 1.99, 'throughput': 2304.34}
+[INFO|2025-08-06 01:17:50] logging.py:143 >> {'loss': 1.6774, 'learning_rate': 1.2733e-05, 'epoch': 1.99, 'throughput': 2305.56}
+[INFO|2025-08-06 01:18:05] logging.py:143 >> {'loss': 1.6967, 'learning_rate': 1.2616e-05, 'epoch': 2.00, 'throughput': 2306.93}
+[INFO|2025-08-06 01:18:18] logging.py:143 >> {'loss': 1.6301, 'learning_rate': 1.2500e-05, 'epoch': 2.00, 'throughput': 2308.40}
+[INFO|2025-08-06 01:18:33] logging.py:143 >> {'loss': 1.6755, 'learning_rate': 1.2384e-05, 'epoch': 2.01, 'throughput': 2309.90}
+[INFO|2025-08-06 01:18:48] logging.py:143 >> {'loss': 1.7718, 'learning_rate': 1.2269e-05, 'epoch': 2.01, 'throughput': 2311.49}
+[INFO|2025-08-06 01:19:03] logging.py:143 >> {'loss': 1.6656, 'learning_rate': 1.2154e-05, 'epoch': 2.02, 'throughput': 2312.95}
+[INFO|2025-08-06 01:19:19] logging.py:143 >> {'loss': 1.7309, 'learning_rate': 1.2039e-05, 'epoch': 2.02, 'throughput': 2314.69}
+[INFO|2025-08-06 01:19:34] logging.py:143 >> {'loss': 1.6518, 'learning_rate': 1.1924e-05, 'epoch': 2.03, 'throughput': 2316.58}
+[INFO|2025-08-06 01:19:49] logging.py:143 >> {'loss': 1.7184, 'learning_rate': 1.1810e-05, 'epoch': 2.03, 'throughput': 2318.24}
+[INFO|2025-08-06 01:20:04] logging.py:143 >> {'loss': 1.6231, 'learning_rate': 1.1697e-05, 'epoch': 2.04, 'throughput': 2319.37}
+[INFO|2025-08-06 01:20:20] logging.py:143 >> {'loss': 1.7239, 'learning_rate': 1.1584e-05, 'epoch': 2.04, 'throughput': 2321.08}
+[INFO|2025-08-06 01:20:35] logging.py:143 >> {'loss': 1.6050, 'learning_rate': 1.1471e-05, 'epoch': 2.05, 'throughput': 2322.62}
+[INFO|2025-08-06 01:20:35] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:20:35] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:20:35] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:22:47] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2000
+[INFO|2025-08-06 01:22:47] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:22:47] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:22:47] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2000\chat_template.jinja
+[INFO|2025-08-06 01:22:47] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2000\tokenizer_config.json
+[INFO|2025-08-06 01:22:47] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2000\special_tokens_map.json
+[INFO|2025-08-06 01:23:02] logging.py:143 >> {'loss': 1.6339, 'learning_rate': 1.1358e-05, 'epoch': 2.05, 'throughput': 2289.48}
+[INFO|2025-08-06 01:23:18] logging.py:143 >> {'loss': 1.6710, 'learning_rate': 1.1246e-05, 'epoch': 2.06, 'throughput': 2291.70}
+[INFO|2025-08-06 01:23:33] logging.py:143 >> {'loss': 1.7015, 'learning_rate': 1.1134e-05, 'epoch': 2.06, 'throughput': 2293.28}
+[INFO|2025-08-06 01:23:47] logging.py:143 >> {'loss': 1.6537, 'learning_rate': 1.1023e-05, 'epoch': 2.07, 'throughput': 2294.42}
+[INFO|2025-08-06 01:24:03] logging.py:143 >> {'loss': 1.6834, 'learning_rate': 1.0912e-05, 'epoch': 2.07, 'throughput': 2296.02}
+[INFO|2025-08-06 01:24:18] logging.py:143 >> {'loss': 1.6676, 'learning_rate': 1.0802e-05, 'epoch': 2.08, 'throughput': 2298.16}
+[INFO|2025-08-06 01:24:34] logging.py:143 >> {'loss': 1.6595, 'learning_rate': 1.0692e-05, 'epoch': 2.08, 'throughput': 2299.76}
+[INFO|2025-08-06 01:24:49] logging.py:143 >> {'loss': 1.6998, 'learning_rate': 1.0582e-05, 'epoch': 2.09, 'throughput': 2301.64}
+[INFO|2025-08-06 01:25:04] logging.py:143 >> {'loss': 1.5567, 'learning_rate': 1.0473e-05, 'epoch': 2.09, 'throughput': 2303.33}
+[INFO|2025-08-06 01:25:20] logging.py:143 >> {'loss': 1.6598, 'learning_rate': 1.0364e-05, 'epoch': 2.10, 'throughput': 2305.14}
+[INFO|2025-08-06 01:25:35] logging.py:143 >> {'loss': 1.6169, 'learning_rate': 1.0256e-05, 'epoch': 2.10, 'throughput': 2306.82}
+[INFO|2025-08-06 01:25:50] logging.py:143 >> {'loss': 1.6859, 'learning_rate': 1.0148e-05, 'epoch': 2.11, 'throughput': 2308.22}
+[INFO|2025-08-06 01:26:05] logging.py:143 >> {'loss': 1.7441, 'learning_rate': 1.0040e-05, 'epoch': 2.11, 'throughput': 2309.96}
+[INFO|2025-08-06 01:26:20] logging.py:143 >> {'loss': 1.7074, 'learning_rate': 9.9329e-06, 'epoch': 2.12, 'throughput': 2311.06}
+[INFO|2025-08-06 01:26:36] logging.py:143 >> {'loss': 1.6551, 'learning_rate': 9.8262e-06, 'epoch': 2.12, 'throughput': 2312.84}
+[INFO|2025-08-06 01:26:51] logging.py:143 >> {'loss': 1.6646, 'learning_rate': 9.7199e-06, 'epoch': 2.13, 'throughput': 2314.63}
+[INFO|2025-08-06 01:27:07] logging.py:143 >> {'loss': 1.6128, 'learning_rate': 9.6141e-06, 'epoch': 2.13, 'throughput': 2316.65}
+[INFO|2025-08-06 01:27:22] logging.py:143 >> {'loss': 1.6530, 'learning_rate': 9.5087e-06, 'epoch': 2.14, 'throughput': 2317.83}
+[INFO|2025-08-06 01:27:37] logging.py:143 >> {'loss': 1.6384, 'learning_rate': 9.4038e-06, 'epoch': 2.14, 'throughput': 2319.48}
+[INFO|2025-08-06 01:27:53] logging.py:143 >> {'loss': 1.6027, 'learning_rate': 9.2993e-06, 'epoch': 2.15, 'throughput': 2321.41}
+[INFO|2025-08-06 01:27:53] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:27:53] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:27:53] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:30:05] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2100
+[INFO|2025-08-06 01:30:05] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:30:05] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:30:05] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2100\chat_template.jinja
+[INFO|2025-08-06 01:30:05] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2100\tokenizer_config.json
+[INFO|2025-08-06 01:30:05] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2100\special_tokens_map.json
+[INFO|2025-08-06 01:30:20] logging.py:143 >> {'loss': 1.6473, 'learning_rate': 9.1953e-06, 'epoch': 2.15, 'throughput': 2290.14}
+[INFO|2025-08-06 01:30:35] logging.py:143 >> {'loss': 1.7158, 'learning_rate': 9.0917e-06, 'epoch': 2.16, 'throughput': 2291.38}
+[INFO|2025-08-06 01:30:50] logging.py:143 >> {'loss': 1.6526, 'learning_rate': 8.9885e-06, 'epoch': 2.16, 'throughput': 2292.69}
+[INFO|2025-08-06 01:31:06] logging.py:143 >> {'loss': 1.6539, 'learning_rate': 8.8859e-06, 'epoch': 2.17, 'throughput': 2294.30}
+[INFO|2025-08-06 01:31:21] logging.py:143 >> {'loss': 1.6607, 'learning_rate': 8.7837e-06, 'epoch': 2.18, 'throughput': 2295.63}
+[INFO|2025-08-06 01:31:36] logging.py:143 >> {'loss': 1.7491, 'learning_rate': 8.6819e-06, 'epoch': 2.18, 'throughput': 2297.46}
+[INFO|2025-08-06 01:31:51] logging.py:143 >> {'loss': 1.7192, 'learning_rate': 8.5807e-06, 'epoch': 2.19, 'throughput': 2298.49}
+[INFO|2025-08-06 01:32:06] logging.py:143 >> {'loss': 1.7058, 'learning_rate': 8.4799e-06, 'epoch': 2.19, 'throughput': 2300.01}
+[INFO|2025-08-06 01:32:21] logging.py:143 >> {'loss': 1.6351, 'learning_rate': 8.3795e-06, 'epoch': 2.20, 'throughput': 2301.65}
+[INFO|2025-08-06 01:32:37] logging.py:143 >> {'loss': 1.7166, 'learning_rate': 8.2797e-06, 'epoch': 2.20, 'throughput': 2303.14}
+[INFO|2025-08-06 01:32:53] logging.py:143 >> {'loss': 1.6669, 'learning_rate': 8.1803e-06, 'epoch': 2.21, 'throughput': 2305.02}
+[INFO|2025-08-06 01:33:07] logging.py:143 >> {'loss': 1.6623, 'learning_rate': 8.0815e-06, 'epoch': 2.21, 'throughput': 2306.10}
+[INFO|2025-08-06 01:33:23] logging.py:143 >> {'loss': 1.7369, 'learning_rate': 7.9831e-06, 'epoch': 2.22, 'throughput': 2308.07}
+[INFO|2025-08-06 01:33:38] logging.py:143 >> {'loss': 1.6475, 'learning_rate': 7.8852e-06, 'epoch': 2.22, 'throughput': 2308.90}
+[INFO|2025-08-06 01:33:53] logging.py:143 >> {'loss': 1.6246, 'learning_rate': 7.7877e-06, 'epoch': 2.23, 'throughput': 2310.64}
+[INFO|2025-08-06 01:34:09] logging.py:143 >> {'loss': 1.7300, 'learning_rate': 7.6908e-06, 'epoch': 2.23, 'throughput': 2311.87}
+[INFO|2025-08-06 01:34:24] logging.py:143 >> {'loss': 1.6718, 'learning_rate': 7.5944e-06, 'epoch': 2.24, 'throughput': 2313.40}
+[INFO|2025-08-06 01:34:39] logging.py:143 >> {'loss': 1.7239, 'learning_rate': 7.4985e-06, 'epoch': 2.24, 'throughput': 2314.79}
+[INFO|2025-08-06 01:34:55] logging.py:143 >> {'loss': 1.6678, 'learning_rate': 7.4030e-06, 'epoch': 2.25, 'throughput': 2316.68}
+[INFO|2025-08-06 01:35:11] logging.py:143 >> {'loss': 1.6737, 'learning_rate': 7.3081e-06, 'epoch': 2.25, 'throughput': 2318.39}
+[INFO|2025-08-06 01:35:11] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:35:11] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:35:11] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:37:23] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2200
+[INFO|2025-08-06 01:37:23] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:37:23] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:37:23] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2200\chat_template.jinja
+[INFO|2025-08-06 01:37:23] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2200\tokenizer_config.json
+[INFO|2025-08-06 01:37:23] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2200\special_tokens_map.json
+[INFO|2025-08-06 01:37:39] logging.py:143 >> {'loss': 1.6740, 'learning_rate': 7.2137e-06, 'epoch': 2.26, 'throughput': 2288.70}
+[INFO|2025-08-06 01:37:54] logging.py:143 >> {'loss': 1.6802, 'learning_rate': 7.1198e-06, 'epoch': 2.26, 'throughput': 2290.33}
+[INFO|2025-08-06 01:38:10] logging.py:143 >> {'loss': 1.6547, 'learning_rate': 7.0264e-06, 'epoch': 2.27, 'throughput': 2292.09}
+[INFO|2025-08-06 01:38:25] logging.py:143 >> {'loss': 1.7383, 'learning_rate': 6.9336e-06, 'epoch': 2.27, 'throughput': 2293.99}
+[INFO|2025-08-06 01:38:40] logging.py:143 >> {'loss': 1.6913, 'learning_rate': 6.8412e-06, 'epoch': 2.28, 'throughput': 2295.13}
+[INFO|2025-08-06 01:38:56] logging.py:143 >> {'loss': 1.5929, 'learning_rate': 6.7494e-06, 'epoch': 2.28, 'throughput': 2296.59}
+[INFO|2025-08-06 01:39:12] logging.py:143 >> {'loss': 1.7400, 'learning_rate': 6.6581e-06, 'epoch': 2.29, 'throughput': 2298.42}
+[INFO|2025-08-06 01:39:28] logging.py:143 >> {'loss': 1.6699, 'learning_rate': 6.5673e-06, 'epoch': 2.29, 'throughput': 2300.49}
+[INFO|2025-08-06 01:39:42] logging.py:143 >> {'loss': 1.6973, 'learning_rate': 6.4771e-06, 'epoch': 2.30, 'throughput': 2301.42}
+[INFO|2025-08-06 01:39:57] logging.py:143 >> {'loss': 1.7475, 'learning_rate': 6.3874e-06, 'epoch': 2.30, 'throughput': 2302.52}
+[INFO|2025-08-06 01:40:12] logging.py:143 >> {'loss': 1.7229, 'learning_rate': 6.2982e-06, 'epoch': 2.31, 'throughput': 2303.90}
+[INFO|2025-08-06 01:40:28] logging.py:143 >> {'loss': 1.6805, 'learning_rate': 6.2095e-06, 'epoch': 2.31, 'throughput': 2305.53}
+[INFO|2025-08-06 01:40:44] logging.py:143 >> {'loss': 1.7451, 'learning_rate': 6.1214e-06, 'epoch': 2.32, 'throughput': 2307.86}
+[INFO|2025-08-06 01:40:59] logging.py:143 >> {'loss': 1.6934, 'learning_rate': 6.0339e-06, 'epoch': 2.32, 'throughput': 2309.59}
+[INFO|2025-08-06 01:41:14] logging.py:143 >> {'loss': 1.7136, 'learning_rate': 5.9468e-06, 'epoch': 2.33, 'throughput': 2311.19}
+[INFO|2025-08-06 01:41:29] logging.py:143 >> {'loss': 1.6305, 'learning_rate': 5.8604e-06, 'epoch': 2.33, 'throughput': 2311.82}
+[INFO|2025-08-06 01:41:44] logging.py:143 >> {'loss': 1.6165, 'learning_rate': 5.7745e-06, 'epoch': 2.34, 'throughput': 2313.13}
+[INFO|2025-08-06 01:41:59] logging.py:143 >> {'loss': 1.6539, 'learning_rate': 5.6891e-06, 'epoch': 2.34, 'throughput': 2314.42}
+[INFO|2025-08-06 01:42:15] logging.py:143 >> {'loss': 1.6796, 'learning_rate': 5.6043e-06, 'epoch': 2.35, 'throughput': 2316.30}
+[INFO|2025-08-06 01:42:30] logging.py:143 >> {'loss': 1.7321, 'learning_rate': 5.5200e-06, 'epoch': 2.35, 'throughput': 2317.81}
+[INFO|2025-08-06 01:42:30] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:42:30] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:42:30] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:44:42] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2300
+[INFO|2025-08-06 01:44:42] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:44:42] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:44:42] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2300\chat_template.jinja
+[INFO|2025-08-06 01:44:42] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2300\tokenizer_config.json
+[INFO|2025-08-06 01:44:42] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2300\special_tokens_map.json
+[INFO|2025-08-06 01:44:58] logging.py:143 >> {'loss': 1.6544, 'learning_rate': 5.4363e-06, 'epoch': 2.36, 'throughput': 2289.51}
+[INFO|2025-08-06 01:45:13] logging.py:143 >> {'loss': 1.7225, 'learning_rate': 5.3532e-06, 'epoch': 2.36, 'throughput': 2290.37}
+[INFO|2025-08-06 01:45:29] logging.py:143 >> {'loss': 1.6398, 'learning_rate': 5.2706e-06, 'epoch': 2.37, 'throughput': 2292.17}
+[INFO|2025-08-06 01:45:44] logging.py:143 >> {'loss': 1.6477, 'learning_rate': 5.1886e-06, 'epoch': 2.37, 'throughput': 2293.92}
+[INFO|2025-08-06 01:45:59] logging.py:143 >> {'loss': 1.7376, 'learning_rate': 5.1072e-06, 'epoch': 2.38, 'throughput': 2294.87}
+[INFO|2025-08-06 01:46:14] logging.py:143 >> {'loss': 1.6320, 'learning_rate': 5.0263e-06, 'epoch': 2.39, 'throughput': 2296.55}
+[INFO|2025-08-06 01:46:30] logging.py:143 >> {'loss': 1.6701, 'learning_rate': 4.9460e-06, 'epoch': 2.39, 'throughput': 2298.15}
+[INFO|2025-08-06 01:46:45] logging.py:143 >> {'loss': 1.6372, 'learning_rate': 4.8663e-06, 'epoch': 2.40, 'throughput': 2299.38}
+[INFO|2025-08-06 01:47:00] logging.py:143 >> {'loss': 1.6598, 'learning_rate': 4.7872e-06, 'epoch': 2.40, 'throughput': 2300.83}
+[INFO|2025-08-06 01:47:16] logging.py:143 >> {'loss': 1.7471, 'learning_rate': 4.7086e-06, 'epoch': 2.41, 'throughput': 2302.32}
+[INFO|2025-08-06 01:47:31] logging.py:143 >> {'loss': 1.6850, 'learning_rate': 4.6307e-06, 'epoch': 2.41, 'throughput': 2303.66}
+[INFO|2025-08-06 01:47:46] logging.py:143 >> {'loss': 1.6069, 'learning_rate': 4.5533e-06, 'epoch': 2.42, 'throughput': 2305.39}
+[INFO|2025-08-06 01:48:02] logging.py:143 >> {'loss': 1.7317, 'learning_rate': 4.4765e-06, 'epoch': 2.42, 'throughput': 2307.25}
+[INFO|2025-08-06 01:48:17] logging.py:143 >> {'loss': 1.6941, 'learning_rate': 4.4003e-06, 'epoch': 2.43, 'throughput': 2308.29}
+[INFO|2025-08-06 01:48:33] logging.py:143 >> {'loss': 1.6710, 'learning_rate': 4.3246e-06, 'epoch': 2.43, 'throughput': 2309.75}
+[INFO|2025-08-06 01:48:48] logging.py:143 >> {'loss': 1.7297, 'learning_rate': 4.2496e-06, 'epoch': 2.44, 'throughput': 2311.48}
+[INFO|2025-08-06 01:49:03] logging.py:143 >> {'loss': 1.6560, 'learning_rate': 4.1752e-06, 'epoch': 2.44, 'throughput': 2312.54}
+[INFO|2025-08-06 01:49:19] logging.py:143 >> {'loss': 1.5720, 'learning_rate': 4.1014e-06, 'epoch': 2.45, 'throughput': 2314.09}
+[INFO|2025-08-06 01:49:34] logging.py:143 >> {'loss': 1.6788, 'learning_rate': 4.0281e-06, 'epoch': 2.45, 'throughput': 2315.29}
+[INFO|2025-08-06 01:49:50] logging.py:143 >> {'loss': 1.6454, 'learning_rate': 3.9555e-06, 'epoch': 2.46, 'throughput': 2317.25}
+[INFO|2025-08-06 01:49:50] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:49:50] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:49:50] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:52:02] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2400
+[INFO|2025-08-06 01:52:02] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:52:02] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:52:02] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2400\chat_template.jinja
+[INFO|2025-08-06 01:52:02] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2400\tokenizer_config.json
+[INFO|2025-08-06 01:52:02] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2400\special_tokens_map.json
+[INFO|2025-08-06 01:52:17] logging.py:143 >> {'loss': 1.5430, 'learning_rate': 3.8835e-06, 'epoch': 2.46, 'throughput': 2289.71}
+[INFO|2025-08-06 01:52:32] logging.py:143 >> {'loss': 1.6947, 'learning_rate': 3.8121e-06, 'epoch': 2.47, 'throughput': 2290.62}
+[INFO|2025-08-06 01:52:47] logging.py:143 >> {'loss': 1.6176, 'learning_rate': 3.7413e-06, 'epoch': 2.47, 'throughput': 2292.10}
+[INFO|2025-08-06 01:53:02] logging.py:143 >> {'loss': 1.6000, 'learning_rate': 3.6711e-06, 'epoch': 2.48, 'throughput': 2293.38}
+[INFO|2025-08-06 01:53:17] logging.py:143 >> {'loss': 1.6674, 'learning_rate': 3.6015e-06, 'epoch': 2.48, 'throughput': 2294.66}
+[INFO|2025-08-06 01:53:33] logging.py:143 >> {'loss': 1.6650, 'learning_rate': 3.5325e-06, 'epoch': 2.49, 'throughput': 2296.46}
+[INFO|2025-08-06 01:53:48] logging.py:143 >> {'loss': 1.6817, 'learning_rate': 3.4641e-06, 'epoch': 2.49, 'throughput': 2297.73}
+[INFO|2025-08-06 01:54:03] logging.py:143 >> {'loss': 1.6879, 'learning_rate': 3.3964e-06, 'epoch': 2.50, 'throughput': 2299.14}
+[INFO|2025-08-06 01:54:19] logging.py:143 >> {'loss': 1.6659, 'learning_rate': 3.3293e-06, 'epoch': 2.50, 'throughput': 2301.11}
+[INFO|2025-08-06 01:54:35] logging.py:143 >> {'loss': 1.6683, 'learning_rate': 3.2628e-06, 'epoch': 2.51, 'throughput': 2302.98}
+[INFO|2025-08-06 01:54:50] logging.py:143 >> {'loss': 1.6758, 'learning_rate': 3.1969e-06, 'epoch': 2.51, 'throughput': 2304.55}
+[INFO|2025-08-06 01:55:05] logging.py:143 >> {'loss': 1.7483, 'learning_rate': 3.1317e-06, 'epoch': 2.52, 'throughput': 2305.40}
+[INFO|2025-08-06 01:55:20] logging.py:143 >> {'loss': 1.6512, 'learning_rate': 3.0671e-06, 'epoch': 2.52, 'throughput': 2307.09}
+[INFO|2025-08-06 01:55:36] logging.py:143 >> {'loss': 1.6009, 'learning_rate': 3.0031e-06, 'epoch': 2.53, 'throughput': 2308.93}
+[INFO|2025-08-06 01:55:51] logging.py:143 >> {'loss': 1.6455, 'learning_rate': 2.9397e-06, 'epoch': 2.53, 'throughput': 2310.28}
+[INFO|2025-08-06 01:56:06] logging.py:143 >> {'loss': 1.6651, 'learning_rate': 2.8770e-06, 'epoch': 2.54, 'throughput': 2311.47}
+[INFO|2025-08-06 01:56:22] logging.py:143 >> {'loss': 1.6582, 'learning_rate': 2.8149e-06, 'epoch': 2.54, 'throughput': 2312.82}
+[INFO|2025-08-06 01:56:38] logging.py:143 >> {'loss': 1.6385, 'learning_rate': 2.7535e-06, 'epoch': 2.55, 'throughput': 2314.58}
+[INFO|2025-08-06 01:56:53] logging.py:143 >> {'loss': 1.6199, 'learning_rate': 2.6927e-06, 'epoch': 2.55, 'throughput': 2315.92}
+[INFO|2025-08-06 01:57:08] logging.py:143 >> {'loss': 1.6658, 'learning_rate': 2.6325e-06, 'epoch': 2.56, 'throughput': 2317.25}
+[INFO|2025-08-06 01:57:08] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 01:57:08] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 01:57:08] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 01:59:20] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2500
+[INFO|2025-08-06 01:59:20] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 01:59:20] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 01:59:20] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2500\chat_template.jinja
+[INFO|2025-08-06 01:59:20] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2500\tokenizer_config.json
+[INFO|2025-08-06 01:59:20] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2500\special_tokens_map.json
+[INFO|2025-08-06 01:59:35] logging.py:143 >> {'loss': 1.5886, 'learning_rate': 2.5730e-06, 'epoch': 2.56, 'throughput': 2290.80}
+[INFO|2025-08-06 01:59:50] logging.py:143 >> {'loss': 1.6461, 'learning_rate': 2.5141e-06, 'epoch': 2.57, 'throughput': 2291.94}
+[INFO|2025-08-06 02:00:06] logging.py:143 >> {'loss': 1.7724, 'learning_rate': 2.4559e-06, 'epoch': 2.57, 'throughput': 2293.58}
+[INFO|2025-08-06 02:00:22] logging.py:143 >> {'loss': 1.7458, 'learning_rate': 2.3983e-06, 'epoch': 2.58, 'throughput': 2295.10}
+[INFO|2025-08-06 02:00:37] logging.py:143 >> {'loss': 1.7395, 'learning_rate': 2.3414e-06, 'epoch': 2.58, 'throughput': 2296.49}
+[INFO|2025-08-06 02:00:53] logging.py:143 >> {'loss': 1.6742, 'learning_rate': 2.2851e-06, 'epoch': 2.59, 'throughput': 2298.07}
+[INFO|2025-08-06 02:01:09] logging.py:143 >> {'loss': 1.6059, 'learning_rate': 2.2294e-06, 'epoch': 2.60, 'throughput': 2299.66}
+[INFO|2025-08-06 02:01:24] logging.py:143 >> {'loss': 1.6579, 'learning_rate': 2.1745e-06, 'epoch': 2.60, 'throughput': 2300.83}
+[INFO|2025-08-06 02:01:39] logging.py:143 >> {'loss': 1.6546, 'learning_rate': 2.1201e-06, 'epoch': 2.61, 'throughput': 2302.51}
+[INFO|2025-08-06 02:01:54] logging.py:143 >> {'loss': 1.7049, 'learning_rate': 2.0665e-06, 'epoch': 2.61, 'throughput': 2303.42}
+[INFO|2025-08-06 02:02:10] logging.py:143 >> {'loss': 1.6424, 'learning_rate': 2.0135e-06, 'epoch': 2.62, 'throughput': 2305.02}
+[INFO|2025-08-06 02:02:25] logging.py:143 >> {'loss': 1.6277, 'learning_rate': 1.9611e-06, 'epoch': 2.62, 'throughput': 2306.74}
+[INFO|2025-08-06 02:02:40] logging.py:143 >> {'loss': 1.5604, 'learning_rate': 1.9094e-06, 'epoch': 2.63, 'throughput': 2308.34}
+[INFO|2025-08-06 02:02:56] logging.py:143 >> {'loss': 1.7127, 'learning_rate': 1.8584e-06, 'epoch': 2.63, 'throughput': 2309.88}
+[INFO|2025-08-06 02:03:12] logging.py:143 >> {'loss': 1.6714, 'learning_rate': 1.8080e-06, 'epoch': 2.64, 'throughput': 2311.28}
+[INFO|2025-08-06 02:03:27] logging.py:143 >> {'loss': 1.6771, 'learning_rate': 1.7584e-06, 'epoch': 2.64, 'throughput': 2312.59}
+[INFO|2025-08-06 02:03:43] logging.py:143 >> {'loss': 1.6912, 'learning_rate': 1.7093e-06, 'epoch': 2.65, 'throughput': 2314.39}
+[INFO|2025-08-06 02:03:59] logging.py:143 >> {'loss': 1.6831, 'learning_rate': 1.6610e-06, 'epoch': 2.65, 'throughput': 2315.99}
+[INFO|2025-08-06 02:04:14] logging.py:143 >> {'loss': 1.7068, 'learning_rate': 1.6133e-06, 'epoch': 2.66, 'throughput': 2317.33}
+[INFO|2025-08-06 02:04:30] logging.py:143 >> {'loss': 1.6296, 'learning_rate': 1.5663e-06, 'epoch': 2.66, 'throughput': 2319.02}
+[INFO|2025-08-06 02:04:30] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 02:04:30] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 02:04:30] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 02:06:41] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2600
+[INFO|2025-08-06 02:06:41] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:06:41] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:06:42] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2600\chat_template.jinja
+[INFO|2025-08-06 02:06:42] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2600\tokenizer_config.json
+[INFO|2025-08-06 02:06:42] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2600\special_tokens_map.json
+[INFO|2025-08-06 02:06:57] logging.py:143 >> {'loss': 1.7048, 'learning_rate': 1.5199e-06, 'epoch': 2.67, 'throughput': 2293.42}
+[INFO|2025-08-06 02:07:12] logging.py:143 >> {'loss': 1.6712, 'learning_rate': 1.4743e-06, 'epoch': 2.67, 'throughput': 2294.34}
+[INFO|2025-08-06 02:07:28] logging.py:143 >> {'loss': 1.6868, 'learning_rate': 1.4293e-06, 'epoch': 2.68, 'throughput': 2296.14}
+[INFO|2025-08-06 02:07:43] logging.py:143 >> {'loss': 1.6653, 'learning_rate': 1.3850e-06, 'epoch': 2.68, 'throughput': 2297.08}
+[INFO|2025-08-06 02:07:58] logging.py:143 >> {'loss': 1.6978, 'learning_rate': 1.3413e-06, 'epoch': 2.69, 'throughput': 2298.23}
+[INFO|2025-08-06 02:08:13] logging.py:143 >> {'loss': 1.6561, 'learning_rate': 1.2984e-06, 'epoch': 2.69, 'throughput': 2299.25}
+[INFO|2025-08-06 02:08:29] logging.py:143 >> {'loss': 1.7222, 'learning_rate': 1.2561e-06, 'epoch': 2.70, 'throughput': 2300.81}
+[INFO|2025-08-06 02:08:44] logging.py:143 >> {'loss': 1.7263, 'learning_rate': 1.2145e-06, 'epoch': 2.70, 'throughput': 2301.99}
+[INFO|2025-08-06 02:08:59] logging.py:143 >> {'loss': 1.6752, 'learning_rate': 1.1736e-06, 'epoch': 2.71, 'throughput': 2303.34}
+[INFO|2025-08-06 02:09:15] logging.py:143 >> {'loss': 1.6723, 'learning_rate': 1.1334e-06, 'epoch': 2.71, 'throughput': 2304.45}
+[INFO|2025-08-06 02:09:30] logging.py:143 >> {'loss': 1.5399, 'learning_rate': 1.0938e-06, 'epoch': 2.72, 'throughput': 2305.77}
+[INFO|2025-08-06 02:09:45] logging.py:143 >> {'loss': 1.6402, 'learning_rate': 1.0550e-06, 'epoch': 2.72, 'throughput': 2306.74}
+[INFO|2025-08-06 02:10:00] logging.py:143 >> {'loss': 1.6637, 'learning_rate': 1.0168e-06, 'epoch': 2.73, 'throughput': 2308.06}
+[INFO|2025-08-06 02:10:16] logging.py:143 >> {'loss': 1.7088, 'learning_rate': 9.7932e-07, 'epoch': 2.73, 'throughput': 2309.46}
+[INFO|2025-08-06 02:10:31] logging.py:143 >> {'loss': 1.6965, 'learning_rate': 9.4253e-07, 'epoch': 2.74, 'throughput': 2310.76}
+[INFO|2025-08-06 02:10:46] logging.py:143 >> {'loss': 1.6771, 'learning_rate': 9.0644e-07, 'epoch': 2.74, 'throughput': 2311.91}
+[INFO|2025-08-06 02:11:02] logging.py:143 >> {'loss': 1.6698, 'learning_rate': 8.7103e-07, 'epoch': 2.75, 'throughput': 2313.41}
+[INFO|2025-08-06 02:11:17] logging.py:143 >> {'loss': 1.6093, 'learning_rate': 8.3632e-07, 'epoch': 2.75, 'throughput': 2314.44}
+[INFO|2025-08-06 02:11:33] logging.py:143 >> {'loss': 1.6288, 'learning_rate': 8.0230e-07, 'epoch': 2.76, 'throughput': 2315.74}
+[INFO|2025-08-06 02:11:48] logging.py:143 >> {'loss': 1.7132, 'learning_rate': 7.6898e-07, 'epoch': 2.76, 'throughput': 2317.17}
+[INFO|2025-08-06 02:11:48] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 02:11:48] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 02:11:48] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 02:14:00] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2700
+[INFO|2025-08-06 02:14:00] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:14:00] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:14:00] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2700\chat_template.jinja
+[INFO|2025-08-06 02:14:00] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2700\tokenizer_config.json
+[INFO|2025-08-06 02:14:00] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2700\special_tokens_map.json
+[INFO|2025-08-06 02:14:15] logging.py:143 >> {'loss': 1.7213, 'learning_rate': 7.3635e-07, 'epoch': 2.77, 'throughput': 2293.07}
+[INFO|2025-08-06 02:14:31] logging.py:143 >> {'loss': 1.7268, 'learning_rate': 7.0442e-07, 'epoch': 2.77, 'throughput': 2294.51}
+[INFO|2025-08-06 02:14:46] logging.py:143 >> {'loss': 1.6977, 'learning_rate': 6.7319e-07, 'epoch': 2.78, 'throughput': 2295.57}
+[INFO|2025-08-06 02:15:01] logging.py:143 >> {'loss': 1.6649, 'learning_rate': 6.4266e-07, 'epoch': 2.78, 'throughput': 2296.83}
+[INFO|2025-08-06 02:15:17] logging.py:143 >> {'loss': 1.6790, 'learning_rate': 6.1283e-07, 'epoch': 2.79, 'throughput': 2297.96}
+[INFO|2025-08-06 02:15:32] logging.py:143 >> {'loss': 1.6443, 'learning_rate': 5.8369e-07, 'epoch': 2.79, 'throughput': 2299.51}
+[INFO|2025-08-06 02:15:48] logging.py:143 >> {'loss': 1.6793, 'learning_rate': 5.5526e-07, 'epoch': 2.80, 'throughput': 2300.76}
+[INFO|2025-08-06 02:16:03] logging.py:143 >> {'loss': 1.7787, 'learning_rate': 5.2753e-07, 'epoch': 2.81, 'throughput': 2302.02}
+[INFO|2025-08-06 02:16:19] logging.py:143 >> {'loss': 1.7138, 'learning_rate': 5.0050e-07, 'epoch': 2.81, 'throughput': 2303.33}
+[INFO|2025-08-06 02:16:34] logging.py:143 >> {'loss': 1.7213, 'learning_rate': 4.7418e-07, 'epoch': 2.82, 'throughput': 2304.64}
+[INFO|2025-08-06 02:16:50] logging.py:143 >> {'loss': 1.6364, 'learning_rate': 4.4856e-07, 'epoch': 2.82, 'throughput': 2306.13}
+[INFO|2025-08-06 02:17:06] logging.py:143 >> {'loss': 1.7172, 'learning_rate': 4.2365e-07, 'epoch': 2.83, 'throughput': 2307.55}
+[INFO|2025-08-06 02:17:21] logging.py:143 >> {'loss': 1.6656, 'learning_rate': 3.9944e-07, 'epoch': 2.83, 'throughput': 2308.70}
+[INFO|2025-08-06 02:17:36] logging.py:143 >> {'loss': 1.6898, 'learning_rate': 3.7594e-07, 'epoch': 2.84, 'throughput': 2309.93}
+[INFO|2025-08-06 02:17:53] logging.py:143 >> {'loss': 1.6090, 'learning_rate': 3.5314e-07, 'epoch': 2.84, 'throughput': 2311.68}
+[INFO|2025-08-06 02:18:08] logging.py:143 >> {'loss': 1.6951, 'learning_rate': 3.3106e-07, 'epoch': 2.85, 'throughput': 2313.07}
+[INFO|2025-08-06 02:18:24] logging.py:143 >> {'loss': 1.6465, 'learning_rate': 3.0968e-07, 'epoch': 2.85, 'throughput': 2314.50}
+[INFO|2025-08-06 02:18:40] logging.py:143 >> {'loss': 1.6998, 'learning_rate': 2.8901e-07, 'epoch': 2.86, 'throughput': 2316.26}
+[INFO|2025-08-06 02:18:56] logging.py:143 >> {'loss': 1.7752, 'learning_rate': 2.6905e-07, 'epoch': 2.86, 'throughput': 2317.51}
+[INFO|2025-08-06 02:19:11] logging.py:143 >> {'loss': 1.6483, 'learning_rate': 2.4981e-07, 'epoch': 2.87, 'throughput': 2318.53}
+[INFO|2025-08-06 02:19:11] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 02:19:11] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 02:19:11] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 02:21:23] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2800
+[INFO|2025-08-06 02:21:23] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:21:23] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:21:23] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2800\chat_template.jinja
+[INFO|2025-08-06 02:21:23] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2800\tokenizer_config.json
+[INFO|2025-08-06 02:21:23] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2800\special_tokens_map.json
+[INFO|2025-08-06 02:21:38] logging.py:143 >> {'loss': 1.6430, 'learning_rate': 2.3127e-07, 'epoch': 2.87, 'throughput': 2295.05}
+[INFO|2025-08-06 02:21:54] logging.py:143 >> {'loss': 1.6909, 'learning_rate': 2.1344e-07, 'epoch': 2.88, 'throughput': 2296.65}
+[INFO|2025-08-06 02:22:10] logging.py:143 >> {'loss': 1.6723, 'learning_rate': 1.9633e-07, 'epoch': 2.88, 'throughput': 2298.06}
+[INFO|2025-08-06 02:22:26] logging.py:143 >> {'loss': 1.7071, 'learning_rate': 1.7993e-07, 'epoch': 2.89, 'throughput': 2299.32}
+[INFO|2025-08-06 02:22:41] logging.py:143 >> {'loss': 1.6500, 'learning_rate': 1.6424e-07, 'epoch': 2.89, 'throughput': 2300.34}
+[INFO|2025-08-06 02:22:56] logging.py:143 >> {'loss': 1.6630, 'learning_rate': 1.4926e-07, 'epoch': 2.90, 'throughput': 2301.54}
+[INFO|2025-08-06 02:23:11] logging.py:143 >> {'loss': 1.6748, 'learning_rate': 1.3500e-07, 'epoch': 2.90, 'throughput': 2302.77}
+[INFO|2025-08-06 02:23:26] logging.py:143 >> {'loss': 1.6975, 'learning_rate': 1.2145e-07, 'epoch': 2.91, 'throughput': 2303.76}
+[INFO|2025-08-06 02:23:41] logging.py:143 >> {'loss': 1.6884, 'learning_rate': 1.0862e-07, 'epoch': 2.91, 'throughput': 2304.77}
+[INFO|2025-08-06 02:23:56] logging.py:143 >> {'loss': 1.7600, 'learning_rate': 9.6500e-08, 'epoch': 2.92, 'throughput': 2305.93}
+[INFO|2025-08-06 02:24:12] logging.py:143 >> {'loss': 1.6468, 'learning_rate': 8.5097e-08, 'epoch': 2.92, 'throughput': 2307.39}
+[INFO|2025-08-06 02:24:28] logging.py:143 >> {'loss': 1.6508, 'learning_rate': 7.4409e-08, 'epoch': 2.93, 'throughput': 2309.02}
+[INFO|2025-08-06 02:24:43] logging.py:143 >> {'loss': 1.6705, 'learning_rate': 6.4438e-08, 'epoch': 2.93, 'throughput': 2310.04}
+[INFO|2025-08-06 02:24:58] logging.py:143 >> {'loss': 1.5792, 'learning_rate': 5.5183e-08, 'epoch': 2.94, 'throughput': 2311.06}
+[INFO|2025-08-06 02:25:13] logging.py:143 >> {'loss': 1.7277, 'learning_rate': 4.6644e-08, 'epoch': 2.94, 'throughput': 2312.59}
+[INFO|2025-08-06 02:25:29] logging.py:143 >> {'loss': 1.7227, 'learning_rate': 3.8822e-08, 'epoch': 2.95, 'throughput': 2313.79}
+[INFO|2025-08-06 02:25:44] logging.py:143 >> {'loss': 1.6649, 'learning_rate': 3.1716e-08, 'epoch': 2.95, 'throughput': 2314.92}
+[INFO|2025-08-06 02:25:59] logging.py:143 >> {'loss': 1.6225, 'learning_rate': 2.5328e-08, 'epoch': 2.96, 'throughput': 2315.96}
+[INFO|2025-08-06 02:26:14] logging.py:143 >> {'loss': 1.6403, 'learning_rate': 1.9657e-08, 'epoch': 2.96, 'throughput': 2316.86}
+[INFO|2025-08-06 02:26:29] logging.py:143 >> {'loss': 1.6573, 'learning_rate': 1.4704e-08, 'epoch': 2.97, 'throughput': 2317.74}
+[INFO|2025-08-06 02:26:29] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 02:26:29] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 02:26:29] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 02:28:41] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2900
+[INFO|2025-08-06 02:28:41] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:28:41] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:28:41] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2900\chat_template.jinja
+[INFO|2025-08-06 02:28:41] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2900\tokenizer_config.json
+[INFO|2025-08-06 02:28:41] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2900\special_tokens_map.json
+[INFO|2025-08-06 02:28:56] logging.py:143 >> {'loss': 1.5902, 'learning_rate': 1.0468e-08, 'epoch': 2.97, 'throughput': 2295.26}
+[INFO|2025-08-06 02:29:12] logging.py:143 >> {'loss': 1.6319, 'learning_rate': 6.9503e-09, 'epoch': 2.98, 'throughput': 2296.44}
+[INFO|2025-08-06 02:29:27] logging.py:143 >> {'loss': 1.7039, 'learning_rate': 4.1502e-09, 'epoch': 2.98, 'throughput': 2297.44}
+[INFO|2025-08-06 02:29:42] logging.py:143 >> {'loss': 1.7297, 'learning_rate': 2.0679e-09, 'epoch': 2.99, 'throughput': 2298.74}
+[INFO|2025-08-06 02:29:57] logging.py:143 >> {'loss': 1.6457, 'learning_rate': 7.0368e-10, 'epoch': 2.99, 'throughput': 2299.91}
+[INFO|2025-08-06 02:30:13] logging.py:143 >> {'loss': 1.6698, 'learning_rate': 5.7443e-11, 'epoch': 3.00, 'throughput': 2301.37}
+[INFO|2025-08-06 02:30:14] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2931
+[INFO|2025-08-06 02:30:14] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:30:14] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2931\chat_template.jinja
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2931\tokenizer_config.json
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\checkpoint-2931\special_tokens_map.json
+[INFO|2025-08-06 02:30:14] trainer.py:2676 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+[INFO|2025-08-06 02:30:14] trainer.py:3993 >> Saving model checkpoint to saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12
+[INFO|2025-08-06 02:30:14] configuration_utils.py:696 >> loading configuration file C:\Users\Administrator\.cache\modelscope\hub\models\Qwen\Qwen3-0.6B\config.json
+[INFO|2025-08-06 02:30:14] configuration_utils.py:770 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "max_position_embeddings": 40960,
+  "max_window_layers": 28,
+  "model_type": "qwen3",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 8,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2356 >> chat template saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\chat_template.jinja
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2525 >> tokenizer config file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\tokenizer_config.json
+[INFO|2025-08-06 02:30:14] tokenization_utils_base.py:2534 >> Special tokens file saved in saves\Qwen3-0.6B-Thinking\lora\train_2025-08-05-22-53-12\special_tokens_map.json
+[WARNING|2025-08-06 02:30:15] logging.py:148 >> No metric eval_accuracy to plot.
+[INFO|2025-08-06 02:30:15] trainer.py:4327 >> 
+***** Running Evaluation *****
+[INFO|2025-08-06 02:30:15] trainer.py:4329 >>   Num examples = 868
+[INFO|2025-08-06 02:30:15] trainer.py:4332 >>   Batch size = 1
+[INFO|2025-08-06 02:32:26] modelcard.py:450 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Causal Language Modeling', 'type': 'text-generation'}}

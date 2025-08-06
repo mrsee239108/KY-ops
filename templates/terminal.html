@@ -18,6 +18,7 @@
             </div>
             <div class="title-bar-right">
                 <div class="window-controls">
+                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题"><i class="fas fa-moon"></i></button>
                     <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
                     <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
                 </div>
@@ -81,10 +82,6 @@
                         <button class="quick-cmd-btn" data-command="free -h">
                             <i class="fas fa-memory"></i>
                             内存使用
-                        </button>
-                        <button class="quick-cmd-btn" data-command="top">
-                            <i class="fas fa-chart-line"></i>
-                            系统监控
                         </button>
                         <button class="quick-cmd-btn" data-command="netstat -tuln">
                             <i class="fas fa-network-wired"></i>
@@ -170,6 +167,12 @@
         </div>
     </div>
 
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.themeManager = new ThemeManager();
+        });
+    </script>
 </body>
 </html>

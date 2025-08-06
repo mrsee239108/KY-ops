@@ -32,6 +32,11 @@ class SecurityCenter {
         this.updateInterval = setInterval(() => {
             this.loadSecurityData();
         }, 30000); // 每30秒更新一次
+
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
     }
 
     setupEventListeners() {
@@ -107,6 +112,12 @@ class SecurityCenter {
                     this.closeScanModal();
                 }
             });
+        }
+
+        // 主题切换按钮
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => this.toggleTheme());
         }
 
         console.log('安全中心页面已初始化');
@@ -500,6 +511,28 @@ class SecurityCenter {
 
             container.appendChild(historyItem);
         });
+    }
+
+    // 切换主题
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    // 更新主题图标
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const isDark = window.themeManager.getCurrentTheme() === 'dark';
+            
+            if (icon) {
+                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            themeToggleBtn.title = isDark ? '切换到浅色主题' : '切换到深色主题';
+        }
     }
 
     // 清理资源

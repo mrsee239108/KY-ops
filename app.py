@@ -1,5 +1,5 @@
 from extune import common
-from flask import Flask, render_template, jsonify, request, send_file, make_response
+from flask import Flask, render_template, jsonify, request, send_file, make_response, Response
 import psutil
 import platform
 import socket
@@ -12,6 +12,9 @@ import re
 from datetime import datetime, timedelta
 import requests
 from pathlib import Path
+
+# 导入AI服务
+from ai_service import ai_service
 
 app = Flask(__name__)
 
@@ -1802,46 +1805,45 @@ def ai_chat_api():
     try:
         data = request.get_json()
         message = data.get('message', '').strip()
+        conversation_id = data.get('conversation_id')
+        stream = data.get('stream', False)
         
         if not message:
             return jsonify({'error': '消息不能为空'}), 400
         
-        # 模拟AI回复
-        import random
-        import time
+        # 使用AI服务进行对话
+        result = ai_service.chat_with_ai(message, conversation_id, stream)
         
-        # 模拟处理时间
-        time.sleep(random.uniform(0.5, 1.5))
+        if 'error' in result:
+            return jsonify(result), 500 if not result.get('loading') else 202
         
-        # 预设回复
-        responses = [
-            f"我理解您说的是：{message}。这是一个很有趣的话题。",
-            f"关于「{message}」，我认为这需要更深入的分析。",
-            f"您提到的「{message}」确实值得讨论。让我为您详细解释一下。",
-            f"这是一个关于「{message}」的好问题。根据我的理解...",
-            f"感谢您分享「{message}」。我的观点是..."
-        ]
-        
-        # 特殊关键词回复
-        if '你好' in message or 'hello' in message.lower():
-            ai_response = "您好！我是您的AI助手，很高兴为您服务。有什么我可以帮助您的吗？"
-        elif '天气' in message:
-            ai_response = "今天天气不错，温度适宜。建议您外出时注意防晒。"
-        elif '时间' in message:
-            current_time = datetime.now().strftime('%Y年%m月%d日 %H:%M:%S')
-            ai_response = f"当前时间是：{current_time}"
-        elif '系统' in message:
-            ai_response = "我可以帮您监控系统状态、管理文件、查看进程等。您需要什么帮助？"
-        elif '帮助' in message or 'help' in message.lower():
-            ai_response = "我可以帮助您：\n1. 回答各种问题\n2. 提供系统信息\n3. 协助文件管理\n4. 解释技术概念\n5. 进行日常对话\n\n请告诉我您需要什么帮助！"
+        if stream and 'stream' in result:
+            # 流式响应
+            def generate():
+                try:
+                    for chunk_data in result['stream']:
+                        if isinstance(chunk_data, dict):
+                            yield f"data: {json.dumps(chunk_data, ensure_ascii=False)}\n\n"
+                        else:
+                            # 如果是字符串，包装成标准格式
+                            chunk_obj = {
+                                'content': chunk_data,
+                                'conversation_id': result.get('conversation_id')
+                            }
+                            yield f"data: {json.dumps(chunk_obj, ensure_ascii=False)}\n\n"
+                    yield "data: [DONE]\n\n"
+                except Exception as e:
+                    error_obj = {'error': str(e)}
+                    yield f"data: {json.dumps(error_obj, ensure_ascii=False)}\n\n"
+                    yield "data: [DONE]\n\n"
+            
+            return Response(generate(), mimetype='text/event-stream', headers={
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'X-Accel-Buffering': 'no'
+            })
         else:
-            ai_response = random.choice(responses)
-        
-        return jsonify({
-            'response': ai_response,
-            'timestamp': datetime.now().strftime('%H:%M:%S'),
-            'message_id': f"msg_{int(time.time() * 1000)}"
-        })
+            return jsonify(result)
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -1887,12 +1889,46 @@ def get_chat_history():
 def clear_chat_history():
     """清空聊天历史"""
     try:
-        # 实际应用中这里会清空数据库或文件中的聊天记录
+        data = request.get_json() or {}
+        conversation_id = data.get('conversation_id')
+        
+        ai_service.clear_conversation(conversation_id)
+        
         return jsonify({
             'success': True,
             'message': '聊天历史已清空'
         })
         
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/ai-chat/status', methods=['GET'])
+def ai_status():
+    """获取AI服务状态"""
+    try:
+        status = ai_service.get_model_status()
+        return jsonify(status)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/ai-chat/init', methods=['POST'])
+def init_ai_model():
+    """初始化AI模型"""
+    try:
+        ai_service.initialize_model()
+        return jsonify({
+            'success': True,
+            'message': '正在初始化AI模型...'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/ai-chat/model-info', methods=['GET'])
+def get_ai_model_info():
+    """获取AI模型信息"""
+    try:
+        info = ai_service.get_model_info()
+        return jsonify(info)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -2173,4 +2209,6 @@ def file_download():
         return jsonify({'error': f'下载文件失败: {str(e)}'}), 500
 
 if __name__ == '__main__':
+    print("KY-ops 智能运维管家启动中...")
+    print("AI模型将在后台自动加载...")
     app.run(debug=True, host='0.0.0.0', port=5000)

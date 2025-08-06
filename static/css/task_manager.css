@@ -1,3 +1,83 @@
+/* CSS变量定义 - 深色主题（默认） */
+:root {
+    /* 背景色 */
+    --bg-primary: #2d2d2d;
+    --bg-secondary: #3c3c3c;
+    --bg-tertiary: #4a4a4a;
+    --bg-quaternary: #5a5a5a;
+    --bg-card: rgba(255, 255, 255, 0.1);
+    --bg-body-gradient: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    --bg-content-gradient: linear-gradient(135deg, rgba(179, 222, 239, 0.1) 0%, rgba(1, 67, 128, 0.1) 100%);
+    
+    /* 文字颜色 */
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --text-disabled: #888888;
+    --text-accent: #00bcd4;
+    --text-warning: #ffa500;
+    
+    /* 边框颜色 */
+    --border-primary: rgba(255, 255, 255, 0.1);
+    --border-secondary: rgba(255, 255, 255, 0.2);
+    --border-tertiary: #4a4a4a;
+    
+    /* 特殊元素背景 */
+    --bg-sidebar: rgba(45, 45, 45, 0.95);
+    --bg-active: #1f5f5f;
+    --bg-hover: #3c3c3c;
+    --bg-table: #363636;
+    --bg-card-secondary: rgba(255, 255, 255, 0.05);
+    
+    /* 阴影 */
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    
+    /* 控制按钮颜色 */
+    --color-success: #28ca42;
+    --color-danger: #ff5f57;
+}
+
+/* 浅色主题 */
+body.theme-light {
+    /* 背景色 */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e0e0e0;
+    --bg-quaternary: #d0d0d0;
+    --bg-card: rgba(0, 0, 0, 0.05);
+    --bg-body-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    --bg-content-gradient: linear-gradient(135deg, rgba(227, 242, 253, 0.5) 0%, rgba(187, 222, 251, 0.5) 100%);
+    
+    /* 文字颜色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --text-disabled: #cccccc;
+    --text-accent: #1976d2;
+    --text-warning: #f57c00;
+    
+    /* 边框颜色 */
+    --border-primary: rgba(0, 0, 0, 0.1);
+    --border-secondary: rgba(0, 0, 0, 0.2);
+    --border-tertiary: #e0e0e0;
+    
+    /* 特殊元素背景 */
+    --bg-sidebar: rgba(255, 255, 255, 0.95);
+    --bg-active: #e3f2fd;
+    --bg-hover: #f5f5f5;
+    --bg-table: #fafafa;
+    --bg-card-secondary: rgba(0, 0, 0, 0.03);
+    
+    /* 阴影 */
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    
+    /* 控制按钮颜色 */
+    --color-success: #4caf50;
+    --color-danger: #f44336;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,30 +86,33 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
-    color: #ffffff;
+    background: var(--bg-body-gradient);
+    color: var(--text-primary);
     overflow: hidden;
     height: 100vh;
+    transition: all 0.3s ease;
 }
 
 .task-manager {
     width: 100vw;
     height: 100vh;
-    background-color: #2d2d2d;
+    background-color: var(--bg-primary);
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease;
 }
 
 /* 标题栏 */
 .title-bar {
     height: 32px;
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    border-bottom: 1px solid #4a4a4a;
+    border-bottom: 1px solid var(--border-tertiary);
     -webkit-app-region: drag;
+    transition: all 0.3s ease;
 }
 
 .title-bar-left {
@@ -37,12 +120,14 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     -webkit-app-region: no-drag;
+    transition: color 0.3s ease;
 }
 
 .title-bar-left i {
-    color: #ffa500;
+    color: var(--text-warning);
+    transition: color 0.3s ease;
 }
 
 .window-controls {
@@ -70,11 +155,11 @@ body {
 }
 
 .control-btn.refresh {
-    background-color: #28ca42;
+    background-color: var(--color-success);
 }
 
 .control-btn.back {
-    background-color: #ff5f57;
+    background-color: var(--color-danger);
 }
 
 .task-content {
@@ -86,13 +171,14 @@ body {
 /* 左侧导航栏 */
 .sidebar {
     width: 260px;
-    background-color: rgba(45, 45, 45, 0.95);
+    background-color: var(--bg-sidebar);
     backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--border-primary);
     display: flex;
     flex-direction: column;
     padding: 16px 0;
     overflow-y: auto;
+    transition: all 0.3s ease;
 }
 
 .nav-section {
@@ -104,19 +190,19 @@ body {
     align-items: center;
     padding: 12px 20px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     font-size: 14px;
-    color: #ffffff;
+    color: var(--text-primary);
     border-radius: 0;
 }
 
 .nav-item:hover {
-    background-color: #3c3c3c;
+    background-color: var(--bg-hover);
 }
 
 .nav-item.active {
-    background-color: #1f5f5f;
-    border-left: 3px solid #00bcd4;
+    background-color: var(--bg-active);
+    border-left: 3px solid var(--text-accent);
 }
 
 .nav-item i {
@@ -129,10 +215,11 @@ body {
 .section-title {
     padding: 8px 20px;
     font-size: 13px;
-    color: #cccccc;
+    color: var(--text-secondary);
     font-weight: 600;
-    border-bottom: 1px solid #3c3c3c;
+    border-bottom: 1px solid var(--bg-secondary);
     margin-bottom: 8px;
+    transition: all 0.3s ease;
 }
 
 .app-list, .background-list {
@@ -145,18 +232,18 @@ body {
     align-items: center;
     padding: 8px 20px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     border-radius: 0;
 }
 
 .process-item:hover {
-    background-color: #3c3c3c;
+    background-color: var(--bg-hover);
 }
 
 .process-item.selected {
-    background-color: #1f5f5f;
+    background-color: var(--bg-active);
 }
 
 .process-item .process-icon {
@@ -179,9 +266,10 @@ body {
 /* 主内容区域 */
 .main-content {
     flex: 1;
-    background: linear-gradient(135deg, rgba(179, 222, 239, 0.1) 0%, rgba(1, 67, 128, 0.1) 100%);
+    background: var(--bg-content-gradient);
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease;
 }
 
 .tab-content {
@@ -200,20 +288,21 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     margin: 0;
-    border-bottom: 1px solid #3c3c3c;
+    border-bottom: 1px solid var(--border-tertiary);
+    transition: all 0.3s ease;
 }
 
 /* 统一卡片样式 */
 .overview-card, .section, .process-table {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-primary);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-card);
     transition: all 0.3s ease;
 }
 
@@ -224,40 +313,45 @@ body {
 }
 
 .resource-card {
-    background-color: #2d2d2d;
-    padding: 20px;
+    background: var(--bg-card-secondary);
+    border-radius: 8px;
+    padding: 16px;
     text-align: center;
-    transition: background-color 0.2s ease;
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s ease;
 }
 
 .resource-card:hover {
-    background-color: #3c3c3c;
+    background-color: var(--bg-hover);
 }
 
-.resource-title {
-    font-size: 12px;
-    color: #cccccc;
-    margin-bottom: 8px;
+.resource-card .resource-title {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
-.resource-value {
+.resource-card .resource-value {
     font-size: 24px;
-    color: #ffffff;
-    font-weight: 300;
+    font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: 4px;
 }
 
-.resource-detail {
-    font-size: 11px;
-    color: #888888;
+.resource-card .resource-detail {
+    font-size: 12px;
+    color: var(--text-tertiary);
 }
 
 /* 进程表格 */
 .process-table-container {
     flex: 1;
     overflow: auto;
-    background-color: #363636;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s ease;
 }
 
 .process-table {
@@ -267,7 +361,7 @@ body {
 }
 
 .process-table thead {
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -277,8 +371,8 @@ body {
     padding: 12px 16px;
     text-align: left;
     font-weight: 600;
-    color: #ffffff;
-    border-bottom: 1px solid #4a4a4a;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-tertiary);
     white-space: nowrap;
 }
 
@@ -299,22 +393,23 @@ body {
 }
 
 .process-table tbody tr {
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .process-table tbody tr:hover {
-    background-color: #3c3c3c;
+    background-color: var(--bg-hover);
 }
 
 .process-table tbody tr.selected {
-    background-color: #1f5f5f;
+    background-color: var(--bg-active);
 }
 
 .process-table td {
     padding: 8px 16px;
-    border-bottom: 1px solid #3c3c3c;
-    color: #ffffff;
+    border-bottom: 1px solid var(--border-tertiary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .process-table td.process-name {
@@ -356,8 +451,8 @@ body {
 /* 详细进程表格 */
 .processes-header {
     padding: 16px 20px;
-    background-color: #3c3c3c;
-    border-bottom: 1px solid #4a4a4a;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-tertiary);
 }
 
 .processes-toolbar {
@@ -370,22 +465,22 @@ body {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background-color: #4a4a4a;
+    background-color: var(--bg-tertiary);
     border: none;
     border-radius: 4px;
-    color: #ffffff;
+    color: var(--text-primary);
     cursor: pointer;
     font-size: 13px;
     transition: background-color 0.2s ease;
 }
 
 .toolbar-btn:hover:not(:disabled) {
-    background-color: #5a5a5a;
+    background-color: var(--bg-quaternary);
 }
 
 .toolbar-btn:disabled {
-    background-color: #3c3c3c;
-    color: #888888;
+    background-color: var(--bg-secondary);
+    color: var(--text-disabled);
     cursor: not-allowed;
 }
 
@@ -401,7 +496,7 @@ body {
 }
 
 .detailed-process-table thead {
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -411,8 +506,8 @@ body {
     padding: 12px 16px;
     text-align: left;
     font-weight: 600;
-    color: #ffffff;
-    border-bottom: 1px solid #4a4a4a;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-tertiary);
 }
 
 .detailed-process-table tbody tr {
@@ -421,24 +516,24 @@ body {
 }
 
 .detailed-process-table tbody tr:hover {
-    background-color: #3c3c3c;
+    background-color: var(--bg-hover);
 }
 
 .detailed-process-table tbody tr.selected {
-    background-color: #1f5f5f;
+    background-color: var(--bg-active);
 }
 
 .detailed-process-table td {
     padding: 8px 16px;
-    border-bottom: 1px solid #3c3c3c;
-    color: #ffffff;
+    border-bottom: 1px solid var(--border-tertiary);
+    color: var(--text-primary);
 }
 
 /* 右键菜单 */
 .context-menu {
     position: fixed;
-    background-color: #3c3c3c;
-    border: 1px solid #4a4a4a;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-tertiary);
     border-radius: 4px;
     padding: 4px 0;
     min-width: 160px;
@@ -451,17 +546,17 @@ body {
     padding: 8px 16px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 13px;
 }
 
 .menu-item:hover {
-    background-color: #4a4a4a;
+    background-color: var(--bg-hover);
 }
 
 .menu-separator {
     height: 1px;
-    background-color: #4a4a4a;
+    background-color: var(--border-tertiary);
     margin: 4px 0;
 }
 
@@ -472,7 +567,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(45, 45, 45, 0.8);
+    background-color: var(--bg-primary);
+    opacity: 0.8;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -484,8 +580,8 @@ body {
 .loading-spinner {
     width: 32px;
     height: 32px;
-    border: 3px solid #4a4a4a;
-    border-top: 3px solid #00bcd4;
+    border: 3px solid var(--border-tertiary);
+    border-top: 3px solid var(--text-accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -517,7 +613,7 @@ body {
 .detailed-process-table-container::-webkit-scrollbar-thumb,
 .app-list::-webkit-scrollbar-thumb,
 .background-list::-webkit-scrollbar-thumb {
-    background-color: #5a5a5a;
+    background-color: var(--bg-quaternary);
     border-radius: 4px;
 }
 
@@ -526,7 +622,7 @@ body {
 .detailed-process-table-container::-webkit-scrollbar-thumb:hover,
 .app-list::-webkit-scrollbar-thumb:hover,
 .background-list::-webkit-scrollbar-thumb:hover {
-    background-color: #6a6a6a;
+    background-color: var(--border-secondary);
 }
 
 /* 响应式设计 */
@@ -557,7 +653,7 @@ body {
         width: 100%;
         height: 200px;
         border-right: none;
-        border-bottom: 1px solid #3c3c3c;
+        border-bottom: 1px solid var(--border-tertiary);
         flex-direction: row;
         overflow-x: auto;
         padding: 8px 0;

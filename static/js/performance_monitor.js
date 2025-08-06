@@ -32,15 +32,154 @@ class PerformanceMonitor {
         console.log('init()方法开始执行...');
         this.setupEventListeners();
         console.log('事件监听器设置完成');
+        
+        // 监听主题变化（在图表初始化之前设置）
+        this.setupThemeListener();
+        
         this.initializeCharts();
         console.log('图表初始化完成');
+        
+        // 立即应用当前主题
+        setTimeout(() => {
+            this.updateChartTheme();
+            console.log('初始主题应用完成');
+        }, 100);
+        
         this.loadPerformanceData();
         console.log('首次数据加载完成');
         this.startAutoUpdate();
         console.log('自动更新启动完成');
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 200);
+    }
+
+    getChartColors() {
+        const style = getComputedStyle(document.documentElement);
+        return {
+            cpu: style.getPropertyValue('--chart-cpu').trim() || '#00ff88',
+            memory: style.getPropertyValue('--chart-memory').trim() || '#00bcd4',
+            disk: style.getPropertyValue('--chart-disk').trim() || '#ff9800',
+            networkUpload: style.getPropertyValue('--chart-network-upload').trim() || '#00ff88',
+            networkDownload: style.getPropertyValue('--chart-network-download').trim() || '#00bcd4',
+            text: style.getPropertyValue('--chart-text').trim() || '#ffffff',
+            grid: style.getPropertyValue('--chart-grid').trim() || 'rgba(255, 255, 255, 0.1)',
+            tooltipBg: style.getPropertyValue('--chart-tooltip-bg').trim() || 'rgba(45, 45, 45, 0.9)',
+            tooltipBorder: style.getPropertyValue('--chart-tooltip-border').trim() || '#3c3c3c'
+        };
+    }
+
+    hexToRgba(hex, alpha = 0.1) {
+        if (!hex) return `rgba(0, 0, 0, ${alpha})`;
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (result) {
+            const r = parseInt(result[1], 16);
+            const g = parseInt(result[2], 16);
+            const b = parseInt(result[3], 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        return `rgba(0, 0, 0, ${alpha})`;
+    }
+
+    updateChartTheme() {
+        const colors = this.getChartColors();
+        
+        // 更新所有图表的颜色
+        Object.keys(this.charts).forEach(chartKey => {
+            const chart = this.charts[chartKey];
+            if (!chart) return;
+
+            // 更新图表选项中的颜色
+            if (chart.options.plugins.legend) {
+                chart.options.plugins.legend.labels.color = colors.text;
+            }
+            
+            if (chart.options.plugins.tooltip) {
+                chart.options.plugins.tooltip.backgroundColor = colors.tooltipBg;
+                chart.options.plugins.tooltip.titleColor = colors.text;
+                chart.options.plugins.tooltip.bodyColor = colors.text;
+                chart.options.plugins.tooltip.borderColor = colors.tooltipBorder;
+            }
+
+            if (chart.options.scales) {
+                if (chart.options.scales.x) {
+                    chart.options.scales.x.grid.color = colors.grid;
+                    chart.options.scales.x.ticks.color = colors.text;
+                }
+                if (chart.options.scales.y) {
+                    chart.options.scales.y.grid.color = colors.grid;
+                    chart.options.scales.y.ticks.color = colors.text;
+                }
+            }
+
+            // 更新数据集颜色
+            chart.data.datasets.forEach((dataset, index) => {
+                if (chartKey.includes('cpu')) {
+                    dataset.borderColor = colors.cpu;
+                    dataset.backgroundColor = this.hexToRgba(colors.cpu, 0.1);
+                } else if (chartKey.includes('memory')) {
+                    dataset.borderColor = colors.memory;
+                    dataset.backgroundColor = this.hexToRgba(colors.memory, 0.1);
+                } else if (chartKey.includes('disk')) {
+                    dataset.borderColor = colors.disk;
+                    dataset.backgroundColor = this.hexToRgba(colors.disk, 0.1);
+                } else if (chartKey.includes('network')) {
+                    if (index === 0) { // 上传
+                        dataset.borderColor = colors.networkUpload;
+                        dataset.backgroundColor = this.hexToRgba(colors.networkUpload, 0.1);
+                    } else { // 下载
+                        dataset.borderColor = colors.networkDownload;
+                        dataset.backgroundColor = this.hexToRgba(colors.networkDownload, 0.1);
+                    }
+                }
+            });
+
+            chart.update('none');
+        });
+
+        // 强制更新网络接口表格的主题
+        this.updateNetworkInterfacesTheme();
+    }
+
+    updateNetworkInterfacesTheme() {
+        // 强制重新渲染网络接口表格以应用新主题
+        if (this.lastNetworkData) {
+            this.updateNetworkInterfaces(this.lastNetworkData);
+        }
+    }
+
+    setupThemeListener() {
+        // 监听主题变化事件
+        document.addEventListener('themeChanged', () => {
+            this.updateChartTheme();
+        });
+        
+        // 监听body类变化（备用方案）
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    this.updateChartTheme();
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
     }
 
     setupEventListeners() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // 导航项点击事件
         document.querySelectorAll('.nav-item[data-section]').forEach(item => {
             item.addEventListener('click', (e) => {
@@ -76,10 +215,12 @@ class PerformanceMonitor {
     }
 
     initializeCharts() {
+        const colors = this.getChartColors();
+        
         // 设置Chart.js默认配置
-        Chart.defaults.color = '#ffffff';
-        Chart.defaults.borderColor = '#3c3c3c';
-        Chart.defaults.backgroundColor = 'rgba(0, 255, 136, 0.1)';
+        Chart.defaults.color = colors.text;
+        Chart.defaults.borderColor = colors.grid;
+        Chart.defaults.backgroundColor = this.hexToRgba(colors.cpu, 0.1);
 
         // 初始化小图表
         this.initSmallCharts();
@@ -89,6 +230,8 @@ class PerformanceMonitor {
     }
 
     initSmallCharts() {
+        const colors = this.getChartColors();
+        
         const chartOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -114,8 +257,8 @@ class PerformanceMonitor {
                 labels: Array(20).fill(''),
                 datasets: [{
                     data: Array(20).fill(0),
-                    borderColor: '#00ff88',
-                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    borderColor: colors.cpu,
+                    backgroundColor: this.hexToRgba(colors.cpu, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -130,8 +273,8 @@ class PerformanceMonitor {
                 labels: Array(20).fill(''),
                 datasets: [{
                     data: Array(20).fill(0),
-                    borderColor: '#00bcd4',
-                    backgroundColor: 'rgba(0, 188, 212, 0.1)',
+                    borderColor: colors.memory,
+                    backgroundColor: this.hexToRgba(colors.memory, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -146,8 +289,8 @@ class PerformanceMonitor {
                 labels: Array(20).fill(''),
                 datasets: [{
                     data: Array(20).fill(0),
-                    borderColor: '#ff9800',
-                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                    borderColor: colors.disk,
+                    backgroundColor: this.hexToRgba(colors.disk, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -162,8 +305,8 @@ class PerformanceMonitor {
                 labels: Array(20).fill(''),
                 datasets: [{
                     data: Array(20).fill(0),
-                    borderColor: '#9c27b0',
-                    backgroundColor: 'rgba(156, 39, 176, 0.1)',
+                    borderColor: colors.networkUpload,
+                    backgroundColor: this.hexToRgba(colors.networkUpload, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -173,6 +316,8 @@ class PerformanceMonitor {
     }
 
     initDetailedCharts() {
+        const colors = this.getChartColors();
+        
         const detailedChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -180,28 +325,28 @@ class PerformanceMonitor {
                 legend: {
                     display: true,
                     position: 'top',
-                    labels: { color: '#ffffff' }
+                    labels: { color: colors.text }
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false,
-                    backgroundColor: 'rgba(45, 45, 45, 0.9)',
-                    titleColor: '#ffffff',
-                    bodyColor: '#ffffff',
-                    borderColor: '#3c3c3c',
+                    backgroundColor: colors.tooltipBg,
+                    titleColor: colors.text,
+                    bodyColor: colors.text,
+                    borderColor: colors.tooltipBorder,
                     borderWidth: 1
                 }
             },
             scales: {
                 x: {
                     display: true,
-                    grid: { color: '#3c3c3c' },
-                    ticks: { color: '#cccccc' }
+                    grid: { color: colors.grid },
+                    ticks: { color: colors.text }
                 },
                 y: {
                     display: true,
-                    grid: { color: '#3c3c3c' },
-                    ticks: { color: '#cccccc' },
+                    grid: { color: colors.grid },
+                    ticks: { color: colors.text },
                     beginAtZero: true,
                     max: 100
                 }
@@ -225,8 +370,8 @@ class PerformanceMonitor {
                 datasets: [{
                     label: 'CPU 使用率 (%)',
                     data: [],
-                    borderColor: '#00ff88',
-                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    borderColor: colors.cpu,
+                    backgroundColor: this.hexToRgba(colors.cpu, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -242,8 +387,8 @@ class PerformanceMonitor {
                 datasets: [{
                     label: '内存使用率 (%)',
                     data: [],
-                    borderColor: '#00bcd4',
-                    backgroundColor: 'rgba(0, 188, 212, 0.1)',
+                    borderColor: colors.memory,
+                    backgroundColor: this.hexToRgba(colors.memory, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -259,8 +404,8 @@ class PerformanceMonitor {
                 datasets: [{
                     label: '磁盘使用率 (%)',
                     data: [],
-                    borderColor: '#ff9800',
-                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                    borderColor: colors.disk,
+                    backgroundColor: this.hexToRgba(colors.disk, 0.1),
                     fill: true,
                     borderWidth: 2
                 }]
@@ -268,8 +413,8 @@ class PerformanceMonitor {
             options: detailedChartOptions
         });
 
-        // 网络详细图表
-        const networkChartOptions = { ...detailedChartOptions };
+        // 网络详细图表 - 使用深拷贝避免修改原始配置
+        const networkChartOptions = JSON.parse(JSON.stringify(detailedChartOptions));
         networkChartOptions.scales.y.max = null; // 网络图表不限制最大值
 
         this.charts.networkDetailed = new Chart(document.getElementById('network-detailed-chart'), {
@@ -279,15 +424,15 @@ class PerformanceMonitor {
                 datasets: [{
                     label: '上传 (KB/s)',
                     data: [],
-                    borderColor: '#00ff88',
-                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    borderColor: colors.networkUpload,
+                    backgroundColor: this.hexToRgba(colors.networkUpload, 0.1),
                     fill: false,
                     borderWidth: 2
                 }, {
                     label: '下载 (KB/s)',
                     data: [],
-                    borderColor: '#00bcd4',
-                    backgroundColor: 'rgba(0, 188, 212, 0.1)',
+                    borderColor: colors.networkDownload,
+                    backgroundColor: this.hexToRgba(colors.networkDownload, 0.1),
                     fill: false,
                     borderWidth: 2
                 }]
@@ -901,6 +1046,9 @@ updateNetworkInterfaces(interfaces) {
     const container = document.getElementById('network-interfaces');
     if (!container || typeof interfaces !== 'object') return;
 
+    // 保存网络数据以便主题切换时重新渲染
+    this.lastNetworkData = interfaces;
+
     container.innerHTML = '';
     Object.keys(interfaces).forEach((ifaceName, index) => {
         const iface = interfaces[ifaceName];
@@ -1045,6 +1193,29 @@ updateNetworkInterfaces(interfaces) {
             warning: 'fa-exclamation-circle'
         };
         return icons[type] || icons.info;
+    }
+
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const currentTheme = window.themeManager.getCurrentTheme();
+            
+            if (currentTheme === 'light') {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            } else {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
+            }
+        }
     }
 
     destroy() {

@@ -205,7 +205,6 @@ class RealTimeCPU:
     def _broadcast_loop(self):
         """广播循环"""
         while not self._stop_event.is_set():
-            print(f"RealTimeCPU: {self.data}")
             self.__collect_real_time_data()
             time.sleep(self.interval)
 

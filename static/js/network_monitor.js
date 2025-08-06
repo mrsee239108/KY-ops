@@ -33,9 +33,52 @@ class NetworkMonitor {
         this.initChart();
         this.loadNetworkData();
         this.startRealTimeUpdates();
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
+        
+        // 监听主题变化
+        this.setupThemeListener();
+    }
+
+    setupThemeListener() {
+        // 监听主题变化事件
+        document.addEventListener('themeChanged', () => {
+            // 延迟更新，确保CSS变量已经完全应用
+            setTimeout(() => {
+                this.updateChartTheme();
+            }, 50);
+        });
+        
+        // 监听body类变化（备用方案）
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    // 延迟更新，确保CSS变量已经完全应用
+                    setTimeout(() => {
+                        this.updateChartTheme();
+                    }, 50);
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
     }
 
     setupEventListeners() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // 图表时间段切换
         document.querySelectorAll('.chart-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -88,6 +131,14 @@ class NetworkMonitor {
 
     initChart() {
         const ctx = document.getElementById('traffic-chart').getContext('2d');
+        const chartColors = this.getChartColors();
+        
+        // 在创建图表前设置全局默认值
+        Chart.defaults.color = chartColors.text;
+        Chart.defaults.borderColor = chartColors.grid;
+        
+
+        
         this.chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -95,15 +146,15 @@ class NetworkMonitor {
                 datasets: [{
                     label: '下载 (MB/s)',
                     data: [],
-                    borderColor: '#0078d4',
-                    backgroundColor: 'rgba(0, 120, 212, 0.1)',
+                    borderColor: chartColors.download,
+                    backgroundColor: chartColors.downloadBg,
                     fill: true,
                     tension: 0.4
                 }, {
                     label: '上传 (MB/s)',
                     data: [],
-                    borderColor: '#107c10',
-                    backgroundColor: 'rgba(16, 124, 16, 0.1)',
+                    borderColor: chartColors.upload,
+                    backgroundColor: chartColors.uploadBg,
                     fill: true,
                     tension: 0.4
                 }]
@@ -116,20 +167,37 @@ class NetworkMonitor {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: '速度 (MB/s)'
+                            text: '速度 (MB/s)',
+                            color: chartColors.text
+                        },
+                        ticks: {
+                            color: chartColors.text
+                        },
+                        grid: {
+                            color: chartColors.grid
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: '时间'
+                            text: '时间',
+                            color: chartColors.text
+                        },
+                        ticks: {
+                            color: chartColors.text
+                        },
+                        grid: {
+                            color: chartColors.grid
                         }
                     }
                 },
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'top'
+                        position: 'top',
+                        labels: {
+                            color: chartColors.text
+                        }
                     }
                 },
                 animation: {
@@ -137,6 +205,112 @@ class NetworkMonitor {
                 }
             }
         });
+    }
+
+    getChartColors() {
+        const style = getComputedStyle(document.documentElement);
+        const downloadColor = style.getPropertyValue('--chart-download').trim();
+        const uploadColor = style.getPropertyValue('--chart-upload').trim();
+        const textColor = style.getPropertyValue('--chart-text').trim();
+        const gridColor = style.getPropertyValue('--chart-grid').trim();
+        
+        // 检查当前主题
+        const isLightTheme = document.body.classList.contains('theme-light');
+        
+        const colors = {
+            download: downloadColor || (isLightTheme ? '#1976d2' : '#0078d4'),
+            upload: uploadColor || (isLightTheme ? '#388e3c' : '#107c10'),
+            text: textColor || (isLightTheme ? '#333333' : '#ffffff'),
+            grid: gridColor || (isLightTheme ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.1)'),
+            downloadBg: this.hexToRgba(downloadColor || (isLightTheme ? '#1976d2' : '#0078d4'), 0.1),
+            uploadBg: this.hexToRgba(uploadColor || (isLightTheme ? '#388e3c' : '#107c10'), 0.1)
+        };
+        
+
+        
+        return colors;
+    }
+
+    hexToRgba(hex, alpha) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (result) {
+            const r = parseInt(result[1], 16);
+            const g = parseInt(result[2], 16);
+            const b = parseInt(result[3], 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        return `rgba(0, 120, 212, ${alpha})`;
+    }
+
+    updateChartTheme() {
+        if (!this.chart) return;
+        
+        const chartColors = this.getChartColors();
+        
+        // 强制设置Chart.js全局默认颜色
+        Chart.defaults.color = chartColors.text;
+        Chart.defaults.borderColor = chartColors.grid;
+        
+        // 更新数据集颜色
+        this.chart.data.datasets[0].borderColor = chartColors.download;
+        this.chart.data.datasets[0].backgroundColor = chartColors.downloadBg;
+        this.chart.data.datasets[1].borderColor = chartColors.upload;
+        this.chart.data.datasets[1].backgroundColor = chartColors.uploadBg;
+        
+        // 更新坐标轴和图例颜色
+        if (this.chart.options.scales.y) {
+            if (this.chart.options.scales.y.title) {
+                this.chart.options.scales.y.title.color = chartColors.text;
+            }
+            if (this.chart.options.scales.y.ticks) {
+                this.chart.options.scales.y.ticks.color = chartColors.text;
+            }
+            if (this.chart.options.scales.y.grid) {
+                this.chart.options.scales.y.grid.color = chartColors.grid;
+            }
+        }
+        
+        if (this.chart.options.scales.x) {
+            if (this.chart.options.scales.x.title) {
+                this.chart.options.scales.x.title.color = chartColors.text;
+            }
+            if (this.chart.options.scales.x.ticks) {
+                this.chart.options.scales.x.ticks.color = chartColors.text;
+            }
+            if (this.chart.options.scales.x.grid) {
+                this.chart.options.scales.x.grid.color = chartColors.grid;
+            }
+        }
+        
+        if (this.chart.options.plugins && this.chart.options.plugins.legend && this.chart.options.plugins.legend.labels) {
+            this.chart.options.plugins.legend.labels.color = chartColors.text;
+        }
+        
+        // 强制覆盖所有可能的文字颜色
+        this.forceUpdateChartColors(chartColors);
+        
+        // 立即更新一次
+        this.chart.update('none');
+    }
+
+    forceUpdateChartColors(chartColors) {
+        if (!this.chart) return;
+        
+        // 直接设置canvas和容器的颜色
+        const canvas = this.chart.canvas;
+        canvas.style.color = chartColors.text;
+        
+        // 设置canvas父容器的颜色
+        const container = canvas.parentElement;
+        if (container) {
+            container.style.color = chartColors.text;
+        }
+        
+        // 销毁并重新创建图表以确保颜色正确应用
+        setTimeout(() => {
+            this.chart.destroy();
+            this.initChart();
+        }, 50);
     }
 
     async loadNetworkData() {
@@ -606,6 +780,29 @@ class NetworkMonitor {
 
     closeModal() {
         document.getElementById('tool-modal').style.display = 'none';
+    }
+
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const currentTheme = window.themeManager.getCurrentTheme();
+            
+            if (currentTheme === 'light') {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            } else {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
+            }
+        }
     }
 
     destroy() {

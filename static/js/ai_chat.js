@@ -18,8 +18,6 @@ class AIChatInterface {
     constructor() {
         this.conversations = [];
         this.currentConversationId = null;
-        this.isRecording = false;
-        this.recognition = null;
         this.messageHistory = [];
         this.init();
     }
@@ -27,8 +25,12 @@ class AIChatInterface {
     init() {
         this.setupEventListeners();
         this.loadConversations();
-        this.initSpeechRecognition();
         this.autoResizeTextarea();
+        
+        // 检查AI模型状态
+        setTimeout(() => {
+            this.checkInitialAIStatus();
+        }, 1000);
         
         console.log('AI 对话界面已初始化');
     }
@@ -49,42 +51,7 @@ class AIChatInterface {
             });
         }
 
-        // 文件上传事件
-        const uploadArea = document.getElementById('upload-area');
-        const fileInput = document.getElementById('file-input');
-        
-        if (uploadArea && fileInput) {
-            uploadArea.addEventListener('click', () => fileInput.click());
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = '#667eea';
-                uploadArea.style.background = '#f8f9fa';
-            });
-            
-            uploadArea.addEventListener('dragleave', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = '#dee2e6';
-                uploadArea.style.background = '';
-            });
-            
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.style.borderColor = '#dee2e6';
-                uploadArea.style.background = '';
-                this.handleFileUpload(e.dataTransfer.files);
-            });
-            
-            fileInput.addEventListener('change', (e) => {
-                this.handleFileUpload(e.target.files);
-            });
-        }
 
-        // 模态框外部点击关闭
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                this.closeModal(e.target.id);
-            }
-        });
     }
 
     // 自动调整文本框高度
@@ -135,11 +102,8 @@ class AIChatInterface {
         // 添加用户消息到界面
         this.addMessage('user', message);
         
-        // 显示加载指示器
-        this.showLoading();
-        
         try {
-            // 发送消息到后端
+            // 发送消息到后端，启用流式输出
             const response = await fetch('/api/ai-chat', {
                 method: 'POST',
                 headers: {
@@ -148,34 +112,168 @@ class AIChatInterface {
                 body: JSON.stringify({
                     message: message,
                     conversation_id: this.currentConversationId,
-                    history: this.messageHistory.slice(-10) // 只发送最近10条消息作为上下文
+                    stream: true
                 })
             });
             
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error);
+            if (response.status === 202) {
+                // 模型正在加载
+                const data = await response.json();
+                this.addMessage('ai', data.error || '模型正在加载中，请稍后再试...', true);
+                this.showModelInitButton();
+                return;
             }
             
-            // 添加AI回复到界面
-            this.addMessage('ai', data.response);
-            
-            // 更新对话ID
-            if (data.conversation_id) {
-                this.currentConversationId = data.conversation_id;
+            if (!response.ok) {
+                const errorData = await response.json();
+                if (errorData.loading) {
+                    this.addMessage('ai', '模型正在初始化中，请稍等片刻...', true);
+                    this.showModelInitButton();
+                } else {
+                    throw new Error(errorData.error || '请求失败');
+                }
+                return;
             }
             
-            // 更新对话历史
-            this.updateConversationHistory(message, data.response);
+            // 处理流式响应
+            await this.handleStreamResponse(response, message);
             
         } catch (error) {
             console.error('发送消息失败:', error);
             this.addMessage('ai', '抱歉，我现在无法回复您的消息。请稍后再试。', true);
         } finally {
-            this.hideLoading();
             if (sendBtn) {
                 sendBtn.disabled = false;
+            }
+        }
+    }
+
+    // 处理流式响应
+    async handleStreamResponse(response, userMessage) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        
+        // 创建AI消息容器
+        const aiMessageDiv = this.createStreamingMessage();
+        const textDiv = aiMessageDiv.querySelector('.message-text');
+        
+        let fullResponse = '';
+        let conversationId = null;
+        
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                
+                if (done) break;
+                
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n');
+                
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        const data = line.slice(6);
+                        
+                        if (data === '[DONE]') {
+                            // 流式输出结束
+                            this.finalizeStreamingMessage(aiMessageDiv);
+                            
+                            // 更新对话历史
+                            if (fullResponse) {
+                                this.updateConversationHistory(userMessage, fullResponse);
+                            }
+                            return;
+                        }
+                        
+                        try {
+                            const parsed = JSON.parse(data);
+                            
+                            if (parsed.error) {
+                                throw new Error(parsed.error);
+                            }
+                            
+                            if (parsed.content) {
+                                fullResponse += parsed.content;
+                                textDiv.innerHTML = this.formatMessage(fullResponse);
+                                
+                                // 滚动到底部
+                                const messagesContainer = document.getElementById('messages-container');
+                                if (messagesContainer) {
+                                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                                }
+                            }
+                            
+                            if (parsed.conversation_id) {
+                                conversationId = parsed.conversation_id;
+                                this.currentConversationId = conversationId;
+                            }
+                            
+                        } catch (parseError) {
+                            console.warn('解析流式数据失败:', parseError);
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('处理流式响应失败:', error);
+            textDiv.innerHTML = '<span style="color: #dc3545;">回复过程中出现错误，请重试。</span>';
+            this.finalizeStreamingMessage(aiMessageDiv);
+        }
+    }
+
+    // 创建流式消息容器
+    createStreamingMessage() {
+        const messagesContainer = document.getElementById('messages-container');
+        if (!messagesContainer) return null;
+        
+        // 移除欢迎消息
+        const welcomeMessage = messagesContainer.querySelector('.welcome-message');
+        if (welcomeMessage) {
+            welcomeMessage.remove();
+        }
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ai streaming';
+        
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        avatarDiv.innerHTML = '<i class="fas fa-robot"></i>';
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+        
+        const textDiv = document.createElement('div');
+        textDiv.className = 'message-text';
+        textDiv.innerHTML = '<span class="typing-indicator">●</span>';
+        
+        const timeDiv = document.createElement('div');
+        timeDiv.className = 'message-time';
+        timeDiv.textContent = new Date().toLocaleTimeString();
+        
+        contentDiv.appendChild(textDiv);
+        contentDiv.appendChild(timeDiv);
+        
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(contentDiv);
+        
+        messagesContainer.appendChild(messageDiv);
+        
+        // 滚动到底部
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        
+        return messageDiv;
+    }
+
+    // 完成流式消息
+    finalizeStreamingMessage(messageDiv) {
+        if (messageDiv) {
+            messageDiv.classList.remove('streaming');
+            const textDiv = messageDiv.querySelector('.message-text');
+            if (textDiv) {
+                // 移除打字指示器
+                const typingIndicator = textDiv.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
             }
         }
     }
@@ -234,6 +332,67 @@ class AIChatInterface {
 
     // 格式化消息内容
     formatMessage(content) {
+        // 检查是否包含Markdown语法
+        const hasMarkdown = this.hasMarkdownSyntax(content);
+        
+        if (hasMarkdown && typeof marked !== 'undefined') {
+            // 配置marked选项
+            marked.setOptions({
+                highlight: function(code, lang) {
+                    if (typeof hljs !== 'undefined' && lang && hljs.getLanguage(lang)) {
+                        try {
+                            return hljs.highlight(code, { language: lang }).value;
+                        } catch (err) {
+                            console.warn('代码高亮失败:', err);
+                        }
+                    }
+                    return code;
+                },
+                breaks: true,
+                gfm: true,
+                sanitize: false
+            });
+            
+            try {
+                // 使用marked渲染Markdown
+                let html = marked.parse(content);
+                
+                // 为代码块添加复制按钮
+                html = this.addCopyButtons(html);
+                
+                return html;
+            } catch (error) {
+                console.warn('Markdown渲染失败，使用基础格式化:', error);
+                return this.basicFormatMessage(content);
+            }
+        } else {
+            // 使用基础格式化
+            return this.basicFormatMessage(content);
+        }
+    }
+
+    // 检查是否包含Markdown语法
+    hasMarkdownSyntax(content) {
+        const markdownPatterns = [
+            /^#{1,6}\s/m,           // 标题
+            /\*\*.*?\*\*/,          // 粗体
+            /\*.*?\*/,              // 斜体
+            /```[\s\S]*?```/,       // 代码块
+            /`[^`]+`/,              // 行内代码
+            /^\s*[-*+]\s/m,         // 无序列表
+            /^\s*\d+\.\s/m,         // 有序列表
+            /\[.*?\]\(.*?\)/,       // 链接
+            /!\[.*?\]\(.*?\)/,      // 图片
+            /^\s*>\s/m,             // 引用
+            /^\s*\|.*\|/m,          // 表格
+            /---+/,                 // 分隔线
+        ];
+        
+        return markdownPatterns.some(pattern => pattern.test(content));
+    }
+
+    // 基础格式化（不使用Markdown）
+    basicFormatMessage(content) {
         // 处理代码块
         content = content.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
         
@@ -247,6 +406,50 @@ class AIChatInterface {
         content = content.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
         
         return content;
+    }
+
+    // 为代码块添加复制按钮
+    addCopyButtons(html) {
+        return html.replace(/<pre><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g, (match, attrs, code) => {
+            const cleanCode = code.replace(/<[^>]*>/g, ''); // 移除HTML标签
+            return `
+                <div class="code-block-container">
+                    <div class="code-block-header">
+                        <button class="copy-code-btn" onclick="aiChat.copyCode(this)" data-code="${this.escapeHtml(cleanCode)}">
+                            <i class="fas fa-copy"></i> 复制代码
+                        </button>
+                    </div>
+                    <pre><code${attrs}>${code}</code></pre>
+                </div>
+            `;
+        });
+    }
+
+    // HTML转义
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // 复制代码功能
+    copyCode(button) {
+        const code = button.getAttribute('data-code');
+        if (code) {
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> 已复制';
+                button.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制代码');
+            });
+        }
     }
 
     // 新建对话
@@ -291,6 +494,8 @@ class AIChatInterface {
 
     // 快捷操作
     async quickAction(action) {
+
+
         const actions = {
             'system-check': '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
             'performance-analysis': '请分析当前系统性能，给出优化建议',
@@ -462,202 +667,7 @@ class AIChatInterface {
         }
     }
 
-    // 文件上传
-    attachFile() {
-        this.showModal('file-upload-modal');
-    }
 
-    // 处理文件上传
-    handleFileUpload(files) {
-        const fileList = document.getElementById('file-list');
-        if (!fileList) return;
-        
-        fileList.innerHTML = '';
-        
-        Array.from(files).forEach(file => {
-            const item = document.createElement('div');
-            item.className = 'file-item';
-            item.innerHTML = `
-                <i class="fas fa-file"></i>
-                <span>${file.name}</span>
-                <span>(${this.formatFileSize(file.size)})</span>
-            `;
-            fileList.appendChild(item);
-        });
-    }
-
-    // 格式化文件大小
-    formatFileSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
-    // 上传文件
-    async uploadFiles() {
-        const fileInput = document.getElementById('file-input');
-        if (!fileInput || !fileInput.files.length) {
-            alert('请选择要上传的文件。');
-            return;
-        }
-        
-        const formData = new FormData();
-        Array.from(fileInput.files).forEach(file => {
-            formData.append('files', file);
-        });
-        
-        try {
-            this.showLoading();
-            
-            const response = await fetch('/api/upload-files', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            
-            this.closeModal('file-upload-modal');
-            alert('文件上传成功！');
-            
-            // 清空文件选择
-            fileInput.value = '';
-            document.getElementById('file-list').innerHTML = '';
-            
-        } catch (error) {
-            console.error('文件上传失败:', error);
-            alert('文件上传失败: ' + error.message);
-        } finally {
-            this.hideLoading();
-        }
-    }
-
-    // 语音输入
-    toggleVoice() {
-        if (this.isRecording) {
-            this.stopVoice();
-        } else {
-            this.showModal('voice-modal');
-        }
-    }
-
-    // 初始化语音识别
-    initSpeechRecognition() {
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            this.recognition = new SpeechRecognition();
-            this.recognition.continuous = true;
-            this.recognition.interimResults = true;
-            this.recognition.lang = 'zh-CN';
-            
-            this.recognition.onresult = (event) => {
-                let finalTranscript = '';
-                let interimTranscript = '';
-                
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript;
-                    } else {
-                        interimTranscript += transcript;
-                    }
-                }
-                
-                const voiceText = document.getElementById('voice-text');
-                if (voiceText) {
-                    voiceText.textContent = finalTranscript + interimTranscript;
-                }
-                
-                if (finalTranscript) {
-                    const messageInput = document.getElementById('message-input');
-                    if (messageInput) {
-                        messageInput.value = finalTranscript;
-                        this.updateCharCount();
-                        this.autoResizeTextarea();
-                    }
-                }
-            };
-            
-            this.recognition.onerror = (event) => {
-                console.error('语音识别错误:', event.error);
-                this.stopVoice();
-            };
-            
-            this.recognition.onend = () => {
-                this.isRecording = false;
-                this.updateVoiceStatus('录音已停止');
-            };
-        }
-    }
-
-    // 开始语音录音
-    startVoice() {
-        if (!this.recognition) {
-            alert('您的浏览器不支持语音识别功能。');
-            return;
-        }
-        
-        this.isRecording = true;
-        this.recognition.start();
-        this.updateVoiceStatus('正在录音...');
-        
-        const voiceAnimation = document.getElementById('voice-animation');
-        if (voiceAnimation) {
-            voiceAnimation.style.display = 'flex';
-        }
-    }
-
-    // 停止语音录音
-    stopVoice() {
-        if (this.recognition && this.isRecording) {
-            this.recognition.stop();
-        }
-        this.isRecording = false;
-        this.updateVoiceStatus('录音已停止');
-        
-        const voiceAnimation = document.getElementById('voice-animation');
-        if (voiceAnimation) {
-            voiceAnimation.style.display = 'none';
-        }
-        
-        setTimeout(() => {
-            this.closeModal('voice-modal');
-        }, 1000);
-    }
-
-    // 更新语音状态
-    updateVoiceStatus(status) {
-        const voiceStatus = document.getElementById('voice-status');
-        if (voiceStatus) {
-            voiceStatus.textContent = status;
-        }
-    }
-
-    // 显示模态框
-    showModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'flex';
-        }
-    }
-
-    // 关闭模态框
-    closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
-        }
-        
-        // 如果是语音模态框，停止录音
-        if (modalId === 'voice-modal') {
-            this.stopVoice();
-        }
-    }
 
     // 显示加载指示器
     showLoading() {
@@ -672,6 +682,129 @@ class AIChatInterface {
         const loading = document.getElementById('loading-overlay');
         if (loading) {
             loading.style.display = 'none';
+        }
+    }
+
+    // 检查AI模型状态
+    async checkAIStatus() {
+        try {
+            const response = await fetch('/api/ai-chat/status');
+            const status = await response.json();
+            
+            if (status.error) {
+                console.error('获取AI状态失败:', status.error);
+                return false;
+            }
+            
+            return status;
+        } catch (error) {
+            console.error('检查AI状态失败:', error);
+            return false;
+        }
+    }
+
+    // 初始化AI模型
+    async initAIModel() {
+        try {
+            this.showLoading();
+            
+            const response = await fetch('/api/ai-chat/init', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            this.addMessage('ai', '正在初始化AI模型，这可能需要几分钟时间，请耐心等待...', false);
+            
+            // 定期检查模型状态
+            this.checkModelLoadingStatus();
+            
+        } catch (error) {
+            console.error('初始化AI模型失败:', error);
+            this.addMessage('ai', '初始化AI模型失败: ' + error.message, true);
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    // 检查模型加载状态
+    async checkModelLoadingStatus() {
+        const checkInterval = setInterval(async () => {
+            const status = await this.checkAIStatus();
+            
+            if (status && status.loaded && !status.loading) {
+                clearInterval(checkInterval);
+                this.addMessage('ai', '🎉 AI模型已成功加载！现在可以正常对话了。', false);
+                this.hideModelInitButton();
+            } else if (status && status.error) {
+                clearInterval(checkInterval);
+                this.addMessage('ai', '❌ AI模型加载失败: ' + status.error, true);
+            }
+        }, 3000); // 每3秒检查一次
+        
+        // 30秒后停止检查
+        setTimeout(() => {
+            clearInterval(checkInterval);
+        }, 30000);
+    }
+
+    // 显示模型初始化按钮
+    showModelInitButton() {
+        const messagesContainer = document.getElementById('messages-container');
+        if (!messagesContainer) return;
+        
+        // 检查是否已经有初始化按钮
+        if (messagesContainer.querySelector('.model-init-button')) return;
+        
+        const buttonDiv = document.createElement('div');
+        buttonDiv.className = 'message ai model-init-button';
+        buttonDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="message-text">
+                    <p>AI模型尚未加载，点击下方按钮初始化模型：</p>
+                    <button onclick="aiChat.initAIModel()" class="btn btn-primary" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> 初始化AI模型
+                    </button>
+                </div>
+                <div class="message-time">${new Date().toLocaleTimeString()}</div>
+            </div>
+        `;
+        
+        messagesContainer.appendChild(buttonDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // 隐藏模型初始化按钮
+    hideModelInitButton() {
+        const button = document.querySelector('.model-init-button');
+        if (button) {
+            button.remove();
+        }
+    }
+
+    // 页面加载时检查AI状态
+    async checkInitialAIStatus() {
+        const status = await this.checkAIStatus();
+        
+        if (status && !status.available) {
+            this.addMessage('ai', '⚠️ AI模型模块不可用，将使用基础回复功能。', true);
+        } else if (status && !status.loaded && !status.loading) {
+            this.showModelInitButton();
+        } else if (status && status.loading) {
+            this.addMessage('ai', '🔄 AI模型正在加载中，请稍候...', false);
+            this.checkModelLoadingStatus();
+        } else if (status && status.loaded) {
+            this.addMessage('ai', '✅ AI模型已就绪，可以开始对话！', false);
         }
     }
 }

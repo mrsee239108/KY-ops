@@ -4,23 +4,95 @@
     box-sizing: border-box;
 }
 
+/* 定义颜色变量 - 深色模式为默认 */
+:root {
+    /* 背景色 */
+    --bg-primary: #2d2d2d;
+    --bg-secondary: #3c3c3c;
+    --bg-tertiary: rgba(255, 255, 255, 0.1);
+    --bg-quaternary: rgba(255, 255, 255, 0.05);
+    --bg-gradient: linear-gradient(135deg, rgba(179, 222, 239, 0.1) 0%, rgba(1, 67, 128, 0.1) 100%);
+    --bg-body-gradient: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    
+    /* 文本色 */
+    --text-primary: #ffffff;
+    --text-secondary: #8e8e93;
+    --text-success: #30d158;
+    --text-danger: #ff453a;
+    --text-warning: #ff9f0a;
+    --text-accent: #007aff;
+    
+    /* 边框色 */
+    --border-primary: #4a4a4a;
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-tertiary: rgba(255, 255, 255, 0.2);
+    
+    /* 特殊元素背景 */
+    --bg-success: rgba(48, 209, 88, 0.2);
+    --bg-danger: rgba(255, 69, 58, 0.1);
+    --bg-warning: rgba(255, 159, 10, 0.2);
+    --bg-accent: rgba(0, 122, 255, 0.2);
+    --bg-accent-light: rgba(0, 122, 255, 0.1);
+    
+    /* 阴影 */
+    --shadow-primary: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-secondary: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 浅色模式颜色变量 */
+body.theme-light {
+    /* 背景色 */
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f0f0;
+    --bg-quaternary: #f9f9f9;
+    --bg-gradient: linear-gradient(135deg, #f0f7ff 0%, #e6eeff 100%);
+    --bg-body-gradient: linear-gradient(135deg, #e6f0ff 0%, #d1e0ff 100%);
+    
+    /* 文本色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-success: #34c759;
+    --text-danger: #ff3b30;
+    --text-warning: #ff9500;
+    --text-accent: #007aff;
+    
+    /* 边框色 */
+    --border-primary: #e0e0e0;
+    --border-secondary: #e9e9e9;
+    --border-tertiary: #d1d1d6;
+    
+    /* 特殊元素背景 */
+    --bg-success: rgba(52, 199, 89, 0.2);
+    --bg-danger: rgba(255, 59, 48, 0.1);
+    --bg-warning: rgba(255, 149, 0, 0.2);
+    --bg-accent: rgba(0, 122, 255, 0.1);
+    --bg-accent-light: rgba(0, 122, 255, 0.05);
+    
+    /* 阴影 */
+    --shadow-primary: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-secondary: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
     height: 100vh;
     user-select: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* 桌面背景 */
 .desktop-background {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    background: var(--bg-body-gradient);
     background-size: cover;
     background-position: center;
     position: relative;
     display: flex;
     flex-direction: column;
+    transition: background 0.3s ease;
 }
 
 /* 桌面图标区域 */
@@ -48,12 +120,12 @@ body {
 }
 
 .desktop-icon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .desktop-icon.selected {
-    background-color: rgba(0, 120, 215, 0.3);
-    border: 1px solid rgba(0, 120, 215, 0.8);
+    background-color: var(--bg-accent);
+    border: 1px solid var(--text-accent);
 }
 
 .icon-image {
@@ -63,19 +135,21 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 32px;
-    color: white;
+    color: var(--text-primary);
     margin-bottom: 8px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
 }
 
 .icon-label {
     font-size: 12px;
-    color: white;
+    color: var(--text-primary);
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     line-height: 1.2;
     word-wrap: break-word;
     max-width: 100%;
+    transition: color 0.3s ease;
 }
 
 /* 回收站特殊样式 */
@@ -88,14 +162,15 @@ body {
 /* 任务栏样式 */
 .taskbar {
     height: 48px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--bg-secondary);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-secondary);
     display: flex;
     align-items: center;
     padding: 0 8px;
     position: relative;
     z-index: 1000;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* 开始按钮 */
@@ -106,25 +181,25 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
     font-size: 18px;
-    color: white;
+    color: var(--text-primary);
 }
 
 .start-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .start-button.active {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--bg-accent);
 }
 
 /* 搜索框 */
 .search-box {
     width: 300px;
     height: 32px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-tertiary);
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -134,18 +209,19 @@ body {
 }
 
 .search-box:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--bg-quaternary);
 }
 
 .search-box:focus-within {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-color: #0078d4;
+    background-color: var(--bg-secondary);
+    border-color: var(--text-accent);
 }
 
 .search-box i {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     margin-right: 8px;
     font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .search-box input {
@@ -153,20 +229,21 @@ body {
     background: none;
     border: none;
     outline: none;
-    color: white;
+    color: var(--text-primary);
     font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .search-box input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
 }
 
 .search-box:focus-within input {
-    color: #333;
+    color: var(--text-primary);
 }
 
 .search-box:focus-within input::placeholder {
-    color: #666;
+    color: var(--text-secondary);
 }
 
 /* 任务栏图标 */
@@ -183,14 +260,14 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
     font-size: 16px;
-    color: white;
+    color: var(--text-primary);
     position: relative;
 }
 
 .taskbar-icon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .taskbar-icon.active::after {
@@ -225,7 +302,7 @@ body {
 }
 
 .tray-arrow:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .tray-icons {
@@ -240,13 +317,13 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: white;
+    color: var(--text-primary);
     font-size: 12px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
 }
 
 .tray-icon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .input-method {
@@ -261,13 +338,13 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: white;
+    color: var(--text-primary);
     font-size: 12px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
 }
 
 .notification-area:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 /* 时间和日期显示 */
@@ -280,20 +357,22 @@ body {
 }
 
 .datetime-display:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .time {
     font-size: 14px;
-    color: white;
+    color: var(--text-primary);
     font-weight: 400;
     line-height: 1.2;
+    transition: color 0.3s ease;
 }
 
 .date {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     line-height: 1.2;
+    transition: color 0.3s ease;
 }
 
 /* 开始菜单样式 */
@@ -303,13 +382,14 @@ body {
     left: 0;
     width: 640px;
     height: 640px;
-    background-color: rgba(30, 30, 30, 0.95);
+    background-color: var(--bg-secondary);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-secondary);
     border-radius: 8px;
     display: none;
     flex-direction: column;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .start-menu.show {
@@ -319,9 +399,10 @@ body {
 .start-menu-left {
     width: 320px;
     padding: 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--border-secondary);
     display: flex;
     flex-direction: column;
+    transition: border-color 0.3s ease;
 }
 
 .start-menu-right {
@@ -350,15 +431,17 @@ body {
 
 .welcome-title {
     font-size: 24px;
-    color: white;
+    color: var(--text-primary);
     font-weight: 300;
     margin-bottom: 8px;
+    transition: color 0.3s ease;
 }
 
 .welcome-subtitle {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     line-height: 1.5;
+    transition: color 0.3s ease;
 }
 
 .system-info {
@@ -366,9 +449,10 @@ body {
     flex-direction: column;
     gap: 8px;
     padding: 16px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--bg-quaternary);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .info-item {
@@ -376,16 +460,19 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .info-label {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .info-value {
-    color: white;
+    color: var(--text-primary);
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 /* 所有应用按钮 */
@@ -397,20 +484,20 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 8px;
-    color: white;
+    color: var(--text-primary);
     font-size: 14px;
     gap: 8px;
-    background-color: rgba(0, 120, 212, 0.8);
-    border: 1px solid rgba(0, 120, 212, 0.6);
+    background-color: var(--bg-accent);
+    border: 1px solid var(--text-accent);
     margin-top: 20px;
     width: 100%;
     max-width: 200px;
 }
 
 .all-apps-button:hover {
-    background-color: rgba(0, 120, 212, 1);
+    background-color: var(--text-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+    box-shadow: var(--shadow-primary);
 }
 
 /* 磁贴容器 */
@@ -424,7 +511,7 @@ body {
 
 /* 磁贴样式 */
 .tile {
-    background-color: #0078d4;
+    background-color: var(--text-accent);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -432,7 +519,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: white;
+    color: var(--text-primary);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -440,7 +527,7 @@ body {
 
 .tile:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-secondary);
 }
 
 .tile.small {
@@ -504,11 +591,12 @@ body {
 /* 开始菜单底部 */
 .start-menu-bottom {
     height: 60px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-secondary);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 24px;
+    transition: border-color 0.3s ease;
 }
 
 .user-info {
@@ -522,24 +610,26 @@ body {
 }
 
 .user-info:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .user-avatar {
     width: 32px;
     height: 32px;
-    background-color: #0078d4;
+    background-color: var(--text-accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--text-primary);
     font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .user-name {
-    color: white;
+    color: var(--text-primary);
     font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .power-options {
@@ -555,27 +645,28 @@ body {
     justify-content: center;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.2s ease;
-    color: white;
+    transition: background-color 0.2s ease, color 0.3s ease;
+    color: var(--text-primary);
     font-size: 16px;
 }
 
 .power-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 /* 右键菜单样式 */
 .context-menu {
     position: fixed;
-    background-color: rgba(40, 40, 40, 0.95);
+    background-color: var(--bg-secondary);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-secondary);
     border-radius: 8px;
     padding: 8px 0;
     min-width: 200px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-secondary);
     z-index: 2000;
     display: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .menu-item {
@@ -583,14 +674,14 @@ body {
     align-items: center;
     padding: 8px 16px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-    color: white;
+    transition: background-color 0.2s ease, color 0.3s ease;
+    color: var(--text-primary);
     font-size: 14px;
     gap: 12px;
 }
 
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-tertiary);
 }
 
 .menu-item i:first-child {
@@ -606,8 +697,9 @@ body {
 
 .menu-separator {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--border-secondary);
     margin: 4px 0;
+    transition: background-color 0.3s ease;
 }
 
 /* 响应式设计 */

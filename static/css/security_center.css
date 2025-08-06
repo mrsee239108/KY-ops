@@ -42,6 +42,44 @@
     --bg-card: rgba(45, 45, 45, 0.95);
 }
 
+/* 浅色主题 */
+body.theme-light {
+    /* 背景色 */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: rgba(0, 0, 0, 0.05);
+    --bg-quaternary: rgba(0, 0, 0, 0.02);
+    --bg-gradient: linear-gradient(135deg, rgba(227, 242, 253, 0.5) 0%, rgba(187, 222, 251, 0.5) 100%);
+    --bg-body-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    
+    /* 文本色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-success: #2e7d32;
+    --text-danger: #d32f2f;
+    --text-warning: #f57c00;
+    --text-accent: #1976d2;
+    
+    /* 边框色 */
+    --border-primary: #e0e0e0;
+    --border-secondary: rgba(0, 0, 0, 0.1);
+    --border-tertiary: rgba(0, 0, 0, 0.2);
+    
+    /* 特殊元素背景 */
+    --bg-success: rgba(46, 125, 50, 0.1);
+    --bg-danger: rgba(211, 47, 47, 0.1);
+    --bg-warning: rgba(245, 124, 0, 0.1);
+    --bg-accent: rgba(25, 118, 210, 0.1);
+    --bg-accent-light: rgba(25, 118, 210, 0.05);
+    
+    /* 阴影 */
+    --shadow-primary: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-secondary: 0 8px 24px rgba(0, 0, 0, 0.15);
+    
+    /* 卡片背景 */
+    --bg-card: rgba(255, 255, 255, 0.9);
+}
+
 /* 更新body样式 */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

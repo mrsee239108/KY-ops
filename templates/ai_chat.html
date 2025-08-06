@@ -6,6 +6,11 @@
     <title>AI 智能助手 - 企业运维系统</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_chat.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Markdown渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <!-- 代码高亮库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 </head>
 <body>
     <div class="window">
@@ -17,6 +22,10 @@
         </div>
         <div class="title-bar-right">
             <div class="window-controls">
+                <!-- 主题切换按钮 -->
+                <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题">
+                    <i class="fas fa-moon"></i>
+                </button>
                 <!-- 刷新按钮 -->
                 <button class="control-btn refresh" onclick="refreshPage()" title="刷新">
                     <i class="fas fa-sync-alt"></i>
@@ -135,12 +144,6 @@
                                 maxlength="2000"
                             ></textarea>
                             <div class="input-actions">
-                                <button class="attach-btn" onclick="aiChat.attachFile()">
-                                    <i class="fas fa-paperclip"></i>
-                                </button>
-                                <button class="voice-btn" onclick="aiChat.toggleVoice()">
-                                    <i class="fas fa-microphone"></i>
-                                </button>
                                 <button class="send-btn" id="send-btn" onclick="aiChat.sendMessage()">
                                     <i class="fas fa-paper-plane"></i>
                                 </button>
@@ -168,57 +171,17 @@
         </div>
     </div>
 
-    <!-- 文件上传模态框 -->
-    <div class="modal" id="file-upload-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>上传文件</h3>
-                <button class="modal-close" onclick="aiChat.closeModal('file-upload-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="upload-area" id="upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>拖拽文件到此处或点击选择文件</p>
-                    <input type="file" id="file-input" multiple accept=".txt,.log,.json,.csv,.xml">
-                </div>
-                <div class="file-list" id="file-list"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="aiChat.closeModal('file-upload-modal')">取消</button>
-                <button class="btn btn-primary" onclick="aiChat.uploadFiles()">上传</button>
-            </div>
-        </div>
-    </div>
 
-    <!-- 语音识别模态框 -->
-    <div class="modal" id="voice-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>语音输入</h3>
-                <button class="modal-close" onclick="aiChat.closeModal('voice-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="voice-indicator">
-                    <div class="voice-animation" id="voice-animation">
-                        <div class="voice-wave"></div>
-                        <div class="voice-wave"></div>
-                        <div class="voice-wave"></div>
-                    </div>
-                    <p id="voice-status">点击开始录音</p>
-                </div>
-                <div class="voice-text" id="voice-text"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="aiChat.stopVoice()">停止</button>
-                <button class="btn btn-primary" onclick="aiChat.startVoice()">开始录音</button>
-            </div>
-        </div>
-    </div>
 
+
+
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ai_chat.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题管理器
+            new ThemeManager();
+        });
+    </script>
 </body>
 </html>

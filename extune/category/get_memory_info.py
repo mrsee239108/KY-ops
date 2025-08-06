@@ -99,7 +99,7 @@ class RealTimeMemory:
             GlobalCall.real_time_mem_data = self.data
 
         except Exception as e:
-            Logger().debug(f"Error collecting memory data: {e}")
+            Logger().logger(f"Error collecting memory data: {e}")
     def start_broadcasting(self):
         """启动广播线程"""
         if self.thread is not None and self.thread.is_alive():

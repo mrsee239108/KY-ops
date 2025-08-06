@@ -17,6 +17,7 @@
             </div>
             <div class="title-bar-right">
                 <div class="window-controls">
+                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题"><i class="fas fa-moon"></i></button>
                     <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
                     <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
                 </div>
@@ -172,7 +173,7 @@
                                 <div class="setting-content">
                                     <h4>主题设置</h4>
                                     <p>选择您喜欢的界面主题</p>
-                                    <select class="setting-select">
+                                    <select class="setting-select" id="theme-select">
                                         <option value="dark">深色主题</option>
                                         <option value="light">浅色主题</option>
                                     </select>
@@ -436,10 +437,19 @@
         </div>
     </div>
 
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/system_info.js') }}"></script>
     <script>
         // 页面加载完成后获取系统信息
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题管理器
+            const themeManager = new ThemeManager();
+            themeManager.init();
+            
+            // 初始化系统信息管理器
+            const systemInfoManager = new SystemInfoManager();
+            systemInfoManager.init();
+            
             loadSystemInfo();
         });
 

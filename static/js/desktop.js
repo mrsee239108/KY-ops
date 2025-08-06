@@ -13,6 +13,9 @@ class Windows10Desktop {
         // 定期更新时间和系统状态
         setInterval(() => this.updateDateTime(), 1000);
         setInterval(() => this.loadSystemStatus(), 30000);
+        
+        // 初始化主题图标
+        setTimeout(() => this.updateThemeIcon(), 100);
     }
 
     setupEventListeners() {
@@ -110,6 +113,14 @@ class Windows10Desktop {
         document.querySelector('.power-button').addEventListener('click', () => {
             this.showPowerOptions();
         });
+
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
     }
 
     updateDateTime() {
@@ -413,6 +424,31 @@ class Windows10Desktop {
                 notification.remove();
             }
         }, 3000);
+    }
+
+    // 主题切换方法
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    // 更新主题图标
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const isDark = window.themeManager.getCurrentTheme() === 'dark';
+            
+            if (isDark) {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
+            } else {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            }
+        }
     }
 }
 

@@ -21,18 +21,25 @@ class SystemInfoManager {
     }
 
     init() {
-    this.setupEventListeners();
-    this.loadSystemInfo();
-    // 加载保存的主题
-    const savedTheme = localStorage.getItem('systemTheme') || 'dark';
-    const themeSelect = document.querySelector('.setting-select');
-    if (themeSelect) {
-        themeSelect.value = savedTheme;
-        this.changeTheme(savedTheme); // 应用保存的主题
+        this.setupEventListeners();
+        this.loadSystemInfo();
+        // 主题管理现在由全局主题管理器处理
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
     }
-}
 
     setupEventListeners() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // 导航项点击事件
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', (e) => {
@@ -152,32 +159,9 @@ class SystemInfoManager {
     }
 
     setupPersonalizationEvents() {
-        // 主题设置
-        const themeSelect = document.querySelector('.setting-select');
-        if (themeSelect) {
-            themeSelect.addEventListener('change', (e) => {
-                this.changeTheme(e.target.value);
-            });
-        }
+        // 主题设置现在由全局主题管理器处理
+        // 这里可以添加其他个性化设置的事件监听器
     }
-
-    changeTheme(theme) {
-    const body = document.body;
-    // 移除所有主题类，避免样式冲突
-    body.classList.remove('theme-dark', 'theme-light');
-    
-    // 根据选择的主题添加对应类
-    if (theme === 'dark') {
-        body.classList.add('theme-dark');
-        this.showNotification('已切换到深色主题');
-    } else if (theme === 'light') {
-        body.classList.add('theme-light');
-        this.showNotification('已切换到浅色主题');
-    }
-    
-    // 保存主题设置到本地存储（可选，用于页面刷新后保持状态）
-    localStorage.setItem('systemTheme', theme);
-}
 
     // 加载用户管理
     loadUserManagement() {
@@ -510,6 +494,29 @@ class SystemInfoManager {
                 }, 300);
             }
         }, 3000);
+    }
+
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const currentTheme = window.themeManager.getCurrentTheme();
+            
+            if (currentTheme === 'light') {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            } else {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
+            }
+        }
     }
 
     destroy() {

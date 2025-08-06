@@ -1,3 +1,77 @@
+/* 主题变量定义 */
+:root {
+    /* 深色主题（默认） */
+    --bg-primary: #2d2d2d;
+    --bg-secondary: #3c3c3c;
+    --bg-tertiary: #4a4a4a;
+    --bg-quaternary: #5a5a5a;
+    --bg-card: rgba(255, 255, 255, 0.1);
+    --bg-body-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    --bg-content-gradient: linear-gradient(135deg, rgba(179, 222, 239, 0.1) 0%, rgba(1, 67, 128, 0.1) 100%);
+    
+    /* 文字颜色 */
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --text-accent: #0078d4;
+    --text-success: #30d158;
+    --text-warning: #ff9f0a;
+    --text-danger: #ff453a;
+    
+    /* 图表颜色 */
+    --chart-text: #ffffff;
+    --chart-grid: rgba(255, 255, 255, 0.1);
+    --chart-download: #0078d4;
+    --chart-upload: #107c10;
+    
+    /* 额外的主题变量 */
+    --bg-accent-light: rgba(0, 120, 212, 0.15);
+    --bg-icon-primary: rgba(255, 255, 255, 0.25);
+    --bg-primary-gradient: linear-gradient(135deg, #0078d4, #106ebe);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(0, 120, 212, 0.4);
+    --bg-card-hover: rgba(255, 255, 255, 0.15);
+}
+
+/* 浅色主题 */
+body.theme-light {
+    /* 背景颜色 */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e0e0e0;
+    --bg-quaternary: #d0d0d0;
+    --bg-card: rgba(0, 0, 0, 0.05);
+    --bg-body-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    --bg-content-gradient: linear-gradient(135deg, rgba(227, 242, 253, 0.5) 0%, rgba(187, 222, 251, 0.5) 100%);
+    
+    /* 文字颜色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --text-accent: #1976d2;
+    --text-success: #2e7d32;
+    --text-warning: #f57c00;
+    --text-danger: #d32f2f;
+    
+    /* 图表颜色 */
+    --chart-text: #333333;
+    --chart-grid: rgba(0, 0, 0, 0.3);
+    --chart-download: #1976d2;
+    --chart-upload: #388e3c;
+    
+    /* 额外的主题变量 */
+    --bg-accent-light: rgba(0, 120, 212, 0.1);
+    --bg-icon-primary: rgba(0, 0, 0, 0.1);
+    --bg-primary-gradient: linear-gradient(135deg, #0078d4, #106ebe);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 120, 212, 0.4);
+    --bg-card-hover: rgba(255, 255, 255, 0.9);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,25 +80,26 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-    color: #ffffff;
+    background: var(--bg-body-gradient);
+    color: var(--text-primary);
     overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .network-monitor {
     min-height: 100vh;
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    background: var(--bg-body-gradient);
 }
 
 /* 标题栏 */
 .title-bar {
     height: 32px;
-    background-color: #3c3c3c;
+    background-color: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    border-bottom: 1px solid #4a4a4a;
+    border-bottom: 1px solid var(--bg-tertiary);
     -webkit-app-region: drag;
 }
 
@@ -33,12 +108,12 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     -webkit-app-region: no-drag;
 }
 
 .title-bar-left i {
-    color: #ffa500;
+    color: var(--text-warning);
 }
 
 .window-controls {
@@ -81,13 +156,13 @@ body {
 
 .title-content i {
     font-size: 24px;
-    color: #0078d4;
+    color: var(--text-accent);
 }
 
 .title-content h1 {
     font-size: 28px;
     font-weight: 300;
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .title-actions {
@@ -101,7 +176,7 @@ body {
     border: none;
     border-radius: 6px;
     background-color: transparent;
-    color: #b0b0b0;
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -110,8 +185,8 @@ body {
 }
 
 .title-btn:hover {
-    background-color: rgba(0, 120, 212, 0.25);
-    color: #00a0ff;
+    background-color: var(--bg-card);
+    color: var(--text-accent);
 }
 
 /* 主要内容 */
@@ -131,21 +206,21 @@ body {
 
 /* 统一卡片样式 - 优化对比度 */
 .status-card, .chart-section, .network-section, .tools-section {
-    background: rgba(45, 45, 45, 0.95);
+    background: var(--bg-card);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-card);
     transition: all 0.3s ease;
 }
 
 .status-card:hover, .chart-section:hover, .network-section:hover, .tools-section:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    border-color: rgba(0, 120, 212, 0.4);
-    background: rgba(60, 60, 60, 0.98);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
 }
 
 .status-card {
@@ -154,24 +229,24 @@ body {
     gap: 20px;
     position: relative;
     padding: 25px;
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--bg-card);
 }
 
 .status-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-card-hover);
+    background: var(--bg-card-hover);
 }
 
 .status-card.primary {
-    background: linear-gradient(135deg, #0078d4, #106ebe);
-    color: white;
+    background: var(--bg-primary-gradient);
+    color: var(--text-primary);
 }
 
 .status-card.primary .status-info h3,
 .status-card.primary .status-text,
 .status-card.primary .status-detail {
-    color: white;
+    color: var(--text-primary);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -179,18 +254,18 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: rgba(0, 120, 212, 0.15);
+    background-color: var(--bg-accent-light);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    color: #0078d4;
+    color: var(--text-accent);
     flex-shrink: 0;
 }
 
 .status-card.primary .status-icon {
-    background-color: rgba(255, 255, 255, 0.25);
-    color: white;
+    background-color: var(--bg-icon-primary);
+    color: var(--text-primary);
 }
 
 .status-info {
@@ -200,7 +275,7 @@ body {
 .status-info h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-primary);
     margin-bottom: 5px;
 }
 
@@ -244,7 +319,7 @@ body {
 
 /* 图表部分 */
 .chart-section {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: #2F354B;
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 30px;
@@ -299,11 +374,13 @@ body {
 .chart-container {
     height: 300px;
     position: relative;
+    color: var(--chart-text);
 }
 
 .chart-container canvas {
     width: 100% !important;
     height: 100% !important;
+    color: var(--chart-text) !important;
 }
 
 /* 详情部分 */
@@ -316,7 +393,7 @@ body {
 
 .adapters-panel,
 .connections-panel {
-    background-color: rgba(45, 45, 45, 0.95);
+    background-color: #2F354B;
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 25px;
@@ -370,16 +447,30 @@ body {
     padding: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    background-color: rgba(60, 60, 60, 0.8);
+    cursor: default;
+    background-color: #000000;
 }
 
+/* 移除悬停效果 */
 .adapter-item:hover,
 .connection-item:hover {
-    border-color: #00a0ff;
-    background-color: rgba(0, 120, 212, 0.15);
-    box-shadow: 0 2px 8px rgba(0, 120, 212, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: #000000;
+    box-shadow: none;
+}
+
+/* 浅色模式下的表格样式 */
+body.theme-light .adapter-item,
+body.theme-light .connection-item {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .adapter-item:hover,
+body.theme-light .connection-item:hover {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .adapter-header,
@@ -428,7 +519,7 @@ body {
 
 /* 工具部分 */
 .tools-section {
-    background-color: rgba(45, 45, 45, 0.98);
+    background-color: #2F354B;
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 30px;
@@ -727,4 +818,76 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* 浅色模式下的div区域样式 */
+body.theme-light .chart-section {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .adapters-panel,
+body.theme-light .connections-panel {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .tools-section {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 浅色模式下的文字颜色 */
+body.theme-light h2 {
+    color: #333333 !important;
+}
+
+body.theme-light .section-header h2 {
+    color: #333333 !important;
+}
+
+body.theme-light .panel-header h2 {
+    color: #333333 !important;
+}
+
+body.theme-light div {
+    color: #333333;
+}
+
+body.theme-light span {
+    color: #333333;
+}
+
+body.theme-light .adapter-name,
+body.theme-light .connection-name {
+    color: #333333 !important;
+}
+
+body.theme-light .adapter-details,
+body.theme-light .connection-details {
+    color: #666666 !important;
+}
+
+body.theme-light .tools-section {
+    color: #333333 !important;
+}
+
+body.theme-light .modal-body {
+    color: #333333 !important;
+}
+
+body.theme-light .tool-output {
+    background-color: #f5f5f5;
+    color: #333333 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .tool-input input {
+    background-color: #ffffff;
+    color: #333333 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body.theme-light .tool-input input::placeholder {
+    color: #999999;
 }

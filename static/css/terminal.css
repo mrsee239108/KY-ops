@@ -1,15 +1,101 @@
 /* 终端界面样式 */
 
+/* 主题变量定义 - 深色模式（默认） */
+:root {
+    /* 背景色 */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3c3c3c;
+    --bg-quaternary: #4a4a4a;
+    --bg-card: rgba(45, 45, 45, 0.95);
+    --bg-body-gradient: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    --bg-terminal: #000000;
+    --bg-terminal-output: rgba(0, 0, 0, 0.9);
+    --bg-terminal-input: rgba(0, 0, 0, 0.95);
+    --bg-sidebar: rgba(45, 45, 45, 0.95);
+    
+    /* 文字颜色 */
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-tertiary: #8e8e93;
+    --text-accent: #B3DEEF;
+    --text-success: #4CAF50;
+    --text-warning: #ffa500;
+    --text-danger: #ff5f57;
+    --text-info: #2196F3;
+    --text-terminal: #00ff00;
+    --text-terminal-secondary: #ffffff;
+    --text-terminal-input: #000000;
+    
+    /* 边框颜色 */
+    --border-primary: #4a4a4a;
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-tertiary: rgba(255, 255, 255, 0.2);
+    
+    /* 阴影效果 */
+    --shadow-primary: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 6px;
+    
+    /* 特殊背景 */
+    --bg-hover: rgba(255, 255, 255, 0.05);
+    --bg-active: rgba(255, 255, 255, 0.1);
+    --bg-input: rgba(255, 255, 255, 0.1);
+}
+
+/* 浅色主题 */
+body.theme-light {
+    /* 背景色 */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e0e0e0;
+    --bg-quaternary: #d0d0d0;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --bg-body-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    --bg-terminal: #fafafa;
+    --bg-terminal-output: rgba(250, 250, 250, 0.95);
+    --bg-terminal-input: rgba(245, 245, 245, 0.95);
+    --bg-sidebar: rgba(255, 255, 255, 0.9);
+    
+    /* 文字颜色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --text-accent: #1976d2;
+    --text-success: #2e7d32;
+    --text-warning: #f57c00;
+    --text-danger: #d32f2f;
+    --text-info: #1976d2;
+    --text-terminal: #1b5e20;
+    --text-terminal-secondary: #212121;
+    --text-terminal-input: #212121;
+    
+    /* 边框颜色 */
+    --border-primary: #e0e0e0;
+    --border-secondary: rgba(0, 0, 0, 0.1);
+    --border-tertiary: rgba(0, 0, 0, 0.2);
+    
+    /* 阴影 */
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 6px;
+    
+    /* 特殊背景 */
+    --bg-hover: rgba(0, 0, 0, 0.05);
+    --bg-active: rgba(0, 0, 0, 0.1);
+    --bg-input: rgba(0, 0, 0, 0.05);
+}
+
 /* 标题栏 */
 .title-bar {
     height: 32px;
-    background-color: #3c3c3c;
+    background-color: var(--bg-tertiary);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    border-bottom: 1px solid #4a4a4a;
+    border-bottom: 1px solid var(--border-primary);
     -webkit-app-region: drag;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .title-bar-left {
@@ -17,12 +103,13 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     -webkit-app-region: no-drag;
+    transition: color 0.3s ease;
 }
 
 .title-bar-left i {
-    color: #ffa500;
+    color: var(--text-warning);
 }
 
 .window-controls {
@@ -50,29 +137,36 @@
     transform: scale(1.1);
 }
 
+.control-btn.theme-toggle {
+    background-color: var(--text-warning);
+}
+
 .control-btn.refresh {
-    background-color: #28ca42;
+    background-color: var(--text-success);
 }
 
 .control-btn.back {
-    background-color: #ff5f57;
+    background-color: var(--text-danger);
 }
 
 body {
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    background: var(--bg-body-gradient);
     margin: 0;
     padding: 0;
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     height: 100vh;
     overflow: hidden;
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .window {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--bg-tertiary);
     backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease;
 }
 
 .window-content {
@@ -84,14 +178,15 @@ body {
 /* 侧边栏样式 */
 .sidebar {
     width: 280px;
-    background-color: rgba(45, 45, 45, 0.95);
+    background-color: var(--bg-sidebar);
     backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--border-secondary);
     padding: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* 用户信息 */
@@ -100,15 +195,16 @@ body {
     align-items: center;
     gap: 12px;
     padding: 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-active);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-tertiary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .user-avatar {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #B3DEEF 0%, #014380 100%);
+    background: var(--bg-body-gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -122,18 +218,20 @@ body {
 }
 
 .user-name {
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 4px;
+    transition: color 0.3s ease;
 }
 
 .user-status {
-    color: #b0b0b0;
+    color: var(--text-secondary);
     font-size: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: color 0.3s ease;
 }
 
 .status-indicator {
@@ -144,46 +242,47 @@ body {
 }
 
 .status-indicator.online {
-    background-color: #4CAF50;
-    box-shadow: 0 0 6px #4CAF50;
+    background-color: var(--text-success);
+    box-shadow: var(--shadow-glow) var(--text-success);
 }
 
 .status-indicator.connected {
-    background-color: #2196F3;
-    box-shadow: 0 0 6px #2196F3;
+    background-color: var(--text-info);
+    box-shadow: var(--shadow-glow) var(--text-info);
 }
 
 /* 连接信息 */
 .connection-info h3,
 .quick-commands h3,
 .command-history h3 {
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 600;
     margin: 0 0 12px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: color 0.3s ease;
 }
 
 .info-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #e0e0e0;
+    color: var(--text-secondary);
     font-size: 12px;
     margin-bottom: 8px;
     padding: 8px;
     border-radius: 6px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
 }
 
 .info-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-hover);
 }
 
 .info-item i {
     width: 16px;
-    color: #B3DEEF;
+    color: var(--text-accent);
 }
 
 /* 快捷命令按钮 */
@@ -198,10 +297,10 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
     border-radius: 8px;
-    color: #e0e0e0;
+    color: var(--text-primary);
     font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -209,14 +308,14 @@ body {
 }
 
 .quick-cmd-btn:hover {
-    background: rgba(179, 222, 239, 0.2);
+    background: var(--bg-hover);
     transform: translateX(4px);
-    border-color: rgba(179, 222, 239, 0.4);
+    border-color: var(--text-accent);
 }
 
 .quick-cmd-btn i {
     width: 16px;
-    color: #B3DEEF;
+    color: var(--text-accent);
 }
 
 /* 命令历史 */
@@ -226,20 +325,22 @@ body {
 }
 
 .history-item {
-    padding: 6px 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    margin-bottom: 4px;
-    color: #b0b0b0;
+    padding: 8px 10px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    color: var(--text-secondary);
     font-size: 11px;
+    font-family: 'Consolas', monospace;
+    margin-bottom: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: 'Consolas', monospace;
+    border-left: 3px solid transparent;
 }
 
 .history-item:hover {
-    background: rgba(179, 222, 239, 0.2);
-    color: #ffffff;
+    background: var(--bg-hover);
+    border-left-color: var(--text-accent);
+    color: var(--text-primary);
 }
 
 /* 主终端区域 */
@@ -255,11 +356,12 @@ body {
     display: flex;
     flex-direction: column;
     margin: 20px;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--bg-terminal);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-primary);
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* 终端头部 */
@@ -328,8 +430,9 @@ body {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 14px;
     line-height: 1.4;
-    background: rgba(0, 0, 0, 0.9);
-    color: #00ff00;
+    background: var(--bg-terminal);
+    color: var(--text-terminal);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .terminal-line {
@@ -339,36 +442,42 @@ body {
 }
 
 .terminal-line.welcome {
-    color: #B3DEEF;
-    border-left: 3px solid #B3DEEF;
+    color: var(--text-accent);
+    border-left: 3px solid var(--text-accent);
     padding-left: 12px;
     margin-bottom: 16px;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .terminal-line.command {
-    color: #ffffff;
+    color: var(--text-terminal-secondary);
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .terminal-line.output {
-    color: #00ff00;
+    color: var(--text-terminal);
     margin-left: 16px;
+    transition: color 0.3s ease;
 }
 
 .terminal-line.error {
-    color: #ff6b6b;
+    color: var(--text-danger);
     margin-left: 16px;
+    transition: color 0.3s ease;
 }
 
 .timestamp {
-    color: #666;
+    color: var(--text-tertiary);
     font-size: 11px;
     margin-right: 8px;
+    transition: color 0.3s ease;
 }
 
 .command-prompt {
-    color: #B3DEEF;
+    color: var(--text-accent);
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 /* 命令输入区域 */
@@ -376,44 +485,50 @@ body {
     display: flex;
     align-items: center;
     padding: 16px 20px;
-    background: rgba(0, 0, 0, 0.9);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-terminal-input);
+    border-top: 1px solid var(--border-secondary);
     gap: 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .terminal-prompt {
-    color: #B3DEEF;
+    color: var(--text-accent);
     font-weight: 600;
     font-size: 14px;
     white-space: nowrap;
     font-family: 'Consolas', monospace;
+    transition: color 0.3s ease;
 }
 
 .prompt-user {
-    color: #4CAF50;
+    color: var(--text-success);
+    transition: color 0.3s ease;
 }
 
 .prompt-host {
-    color: #2196F3;
+    color: var(--text-info);
+    transition: color 0.3s ease;
 }
 
 .prompt-path {
-    color: #FFC107;
+    color: var(--text-warning);
+    transition: color 0.3s ease;
 }
 
 .terminal-input {
     flex: 1;
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: var(--text-terminal-input);
     font-size: 14px;
     font-family: 'Consolas', monospace;
     outline: none;
     padding: 8px 0;
+    transition: color 0.3s ease;
 }
 
 .terminal-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-tertiary);
 }
 
 .execute-btn {

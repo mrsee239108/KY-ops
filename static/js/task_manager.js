@@ -28,9 +28,22 @@ class TaskManager {
         this.setupEventListeners();
         this.loadProcesses();
         this.startAutoUpdate();
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
     }
 
     setupEventListeners() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // 导航标签事件
         document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
             item.addEventListener('click', (e) => {
@@ -247,7 +260,7 @@ class TaskManager {
             
             // 更新磁盘使用率
             const diskActivity = Math.min(100, Math.random() * 30); // 模拟磁盘活动
-            document.getElementById('disk-percent').textContent = `${Math.round(diskActivity)}%`;
+            document.getElementById('disk-percent').textContent = `${Math.round(data.total_utilization)}%`;
             document.getElementById('disk-detail').textContent = '活动时间';
             
         } catch (error) {
@@ -542,6 +555,29 @@ class TaskManager {
                     this.clearProcessSelection();
                     this.hideContextMenu();
                     break;
+            }
+        }
+    }
+
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const currentTheme = window.themeManager.getCurrentTheme();
+            
+            if (currentTheme === 'light') {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            } else {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
             }
         }
     }

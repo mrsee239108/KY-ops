@@ -29,6 +29,11 @@ class FileManager {
         this.loadDirectory(this.currentPath);
         this.updateNavigationState();
         this.initPreviewPanel();
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
     }
 
     setupEventListeners() {
@@ -38,6 +43,12 @@ class FileManager {
         document.getElementById('up-btn').addEventListener('click', () => this.goUp());
         document.getElementById('refresh-btn').addEventListener('click', () => this.refresh());
         document.getElementById('diagnosisBtn').addEventListener('click', () => this.showDiagnosis());
+        
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => this.toggleTheme());
+        }
 
         // 地址栏事件
         document.getElementById('path-input').addEventListener('keypress', (e) => {
@@ -975,6 +986,26 @@ class FileManager {
         } catch (error) {
             console.error('获取诊断信息失败:', error);
             this.showError('获取诊断信息失败: ' + error.message);
+        }
+    }
+
+    // 主题切换功能
+    toggleTheme() {
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
+        }
+    }
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            if (icon) {
+                const isDark = window.themeManager.getCurrentTheme() === 'dark';
+                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeToggleBtn.title = isDark ? '切换到浅色主题' : '切换到深色主题';
+            }
         }
     }
 

@@ -100,22 +100,31 @@ class Terminal {
             });
         });
 
-        // 窗口控制按钮事件
-        document.querySelector('.window-control.close').addEventListener('click', () => {
-            if (confirm('确定要关闭终端吗？')) {
-                window.close();
-            }
-        });
+        // 窗口控制按钮事件（可选，如果存在的话）
+        const closeBtn = document.querySelector('.window-control.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                if (confirm('确定要关闭终端吗？')) {
+                    window.close();
+                }
+            });
+        }
 
-        document.querySelector('.window-control.minimize').addEventListener('click', () => {
-            // 最小化功能（在实际应用中可能需要与桌面环境集成）
-            console.log('最小化窗口');
-        });
+        const minimizeBtn = document.querySelector('.window-control.minimize');
+        if (minimizeBtn) {
+            minimizeBtn.addEventListener('click', () => {
+                // 最小化功能（在实际应用中可能需要与桌面环境集成）
+                console.log('最小化窗口');
+            });
+        }
 
-        document.querySelector('.window-control.maximize').addEventListener('click', () => {
-            // 最大化功能
-            document.body.classList.toggle('maximized');
-        });
+        const maximizeBtn = document.querySelector('.window-control.maximize');
+        if (maximizeBtn) {
+            maximizeBtn.addEventListener('click', () => {
+                // 最大化功能
+                document.body.classList.toggle('maximized');
+            });
+        }
     }
 
     async loadTerminalInfo() {

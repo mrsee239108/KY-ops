@@ -87,47 +87,47 @@ class SystemInfoManager {
         });
 
         // 根据导航项显示对应面板
-        const navText = navItem.querySelector('span').textContent;
+        const navType = navItem.getAttribute('data-nav');
         let targetPanel = null;
 
-        switch(navText) {
-            case '系统状态':
+        switch(navType) {
+            case 'system-status':
                 targetPanel = document.getElementById('system-status-panel');
                 this.loadSystemInfo();
                 break;
-            case '个性化':
+            case 'personalization':
                 targetPanel = document.getElementById('personalization-panel');
                 this.loadPersonalizationSettings();
                 break;
-            case '用户管理':
+            case 'user-management':
                 targetPanel = document.getElementById('user-management-panel');
                 this.loadUserManagement();
                 break;
-            case 'SSH管理':
+            case 'ssh-management':
                 targetPanel = document.getElementById('ssh-management-panel');
                 this.loadSSHManagement();
                 break;
-            case '系统管理':
+            case 'system-management':
                 targetPanel = document.getElementById('system-management-panel');
                 this.loadSystemManagement();
                 break;
-            case 'MFA':
+            case 'mfa':
                 targetPanel = document.getElementById('mfa-panel');
                 this.loadMFASettings();
                 break;
-            case 'DNS设置':
+            case 'dns-settings':
                 targetPanel = document.getElementById('dns-settings-panel');
                 this.loadDNSSettings();
                 break;
-            case 'Swap虚拟内存':
+            case 'swap-memory':
                 targetPanel = document.getElementById('swap-memory-panel');
                 this.loadSwapMemoryInfo();
                 break;
-            case '到期设置':
+            case 'expiry-settings':
                 targetPanel = document.getElementById('expiry-settings-panel');
                 this.loadExpirySettings();
                 break;
-            case '许可证':
+            case 'license':
                 targetPanel = document.getElementById('license-panel');
                 this.loadLicenseInfo();
                 break;
@@ -142,13 +142,19 @@ class SystemInfoManager {
         }
 
         // 更新面包屑
+        const navText = navItem.querySelector('span').textContent;
         this.updateBreadcrumb(navText);
     }
 
     updateBreadcrumb(title) {
         const breadcrumb = document.querySelector('.breadcrumb span');
         if (breadcrumb) {
-            breadcrumb.textContent = title;
+            // 如果存在语言管理器，使用翻译后的标题
+            if (window.languageManager) {
+                window.languageManager.updateBreadcrumb(window.languageManager.getCurrentLanguage());
+            } else {
+                breadcrumb.textContent = title;
+            }
         }
     }
 
@@ -160,7 +166,14 @@ class SystemInfoManager {
 
     setupPersonalizationEvents() {
         // 主题设置现在由全局主题管理器处理
-        // 这里可以添加其他个性化设置的事件监听器
+        // 语言设置事件监听器
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect && window.languageManager) {
+            languageSelect.value = window.languageManager.getCurrentLanguage();
+            languageSelect.addEventListener('change', (e) => {
+                window.languageManager.changeLanguage(e.target.value);
+            });
+        }
     }
 
     // 加载用户管理
@@ -221,26 +234,32 @@ class SystemInfoManager {
         const toggle = document.querySelector('.status-toggle');
         const statusIcon = document.querySelector('.status-icon');
         const statusInfo = document.querySelector('.status-info p');
+        const languageManager = window.languageManager;
 
-        if (toggle.textContent === '停止') {
-            toggle.textContent = '启动';
+        if (toggle.getAttribute('data-i18n') === 'stop') {
+            toggle.setAttribute('data-i18n', 'start');
+            toggle.textContent = languageManager ? languageManager.t('start') : '启动';
             toggle.style.borderColor = '#30d158';
             toggle.style.color = '#30d158';
             statusIcon.classList.remove('active');
-            statusInfo.textContent = '已停止';
-            this.showNotification('SSH服务已停止');
+            statusInfo.setAttribute('data-i18n', 'ssh-stopped');
+            statusInfo.textContent = languageManager ? languageManager.t('ssh-stopped') : '已停止';
+            this.showNotification(languageManager ? languageManager.t('ssh-service-stopped') : 'SSH服务已停止');
         } else {
-            toggle.textContent = '停止';
+            toggle.setAttribute('data-i18n', 'stop');
+            toggle.textContent = languageManager ? languageManager.t('stop') : '停止';
             toggle.style.borderColor = '#ff453a';
             toggle.style.color = '#ff453a';
             statusIcon.classList.add('active');
-            statusInfo.textContent = '运行中 - 端口 22';
-            this.showNotification('SSH服务已启动');
+            statusInfo.setAttribute('data-i18n', 'ssh-running-port');
+            statusInfo.textContent = languageManager ? languageManager.t('ssh-running-port') : '运行中 - 端口 22';
+            this.showNotification(languageManager ? languageManager.t('ssh-service-started') : 'SSH服务已启动');
         }
     }
 
     disconnectSSHConnection() {
-        this.showNotification('SSH连接已断开');
+        const languageManager = window.languageManager;
+        this.showNotification(languageManager ? languageManager.t('ssh-connection-disconnected') : 'SSH连接已断开');
         // 这里可以实现实际的断开连接逻辑
     }
 

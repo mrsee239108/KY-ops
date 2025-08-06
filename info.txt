@@ -1,0 +1,8 @@
+hostname=TestServer
+system_name=Ubuntu 20.04 LTS
+kernel_version=5.4.0-74-generic
+architecture=x86_64
+cpu_info=Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz
+memory_info=16GB DDR4
+disk_info=512GB SSD
+network_info=Ethernet: 1Gbps

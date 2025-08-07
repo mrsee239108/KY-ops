@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div id="alertNotification-container"></div>
     <div class="performance-monitor">
         <!-- 标题栏 -->
         <div class="title-bar">
@@ -197,19 +198,8 @@
                         </div>
                     </div>
 
-                    <!-- 系统警告 -->
-                    <div class="system-warnings">
-                        <div class="warning-header">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>检测到异常或低性能的问题：</span>
-                        </div>
-                        <div class="warning-content">
-                            CPU使用率低，性能良好，IO性能正常，swap使用率低，网络连接正常或低负载的系统资源使用状况
-                        </div>
-                    </div>
-                    
 
-                    
+
                     <!-- 进程监控 -->
                     <div class="process-section">
                         <div class="section-title">
@@ -243,6 +233,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- CPU详细页面 -->
@@ -343,6 +334,8 @@
                 <div class="network-interfaces" id="network-interfaces">
                     <!-- 网络接口列表将通过JavaScript填充 -->
                 </div>
+            </div>
+        </div>
         </div>
     </div>
 <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>

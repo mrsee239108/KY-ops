@@ -1,7 +1,102 @@
+const alertNotificationContainer = document.getElementById('alertNotification-container');
+
+// 显示通知函数
+function showAlertNotification(options) {
+    // 创建通知元素
+    const alertNotification = document.createElement('div');
+    alertNotification.className = 'alertNotification';
+
+    // 设置类型对应的颜色
+    const colors = {
+                info: '#0078d7',
+        success: '#107c10',
+        warning: '#d83b01',
+        error: '#e81123'
+    };
+    const color = colors[options.type] || '#0078d7';
+
+    // 设置图标
+    const icons = {
+        info: 'ℹ️',
+        success: '✅',
+        warning: '⚠️',
+        error: '❌'
+    };
+    const icon = icons[options.type] || 'ℹ️';
+
+    // 创建通知内容
+    alertNotification.innerHTML = `
+        <div class="alertNotification-icon">${icon}</div>
+        <div class="alertNotification-content">
+            <div class="alertNotification-title">${options.title}</div>
+            <div class="alertNotification-message">${options.message}</div>
+        </div>
+        <button class="alertNotification-close">×</button>
+        <div class="alertNotification-progress"></div>
+    `;
+
+    // 设置边框颜色
+    alertNotification.style.borderLeftColor = color;
+
+    // 添加到容器
+    alertNotificationContainer.appendChild(alertNotification);
+
+    // 显示通知
+    setTimeout(() => {
+        alertNotification.classList.add('show');
+
+        // 设置进度条动画
+        const progressBar = alertNotification.querySelector('.alertNotification-progress');
+        if (progressBar) {
+            progressBar.style.transition = `transform ${options.duration}s linear`;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+    }, 10);
+
+    // 设置关闭事件
+    const closeBtn = alertNotification.querySelector('.alertNotification-close');
+    closeBtn.addEventListener('click', () => {
+        closeAlertNotification(alertNotification);
+    });
+
+    // 自动关闭
+    if (options.duration > 0) {
+        setTimeout(() => {
+            closeAlertNotification(alertNotification);
+            }, options.duration * 1000);
+    }
+
+    // 返回通知元素，以便外部控制
+    return alertNotification;
+}
+
+        // 关闭通知
+function closeAlertNotification(alertNotification) {
+    alertNotification.classList.remove('show');
+    alertNotification.classList.add('hide');
+
+    // 动画结束后移除元素
+    setTimeout(() => {
+        if (alertNotification.parentNode) {
+            alertNotification.parentNode.removeChild(alertNotification);
+        }
+    }, 400);
+}
+
 class Windows10Desktop {
     constructor() {
         this.startMenuOpen = false;
         this.selectedIcons = [];
+        this.updateInterval = null;
+        this.currentAlerts = new Map(); // 存储当前活动的告警
+        this.alertTypeMap = {
+            'cpu-overload': { type: 'warning', title: 'CPU 过载' },
+            'memory-overload': { type: 'error', title: '内存不足' },
+            'disk-space-overload': { type: 'error', title: '磁盘空间不足' },
+            'disk-io-overload': { type: 'warning', title: '磁盘IO过载' },
+            'network-overload': { type: 'warning', title: '网络过载' },
+            'high-process-load': { type: 'info', title: '高进程负载' }
+        };
         this.init();
     }
 
@@ -9,7 +104,11 @@ class Windows10Desktop {
         this.setupEventListeners();
         this.updateDateTime();
         this.loadSystemStatus();
-        
+
+        this.loadAlertNotification();
+        console.log('首次状态加载成功');
+        this.startAutoUpdate();
+
         // 定期更新时间和系统状态
         setInterval(() => this.updateDateTime(), 1000);
         setInterval(() => this.loadSystemStatus(), 30000);
@@ -151,6 +250,108 @@ class Windows10Desktop {
             console.error('获取系统状态失败:', error);
         }
     }
+
+    async loadAlertNotification() {
+        try {
+            const xhr2 = new XMLHttpRequest();
+            xhr2.open('GET', 'api/check-alert', true);
+            xhr2.setRequestHeader('Accept', 'application/json');
+            xhr2.setRequestHeader('Content-Type', 'application/json')
+
+            xhr2.onreadystatechange = () => {
+                if (xhr2.readyState === 4) {
+                    if (xhr2.status === 200) {
+                        try {
+                            const alerts = JSON.parse(xhr2.responseText);
+                            this.updateAlert(alerts);
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                        }
+                    } else{
+                        console.error('HTTP错误:', xhr2.status, xhr2.statusText);
+                    }
+                }
+            };
+            xhr2.onerror = () => {
+                console.error('网络错误');
+            }
+            xhr2.send();
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+        }
+    }
+
+    updateAlert(alerts) {
+        // 1. 创建新告警的临时集合
+        const newAlertSet = new Set(alerts.map(a => a.alert_code));
+
+        // 2. 移除已消失的告警
+        this.currentAlerts.forEach((_, alertCode) => {
+            if (!newAlertSet.has(alertCode)) {
+                const notification = this.currentAlerts.get(alertCode).notification;
+                if (document.body.contains(notification)) {
+                    closeAlertNotification(notification);
+                }
+                this.currentAlerts.delete(alertCode);
+            }
+        });
+
+        // 3. 处理新告警
+        alerts.forEach(alert => {
+            const {alert_code, description, timestamp, solution} = alert;
+
+            if (this.currentAlerts.has(alert_code)) {
+                // 更新现有告警
+                const existing = this.currentAlerts.get(alert_code);
+                const notification = existing.notification;
+
+                if (document.body.contains(notification)) {
+                    // 追加解决方案（如果存在）
+                    let newMessage = description;
+                    if (solution) {
+                        newMessage += `<br><br><strong>解决方案:</strong> ${solution}`;
+                    }
+
+                    // 更新通知内容
+                    const content = notification.querySelector('.alertNotification-content');
+                    if (content) {
+                        content.querySelector('.alertNotification-message').innerHTML = newMessage;
+                    }
+
+                    // 更新存储的数据
+                    existing.description = description;
+                    existing.solution = solution;
+                }
+            } else {
+                // 创建新告警
+                const alertType = this.alertTypeMap[alert_code] || {type: 'warning', title: '系统告警'};
+
+                // 创建通知
+                const notification = showAlertNotification({
+                    title: `${alertType.title} [${new Date(timestamp).toLocaleTimeString()}]`,
+                    message: description,
+                    type: alertType.type,
+                    duration: -1 // 常驻通知
+                });
+
+                // 存储告警信息
+                this.currentAlerts.set(alert_code, {
+                    notification,
+                    description,
+                    timestamp,
+                    solution
+                });
+            }
+        });
+    }
+
+    startAutoUpdate() {
+        // 每2秒自动更新一次，提高刷新频率
+        this.updateInterval = setInterval(() => {
+            this.loadAlertNotification();
+        }, 1000);
+    }
+
 
     toggleStartMenu() {
         const startMenu = document.getElementById('start-menu');

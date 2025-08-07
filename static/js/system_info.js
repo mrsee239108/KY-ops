@@ -13,10 +13,104 @@ function goBack() {
     }
 }
 
+const alertNotificationContainer = document.getElementById('alertNotification-container');
+
+// 显示通知函数
+function showAlertNotification(options) {
+    // 创建通知元素
+    const alertNotification = document.createElement('div');
+    alertNotification.className = 'alertNotification';
+
+    // 设置类型对应的颜色
+    const colors = {
+                info: '#0078d7',
+        success: '#107c10',
+        warning: '#d83b01',
+        error: '#e81123'
+    };
+    const color = colors[options.type] || '#0078d7';
+
+    // 设置图标
+    const icons = {
+        info: 'ℹ️',
+        success: '✅',
+        warning: '⚠️',
+        error: '❌'
+    };
+    const icon = icons[options.type] || 'ℹ️';
+
+    // 创建通知内容
+    alertNotification.innerHTML = `
+        <div class="alertNotification-icon">${icon}</div>
+        <div class="alertNotification-content">
+            <div class="alertNotification-title">${options.title}</div>
+            <div class="alertNotification-message">${options.message}</div>
+        </div>
+        <button class="alertNotification-close">×</button>
+        <div class="alertNotification-progress"></div>
+    `;
+
+    // 设置边框颜色
+    alertNotification.style.borderLeftColor = color;
+
+    // 添加到容器
+    alertNotificationContainer.appendChild(alertNotification);
+
+    // 显示通知
+    setTimeout(() => {
+        alertNotification.classList.add('show');
+
+        // 设置进度条动画
+        const progressBar = alertNotification.querySelector('.alertNotification-progress');
+        if (progressBar) {
+            progressBar.style.transition = `transform ${options.duration}s linear`;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+    }, 10);
+
+    // 设置关闭事件
+    const closeBtn = alertNotification.querySelector('.alertNotification-close');
+    closeBtn.addEventListener('click', () => {
+        closeAlertNotification(alertNotification);
+    });
+
+    // 自动关闭
+    if (options.duration > 0) {
+        setTimeout(() => {
+            closeAlertNotification(alertNotification);
+            }, options.duration * 1000);
+    }
+
+    // 返回通知元素，以便外部控制
+    return alertNotification;
+}
+
+        // 关闭通知
+function closeAlertNotification(alertNotification) {
+    alertNotification.classList.remove('show');
+    alertNotification.classList.add('hide');
+
+    // 动画结束后移除元素
+    setTimeout(() => {
+        if (alertNotification.parentNode) {
+            alertNotification.parentNode.removeChild(alertNotification);
+        }
+    }, 400);
+}
+
 // 系统信息页面功能
 class SystemInfoManager {
     constructor() {
         this.updateInterval = null;
+        this.currentAlerts = new Map(); // 存储当前活动的告警
+        this.alertTypeMap = {
+            'cpu-overload': { type: 'warning', title: 'CPU 过载' },
+            'memory-overload': { type: 'error', title: '内存不足' },
+            'disk-space-overload': { type: 'error', title: '磁盘空间不足' },
+            'disk-io-overload': { type: 'warning', title: '磁盘IO过载' },
+            'network-overload': { type: 'warning', title: '网络过载' },
+            'high-process-load': { type: 'info', title: '高进程负载' }
+        };
         this.init();
     }
 
@@ -24,7 +118,9 @@ class SystemInfoManager {
         this.setupEventListeners();
         this.loadSystemInfo();
         // 主题管理现在由全局主题管理器处理
-        
+        this.loadAlertNotification();
+
+        this.startAutoUpdate();
         // 初始化主题图标
         setTimeout(() => {
             this.updateThemeIcon();
@@ -87,33 +183,49 @@ class SystemInfoManager {
         });
 
         // 根据导航项显示对应面板
-        const navType = navItem.getAttribute('data-nav');
+        const navText = navItem.querySelector('span').textContent;
         let targetPanel = null;
 
-        switch(navType) {
-            case 'system-status':
+        switch(navText) {
+            case '系统状态':
                 targetPanel = document.getElementById('system-status-panel');
                 this.loadSystemInfo();
                 break;
-            case 'personalization':
+            case '个性化':
                 targetPanel = document.getElementById('personalization-panel');
                 this.loadPersonalizationSettings();
                 break;
-            case 'user-management':
+            case '用户管理':
                 targetPanel = document.getElementById('user-management-panel');
                 this.loadUserManagement();
                 break;
-            case 'ssh-management':
+            case 'SSH管理':
                 targetPanel = document.getElementById('ssh-management-panel');
                 this.loadSSHManagement();
                 break;
-            case 'dns-settings':
+            case '系统管理':
+                targetPanel = document.getElementById('system-management-panel');
+                this.loadSystemManagement();
+                break;
+            case 'MFA':
+                targetPanel = document.getElementById('mfa-panel');
+                this.loadMFASettings();
+                break;
+            case 'DNS设置':
                 targetPanel = document.getElementById('dns-settings-panel');
                 this.loadDNSSettings();
                 break;
-            case 'swap-memory':
+            case 'Swap虚拟内存':
                 targetPanel = document.getElementById('swap-memory-panel');
                 this.loadSwapMemoryInfo();
+                break;
+            case '到期设置':
+                targetPanel = document.getElementById('expiry-settings-panel');
+                this.loadExpirySettings();
+                break;
+            case '许可证':
+                targetPanel = document.getElementById('license-panel');
+                this.loadLicenseInfo();
                 break;
             default:
                 targetPanel = document.getElementById('system-status-panel');
@@ -126,19 +238,13 @@ class SystemInfoManager {
         }
 
         // 更新面包屑
-        const navText = navItem.querySelector('span').textContent;
         this.updateBreadcrumb(navText);
     }
 
     updateBreadcrumb(title) {
         const breadcrumb = document.querySelector('.breadcrumb span');
         if (breadcrumb) {
-            // 如果存在语言管理器，使用翻译后的标题
-            if (window.languageManager) {
-                window.languageManager.updateBreadcrumb(window.languageManager.getCurrentLanguage());
-            } else {
-                breadcrumb.textContent = title;
-            }
+            breadcrumb.textContent = title;
         }
     }
 
@@ -150,14 +256,7 @@ class SystemInfoManager {
 
     setupPersonalizationEvents() {
         // 主题设置现在由全局主题管理器处理
-        // 语言设置事件监听器
-        const languageSelect = document.getElementById('language-select');
-        if (languageSelect && window.languageManager) {
-            languageSelect.value = window.languageManager.getCurrentLanguage();
-            languageSelect.addEventListener('change', (e) => {
-                window.languageManager.changeLanguage(e.target.value);
-            });
-        }
+        // 这里可以添加其他个性化设置的事件监听器
     }
 
     // 加载用户管理
@@ -218,33 +317,87 @@ class SystemInfoManager {
         const toggle = document.querySelector('.status-toggle');
         const statusIcon = document.querySelector('.status-icon');
         const statusInfo = document.querySelector('.status-info p');
-        const languageManager = window.languageManager;
 
-        if (toggle.getAttribute('data-i18n') === 'stop') {
-            toggle.setAttribute('data-i18n', 'start');
-            toggle.textContent = languageManager ? languageManager.t('start') : '启动';
+        if (toggle.textContent === '停止') {
+            toggle.textContent = '启动';
             toggle.style.borderColor = '#30d158';
             toggle.style.color = '#30d158';
             statusIcon.classList.remove('active');
-            statusInfo.setAttribute('data-i18n', 'ssh-stopped');
-            statusInfo.textContent = languageManager ? languageManager.t('ssh-stopped') : '已停止';
-            this.showNotification(languageManager ? languageManager.t('ssh-service-stopped') : 'SSH服务已停止');
+            statusInfo.textContent = '已停止';
+            this.showNotification('SSH服务已停止');
         } else {
-            toggle.setAttribute('data-i18n', 'stop');
-            toggle.textContent = languageManager ? languageManager.t('stop') : '停止';
+            toggle.textContent = '停止';
             toggle.style.borderColor = '#ff453a';
             toggle.style.color = '#ff453a';
             statusIcon.classList.add('active');
-            statusInfo.setAttribute('data-i18n', 'ssh-running-port');
-            statusInfo.textContent = languageManager ? languageManager.t('ssh-running-port') : '运行中 - 端口 22';
-            this.showNotification(languageManager ? languageManager.t('ssh-service-started') : 'SSH服务已启动');
+            statusInfo.textContent = '运行中 - 端口 22';
+            this.showNotification('SSH服务已启动');
         }
     }
 
     disconnectSSHConnection() {
-        const languageManager = window.languageManager;
-        this.showNotification(languageManager ? languageManager.t('ssh-connection-disconnected') : 'SSH连接已断开');
+        this.showNotification('SSH连接已断开');
         // 这里可以实现实际的断开连接逻辑
+    }
+
+    // 加载系统管理
+    loadSystemManagement() {
+        this.setupSystemManagementEvents();
+    }
+
+    setupSystemManagementEvents() {
+        // 重启系统按钮
+        const restartBtn = document.querySelector('.control-button.restart');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', () => {
+                this.confirmSystemAction('重启系统', '确定要重启系统吗？');
+            });
+        }
+
+        // 关闭系统按钮
+        const shutdownBtn = document.querySelector('.control-button.shutdown');
+        if (shutdownBtn) {
+            shutdownBtn.addEventListener('click', () => {
+                this.confirmSystemAction('关闭系统', '确定要关闭系统吗？');
+            });
+        }
+
+        // 系统更新按钮
+        const updateBtn = document.querySelector('.control-button.update');
+        if (updateBtn) {
+            updateBtn.addEventListener('click', () => {
+                this.showNotification('正在检查系统更新...');
+            });
+        }
+
+        // 服务按钮
+        const serviceButtons = document.querySelectorAll('.service-button');
+        serviceButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.showNotification(`${btn.textContent}服务功能开发中...`);
+            });
+        });
+    }
+
+    confirmSystemAction(action, message) {
+        if (confirm(message)) {
+            this.showNotification(`${action}命令已发送`);
+            // 这里可以实现实际的系统操作
+        }
+    }
+
+    // 加载MFA设置
+    loadMFASettings() {
+        this.setupMFAEvents();
+    }
+
+    setupMFAEvents() {
+        const mfaButtons = document.querySelectorAll('.mfa-button');
+        mfaButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.showNotification('MFA配置功能开发中...');
+            });
+        });
     }
 
     // 加载DNS设置
@@ -298,6 +451,133 @@ class SystemInfoManager {
     updateSwapDisplay() {
         // 这个方法会在loadSystemInfo中的updateSystemInfo方法中被调用
         // 因为Swap信息已经包含在系统信息API中
+    }
+
+    // 加载到期设置
+    loadExpirySettings() {
+        this.setupExpiryEvents();
+    }
+
+    setupExpiryEvents() {
+        const expiryButtons = document.querySelectorAll('.expiry-button');
+        expiryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.showNotification('到期设置功能开发中...');
+            });
+        });
+    }
+
+    // 加载许可证信息
+    loadLicenseInfo() {
+        this.setupLicenseEvents();
+    }
+
+    setupLicenseEvents() {
+        const licenseButtons = document.querySelectorAll('.license-button');
+        licenseButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.showNotification('许可证管理功能开发中...');
+            });
+        });
+    }
+
+    async loadAlertNotification() {
+        try {
+            const xhr2 = new XMLHttpRequest();
+            xhr2.open('GET', 'api/check-alert', true);
+            xhr2.setRequestHeader('Accept', 'application/json');
+            xhr2.setRequestHeader('Content-Type', 'application/json')
+
+            xhr2.onreadystatechange = () => {
+                if (xhr2.readyState === 4) {
+                    if (xhr2.status === 200) {
+                        try {
+                            const alerts = JSON.parse(xhr2.responseText);
+                            this.updateAlert(alerts);
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                        }
+                    } else{
+                        console.error('HTTP错误:', xhr2.status, xhr2.statusText);
+                    }
+                }
+            };
+            xhr2.onerror = () => {
+                console.error('网络错误');
+            }
+            xhr2.send();
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+        }
+    }
+    updateAlert(alerts) {
+        // 1. 创建新告警的临时集合
+        const newAlertSet = new Set(alerts.map(a => a.alert_code));
+
+        // 2. 移除已消失的告警
+        this.currentAlerts.forEach((_, alertCode) => {
+            if (!newAlertSet.has(alertCode)) {
+                const notification = this.currentAlerts.get(alertCode).notification;
+                if (document.body.contains(notification)) {
+                    closeAlertNotification(notification);
+                }
+                this.currentAlerts.delete(alertCode);
+            }
+        });
+
+        // 3. 处理新告警
+        alerts.forEach(alert => {
+            const {alert_code, description, timestamp, solution} = alert;
+
+            if (this.currentAlerts.has(alert_code)) {
+                // 更新现有告警
+                const existing = this.currentAlerts.get(alert_code);
+                const notification = existing.notification;
+
+                if (document.body.contains(notification)) {
+                    // 追加解决方案（如果存在）
+                    let newMessage = description;
+                    if (solution) {
+                        newMessage += `<br><br><strong>解决方案:</strong> ${solution}`;
+                    }
+
+                    // 更新通知内容
+                    const content = notification.querySelector('.alertNotification-content');
+                    if (content) {
+                        content.querySelector('.alertNotification-message').innerHTML = newMessage;
+                    }
+
+                    // 更新存储的数据
+                    existing.description = description;
+                    existing.solution = solution;
+                }
+            } else {
+                // 创建新告警
+                const alertType = this.alertTypeMap[alert_code] || {type: 'warning', title: '系统告警'};
+
+                // 创建通知
+                const notification = showAlertNotification({
+                    title: `${alertType.title} [${new Date(timestamp).toLocaleTimeString()}]`,
+                    message: description,
+                    type: alertType.type,
+                    duration: -1 // 常驻通知
+                });
+
+                // 存储告警信息
+                this.currentAlerts.set(alert_code, {
+                    notification,
+                    description,
+                    timestamp,
+                    solution
+                });
+            }
+        });
+    }
+    startAutoUpdate() {
+        // 每1秒自动更新一次，提高刷新频率
+        this.updateInterval = setInterval(() => {
+            this.loadAlertNotification();
+        }, 1000);
     }
 
     async loadSystemInfo() {

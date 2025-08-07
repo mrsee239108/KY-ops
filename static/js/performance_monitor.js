@@ -11,6 +11,90 @@ function goBack() {
     }
 }
 
+const alertNotificationContainer = document.getElementById('alertNotification-container');
+
+// 显示通知函数
+function showAlertNotification(options) {
+    // 创建通知元素
+    const alertNotification = document.createElement('div');
+    alertNotification.className = 'alertNotification';
+
+    // 设置类型对应的颜色
+    const colors = {
+                info: '#0078d7',
+        success: '#107c10',
+        warning: '#d83b01',
+        error: '#e81123'
+    };
+    const color = colors[options.type] || '#0078d7';
+
+    // 设置图标
+    const icons = {
+        info: 'ℹ️',
+        success: '✅',
+        warning: '⚠️',
+        error: '❌'
+    };
+    const icon = icons[options.type] || 'ℹ️';
+
+    // 创建通知内容
+    alertNotification.innerHTML = `
+        <div class="alertNotification-icon">${icon}</div>
+        <div class="alertNotification-content">
+            <div class="alertNotification-title">${options.title}</div>
+            <div class="alertNotification-message">${options.message}</div>
+        </div>
+        <button class="alertNotification-close">×</button>
+        <div class="alertNotification-progress"></div>
+    `;
+
+    // 设置边框颜色
+    alertNotification.style.borderLeftColor = color;
+
+    // 添加到容器
+    alertNotificationContainer.appendChild(alertNotification);
+
+    // 显示通知
+    setTimeout(() => {
+        alertNotification.classList.add('show');
+
+        // 设置进度条动画
+        const progressBar = alertNotification.querySelector('.alertNotification-progress');
+        if (progressBar) {
+            progressBar.style.transition = `transform ${options.duration}s linear`;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+    }, 10);
+
+    // 设置关闭事件
+    const closeBtn = alertNotification.querySelector('.alertNotification-close');
+    closeBtn.addEventListener('click', () => {
+        closeAlertNotification(alertNotification);
+    });
+
+    // 自动关闭
+    if (options.duration > 0) {
+        setTimeout(() => {
+            closeAlertNotification(alertNotification);
+            }, options.duration * 1000);
+    }
+
+    // 返回通知元素，以便外部控制
+    return alertNotification;
+}
+
+        // 关闭通知
+function closeAlertNotification(alertNotification) {
+    alertNotification.classList.remove('show');
+    alertNotification.classList.add('hide');
+
+    // 动画结束后移除元素
+    setTimeout(() => {
+        if (alertNotification.parentNode) {
+            alertNotification.parentNode.removeChild(alertNotification);
+        }
+    }, 400);
+}
 class PerformanceMonitor {
     constructor() {
         console.log('PerformanceMonitor构造函数开始执行...');
@@ -24,6 +108,15 @@ class PerformanceMonitor {
             network: []
         };
         this.maxDataPoints = 60; // 保留60个数据点
+        this.currentAlerts = new Map(); // 存储当前活动的告警
+        this.alertTypeMap = {
+            'cpu-overload': { type: 'warning', title: 'CPU 过载' },
+            'memory-overload': { type: 'error', title: '内存不足' },
+            'disk-space-overload': { type: 'error', title: '磁盘空间不足' },
+            'disk-io-overload': { type: 'warning', title: '磁盘IO过载' },
+            'network-overload': { type: 'warning', title: '网络过载' },
+            'high-process-load': { type: 'info', title: '高进程负载' }
+        };
         console.log('PerformanceMonitor属性初始化完成，开始调用init()...');
         this.init();
     }
@@ -47,9 +140,10 @@ class PerformanceMonitor {
         
         this.loadPerformanceData();
         console.log('首次数据加载完成');
+        this.loadAlertNotification();
+        console.log('首次状态加载成功');
         this.startAutoUpdate();
         console.log('自动更新启动完成');
-        
         // 初始化主题图标
         setTimeout(() => {
             this.updateThemeIcon();
@@ -441,6 +535,36 @@ class PerformanceMonitor {
         });
     }
 
+    async loadAlertNotification() {
+        try {
+            const xhr2 = new XMLHttpRequest();
+            xhr2.open('GET', 'api/check-alert', true);
+            xhr2.setRequestHeader('Accept', 'application/json');
+            xhr2.setRequestHeader('Content-Type', 'application/json')
+
+            xhr2.onreadystatechange = () => {
+                if (xhr2.readyState === 4) {
+                    if (xhr2.status === 200) {
+                        try {
+                            const alerts = JSON.parse(xhr2.responseText);
+                            this.updateAlert(alerts);
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                        }
+                    } else{
+                        console.error('HTTP错误:', xhr2.status, xhr2.statusText);
+                    }
+                }
+            };
+            xhr2.onerror = () => {
+                console.error('网络错误');
+            }
+            xhr2.send();
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+        }
+    }
+
     async loadPerformanceData() {
         try {
             console.log('开始加载性能数据...', new Date().toLocaleTimeString());
@@ -450,7 +574,6 @@ class PerformanceMonitor {
             xhr.open('GET', '/api/performance-data', true);
             xhr.setRequestHeader('Accept', 'application/json');
             xhr.setRequestHeader('Content-Type', 'application/json');
-            
             console.log('XMLHttpRequest已配置，准备发送请求...');
             
             xhr.onreadystatechange = () => {
@@ -465,12 +588,10 @@ class PerformanceMonitor {
                             this.updateUI(data);
                         } catch (parseError) {
                             console.error('解析JSON失败:', parseError);
-                            console.log('使用模拟数据...');
                             //this.generateMockData();
                         }
                     } else {
                         console.error('HTTP错误:', xhr.status, xhr.statusText);
-                        console.log('使用模拟数据...');
                         //this.generateMockData();
                     }
                 }
@@ -478,15 +599,12 @@ class PerformanceMonitor {
             
             xhr.onerror = () => {
                 console.error('网络错误');
-                console.log('使用模拟数据...');
                 //this.generateMockData();
             };
             
             xhr.send(); // 使用异步请求
-            
         } catch (error) {
             console.error('加载性能数据失败:', error);
-            console.log('使用模拟数据继续运行...');
             // 使用模拟数据继续运行
             //this.generateMockData();
         }
@@ -547,6 +665,70 @@ class PerformanceMonitor {
 
         this.updatePerformanceData(mockData);
         this.updateUI(mockData);
+    }
+
+    updateAlert(alerts) {
+        // 1. 创建新告警的临时集合
+        const newAlertSet = new Set(alerts.map(a => a.alert_code));
+
+        // 2. 移除已消失的告警
+        this.currentAlerts.forEach((_, alertCode) => {
+            if (!newAlertSet.has(alertCode)) {
+                const notification = this.currentAlerts.get(alertCode).notification;
+                if (document.body.contains(notification)) {
+                    closeAlertNotification(notification);
+                }
+                this.currentAlerts.delete(alertCode);
+            }
+        });
+
+        // 3. 处理新告警
+        alerts.forEach(alert => {
+            const {alert_code, description, timestamp, solution} = alert;
+
+            if (this.currentAlerts.has(alert_code)) {
+                // 更新现有告警
+                const existing = this.currentAlerts.get(alert_code);
+                const notification = existing.notification;
+
+                if (document.body.contains(notification)) {
+                    // 追加解决方案（如果存在）
+                    let newMessage = description;
+                    if (solution) {
+                        newMessage += `<br><br><strong>解决方案:</strong> ${solution}`;
+                    }
+
+                    // 更新通知内容
+                    const content = notification.querySelector('.alertNotification-content');
+                    if (content) {
+                        content.querySelector('.alertNotification-message').innerHTML = newMessage;
+                    }
+
+                    // 更新存储的数据
+                    existing.description = description;
+                    existing.solution = solution;
+                }
+            } else {
+                // 创建新告警
+                const alertType = this.alertTypeMap[alert_code] || {type: 'warning', title: '系统告警'};
+
+                // 创建通知
+                const notification = showAlertNotification({
+                    title: `${alertType.title} [${new Date(timestamp).toLocaleTimeString()}]`,
+                    message: description,
+                    type: alertType.type,
+                    duration: -1 // 常驻通知
+                });
+
+                // 存储告警信息
+                this.currentAlerts.set(alert_code, {
+                    notification,
+                    description,
+                    timestamp,
+                    solution
+                });
+            }
+        });
     }
 
     updatePerformanceData(data) {
@@ -885,70 +1067,6 @@ class PerformanceMonitor {
         this.updateElement('cpu-cores-logical', data.cpu_count_logical || 'N/A');
     }
 
-    updateCoreFrequencies(cores) {
-        // 查找或创建核心频率显示容器
-        let coreFreqContainer = document.getElementById('cpu-core-frequencies');
-        if (!coreFreqContainer) {
-            // 在CPU详细信息区域添加核心频率显示
-            const cpuDetailsContainer = document.querySelector('.cpu-details') || document.querySelector('.performance-details');
-            if (cpuDetailsContainer) {
-                const coreFreqSection = document.createElement('div');
-                coreFreqSection.className = 'core-frequencies-section';
-                coreFreqSection.innerHTML = `
-                    <h3>核心频率 (实时)</h3>
-                    <div class="core-frequencies-grid" id="cpu-core-frequencies"></div>
-                `;
-                cpuDetailsContainer.appendChild(coreFreqSection);
-                coreFreqContainer = document.getElementById('cpu-core-frequencies');
-            }
-        }
-        
-        if (!coreFreqContainer) return;
-        
-        // 检查是否需要重建核心频率显示
-        const existingCores = coreFreqContainer.querySelectorAll('.core-freq-item');
-        
-        if (existingCores.length !== cores.length) {
-            // 重建核心频率显示
-            coreFreqContainer.innerHTML = '';
-            cores.forEach((core, index) => {
-                const coreItem = document.createElement('div');
-                coreItem.className = 'core-freq-item';
-                
-                let freqText = 'N/A';
-                if (core.frequency > 0) {
-                    if (core.frequency >= 1000) {
-                        freqText = `${(core.frequency / 1000).toFixed(2)} GHz`;
-                    } else {
-                        freqText = `${Math.round(core.frequency)} MHz`;
-                    }
-                }
-                
-                coreItem.innerHTML = `
-                    <div class="core-name">${core.core || `Core ${index + 1}`}</div>
-                    <div class="core-frequency" id="core-freq-${index}">${freqText}</div>
-                `;
-                coreFreqContainer.appendChild(coreItem);
-            });
-        } else {
-            // 只更新频率数值
-            cores.forEach((core, index) => {
-                const freqElement = document.getElementById(`core-freq-${index}`);
-                if (freqElement) {
-                    let freqText = 'N/A';
-                    if (core.frequency > 0) {
-                        if (core.frequency >= 1000) {
-                            freqText = `${(core.frequency / 1000).toFixed(2)} GHz`;
-                        } else {
-                            freqText = `${Math.round(core.frequency)} MHz`;
-                        }
-                    }
-                    freqElement.textContent = freqText;
-                }
-            });
-        }
-    }
-
     updateTopProcesses(processes) {
         const container = document.getElementById('top-processes');
         if (!container || !Array.isArray(processes)) return;
@@ -1113,10 +1231,11 @@ updateNetworkInterfaces(interfaces) {
     }
 
     startAutoUpdate() {
-        // 每2秒自动更新一次，提高刷新频率
+        // 每1秒自动更新一次，提高刷新频率
         this.updateInterval = setInterval(() => {
             this.loadPerformanceData();
-        }, 2000);
+            this.loadAlertNotification();
+        }, 1000);
     }
 
     stopAutoUpdate() {

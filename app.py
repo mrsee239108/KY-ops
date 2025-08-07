@@ -1,3 +1,5 @@
+import threading
+
 from extune import common
 from flask import Flask, render_template, jsonify, request, send_file, make_response, Response
 import psutil
@@ -735,6 +737,144 @@ def get_system_info():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+# 性能报警全局数据结构
+performanceAlert = []  # 存储当前活动的报警
+alert_history = {}  # 存储报警最后触发时间 {alert_code: timestamp}
+alert_lock = threading.Lock()  # 线程安全锁
+
+# 报警阈值配置
+ALERT_THRESHOLDS = {
+    "cpu-overload": 85.0,  # CPU使用率阈值(%)
+    "memory-overload": 90.0,  # 内存使用率阈值(%)
+    "disk-space-overload": 90.0,  # 磁盘空间使用率阈值(%)
+    "disk-io-overload": 80.0,  # 磁盘IO利用率阈值(%)
+    "network-overload": 80.0,  # 网络带宽利用率阈值(%)
+    "high-process-load": 50.0,  # 单个进程CPU占用阈值(%)
+}
+
+# 报警清除时间(秒)
+ALERT_CLEAR_TIME = 300  # 5分钟内无再次触发则清除
+
+
+@app.route('/api/check-alert')
+def check_alert():
+    try:
+        current_time = time.time()
+
+        # 1. 清除过期的报警
+        with alert_lock:
+            # 移除超过清除时间的报警
+            performanceAlert[:] = [alert for alert in performanceAlert
+                                   if current_time - alert_history.get(alert["alert_code"], 0) <= ALERT_CLEAR_TIME]
+
+            # 更新报警历史中过期的条目
+            for code in list(alert_history.keys()):
+                if current_time - alert_history[code] > ALERT_CLEAR_TIME:
+                    del alert_history[code]
+
+        # 2. 获取实时性能数据
+        # 使用GlobalCall的实时数据（参考/api/performance-data的实现）
+        try:
+            # 获取CPU数据
+            cpu_data = GlobalCall.real_time_cpu_data
+            if not cpu_data:
+                return jsonify(performanceAlert)
+
+            # 获取内存数据
+            memory_data = GlobalCall.real_time_mem_data
+            if not memory_data:
+                return jsonify(performanceAlert)
+
+            # 获取磁盘数据
+            disk_data = GlobalCall.real_time_disk_data
+            if not disk_data:
+                return jsonify(performanceAlert)
+
+            # 获取网络数据
+            net_data = GlobalCall.real_time_net_data
+            if not net_data:
+                return jsonify(performanceAlert)
+
+        except Exception as e:
+            print(f"获取性能数据失败: {e}")
+            return jsonify(performanceAlert)
+
+        # 3. 检查各项阈值
+        with alert_lock:
+            # 检查CPU负载
+            if cpu_data['total_usage'] > ALERT_THRESHOLDS["cpu-overload"]:
+                update_alert("cpu-overload",
+                             f"CPU使用率过高: {cpu_data['total_usage']:.2f}%",
+                             current_time)
+
+            # 检查内存使用
+            if memory_data['mem_percent'] > ALERT_THRESHOLDS["memory-overload"]:
+                update_alert("memory-overload",
+                             f"内存使用率过高: {memory_data['mem_percent']:.2f}%",
+                             current_time)
+
+            # 检查磁盘空间
+            for partition in disk_data['disk_usage']:
+                if partition['percent'] > ALERT_THRESHOLDS["disk-space-overload"]:
+                    update_alert("disk-space-overload",
+                                 f"磁盘 {partition['mountpoint']} 空间不足: {partition['percent']:.2f}%",
+                                 current_time)
+
+            # 检查磁盘IO
+            max_io_util = 0.0
+            for device, stats in disk_data['disk_io'].items():
+                if 'utilization' in stats and stats['utilization'] > max_io_util:
+                    max_io_util = stats['utilization']
+
+            if max_io_util > ALERT_THRESHOLDS["disk-io-overload"]:
+                update_alert("disk-io-overload",
+                             f"磁盘IO负载过高: {max_io_util:.2f}%",
+                             current_time)
+
+            # 检查网络负载
+            net_util = max(net_data.get('total_rx_speed', 0), net_data.get('total_tx_speed', 0))
+            if net_util > ALERT_THRESHOLDS["network-overload"]:
+                update_alert("network-overload",
+                             f"网络负载过高: {(net_util / 1024 /1024):.2f} MB/s",
+                             current_time)
+
+            # 检查高负载进程
+            for proc in cpu_data.get('top_processes', [])[:5]:  # 检查前5个高负载进程
+                if proc.get('cpu_percent', 0) > ALERT_THRESHOLDS["high-process-load"]:
+                    update_alert("high-process-load",
+                                 f"进程 {proc.get('command', '未知')} 占用过高CPU: {proc['cpu_percent']:.2f}%",
+                                 current_time)
+
+        return jsonify(performanceAlert)
+
+    except Exception as e:
+        print(f"报警检查错误: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+def update_alert(alert_code, description, timestamp):
+    """更新报警状态"""
+    # 更新报警最后触发时间
+    alert_history[alert_code] = timestamp
+
+    # 检查是否已存在该报警
+    existing_alert = next((a for a in performanceAlert if a["alert_code"] == alert_code), None)
+
+    if existing_alert:
+        # 更新现有报警
+        existing_alert["description"] = description
+        existing_alert["timestamp"] = timestamp
+    else:
+        # 创建新报警
+        new_alert = {
+            "alert_code": alert_code,
+            "description": description,
+            "timestamp": timestamp,
+            "solution": ""  # 初始为空，由AI后续生成
+        }
+        performanceAlert.append(new_alert)
 
 @app.route('/api/processes')
 def get_processes():

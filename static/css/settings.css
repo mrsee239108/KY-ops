@@ -9,6 +9,124 @@
     overflow: hidden;
 }
 
+/* 通知容器样式 */
+#alertNotification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 1000;
+    max-width: 350px;
+    transition: all 0.3s ease;
+}
+
+/* 通知样式 - Windows 10风格 */
+.alertNotification {
+    position: relative;
+    width: 100%;
+    background: #202020;
+    border-left: 5px solid #0078d7;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    max-height: 0;
+    margin-bottom: -50px;
+}
+
+.alertNotification.show {
+    opacity: 1;
+    transform: translateX(0);
+    max-height: 200px;
+    margin-bottom: 0;
+}
+
+.alertNotification-icon {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+    color: #0078d7;
+}
+
+.alertNotification-content {
+    flex: 1;
+    padding: 15px 15px 15px 0;
+}
+
+.alertNotification-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #f0f0f0;
+}
+
+.alertNotification-message {
+    font-size: 13px;
+    color: #d0d0d0;
+    line-height: 1.5;
+}
+
+.alertNotification-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    font-size: 16px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.alertNotification-close:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.alertNotification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #0078d7;
+    width: 100%;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform linear;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    #alertNotification-container {
+        max-width: 300px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
 /* 标题栏 */
 .title-bar {
     height: 40px;

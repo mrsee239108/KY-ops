@@ -32,10 +32,46 @@ class AIChatInterface {
             this.checkInitialAIStatus();
         }, 1000);
         
+        // 初始化主题图标
+        setTimeout(() => {
+           this.updateThemeIcon();
+        }, 100);
         console.log('AI 对话界面已初始化');
     }
+    
+    // 切换主题
+    toggleTheme() {
+    if (window.themeManager) {
+        window.themeManager.toggleTheme();
+        this.updateThemeIcon();
+    }
+}
+
+updateThemeIcon() {
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn && window.themeManager) {
+        const icon = themeToggleBtn.querySelector('i');
+        const currentTheme = window.themeManager.getCurrentTheme();
+        
+        if (currentTheme === 'light') {
+            icon.className = 'fas fa-sun';
+            themeToggleBtn.title = '切换到深色模式';
+        } else {
+            icon.className = 'fas fa-moon';
+            themeToggleBtn.title = '切换到浅色模式';
+        }
+    }
+}
 
     setupEventListeners() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // 消息输入框事件
         const messageInput = document.getElementById('message-input');
         if (messageInput) {

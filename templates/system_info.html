@@ -54,14 +54,6 @@
                         <i class="fas fa-chart-bar"></i>
                         <span data-i18n="ssh-management">SSH管理</span>
                     </div>
-                    <div class="nav-item" data-nav="system-management">
-                        <i class="fas fa-cogs"></i>
-                        <span data-i18n="system-management">系统管理</span>
-                    </div>
-                    <div class="nav-item" data-nav="mfa">
-                        <i class="fas fa-shield-alt"></i>
-                        <span data-i18n="mfa">MFA</span>
-                    </div>
                     <div class="nav-item" data-nav="dns-settings">
                         <i class="fas fa-network-wired"></i>
                         <span data-i18n="dns-settings">DNS设置</span>
@@ -69,14 +61,6 @@
                     <div class="nav-item" data-nav="swap-memory">
                         <i class="fas fa-memory"></i>
                         <span data-i18n="swap-memory">Swap虚拟内存</span>
-                    </div>
-                    <div class="nav-item" data-nav="expiry-settings">
-                        <i class="fas fa-clock"></i>
-                        <span data-i18n="expiry-settings">到期设置</span>
-                    </div>
-                    <div class="nav-item" data-nav="license">
-                        <i class="fas fa-certificate"></i>
-                        <span data-i18n="license">许可证</span>
                     </div>
                 </nav>
             </div>
@@ -255,65 +239,6 @@
                         </div>
                     </div>
 
-                    <!-- 系统管理面板 -->
-                    <div class="content-panel" id="system-management-panel">
-                        <div class="panel-header">
-                            <h3><i class="fas fa-cogs"></i> <span data-i18n="system-management-title">系统管理</span></h3>
-                            <p data-i18n="system-management-desc">系统服务和进程管理</p>
-                        </div>
-                        <div class="system-management-content">
-                            <div class="service-controls">
-                                <div class="control-group">
-                                    <h4 data-i18n="system-control">系统控制</h4>
-                                    <div class="control-buttons">
-                                        <button class="control-button restart"><i class="fas fa-redo"></i> <span data-i18n="restart-system">重启系统</span></button>
-                                        <button class="control-button shutdown"><i class="fas fa-power-off"></i> <span data-i18n="shutdown-system">关闭系统</span></button>
-                                        <button class="control-button update"><i class="fas fa-download"></i> <span data-i18n="system-update">系统更新</span></button>
-                                    </div>
-                                </div>
-                                <div class="service-list">
-                                    <h4 data-i18n="system-services">系统服务</h4>
-                                    <div class="service-item">
-                                        <span class="service-name">nginx</span>
-                                        <span class="service-status running" data-i18n="running">运行中</span>
-                                        <div class="service-actions">
-                                            <button class="service-button" data-i18n="restart">重启</button>
-                                            <button class="service-button" data-i18n="stop">停止</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- MFA面板 -->
-                    <div class="content-panel" id="mfa-panel">
-                        <div class="panel-header">
-                            <h3><i class="fas fa-shield-alt"></i> <span data-i18n="mfa-title">多因素认证 (MFA)</span></h3>
-                            <p data-i18n="mfa-desc">增强账户安全性</p>
-                        </div>
-                        <div class="mfa-content">
-                            <div class="mfa-status">
-                                <div class="mfa-card">
-                                    <div class="mfa-icon"><i class="fas fa-mobile-alt"></i></div>
-                                    <div class="mfa-info">
-                                        <h4 data-i18n="totp-authenticator">TOTP认证器</h4>
-                                        <p class="mfa-status-text disabled" data-i18n="not-enabled">未启用</p>
-                                    </div>
-                                    <button class="mfa-button" data-i18n="enable">启用</button>
-                                </div>
-                                <div class="mfa-card">
-                                    <div class="mfa-icon"><i class="fas fa-key"></i></div>
-                                    <div class="mfa-info">
-                                        <h4 data-i18n="hardware-key">硬件密钥</h4>
-                                        <p class="mfa-status-text disabled" data-i18n="not-configured">未配置</p>
-                                    </div>
-                                    <button class="mfa-button" data-i18n="configure">配置</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- DNS设置面板 -->
                     <div class="content-panel" id="dns-settings-panel">
                         <div class="panel-header">
@@ -361,72 +286,6 @@
                                             <span class="label" data-i18n="usage-rate">使用率:</span>
                                             <span class="value" id="swap-percent" data-i18n="loading">加载中...</span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 到期设置面板 -->
-                    <div class="content-panel" id="expiry-settings-panel">
-                        <div class="panel-header">
-                            <h3><i class="fas fa-clock"></i> <span data-i18n="expiry-settings-title">到期设置</span></h3>
-                            <p data-i18n="expiry-settings-desc">管理系统和服务到期时间</p>
-                        </div>
-                        <div class="expiry-content">
-                            <div class="expiry-list">
-                                <div class="expiry-item">
-                                    <div class="expiry-icon"><i class="fas fa-certificate"></i></div>
-                                    <div class="expiry-info">
-                                        <h4 data-i18n="ssl-certificate">SSL证书</h4>
-                                        <p data-i18n="expiry-time">到期时间: 2024-12-31</p>
-                                        <span class="expiry-status warning" data-i18n="expires-in-30-days">30天后到期</span>
-                                    </div>
-                                    <button class="expiry-button" data-i18n="renew">续期</button>
-                                </div>
-                                <div class="expiry-item">
-                                    <div class="expiry-icon"><i class="fas fa-key"></i></div>
-                                    <div class="expiry-info">
-                                        <h4 data-i18n="license-expiry">许可证</h4>
-                                        <p data-i18n="license-expiry-time">到期时间: 2025-06-15</p>
-                                        <span class="expiry-status safe" data-i18n="expires-in-180-days">180天后到期</span>
-                                    </div>
-                                    <button class="expiry-button" data-i18n="view-details">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 许可证面板 -->
-                    <div class="content-panel" id="license-panel">
-                        <div class="panel-header">
-                            <h3><i class="fas fa-certificate"></i> <span data-i18n="license-management">许可证管理</span></h3>
-                            <p data-i18n="license-management-desc">查看和管理系统许可证</p>
-                        </div>
-                        <div class="license-content">
-                            <div class="license-info">
-                                <div class="license-card">
-                                    <div class="license-header">
-                                        <h4 data-i18n="system-license">系统许可证</h4>
-                                        <span class="license-status active" data-i18n="valid">有效</span>
-                                    </div>
-                                    <div class="license-details">
-                                        <div class="license-detail">
-                                            <span class="label" data-i18n="license-type">许可证类型:</span>
-                                            <span class="value" data-i18n="enterprise">企业版</span>
-                                        </div>
-                                        <div class="license-detail">
-                                            <span class="label" data-i18n="authorized-users">授权用户:</span>
-                                            <span class="value" data-i18n="unlimited">无限制</span>
-                                        </div>
-                                        <div class="license-detail">
-                                            <span class="label" data-i18n="expiry-date">到期时间:</span>
-                                            <span class="value">2025-06-15</span>
-                                        </div>
-                                    </div>
-                                    <div class="license-actions">
-                                        <button class="license-button" data-i18n="update-license">更新许可证</button>
-                                        <button class="license-button secondary" data-i18n="export-license">导出许可证</button>
                                     </div>
                                 </div>
                             </div>

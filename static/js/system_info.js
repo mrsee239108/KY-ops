@@ -107,14 +107,6 @@ class SystemInfoManager {
                 targetPanel = document.getElementById('ssh-management-panel');
                 this.loadSSHManagement();
                 break;
-            case 'system-management':
-                targetPanel = document.getElementById('system-management-panel');
-                this.loadSystemManagement();
-                break;
-            case 'mfa':
-                targetPanel = document.getElementById('mfa-panel');
-                this.loadMFASettings();
-                break;
             case 'dns-settings':
                 targetPanel = document.getElementById('dns-settings-panel');
                 this.loadDNSSettings();
@@ -122,14 +114,6 @@ class SystemInfoManager {
             case 'swap-memory':
                 targetPanel = document.getElementById('swap-memory-panel');
                 this.loadSwapMemoryInfo();
-                break;
-            case 'expiry-settings':
-                targetPanel = document.getElementById('expiry-settings-panel');
-                this.loadExpirySettings();
-                break;
-            case 'license':
-                targetPanel = document.getElementById('license-panel');
-                this.loadLicenseInfo();
                 break;
             default:
                 targetPanel = document.getElementById('system-status-panel');
@@ -263,66 +247,6 @@ class SystemInfoManager {
         // 这里可以实现实际的断开连接逻辑
     }
 
-    // 加载系统管理
-    loadSystemManagement() {
-        this.setupSystemManagementEvents();
-    }
-
-    setupSystemManagementEvents() {
-        // 重启系统按钮
-        const restartBtn = document.querySelector('.control-button.restart');
-        if (restartBtn) {
-            restartBtn.addEventListener('click', () => {
-                this.confirmSystemAction('重启系统', '确定要重启系统吗？');
-            });
-        }
-
-        // 关闭系统按钮
-        const shutdownBtn = document.querySelector('.control-button.shutdown');
-        if (shutdownBtn) {
-            shutdownBtn.addEventListener('click', () => {
-                this.confirmSystemAction('关闭系统', '确定要关闭系统吗？');
-            });
-        }
-
-        // 系统更新按钮
-        const updateBtn = document.querySelector('.control-button.update');
-        if (updateBtn) {
-            updateBtn.addEventListener('click', () => {
-                this.showNotification('正在检查系统更新...');
-            });
-        }
-
-        // 服务按钮
-        const serviceButtons = document.querySelectorAll('.service-button');
-        serviceButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification(`${btn.textContent}服务功能开发中...`);
-            });
-        });
-    }
-
-    confirmSystemAction(action, message) {
-        if (confirm(message)) {
-            this.showNotification(`${action}命令已发送`);
-            // 这里可以实现实际的系统操作
-        }
-    }
-
-    // 加载MFA设置
-    loadMFASettings() {
-        this.setupMFAEvents();
-    }
-
-    setupMFAEvents() {
-        const mfaButtons = document.querySelectorAll('.mfa-button');
-        mfaButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('MFA配置功能开发中...');
-            });
-        });
-    }
-
     // 加载DNS设置
     loadDNSSettings() {
         this.setupDNSEvents();
@@ -374,34 +298,6 @@ class SystemInfoManager {
     updateSwapDisplay() {
         // 这个方法会在loadSystemInfo中的updateSystemInfo方法中被调用
         // 因为Swap信息已经包含在系统信息API中
-    }
-
-    // 加载到期设置
-    loadExpirySettings() {
-        this.setupExpiryEvents();
-    }
-
-    setupExpiryEvents() {
-        const expiryButtons = document.querySelectorAll('.expiry-button');
-        expiryButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('到期设置功能开发中...');
-            });
-        });
-    }
-
-    // 加载许可证信息
-    loadLicenseInfo() {
-        this.setupLicenseEvents();
-    }
-
-    setupLicenseEvents() {
-        const licenseButtons = document.querySelectorAll('.license-button');
-        licenseButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('许可证管理功能开发中...');
-            });
-        });
     }
 
     async loadSystemInfo() {

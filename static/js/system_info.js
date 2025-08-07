@@ -183,31 +183,31 @@ class SystemInfoManager {
         });
 
         // 根据导航项显示对应面板
-        const navText = navItem.querySelector('span').textContent;
+        const navType = navItem.getAttribute('data-nav');
         let targetPanel = null;
 
-        switch(navText) {
-            case '系统状态':
+        switch(navType) {
+            case 'system-status':
                 targetPanel = document.getElementById('system-status-panel');
                 this.loadSystemInfo();
                 break;
-            case '个性化':
+            case 'personalization':
                 targetPanel = document.getElementById('personalization-panel');
                 this.loadPersonalizationSettings();
                 break;
-            case '用户管理':
+            case 'user-management':
                 targetPanel = document.getElementById('user-management-panel');
                 this.loadUserManagement();
                 break;
-            case 'SSH管理':
+            case 'ssh-management':
                 targetPanel = document.getElementById('ssh-management-panel');
                 this.loadSSHManagement();
                 break;
-            case 'DNS设置':
+            case 'dns-settings':
                 targetPanel = document.getElementById('dns-settings-panel');
                 this.loadDNSSettings();
                 break;
-            case 'Swap虚拟内存':
+            case 'swap-memory':
                 targetPanel = document.getElementById('swap-memory-panel');
                 this.loadSwapMemoryInfo();
                 break;
@@ -222,13 +222,41 @@ class SystemInfoManager {
         }
 
         // 更新面包屑
-        this.updateBreadcrumb(navText);
+        this.updateBreadcrumb(navType);
     }
 
-    updateBreadcrumb(title) {
+    updateBreadcrumb(navType) {
         const breadcrumb = document.querySelector('.breadcrumb span');
         if (breadcrumb) {
-            breadcrumb.textContent = title;
+            // 根据导航类型设置对应的i18n键
+            let i18nKey = '';
+            switch(navType) {
+                case 'system-status':
+                    i18nKey = 'system-status';
+                    break;
+                case 'personalization':
+                    i18nKey = 'personalization';
+                    break;
+                case 'user-management':
+                    i18nKey = 'user-management';
+                    break;
+                case 'ssh-management':
+                    i18nKey = 'ssh-management';
+                    break;
+                case 'dns-settings':
+                    i18nKey = 'dns-settings';
+                    break;
+                case 'swap-memory':
+                    i18nKey = 'swap-memory';
+                    break;
+                default:
+                    i18nKey = 'system-info';
+            }
+            breadcrumb.setAttribute('data-i18n', i18nKey);
+            // 如果语言管理器存在，立即应用翻译
+            if (window.languageManager) {
+                breadcrumb.textContent = window.languageManager.translate(i18nKey);
+            }
         }
     }
 

@@ -130,15 +130,12 @@ class AIChatInterface {
 
         this.startAutoUpdate();
         
-<<<<<<< Updated upstream
         // 初始化主题图标
         setTimeout(() => {
            this.updateThemeIcon();
         }, 100);
-        console.log('AI 对话界面已初始化');
-=======
-        console.log(languageManager ? languageManager.getText('ai-chat-interface-initialized') : 'AI 对话界面已初始化');
->>>>>>> Stashed changes
+        
+        console.log(languageManager ? languageManager.translate('ai-chat-interface-initialized') : 'AI 对话界面已初始化');
     }
     
     // 切换主题
@@ -737,10 +734,10 @@ updateThemeIcon() {
 
 
         const actions = {
-            'system-check': languageManager ? languageManager.getText('ai-chat-system-check-prompt') : '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
-            'performance-analysis': languageManager ? languageManager.getText('ai-chat-performance-analysis-prompt') : '请分析当前系统性能，给出优化建议',
-            'security-scan': languageManager ? languageManager.getText('ai-chat-security-scan-prompt') : '请进行安全扫描，检查系统是否存在安全风险',
-            'log-analysis': languageManager ? languageManager.getText('ai-chat-log-analysis-prompt') : '请帮我分析系统日志，查找可能的问题'
+            'system-check': languageManager ? languageManager.translate('ai-chat-system-check-prompt') : '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
+            'performance-analysis': languageManager ? languageManager.translate('ai-chat-performance-analysis-prompt') : '请分析当前系统性能，给出优化建议',
+            'security-scan': languageManager ? languageManager.translate('ai-chat-security-scan-prompt') : '请进行安全扫描，检查系统是否存在安全风险',
+            'log-analysis': languageManager ? languageManager.translate('ai-chat-log-analysis-prompt') : '请帮我分析系统日志，查找可能的问题'
         };
         
         const message = actions[action];
@@ -1059,5 +1056,8 @@ let aiChat;
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
-    aiChat = new AIChatInterface();
+    // 延迟初始化，确保languageManager和themeManager先被创建
+    setTimeout(() => {
+        aiChat = new AIChatInterface();
+    }, 100);
 });

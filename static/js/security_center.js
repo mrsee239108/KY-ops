@@ -121,34 +121,20 @@ class SecurityCenter {
         this.loadSecurityData();
         this.loadRecommendations();
         this.loadSecurityHistory('today');
-<<<<<<< Updated upstream
-
         this.loadAlertNotification();
-        console.log('首次状态加载成功');
-        this.startAutoUpdate();
-        setTimeout(() => {
-            this.updateThemeIcon();
-        }, 200);
-
-=======
         
         // 应用当前语言翻译（延迟执行确保DOM完全加载）
         setTimeout(() => {
             if (window.languageManager) {
                 window.languageManager.applyLanguage(window.languageManager.getCurrentLanguage());
             }
+            this.updateThemeIcon();
         }, 200);
         
->>>>>>> Stashed changes
         // 定期更新安全状态
         this.updateInterval = setInterval(() => {
             this.loadSecurityData();
         }, 30000); // 每30秒更新一次
-
-        // 初始化主题图标
-        setTimeout(() => {
-            this.updateThemeIcon();
-        }, 100);
     }
 
     setupEventListeners() {
@@ -622,10 +608,83 @@ class SecurityCenter {
     }
 
     showSecurityDetails() {
-        const message = window.languageManager ? 
+        // 创建详情模态框
+        const modal = document.createElement('div');
+        modal.className = 'security-details-modal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+        
+        const content = document.createElement('div');
+        content.className = 'security-details-content';
+        content.style.cssText = `
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            color: var(--text-primary);
+        `;
+        
+        const title = document.createElement('h3');
+        title.textContent = window.languageManager ? 
+            window.languageManager.translate('security-center-security-details').split('\n')[0] : 
+            '安全详情';
+        title.style.cssText = `
+            margin: 0 0 16px 0;
+            color: var(--text-primary);
+            font-size: 18px;
+        `;
+        
+        const details = document.createElement('div');
+        const detailsText = window.languageManager ? 
             window.languageManager.translate('security-center-security-details') : 
             '安全详情\n\n系统安全评分：90/100\n\n详细信息：\n- 防火墙：正常运行\n- 病毒防护：实时保护已启用\n- 系统更新：有可用更新\n- 账户保护：已启用';
-        alert(message);
+        
+        details.innerHTML = detailsText.split('\n').slice(1).join('<br>').replace(/- /g, '• ');
+        details.style.cssText = `
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        `;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '关闭';
+        closeBtn.style.cssText = `
+            background: var(--text-accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+        `;
+        
+        closeBtn.onclick = () => {
+            document.body.removeChild(modal);
+        };
+        
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        };
+        
+        content.appendChild(title);
+        content.appendChild(details);
+        content.appendChild(closeBtn);
+        modal.appendChild(content);
+        document.body.appendChild(modal);
     }
 
     async loadRecommendations() {
@@ -906,19 +965,9 @@ class SecurityCenter {
 }
 
 // 全局变量，供HTML中的onclick使用
-let securityCenter;
-
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 确保languageManager已经初始化
-    setTimeout(() => {
-        securityCenter = new SecurityCenter();
-    }, 100);
-});
-
 // 页面卸载时清理资源
 window.addEventListener('beforeunload', function() {
-    if (securityCenter) {
-        securityCenter.destroy();
+    if (window.securityCenter) {
+        window.securityCenter.destroy();
     }
 });

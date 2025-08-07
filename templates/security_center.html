@@ -257,6 +257,12 @@
             window.languageManager = new LanguageManager();
             window.languageManager.init();
             window.themeManager = new ThemeManager();
+            window.themeManager.init();
+            
+            // 初始化安全中心
+            setTimeout(() => {
+                window.securityCenter = new SecurityCenter();
+            }, 100);
         });
     </script>
 </body>

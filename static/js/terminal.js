@@ -416,22 +416,23 @@ updateThemeIcon() {
 
     displayWelcomeMessage() {
         if (this.terminalOutput) {
+            const t = window.languageManager ? window.languageManager.t.bind(window.languageManager) : (key) => key;
             const welcomeMsg = `
 ╔══════════════════════════════════════════════════════════════╗
-║                    欢迎使用远程终端控制系统                    ║
+║                    ${t('terminal-welcome-system')}                    ║
 ║                                                              ║
-║  功能特性:                                                   ║
-║  • 安全的命令执行环境                                        ║
-║  • 跨平台命令支持 (Windows/Linux)                           ║
-║  • 命令历史记录                                              ║
-║  • 快捷命令按钮                                              ║
-║  • 会话保存功能                                              ║
+║  ${t('terminal-features')}                                                   ║
+║  ${t('terminal-secure-env')}                                        ║
+║  ${t('terminal-cross-platform')}                           ║
+║  ${t('terminal-command-history-feature')}                                              ║
+║  ${t('terminal-quick-commands-feature')}                                              ║
+║  ${t('terminal-session-save')}                                              ║
 ║                                                              ║
-║  输入 'help' 查看可用命令                                    ║
-║  输入 'clear' 清空终端                                       ║
+║  ${t('terminal-help-hint')}                                    ║
+║  ${t('terminal-clear-hint')}                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
-系统初始化完成 - ${new Date().toLocaleString()}
+${t('terminal-system-init')} - ${new Date().toLocaleString()}
             `;
             this.addTerminalLine(welcomeMsg, 'welcome');
         }
@@ -660,57 +661,60 @@ updateThemeIcon() {
     }
 
     showHelp() {
+        const t = window.languageManager ? window.languageManager.t.bind(window.languageManager) : (key) => key;
         const helpText = `
-可用命令:
-  help          - 显示此帮助信息
-  clear/cls     - 清空终端
-  history       - 显示命令历史
-  sysinfo       - 显示系统信息
-  ls/dir        - 列出文件
-  cd            - 切换目录
-  pwd           - 显示当前目录
-  ps/tasklist   - 显示进程
-  ping          - 网络测试
-  ipconfig      - 网络配置
-  whoami        - 显示当前用户
-  date/time     - 显示日期时间
+${t('terminal-available-commands')}
+  ${t('terminal-help-command')}
+  ${t('terminal-clear-command')}
+  ${t('terminal-history-command')}
+  ${t('terminal-sysinfo-command')}
+  ${t('terminal-ls-command')}
+  ${t('terminal-cd-command')}
+  ${t('terminal-pwd-command')}
+  ${t('terminal-ps-command')}
+  ${t('terminal-ping-command')}
+  ${t('terminal-ipconfig-command')}
+  ${t('terminal-whoami-command')}
+  ${t('terminal-date-command')}
 
-快捷键:
-  Ctrl+L        - 清空终端
-  Ctrl+C        - 复制输出
-  ↑/↓           - 浏览历史
-  Tab           - 命令补全
-  Enter         - 执行命令
+${t('terminal-shortcuts')}
+  ${t('terminal-ctrl-l')}
+  ${t('terminal-ctrl-c')}
+  ${t('terminal-arrow-keys')}
+  ${t('terminal-tab-key')}
+  ${t('terminal-enter-key')}
         `;
         this.addTerminalLine(helpText, 'info');
     }
 
     showSystemInfo() {
+        const t = window.languageManager ? window.languageManager.t.bind(window.languageManager) : (key) => key;
         if (this.terminalInfo.system_info) {
             const info = this.terminalInfo.system_info;
             const infoText = `
-系统信息:
-  操作系统: ${info.system || 'N/A'} ${info.release || ''}
-  版本: ${info.version || 'N/A'}
-  架构: ${info.machine || 'N/A'}
-  处理器: ${info.processor || 'N/A'}
-  用户: ${this.terminalInfo.user || 'N/A'}
-  主机名: ${this.terminalInfo.hostname || 'N/A'}
+${t('terminal-system-info')}:
+  ${t('terminal-os')}: ${info.system || 'N/A'} ${info.release || ''}
+  ${t('terminal-version')}: ${info.version || 'N/A'}
+  ${t('terminal-architecture')}: ${info.machine || 'N/A'}
+  ${t('terminal-processor')}: ${info.processor || 'N/A'}
+  ${t('terminal-user')}: ${this.terminalInfo.user || 'N/A'}
+  ${t('terminal-hostname')}: ${this.terminalInfo.hostname || 'N/A'}
   Shell: ${this.terminalInfo.shell || 'N/A'}
             `;
             this.addTerminalLine(infoText, 'info');
         } else {
-            this.addTerminalLine('系统信息不可用', 'error');
+            this.addTerminalLine(t('terminal-system-info-unavailable'), 'error');
         }
     }
 
     showHistory() {
+        const t = window.languageManager ? window.languageManager.t.bind(window.languageManager) : (key) => key;
         if (this.commandHistory.length === 0) {
-            this.addTerminalLine('命令历史为空', 'info');
+            this.addTerminalLine(t('terminal-no-history'), 'info');
             return;
         }
         
-        let historyText = '命令历史:\n';
+        let historyText = `\n${t('terminal-command-history')}:\n`;
         this.commandHistory.forEach((cmd, index) => {
             historyText += `  ${index + 1}. ${cmd}\n`;
         });

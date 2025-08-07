@@ -16,17 +16,17 @@
         <div class="title-bar">
             <div class="title-bar-left">
                 <i class="fas fa-chart-line"></i>
-                <span>性能监控</span>
+                <span data-i18n="performance-monitor-title">性能监控</span>
             </div>
             <div class="title-bar-right">
                 <div class="window-controls">
-                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题">
+                    <button class="control-btn theme-toggle" id="theme-toggle-btn" data-i18n-title="performance-monitor-theme-toggle" title="切换主题">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新">
+                    <button class="control-btn refresh" onclick="refreshPage()" data-i18n-title="performance-monitor-refresh" title="刷新">
                         <i class="fas fa-sync-alt"></i>
                     </button>
-                    <button class="control-btn back" onclick="goBack()" title="返回">
+                    <button class="control-btn back" onclick="goBack()" data-i18n-title="performance-monitor-back" title="返回">
                         <i class="fas fa-arrow-left"></i>
                     </button>
                 </div>
@@ -40,23 +40,23 @@
             <div class="nav-section">
                 <div class="nav-item active" data-section="overview">
                     <i class="fas fa-th-large"></i>
-                    <span>性能</span>
+                    <span data-i18n="performance-monitor-performance">性能</span>
                 </div>
                 <div class="nav-item" data-section="cpu">
                     <i class="fas fa-microchip"></i>
-                    <span>负载</span>
+                    <span data-i18n="performance-monitor-load">负载</span>
                 </div>
                 <div class="nav-item" data-section="memory">
                     <i class="fas fa-memory"></i>
-                    <span>内存</span>
+                    <span data-i18n="performance-monitor-memory">内存</span>
                 </div>
                 <div class="nav-item" data-section="disk">
                     <i class="fas fa-hdd"></i>
-                    <span>磁盘</span>
+                    <span data-i18n="performance-monitor-disk">磁盘</span>
                 </div>
                 <div class="nav-item" data-section="network">
                     <i class="fas fa-network-wired"></i>
-                    <span>网络</span>
+                    <span data-i18n="performance-monitor-network">网络</span>
                 </div>
             </div>
         </div>
@@ -66,9 +66,9 @@
             <!-- 概览页面 -->
             <div class="content-section active" id="overview-section">
                 <div class="section-header">
-                    <h2>负载状态</h2>
+                    <h2 data-i18n="performance-monitor-load-status">负载状态</h2>
                     <div class="load-averages">
-                        <span>负载 ( 100% )</span>
+                        <span data-i18n="performance-monitor-load-percent">负载 ( 100% )</span>
                         <span class="load-percent" id="total-load">100%</span>
                     </div>
                 </div>
@@ -77,12 +77,12 @@
                     <!-- CPU 信息 -->
                     <div class="info-card">
                         <div class="card-header">
-                            <h3>CPU</h3>
+                            <h3 data-i18n="performance-monitor-cpu">CPU</h3>
                             <span class="usage-percent" id="cpu-usage">3.8%</span>
                         </div>
                         <div class="card-content">
                             <div class="cpu-info">
-                                <div class="cpu-model" id="cpu-model">加载中...</div>
+                                <div class="cpu-model" id="cpu-model" data-i18n="performance-monitor-loading">加载中...</div>
                                 <div class="cpu-usage-text" id="cpu-usage-text">0%</div>
                             </div>
                             <div class="chart-container">
@@ -94,12 +94,12 @@
                     <!-- 内存信息 -->
                     <div class="info-card">
                         <div class="card-header">
-                            <h3>内存</h3>
+                            <h3 data-i18n="performance-monitor-memory">内存</h3>
                             <span class="usage-percent" id="memory-usage">21.4%</span>
                         </div>
                         <div class="card-content">
                             <div class="memory-info">
-                                <div class="memory-size" id="memory-size">加载中...</div>
+                                <div class="memory-size" id="memory-size" data-i18n="performance-monitor-loading">加载中...</div>
                                 <div class="memory-usage-text" id="memory-usage-text">0%</div>
                             </div>
                             <div class="chart-container">
@@ -111,12 +111,12 @@
                     <!-- 磁盘信息 -->
                     <div class="info-card">
                         <div class="card-header">
-                            <h3>磁盘 - C</h3>
+                            <h3 data-i18n="performance-monitor-disk-c">磁盘 - C</h3>
                             <span class="usage-percent" id="disk-usage">27%</span>
                         </div>
                         <div class="card-content">
                             <div class="disk-info">
-                                <div class="disk-name">平均使用率</div>
+                                <div class="disk-name" data-i18n="performance-monitor-average-usage">平均使用率</div>
                                 <div class="disk-usage-text", id="disk-usage-text">27%</div>
                             </div>
                             <div class="chart-container">
@@ -128,7 +128,7 @@
                     <!-- 网络信息 -->
                     <div class="info-card">
                         <div class="card-header">
-                            <h3>网络</h3>
+                            <h3 data-i18n="performance-monitor-network">网络</h3>
                             <span class="network-status" id ="network-status">vmxnet3</span>
                         </div>
                         <div class="card-content">
@@ -147,21 +147,21 @@
                 <div class="detailed-stats">
                     <div class="stats-section">
                         <div class="stats-header">
-                            <h3>负载 ( <span id="total-load">0%</span> )</h3>
+                            <h3 data-i18n="performance-monitor-load">负载 ( <span id="total-load">0%</span> )</h3>
                             <span class="stats-value" id="load-count">0</span>
                         </div>
                         <div class="load-averages-detail">
                             <div class="load-item">
-                                <span class="load-label">过去1分钟平均负载</span>
-                                <span class="load-value" id="load-1min">加载中...</span>
+                                <span class="load-label" data-i18n="performance-monitor-load-1min">过去1分钟平均负载</span>
+                                <span class="load-value" id="load-1min" data-i18n="performance-monitor-loading">加载中...</span>
                             </div>
                             <div class="load-item">
-                                <span class="load-label">过去5分钟平均负载</span>
-                                <span class="load-value" id="load-5min">加载中...</span>
+                                <span class="load-label" data-i18n="performance-monitor-load-5min">过去5分钟平均负载</span>
+                                <span class="load-value" id="load-5min" data-i18n="performance-monitor-loading">加载中...</span>
                             </div>
                             <div class="load-item">
-                                <span class="load-label">过去15分钟平均负载</span>
-                                <span class="load-value" id="load-15min">加载中...</span>
+                                <span class="load-label" data-i18n="performance-monitor-load-15min">过去15分钟平均负载</span>
+                                <span class="load-value" id="load-15min" data-i18n="performance-monitor-loading">加载中...</span>
                             </div>
                         </div>
                     </div>
@@ -169,42 +169,56 @@
                     <!-- 进程统计 -->
                     <div class="process-stats">
                         <div class="process-row">
-                            <span class="process-label">user</span>
+                            <span class="process-label" data-i18n="performance-monitor-user">user</span>
                             <span class="process-value" id="usr">1.9</span>
-                            <span class="process-label">nice</span>
+                            <span class="process-label" data-i18n="performance-monitor-nice">nice</span>
                             <span class="process-value" id="nice">0</span>
-                            <span class="process-label">system</span>
+                            <span class="process-label" data-i18n="performance-monitor-system">system</span>
                             <span class="process-value" id="sys">1.4</span>
-                            <span class="process-label">idle</span>
+                            <span class="process-label" data-i18n="performance-monitor-idle">idle</span>
                             <span class="process-value" id="idle">96</span>
-                            <span class="process-label">iowait</span>
+                            <span class="process-label" data-i18n="performance-monitor-iowait">iowait</span>
                             <span class="process-value" id="iowait">0.7</span>
-                            <span class="process-label">irq</span>
+                            <span class="process-label" data-i18n="performance-monitor-irq">irq</span>
                             <span class="process-value" id="irq">0</span>
                         </div>
                         <div class="process-row">
-                            <span class="process-label">softirq</span>
+                            <span class="process-label" data-i18n="performance-monitor-softirq">softirq</span>
                             <span class="process-value" id="soft">0</span>
-                            <span class="process-label">steal</span>
+                            <span class="process-label" data-i18n="performance-monitor-steal">steal</span>
                             <span class="process-value" id="steal">0</span>
-                            <span class="process-label">guest</span>
+                            <span class="process-label" data-i18n="performance-monitor-guest">guest</span>
                             <span class="process-value" id="guest">0</span>
-                            <span class="process-label">guest_nice</span>
+                            <span class="process-label" data-i18n="performance-monitor-guest-nice">guest_nice</span>
                             <span class="process-value" id="gnice">0</span>
-                            <span class="process-label">总进程数</span>
+                            <span class="process-label" data-i18n="performance-monitor-total-processes">总进程数</span>
                             <span class="process-value">136</span>
-                            <span class="process-label">活动进程数</span>
+                            <span class="process-label" data-i18n="performance-monitor-active-processes">活动进程数</span>
                             <span class="process-value">2</span>
                         </div>
                     </div>
 
+<<<<<<< Updated upstream
+=======
+                    <!-- 系统警告 -->
+                    <div class="system-warnings">
+                        <div class="warning-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-i18n="performance-monitor-warnings">检测到异常或低性能的问题：</span>
+                        </div>
+                        <div class="warning-content" data-i18n="performance-monitor-warning-content">
+                            CPU使用率低，性能良好，IO性能正常，swap使用率低，网络连接正常或低负载的系统资源使用状况
+                        </div>
+                    </div>
+                    
+>>>>>>> Stashed changes
 
 
                     <!-- 进程监控 -->
                     <div class="process-section">
                         <div class="section-title">
                             <i class="fas fa-tasks"></i>
-                            <span>CPU占用最高进程</span>
+                            <span data-i18n="performance-monitor-top-processes">CPU占用最高进程</span>
                         </div>
                         <div class="process-list" id="top-processes">
                             <!-- 进程信息将通过JavaScript填充 -->
@@ -215,21 +229,21 @@
                     <div class="battery-section" id="battery-info" style="display: none;">
                         <div class="section-title">
                             <i class="fas fa-battery-half"></i>
-                            <span>电池状态</span>
+                            <span data-i18n="performance-monitor-battery-status">电池状态</span>
                         </div>
                         <div class="battery-details">
                             <div class="battery-item">
-                                <span class="battery-label">电量</span>
+                                <span class="battery-label" data-i18n="performance-monitor-battery-percent">电量</span>
                                 <span class="battery-value" id="battery-percent">N/A</span>
                             </div>
                             <div class="battery-item">
-                                <span class="battery-label">状态</span>
+                                <span class="battery-label" data-i18n="performance-monitor-battery-status-label">状态</span>
                                 <span class="battery-value" id="battery-status">N/A</span>
                             </div>
                             <div class="battery-item">
-                                <span class="battery-label">剩余时间</span>
-                                <span class="battery-value" id="battery-time">N/A</span>
-                            </div>
+                        <span class="battery-label" data-i18n="performance-monitor-battery-time">剩余时间</span>
+                        <span class="battery-value" id="battery-time">N/A</span>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -239,9 +253,9 @@
             <!-- CPU详细页面 -->
             <div class="content-section" id="cpu-section">
                 <div class="section-header">
-                    <h2>CPU 使用率</h2>
+                    <h2 data-i18n="performance-monitor-cpu-usage">CPU 使用率</h2>
                     <div class="cpu-details">
-                        <span id="cpu-details-header">加载中...</span>
+                        <span id="cpu-details-header" data-i18n="performance-monitor-loading">加载中...</span>
                     </div>
                 </div>
                 <div class="detailed-chart-container">
@@ -251,19 +265,19 @@
                 <!-- CPU详细信息 -->
                 <div class="cpu-info-grid">
                     <div class="info-item">
-                        <span class="info-label">物理核心数</span>
+                        <span class="info-label" data-i18n="performance-monitor-physical-cores">物理核心数</span>
                         <span class="info-value" id="cpu-cores-physical">N/A</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">逻辑核心数</span>
+                        <span class="info-label" data-i18n="performance-monitor-logical-cores">逻辑核心数</span>
                         <span class="info-value" id="cpu-cores-logical">N/A</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">当前频率</span>
+                        <span class="info-label" data-i18n="performance-monitor-current-frequency">当前频率</span>
                         <span class="info-value" id="cpu-frequency-current">N/A</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">最大频率</span>
+                        <span class="info-label" data-i18n="performance-monitor-max-frequency">最大频率</span>
                         <span class="info-value" id="cpu-frequency-max">N/A</span>
                     </div>
                 </div>
@@ -276,9 +290,9 @@
             <!-- 内存详细页面 -->
             <div class="content-section" id="memory-section">
                 <div class="section-header">
-                    <h2>内存使用情况</h2>
+                    <h2 data-i18n="performance-monitor-memory-usage">内存使用情况</h2>
                     <div class="memory-details">
-                        <span id="memory-details-header">加载中...</span>
+                        <span id="memory-details-header" data-i18n="performance-monitor-loading">加载中...</span>
                     </div>
                 </div>
                 <div class="detailed-chart-container">
@@ -286,16 +300,16 @@
                 </div>
                 <div class="memory-breakdown">
                     <div class="memory-item">
-                        <span class="memory-type">已使用</span>
-                        <span class="memory-value" id="memory-used">加载中...</span>
+                        <span class="memory-type" data-i18n="performance-monitor-memory-used">已使用</span>
+                        <span class="memory-value" id="memory-used" data-i18n="performance-monitor-loading">加载中...</span>
                     </div>
                     <div class="memory-item">
-                        <span class="memory-type">可用</span>
-                        <span class="memory-value" id="memory-free">加载中...</span>
+                        <span class="memory-type" data-i18n="performance-monitor-memory-free">可用</span>
+                        <span class="memory-value" id="memory-free" data-i18n="performance-monitor-loading">加载中...</span>
                     </div>
                     <div class="memory-item">
-                        <span class="memory-type">缓存</span>
-                        <span class="memory-value" id="memory-cached">加载中...</span>
+                        <span class="memory-type" data-i18n="performance-monitor-memory-cached">缓存</span>
+                        <span class="memory-value" id="memory-cached" data-i18n="performance-monitor-loading">加载中...</span>
                     </div>
 {#                    <div class="memory-item">#}
 {#                        <span class="memory-type">缓冲区</span>#}
@@ -307,9 +321,9 @@
             <!-- 磁盘详细页面 -->
             <div class="content-section" id="disk-section">
                 <div class="section-header">
-                    <h2>磁盘使用情况</h2>
+                    <h2 data-i18n="performance-monitor-disk-usage">磁盘使用情况</h2>
                     <div class="disk-details">
-                        <span id="disk-details-header">27% 已使用</span>
+                        <span id="disk-details-header" data-i18n="performance-monitor-used">27% 已使用</span>
                     </div>
                 </div>
                 <div class="detailed-chart-container">
@@ -323,7 +337,7 @@
             <!-- 网络详细页面 -->
             <div class="content-section" id="network-section">
                 <div class="section-header">
-                    <h2>网络使用情况</h2>
+                    <h2 data-i18n="performance-monitor-network-usage">网络使用情况</h2>
                     <div class="network-details">
                         <span>ens160 (vmxnet3)</span>
                     </div>
@@ -339,12 +353,26 @@
         </div>
     </div>
 <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
-<script src="{{ url_for('static', filename='js/performance_monitor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance_monitor.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // 初始化主题管理器
         window.themeManager = new ThemeManager();
         window.themeManager.init();
+        
+        // 初始化语言管理器
+        window.languageManager = new LanguageManager();
+        window.languageManager.init();
+        
+        // 确保语言管理器初始化完成后再初始化性能监控器
+        setTimeout(() => {
+            if (!window.performanceMonitor) {
+                console.log('延迟初始化性能监控器...');
+                window.performanceMonitor = new PerformanceMonitor();
+                console.log('性能监控器初始化完成');
+            }
+        }, 100);
     });
 </script>
 

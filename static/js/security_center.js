@@ -121,6 +121,7 @@ class SecurityCenter {
         this.loadSecurityData();
         this.loadRecommendations();
         this.loadSecurityHistory('today');
+<<<<<<< Updated upstream
 
         this.loadAlertNotification();
         console.log('首次状态加载成功');
@@ -129,6 +130,16 @@ class SecurityCenter {
             this.updateThemeIcon();
         }, 200);
 
+=======
+        
+        // 应用当前语言翻译（延迟执行确保DOM完全加载）
+        setTimeout(() => {
+            if (window.languageManager) {
+                window.languageManager.applyLanguage(window.languageManager.getCurrentLanguage());
+            }
+        }, 200);
+        
+>>>>>>> Stashed changes
         // 定期更新安全状态
         this.updateInterval = setInterval(() => {
             this.loadSecurityData();
@@ -221,6 +232,18 @@ class SecurityCenter {
             themeToggleBtn.addEventListener('click', () => this.toggleTheme());
         }
 
+        // 扫描暂停按钮
+        const pauseScanBtn = document.getElementById('pause-scan');
+        if (pauseScanBtn) {
+            pauseScanBtn.addEventListener('click', () => this.pauseScan());
+        }
+
+        // 扫描取消按钮
+        const cancelScanBtn = document.getElementById('cancel-scan');
+        if (cancelScanBtn) {
+            cancelScanBtn.addEventListener('click', () => this.cancelScan());
+        }
+
         console.log('安全中心页面已初始化');
     }
 
@@ -248,29 +271,34 @@ class SecurityCenter {
         const mainIcon = document.getElementById('main-security-icon');
 
         if (data.security_level === 'excellent') {
-            statusTitle.textContent = '系统安全';
-            statusMessage.textContent = '您的设备受到保护';
-            statusDetail.textContent = '所有安全功能都在正常运行';
+            statusTitle.setAttribute('data-i18n', 'security-center-system-secure');
+            statusMessage.setAttribute('data-i18n', 'security-center-device-protected');
+            statusDetail.setAttribute('data-i18n', 'security-center-all-features-normal');
             mainIcon.className = 'fas fa-shield-alt';
             mainIcon.style.color = '#107c10';
         } else if (data.security_level === 'good') {
-            statusTitle.textContent = '系统基本安全';
-            statusMessage.textContent = '大部分功能正常';
-            statusDetail.textContent = '建议检查一些安全设置';
+            statusTitle.setAttribute('data-i18n', 'security-center-system-basic-secure');
+            statusMessage.setAttribute('data-i18n', 'security-center-most-features-normal');
+            statusDetail.setAttribute('data-i18n', 'security-center-check-settings');
             mainIcon.className = 'fas fa-shield-alt';
             mainIcon.style.color = '#ca5010';
         } else if (data.security_level === 'warning') {
-            statusTitle.textContent = '需要注意';
-            statusMessage.textContent = '发现一些安全问题';
-            statusDetail.textContent = '建议立即处理安全问题';
+            statusTitle.setAttribute('data-i18n', 'security-center-needs-attention');
+            statusMessage.setAttribute('data-i18n', 'security-center-security-issues-found');
+            statusDetail.setAttribute('data-i18n', 'security-center-handle-issues-immediately');
             mainIcon.className = 'fas fa-exclamation-triangle';
             mainIcon.style.color = '#d13438';
         } else {
-            statusTitle.textContent = '安全风险';
-            statusMessage.textContent = '存在严重安全问题';
-            statusDetail.textContent = '请立即采取行动保护您的系统';
+            statusTitle.setAttribute('data-i18n', 'security-center-security-risk');
+            statusMessage.setAttribute('data-i18n', 'security-center-serious-issues');
+            statusDetail.setAttribute('data-i18n', 'security-center-take-action-immediately');
             mainIcon.className = 'fas fa-exclamation-triangle';
             mainIcon.style.color = '#d13438';
+        }
+        
+        // 重新应用翻译
+        if (window.languageManager) {
+            window.languageManager.applyLanguage();
         }
     }
 
@@ -283,11 +311,11 @@ class SecurityCenter {
 
         if (firewallStatus && firewallToggle) {
             firewallToggle.checked = data.firewall_active;
-            firewallStatus.textContent = data.firewall_active ? '已启用' : '已禁用';
+            firewallStatus.setAttribute('data-i18n', data.firewall_active ? 'security-center-enabled' : 'security-center-disabled');
             firewallStatus.className = `feature-status ${data.firewall_active ? 'enabled' : 'disabled'}`;
         }
         if (firewallBlocked) firewallBlocked.textContent = data.threats_blocked || 0;
-        if (firewallUpdated) firewallUpdated.textContent = '刚刚';
+        if (firewallUpdated) firewallUpdated.setAttribute('data-i18n', 'security-center-just-now');
 
         // 更新防病毒状态
         const antivirusStatus = document.getElementById('antivirus-status');
@@ -297,11 +325,11 @@ class SecurityCenter {
 
         if (antivirusStatus && antivirusToggle) {
             antivirusToggle.checked = data.antivirus_active;
-            antivirusStatus.textContent = data.antivirus_active ? '已启用' : '已禁用';
+            antivirusStatus.setAttribute('data-i18n', data.antivirus_active ? 'security-center-enabled' : 'security-center-disabled');
             antivirusStatus.className = `feature-status ${data.antivirus_active ? 'enabled' : 'disabled'}`;
         }
-        if (antivirusScan) antivirusScan.textContent = data.last_scan || '今天';
-        if (antivirusDefinitions) antivirusDefinitions.textContent = '最新';
+        if (antivirusScan) antivirusScan.setAttribute('data-i18n', 'security-center-today');
+        if (antivirusDefinitions) antivirusDefinitions.setAttribute('data-i18n', 'security-center-latest');
 
         // 更新系统更新状态
         const updateStatus = document.getElementById('update-status');
@@ -310,15 +338,20 @@ class SecurityCenter {
 
         if (updateStatus) {
             if (data.updates_available > 0) {
-                updateStatus.textContent = '有可用更新';
+                updateStatus.setAttribute('data-i18n', 'security-center-updates-available');
                 updateStatus.className = 'feature-status warning';
             } else {
-                updateStatus.textContent = '已是最新';
+                updateStatus.setAttribute('data-i18n', 'security-center-up-to-date');
                 updateStatus.className = 'feature-status enabled';
             }
         }
         if (availableUpdates) availableUpdates.textContent = data.updates_available || 0;
-        if (lastCheck) lastCheck.textContent = '1小时前';
+        if (lastCheck) lastCheck.setAttribute('data-i18n', 'security-center-1-hour-ago');
+        
+        // 重新应用翻译
+        if (window.languageManager) {
+            window.languageManager.applyLanguage();
+        }
 
         // 更新账户保护状态
         const accountStatus = document.getElementById('account-status');
@@ -398,14 +431,18 @@ class SecurityCenter {
 
         if (scanStatus) {
             if (data.status === 'completed') {
-                scanStatus.textContent = '扫描完成';
+                scanStatus.setAttribute('data-i18n', 'security-center-scan-completed');
             } else {
-                scanStatus.textContent = '正在扫描系统...';
+                scanStatus.setAttribute('data-i18n', 'security-center-scanning-system');
             }
         }
 
         if (scanDetail) {
-            scanDetail.textContent = data.current_file || '检查系统文件和设置';
+            if (data.current_file) {
+                scanDetail.textContent = data.current_file;
+            } else {
+                scanDetail.setAttribute('data-i18n', 'security-center-check-system-files');
+            }
         }
 
         if (scanProgress) {
@@ -417,10 +454,19 @@ class SecurityCenter {
         if (timeRemaining) {
             const remaining = data.estimated_time || 0;
             if (remaining > 0) {
-                timeRemaining.textContent = `${Math.ceil(remaining)}秒`;
+                timeRemaining.textContent = `${Math.ceil(remaining)} `;
+                // 为秒数添加翻译
+                const secondsSpan = document.createElement('span');
+                secondsSpan.setAttribute('data-i18n', 'security-center-seconds');
+                timeRemaining.appendChild(secondsSpan);
             } else {
-                timeRemaining.textContent = '即将完成';
+                timeRemaining.setAttribute('data-i18n', 'security-center-almost-done');
             }
+        }
+        
+        // 重新应用翻译
+        if (window.languageManager) {
+            window.languageManager.applyLanguage();
         }
     }
 
@@ -428,6 +474,10 @@ class SecurityCenter {
         const modal = document.getElementById('scan-modal');
         if (modal) {
             modal.style.display = 'flex';
+            // 确保弹窗内容应用当前语言设置
+            if (window.languageManager) {
+                window.languageManager.applyLanguage();
+            }
         }
     }
 
@@ -445,13 +495,78 @@ class SecurityCenter {
         this.currentScanId = null;
     }
 
+    pauseScan() {
+        if (this.scanInterval) {
+            clearInterval(this.scanInterval);
+            this.scanInterval = null;
+            
+            // 更新扫描状态显示
+            const scanStatus = document.getElementById('scan-status');
+            if (scanStatus) {
+                const pausedText = window.languageManager ? window.languageManager.translate('security-center-scan-paused') : '扫描已暂停';
+                scanStatus.textContent = pausedText;
+            }
+            
+            // 更改按钮文本为继续
+            const pauseBtn = document.getElementById('pause-scan');
+            if (pauseBtn) {
+                const resumeText = window.languageManager ? window.languageManager.translate('security-center-resume') : '继续';
+                pauseBtn.textContent = resumeText;
+                pauseBtn.onclick = () => this.resumeScan();
+            }
+        }
+    }
+
+    resumeScan() {
+        // 恢复扫描
+        if (this.currentScanId) {
+            this.scanInterval = setInterval(() => {
+                this.checkScanStatus();
+            }, 1000);
+            
+            // 更新扫描状态显示
+            const scanStatus = document.getElementById('scan-status');
+            if (scanStatus) {
+                const scanningText = window.languageManager ? window.languageManager.translate('security-center-scanning-system') : '正在扫描系统...';
+                scanStatus.textContent = scanningText;
+            }
+            
+            // 更改按钮文本为暂停
+            const pauseBtn = document.getElementById('pause-scan');
+            if (pauseBtn) {
+                const pauseText = window.languageManager ? window.languageManager.translate('security-center-pause') : '暂停';
+                pauseBtn.textContent = pauseText;
+                pauseBtn.onclick = () => this.pauseScan();
+            }
+        }
+    }
+
+    cancelScan() {
+        // 显示确认对话框
+        const confirmText = window.languageManager ? window.languageManager.translate('security-center-cancel-scan-confirm') : '确定要取消扫描吗？';
+        if (confirm(confirmText)) {
+            // 停止扫描并关闭弹窗
+            this.closeScanModal();
+            
+            // 可以在这里添加取消扫描的API调用
+            // 例如: fetch('/api/cancel-scan', { method: 'POST' });
+        }
+    }
+
     showScanResults(data) {
-        let message = `扫描完成！\n已扫描 ${data.files_scanned} 个文件`;
+        // 使用翻译键构建消息
+        const scanCompleted = window.languageManager ? window.languageManager.translate('security-center-scan-completed') : '扫描完成';
+        const scannedFiles = window.languageManager ? window.languageManager.translate('security-center-scanned-files') : '已扫描文件';
+        
+        let message = `${scanCompleted}!\n${scannedFiles}: ${data.files_scanned}`;
         
         if (data.threats_found > 0) {
-            message += `\n发现 ${data.threats_found} 个威胁，已自动处理`;
+            const threatsFound = window.languageManager ? window.languageManager.translate('security-center-threats-found') : '发现威胁';
+            const handled = window.languageManager ? window.languageManager.translate('security-center-handle') : '已处理';
+            message += `\n${threatsFound}: ${data.threats_found}, ${handled}`;
         } else {
-            message += '\n未发现威胁，系统安全';
+            const noThreats = window.languageManager ? window.languageManager.translate('security-center-device-protected') : '系统安全';
+            message += `\n${noThreats}`;
         }
 
         alert(message);
@@ -485,20 +600,32 @@ class SecurityCenter {
     }
 
     checkForUpdates() {
-        alert('正在检查系统更新...\n这可能需要几分钟时间。');
+        const checkingMessage = window.languageManager ? 
+            window.languageManager.translate('security-center-checking-updates') : 
+            '正在检查系统更新...\n这可能需要几分钟时间。';
+        alert(checkingMessage);
         
         // 模拟更新检查
         setTimeout(() => {
-            alert('更新检查完成！\n发现 3 个可用更新，建议尽快安装。');
+            const completeMessage = window.languageManager ? 
+                window.languageManager.translate('security-center-update-check-complete') : 
+                '更新检查完成！\n发现 3 个可用更新，建议尽快安装。';
+            alert(completeMessage);
         }, 2000);
     }
 
     openAccountSettings() {
-        alert('账户保护设置\n\n当前设置：\n- 用户账户控制：已启用\n- 登录保护：已启用\n- 权限管理：严格模式');
+        const message = window.languageManager ? 
+            window.languageManager.translate('security-center-account-settings') : 
+            '账户保护设置\n\n当前设置：\n- 用户账户控制：已启用\n- 登录保护：已启用\n- 权限管理：严格模式';
+        alert(message);
     }
 
     showSecurityDetails() {
-        alert('安全详情\n\n系统安全评分：90/100\n\n详细信息：\n- 防火墙：正常运行\n- 病毒防护：实时保护已启用\n- 系统更新：有可用更新\n- 账户保护：已启用');
+        const message = window.languageManager ? 
+            window.languageManager.translate('security-center-security-details') : 
+            '安全详情\n\n系统安全评分：90/100\n\n详细信息：\n- 防火墙：正常运行\n- 病毒防护：实时保护已启用\n- 系统更新：有可用更新\n- 账户保护：已启用';
+        alert(message);
     }
 
     async loadRecommendations() {
@@ -530,16 +657,22 @@ class SecurityCenter {
             const iconClass = rec.type === 'warning' ? 'warning' : 'info';
             const iconName = rec.type === 'warning' ? 'exclamation-triangle' : 'info-circle';
 
+            // 使用翻译键或回退到原始文本
+            const title = rec.title_key && window.languageManager ? 
+                window.languageManager.translate(rec.title_key) : rec.title;
+            const description = rec.description_key && window.languageManager ? 
+                window.languageManager.translate(rec.description_key) : rec.description;
+
             item.innerHTML = `
                 <div class="recommendation-icon ${iconClass}">
                     <i class="fas fa-${iconName}"></i>
                 </div>
                 <div class="recommendation-content">
-                    <div class="recommendation-title">${rec.title}</div>
-                    <div class="recommendation-description">${rec.description}</div>
+                    <div class="recommendation-title">${title}</div>
+                    <div class="recommendation-description">${description}</div>
                 </div>
                 <div class="recommendation-action">
-                    <button class="recommendation-btn" onclick="securityCenter.handleRecommendation('${rec.action}')">
+                    <button class="recommendation-btn" data-i18n="security-center-handle" onclick="securityCenter.handleRecommendation('${rec.action}')">
                         处理
                     </button>
                 </div>
@@ -547,22 +680,37 @@ class SecurityCenter {
 
             container.appendChild(item);
         });
+        
+        // 重新应用翻译
+        if (window.languageManager) {
+            window.languageManager.applyLanguage();
+        }
     }
 
     handleRecommendation(action) {
+        let message;
         switch (action) {
             case 'enable_auto_update':
-                alert('正在启用自动更新...\n自动更新已启用，系统将自动下载并安装安全更新。');
+                message = window.languageManager ? 
+                    window.languageManager.translate('security-center-enabling-auto-update') : 
+                    '正在启用自动更新...\n自动更新已启用，系统将自动下载并安装安全更新。';
                 break;
             case 'setup_backup':
-                alert('数据备份设置\n\n建议：\n- 定期备份重要文件\n- 使用云存储服务\n- 创建系统还原点');
+                message = window.languageManager ? 
+                    window.languageManager.translate('security-center-backup-settings') : 
+                    '数据备份设置\n\n建议：\n- 定期备份重要文件\n- 使用云存储服务\n- 创建系统还原点';
                 break;
             case 'update_password_policy':
-                alert('密码策略更新\n\n建议：\n- 使用强密码（8位以上）\n- 包含大小写字母、数字和符号\n- 定期更换密码');
+                message = window.languageManager ? 
+                    window.languageManager.translate('security-center-password-policy') : 
+                    '密码策略更新\n\n建议：\n- 使用强密码（8位以上）\n- 包含大小写字母、数字和符号\n- 定期更换密码';
                 break;
             default:
-                alert('正在处理该建议...');
+                message = window.languageManager ? 
+                    window.languageManager.translate('security-center-processing-recommendation') : 
+                    '正在处理该建议...';
         }
+        alert(message);
     }
 
     async loadSecurityHistory(period) {
@@ -575,7 +723,9 @@ class SecurityCenter {
                 return;
             }
 
-            this.renderSecurityHistory(data);
+            // 处理PowerShell返回的数据结构
+            const historyData = data.value || data;
+            this.renderSecurityHistory(historyData);
         } catch (error) {
             console.error('加载安全历史失败:', error);
         }
@@ -588,7 +738,8 @@ class SecurityCenter {
         container.innerHTML = '';
 
         if (history.length === 0) {
-            container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">暂无历史记录</div>';
+            const noHistoryText = window.languageManager ? window.languageManager.translate('security-center-no-history') : '暂无历史记录';
+            container.innerHTML = `<div style="text-align: center; color: #666; padding: 20px;">${noHistoryText}</div>`;
             return;
         }
 
@@ -599,14 +750,22 @@ class SecurityCenter {
             const iconName = item.type === 'success' ? 'check-circle' : 
                            item.type === 'warning' ? 'exclamation-triangle' : 'times-circle';
 
+            // 使用翻译键或回退到原始文本
+            const title = item.title_key && window.languageManager ? 
+                window.languageManager.translate(item.title_key) : item.title;
+            const description = item.description_key && window.languageManager ? 
+                window.languageManager.translate(item.description_key) : item.description;
+            const time = item.time_key && window.languageManager ? 
+                window.languageManager.translate(item.time_key) : item.time;
+
             historyItem.innerHTML = `
                 <div class="history-icon ${item.type}">
                     <i class="fas fa-${iconName}"></i>
                 </div>
                 <div class="history-content">
-                    <div class="history-title">${item.title}</div>
-                    <div class="history-description">${item.description}</div>
-                    <div class="history-time">${item.time}</div>
+                    <div class="history-title">${title}</div>
+                    <div class="history-description">${description}</div>
+                    <div class="history-time">${time}</div>
                 </div>
             `;
 
@@ -751,7 +910,10 @@ let securityCenter;
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
-    securityCenter = new SecurityCenter();
+    // 确保languageManager已经初始化
+    setTimeout(() => {
+        securityCenter = new SecurityCenter();
+    }, 100);
 });
 
 // 页面卸载时清理资源

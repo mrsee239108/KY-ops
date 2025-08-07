@@ -123,6 +123,18 @@ class NetworkMonitor {
     }
 
     init() {
+        // 初始化语言管理器
+        if (window.languageManager && !window.languageManager.initialized) {
+            window.languageManager.init();
+        }
+        
+        // 设置页面标题翻译
+        setTimeout(() => {
+            if (window.languageManager) {
+                document.title = window.languageManager.t('network-monitor-title');
+            }
+        }, 100);
+        
         this.setupEventListeners();
         this.initChart();
         this.loadNetworkData();
@@ -144,6 +156,18 @@ class NetworkMonitor {
             // 延迟更新，确保CSS变量已经完全应用
             setTimeout(() => {
                 this.updateChartTheme();
+            }, 50);
+        });
+        
+        // 监听语言变化事件
+        document.addEventListener('languageChanged', () => {
+            // 更新图表标签和连接状态
+            setTimeout(() => {
+                this.updateChartTheme();
+                // 重新加载网络数据以更新状态文本
+                this.loadNetworkStats();
+                // 重新加载网络适配器以更新名称翻译
+                this.loadNetworkInterfaces();
             }, 50);
         });
         
@@ -239,14 +263,14 @@ class NetworkMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: '下载 (MB/s)',
+                    label: window.languageManager ? window.languageManager.t('network-monitor-chart-download') : '下载 (MB/s)',
                     data: [],
                     borderColor: chartColors.download,
                     backgroundColor: chartColors.downloadBg,
                     fill: true,
                     tension: 0.4
                 }, {
-                    label: '上传 (MB/s)',
+                    label: window.languageManager ? window.languageManager.t('network-monitor-chart-upload') : '上传 (MB/s)',
                     data: [],
                     borderColor: chartColors.upload,
                     backgroundColor: chartColors.uploadBg,
@@ -262,7 +286,7 @@ class NetworkMonitor {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: '速度 (MB/s)',
+                            text: window.languageManager ? window.languageManager.t('network-monitor-chart-speed') : '速度 (MB/s)',
                             color: chartColors.text
                         },
                         ticks: {
@@ -275,7 +299,7 @@ class NetworkMonitor {
                     x: {
                         title: {
                             display: true,
-                            text: '时间',
+                            text: window.languageManager ? window.languageManager.t('network-monitor-chart-time') : '时间',
                             color: chartColors.text
                         },
                         ticks: {
@@ -346,16 +370,19 @@ class NetworkMonitor {
         Chart.defaults.color = chartColors.text;
         Chart.defaults.borderColor = chartColors.grid;
         
-        // 更新数据集颜色
+        // 更新数据集颜色和标签
         this.chart.data.datasets[0].borderColor = chartColors.download;
         this.chart.data.datasets[0].backgroundColor = chartColors.downloadBg;
+        this.chart.data.datasets[0].label = window.languageManager ? window.languageManager.t('network-monitor-chart-download') : '下载 (MB/s)';
         this.chart.data.datasets[1].borderColor = chartColors.upload;
         this.chart.data.datasets[1].backgroundColor = chartColors.uploadBg;
+        this.chart.data.datasets[1].label = window.languageManager ? window.languageManager.t('network-monitor-chart-upload') : '上传 (MB/s)';
         
-        // 更新坐标轴和图例颜色
+        // 更新坐标轴和图例颜色及标签
         if (this.chart.options.scales.y) {
             if (this.chart.options.scales.y.title) {
                 this.chart.options.scales.y.title.color = chartColors.text;
+                this.chart.options.scales.y.title.text = window.languageManager ? window.languageManager.t('network-monitor-chart-speed') : '速度 (MB/s)';
             }
             if (this.chart.options.scales.y.ticks) {
                 this.chart.options.scales.y.ticks.color = chartColors.text;
@@ -368,6 +395,7 @@ class NetworkMonitor {
         if (this.chart.options.scales.x) {
             if (this.chart.options.scales.x.title) {
                 this.chart.options.scales.x.title.color = chartColors.text;
+                this.chart.options.scales.x.title.text = window.languageManager ? window.languageManager.t('network-monitor-chart-time') : '时间';
             }
             if (this.chart.options.scales.x.ticks) {
                 this.chart.options.scales.x.ticks.color = chartColors.text;
@@ -614,10 +642,10 @@ class NetworkMonitor {
         
         if (hasConnections) {
             statusIndicator.className = 'status-indicator connected';
-            connectionStatus.textContent = '已连接到互联网';
+            connectionStatus.textContent = window.languageManager ? window.languageManager.t('network-monitor-internet-connected') : '已连接到互联网';
         } else {
             statusIndicator.className = 'status-indicator disconnected';
-            connectionStatus.textContent = '网络连接异常';
+            connectionStatus.textContent = window.languageManager ? window.languageManager.t('network-monitor-connection-error') : '网络连接异常';
         }
     }
 
@@ -650,23 +678,65 @@ class NetworkMonitor {
         console.log(`网络速度更新 - 下载: ${downloadSpeed.toFixed(2)} MB/s, 上传: ${uploadSpeed.toFixed(2)} MB/s`);
     }
 
+    translateAdapterName(adapterName) {
+        // 网络适配器名称翻译映射
+        const nameMapping = {
+            '本地连接': 'network-adapter-local-connection',
+            '蓝牙网络连接': 'network-adapter-bluetooth', 
+            '以太网': 'network-adapter-ethernet',
+            'Wi-Fi': 'network-adapter-wifi',
+            '无线网络连接': 'network-adapter-wireless'
+        };
+        
+        // 处理带有数字后缀的适配器名称（如"本地连接* 1"、"本地连接* 2"）
+        let baseName = adapterName;
+        let suffix = '';
+        
+        // 检查是否有数字后缀模式
+        const suffixMatch = adapterName.match(/^(.+?)\*?\s*(\d+)$/);
+        if (suffixMatch) {
+            baseName = suffixMatch[1].trim();
+            suffix = ' ' + suffixMatch[2];
+        }
+        
+        // 检查是否有对应的翻译键
+        const translationKey = nameMapping[baseName];
+        if (translationKey && window.languageManager) {
+            return window.languageManager.t(translationKey) + suffix;
+        }
+        
+        // 如果没有找到翻译键，返回原名称
+        return adapterName;
+    }
+
     createAdapterElement(adapter) {
         const div = document.createElement('div');
         div.className = 'adapter-item';
         
         const ipv4Address = adapter.addresses.find(addr => addr.type === 'IPv4');
-        const ipAddress = ipv4Address ? ipv4Address.address : '无IP地址';
+        const ipAddress = ipv4Address ? ipv4Address.address : window.languageManager.t('network-monitor-no-ip');
+        
+        const statusText = adapter.is_up ? 
+            window.languageManager.t('network-monitor-connected-status') : 
+            window.languageManager.t('network-monitor-disconnected-status');
+        
+        const speedText = adapter.speed > 0 ? 
+            adapter.speed + ' Mbps' : 
+            window.languageManager.t('network-monitor-unknown-speed');
+        
+        // 翻译适配器名称
+        const translatedName = this.translateAdapterName(adapter.name);
         
         div.innerHTML = `
             <div class="adapter-header">
-                <span class="adapter-name">${adapter.name}</span>
+                <span class="adapter-name">${translatedName}</span>
                 <span class="adapter-status ${adapter.is_up ? 'connected' : 'disconnected'}">
-                    ${adapter.is_up ? '已连接' : '未连接'}
+                    ${statusText}
                 </span>
             </div>
             <div class="adapter-details">
-                IP地址: ${ipAddress}<br>
-                速度: ${adapter.speed > 0 ? adapter.speed + ' Mbps' : '未知'}
+                ${window.languageManager.t('network-monitor-ip-address')}: ${ipAddress}<br>
+                ${window.languageManager.t('network-monitor-speed')}: ${speedText}
             </div>
         `;
         
@@ -677,6 +747,9 @@ class NetworkMonitor {
         const div = document.createElement('div');
         div.className = 'connection-item';
         
+        const remoteAddr = connection.raddr || window.languageManager.t('network-monitor-none');
+        const pid = connection.pid || window.languageManager.t('network-monitor-unknown-pid');
+        
         div.innerHTML = `
             <div class="connection-header">
                 <span class="connection-name">${connection.laddr}:${connection.lport}</span>
@@ -685,8 +758,8 @@ class NetworkMonitor {
                 </span>
             </div>
             <div class="connection-details">
-                远程地址: ${connection.raddr || '无'}:${connection.rport || ''}<br>
-                协议: ${connection.type} | PID: ${connection.pid || '未知'}
+                ${window.languageManager.t('network-monitor-remote-address')}: ${remoteAddr}:${connection.rport || ''}<br>
+                ${window.languageManager.t('network-monitor-protocol')}: ${connection.type} | ${window.languageManager.t('network-monitor-pid')}: ${pid}
             </div>
         `;
         
@@ -750,38 +823,38 @@ class NetworkMonitor {
     createPingTool() {
         return `
             <div class="tool-input">
-                <input type="text" id="ping-host" placeholder="输入主机名或IP地址 (例如: google.com)" value="8.8.8.8">
-                <button id="ping-start">开始 Ping</button>
+                <input type="text" id="ping-host" placeholder="${window.languageManager.t('network-monitor-ping-placeholder')}" value="8.8.8.8">
+                <button id="ping-start">${window.languageManager.t('network-monitor-ping-start')}</button>
             </div>
-            <div class="tool-output" id="ping-output">点击"开始 Ping"开始测试...</div>
+            <div class="tool-output" id="ping-output">${window.languageManager.t('network-monitor-ping-default')}</div>
         `;
     }
 
     createTracerouteTool() {
         return `
             <div class="tool-input">
-                <input type="text" id="traceroute-host" placeholder="输入主机名或IP地址" value="google.com">
-                <button id="traceroute-start">开始跟踪</button>
+                <input type="text" id="traceroute-host" placeholder="${window.languageManager.t('network-monitor-traceroute-placeholder')}" value="google.com">
+                <button id="traceroute-start">${window.languageManager.t('network-monitor-traceroute-start')}</button>
             </div>
-            <div class="tool-output" id="traceroute-output">点击"开始跟踪"开始路由跟踪...</div>
+            <div class="tool-output" id="traceroute-output">${window.languageManager.t('network-monitor-traceroute-default')}</div>
         `;
     }
 
     createSpeedTestTool() {
         return `
             <div class="tool-input">
-                <button id="speedtest-start">开始速度测试</button>
+                <button id="speedtest-start">${window.languageManager.t('network-monitor-speedtest-start')}</button>
             </div>
-            <div class="tool-output" id="speedtest-output">点击"开始速度测试"测试网络速度...</div>
+            <div class="tool-output" id="speedtest-output">${window.languageManager.t('network-monitor-speedtest-default')}</div>
         `;
     }
 
     createNetstatTool() {
         return `
             <div class="tool-input">
-                <button id="netstat-start">获取网络统计</button>
+                <button id="netstat-start">${window.languageManager.t('network-monitor-netstat-start')}</button>
             </div>
-            <div class="tool-output" id="netstat-output">点击"获取网络统计"查看详细信息...</div>
+            <div class="tool-output" id="netstat-output">${window.languageManager.t('network-monitor-netstat-default')}</div>
         `;
     }
 
@@ -816,13 +889,13 @@ class NetworkMonitor {
         const button = document.getElementById('ping-start');
         
         if (!host) {
-            output.textContent = '请输入有效的主机名或IP地址';
+            output.textContent = window.languageManager.t('network-monitor-enter-valid-host');
             return;
         }
         
         button.disabled = true;
-        button.textContent = '正在 Ping...';
-        output.textContent = `正在 Ping ${host}...\n`;
+        button.textContent = window.languageManager.t('network-monitor-ping-running');
+        output.textContent = `${window.languageManager.t('network-monitor-pinging')} ${host}...\n`;
         
         try {
             const response = await fetch('/api/execute-command', {
@@ -838,16 +911,16 @@ class NetworkMonitor {
             const result = await response.json();
             
             if (result.error) {
-                output.textContent += `错误: ${result.error}`;
+                output.textContent += `${window.languageManager.t('network-monitor-error')}: ${result.error}`;
             } else {
-                output.textContent += result.output || result.error || '命令执行完成';
+                output.textContent += result.output || result.error || window.languageManager.t('network-monitor-command-complete');
             }
             
         } catch (error) {
-            output.textContent += `执行失败: ${error.message}`;
+            output.textContent += `${window.languageManager.t('network-monitor-execution-failed')}: ${error.message}`;
         } finally {
             button.disabled = false;
-            button.textContent = '开始 Ping';
+            button.textContent = window.languageManager.t('network-monitor-ping-start');
         }
     }
 
@@ -857,13 +930,13 @@ class NetworkMonitor {
         const button = document.getElementById('traceroute-start');
         
         if (!host) {
-            output.textContent = '请输入有效的主机名或IP地址';
+            output.textContent = window.languageManager.t('network-monitor-enter-valid-host');
             return;
         }
         
         button.disabled = true;
-        button.textContent = '正在跟踪...';
-        output.textContent = `正在跟踪到 ${host} 的路由...\n`;
+        button.textContent = window.languageManager.t('network-monitor-traceroute-running');
+        output.textContent = `${window.languageManager.t('network-monitor-tracing-route')} ${host} ...\n`;
         
         try {
             const response = await fetch('/api/execute-command', {
@@ -879,16 +952,16 @@ class NetworkMonitor {
             const result = await response.json();
             
             if (result.error) {
-                output.textContent += `错误: ${result.error}`;
+                output.textContent += `${window.languageManager.t('network-monitor-error')}: ${result.error}`;
             } else {
-                output.textContent += result.output || result.error || '路由跟踪完成';
+                output.textContent += result.output || result.error || window.languageManager.t('network-monitor-route-complete');
             }
             
         } catch (error) {
-            output.textContent += `执行失败: ${error.message}`;
+            output.textContent += `${window.languageManager.t('network-monitor-execution-failed')}: ${error.message}`;
         } finally {
             button.disabled = false;
-            button.textContent = '开始跟踪';
+            button.textContent = window.languageManager.t('network-monitor-traceroute-start');
         }
     }
 
@@ -897,24 +970,24 @@ class NetworkMonitor {
         const button = document.getElementById('speedtest-start');
         
         button.disabled = true;
-        button.textContent = '测试中...';
-        output.textContent = '正在进行网络速度测试...\n';
+        button.textContent = window.languageManager.t('network-monitor-speedtest-running');
+        output.textContent = window.languageManager.t('network-monitor-speed-testing') + '\n';
         
         try {
             // 模拟速度测试
-            output.textContent += '正在测试下载速度...\n';
+            output.textContent += window.languageManager.t('network-monitor-testing-download') + '\n';
             await this.simulateSpeedTest('download', output);
             
-            output.textContent += '正在测试上传速度...\n';
+            output.textContent += window.languageManager.t('network-monitor-testing-upload') + '\n';
             await this.simulateSpeedTest('upload', output);
             
-            output.textContent += '\n速度测试完成！\n';
+            output.textContent += '\n' + window.languageManager.t('network-monitor-speed-test-complete') + '\n';
             
         } catch (error) {
-            output.textContent += `测试失败: ${error.message}`;
+            output.textContent += `${window.languageManager.t('network-monitor-test-failed')}: ${error.message}`;
         } finally {
             button.disabled = false;
-            button.textContent = '开始速度测试';
+            button.textContent = window.languageManager.t('network-monitor-speedtest-start');
         }
     }
 
@@ -924,7 +997,10 @@ class NetworkMonitor {
             const interval = setInterval(() => {
                 progress += 10;
                 const speed = Math.random() * 50 + 10; // 10-60 Mbps
-                output.textContent += `${type === 'download' ? '下载' : '上传'}进度: ${progress}% - ${speed.toFixed(1)} Mbps\n`;
+                const typeText = type === 'download' ? 
+                    window.languageManager.t('network-monitor-download-progress') : 
+                    window.languageManager.t('network-monitor-upload-progress');
+                output.textContent += `${typeText}${window.languageManager.t('network-monitor-progress')}: ${progress}% - ${speed.toFixed(1)} Mbps\n`;
                 
                 if (progress >= 100) {
                     clearInterval(interval);
@@ -939,8 +1015,8 @@ class NetworkMonitor {
         const button = document.getElementById('netstat-start');
         
         button.disabled = true;
-        button.textContent = '获取中...';
-        output.textContent = '正在获取网络统计信息...\n';
+        button.textContent = window.languageManager.t('network-monitor-netstat-running');
+        output.textContent = window.languageManager.t('network-monitor-getting-stats') + '\n';
         
         try {
             const response = await fetch('/api/execute-command', {
@@ -956,16 +1032,16 @@ class NetworkMonitor {
             const result = await response.json();
             
             if (result.error) {
-                output.textContent += `错误: ${result.error}`;
+                output.textContent += `${window.languageManager.t('network-monitor-error')}: ${result.error}`;
             } else {
-                output.textContent += result.output || '获取网络统计信息完成';
+                output.textContent += result.output || window.languageManager.t('network-monitor-stats-complete');
             }
             
         } catch (error) {
-            output.textContent += `执行失败: ${error.message}`;
+            output.textContent += `${window.languageManager.t('network-monitor-execution-failed')}: ${error.message}`;
         } finally {
             button.disabled = false;
-            button.textContent = '获取网络统计';
+            button.textContent = window.languageManager.t('network-monitor-netstat-start');
         }
     }
 
@@ -988,10 +1064,10 @@ class NetworkMonitor {
             
             if (currentTheme === 'light') {
                 icon.className = 'fas fa-sun';
-                themeToggleBtn.title = '切换到深色模式';
+                themeToggleBtn.title = window.languageManager.t('network-monitor-switch-to-dark');
             } else {
                 icon.className = 'fas fa-moon';
-                themeToggleBtn.title = '切换到浅色模式';
+                themeToggleBtn.title = window.languageManager.t('network-monitor-switch-to-light');
             }
         }
     }

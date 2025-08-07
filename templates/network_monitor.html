@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网络监控</title>
+    <title data-i18n="network-monitor-title">网络监控</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/network_monitor.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,13 +15,13 @@
         <div class="title-bar">
             <div class="title-bar-left">
                 <i class="fas fa-network-wired"></i>
-                <span>网络监控</span>
+                <span data-i18n="network-monitor-title">网络监控</span>
             </div>
             <div class="title-bar-right">
                 <div class="window-controls">
-                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题"><i class="fas fa-moon"></i></button>
-                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
-                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                    <button class="control-btn theme-toggle" id="theme-toggle-btn" data-i18n-title="network-monitor-theme-toggle" title="切换主题"><i class="fas fa-moon"></i></button>
+                    <button class="control-btn refresh" onclick="refreshPage()" data-i18n-title="network-monitor-refresh" title="刷新"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" data-i18n-title="network-monitor-back" title="返回"><i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
         </div>
@@ -35,9 +35,9 @@
                         <i class="fas fa-wifi"></i>
                     </div>
                     <div class="status-info">
-                        <h3>网络连接</h3>
-                        <p class="status-text" id="connection-status">已连接到互联网</p>
-                        <p class="status-detail" id="connection-detail">通过 Wi-Fi 连接</p>
+                        <h3 data-i18n="network-monitor-connection">网络连接</h3>
+                        <p class="status-text" id="connection-status" data-i18n="network-monitor-connected">已连接到互联网</p>
+                        <p class="status-detail" id="connection-detail" data-i18n="network-monitor-wifi-connection">通过 Wi-Fi 连接</p>
                     </div>
                     <div class="status-indicator connected" id="status-indicator"></div>
                 </div>
@@ -47,9 +47,9 @@
                         <i class="fas fa-download"></i>
                     </div>
                     <div class="status-info">
-                        <h3>下载速度</h3>
+                        <h3 data-i18n="network-monitor-download-speed">下载速度</h3>
                         <p class="status-value" id="download-speed">0 Mbps</p>
-                        <p class="status-detail">实时下载速度</p>
+                        <p class="status-detail" data-i18n="network-monitor-realtime-download">实时下载速度</p>
                     </div>
                 </div>
 
@@ -58,9 +58,9 @@
                         <i class="fas fa-upload"></i>
                     </div>
                     <div class="status-info">
-                        <h3>上传速度</h3>
+                        <h3 data-i18n="network-monitor-upload-speed">上传速度</h3>
                         <p class="status-value" id="upload-speed">0 Mbps</p>
-                        <p class="status-detail">实时上传速度</p>
+                        <p class="status-detail" data-i18n="network-monitor-realtime-upload">实时上传速度</p>
                     </div>
                 </div>
 
@@ -69,9 +69,9 @@
                         <i class="fas fa-signal"></i>
                     </div>
                     <div class="status-info">
-                        <h3>信号强度</h3>
-                        <p class="status-value" id="signal-strength">优秀</p>
-                        <p class="status-detail">Wi-Fi 信号质量</p>
+                        <h3 data-i18n="network-monitor-signal-strength">信号强度</h3>
+                        <p class="status-value" id="signal-strength" data-i18n="network-monitor-excellent">优秀</p>
+                        <p class="status-detail" data-i18n="network-monitor-wifi-quality">Wi-Fi 信号质量</p>
                     </div>
                 </div>
             </div>
@@ -79,11 +79,11 @@
             <!-- 网络流量图表 -->
             <div class="chart-section">
                 <div class="section-header">
-                    <h2>网络流量监控</h2>
+                    <h2 data-i18n="network-monitor-traffic-monitoring">网络流量监控</h2>
                     <div class="chart-controls">
-                        <button class="chart-btn active" data-period="1h">1小时</button>
-                        <button class="chart-btn" data-period="6h">6小时</button>
-                        <button class="chart-btn" data-period="24h">24小时</button>
+                        <button class="chart-btn active" data-period="1h" data-i18n="network-monitor-1hour">1小时</button>
+                        <button class="chart-btn" data-period="6h" data-i18n="network-monitor-6hours">6小时</button>
+                        <button class="chart-btn" data-period="24h" data-i18n="network-monitor-24hours">24小时</button>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -95,25 +95,25 @@
             <div class="details-section">
                 <div class="adapters-panel">
                     <div class="panel-header">
-                        <h2>网络适配器</h2>
+                        <h2 data-i18n="network-monitor-adapters">网络适配器</h2>
                         <button class="panel-btn" id="adapter-refresh">
                             <i class="fas fa-sync-alt"></i>
                         </button>
                     </div>
                     <div class="adapters-list" id="adapters-list">
-                        <!-- 网络适配器列表将通过JavaScript填充 -->
+                        <div class="loading-placeholder" data-i18n="network-monitor-adapters-loading">网络适配器列表将通过JavaScript填充</div>
                     </div>
                 </div>
 
                 <div class="connections-panel">
                     <div class="panel-header">
-                        <h2>活动连接</h2>
+                        <h2 data-i18n="network-monitor-active-connections">活动连接</h2>
                         <button class="panel-btn" id="connections-refresh">
                             <i class="fas fa-sync-alt"></i>
                         </button>
                     </div>
                     <div class="connections-list" id="connections-list">
-                        <!-- 活动连接列表将通过JavaScript填充 -->
+                        <div class="loading-placeholder" data-i18n="network-monitor-connections-loading">活动连接列表将通过JavaScript填充</div>
                     </div>
                 </div>
             </div>
@@ -121,28 +121,28 @@
             <!-- 网络工具 -->
             <div class="tools-section">
                 <div class="section-header">
-                    <h2>网络工具</h2>
+                    <h2 data-i18n="network-monitor-network-tools">网络工具</h2>
                 </div>
                 <div class="tools-grid">
                     <button class="tool-card" id="ping-tool">
                         <i class="fas fa-satellite-dish"></i>
-                        <h3>Ping 测试</h3>
-                        <p>测试网络连通性</p>
+                        <h3 data-i18n="network-monitor-ping-test">Ping 测试</h3>
+                        <p data-i18n="network-monitor-ping-desc">测试网络连通性</p>
                     </button>
                     <button class="tool-card" id="traceroute-tool">
                         <i class="fas fa-route"></i>
-                        <h3>路由跟踪</h3>
-                        <p>跟踪网络路径</p>
+                        <h3 data-i18n="network-monitor-traceroute">路由跟踪</h3>
+                        <p data-i18n="network-monitor-traceroute-desc">跟踪网络路径</p>
                     </button>
                     <button class="tool-card" id="speedtest-tool">
                         <i class="fas fa-tachometer-alt"></i>
-                        <h3>速度测试</h3>
-                        <p>测试网络速度</p>
+                        <h3 data-i18n="network-monitor-speedtest">速度测试</h3>
+                        <p data-i18n="network-monitor-speedtest-desc">测试网络速度</p>
                     </button>
                     <button class="tool-card" id="netstat-tool">
                         <i class="fas fa-list-alt"></i>
-                        <h3>网络统计</h3>
-                        <p>查看网络统计信息</p>
+                        <h3 data-i18n="network-monitor-netstat">网络统计</h3>
+                        <p data-i18n="network-monitor-netstat-desc">查看网络统计信息</p>
                     </button>
                 </div>
             </div>
@@ -152,23 +152,30 @@
         <div class="modal-overlay" id="tool-modal">
             <div class="modal">
                 <div class="modal-header">
-                    <h3 id="modal-title">网络工具</h3>
+                    <h3 id="modal-title" data-i18n="network-monitor-network-tools">网络工具</h3>
                     <button class="modal-close" id="modal-close">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body" id="modal-body">
-                    <!-- 工具内容将通过JavaScript填充 -->
+                    <!-- Tool content will be populated via JavaScript -->
                 </div>
             </div>
         </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/network_monitor.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题管理器
             window.themeManager = new ThemeManager();
+            window.themeManager.init();
+            
+            // 初始化语言管理器
+            window.languageManager = new LanguageManager();
+            window.languageManager.init();
         });
     </script>
 </body>

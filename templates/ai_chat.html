@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 智能助手 - 企业运维系统</title>
+    <title data-i18n="ai-chat-title">AI 智能助手 - 企业运维系统</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ai_chat.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Markdown渲染库 -->
@@ -24,15 +24,15 @@
         <div class="title-bar-right">
             <div class="window-controls">
                 <!-- 主题切换按钮 -->
-                <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题">
+                <button class="control-btn theme-toggle" id="theme-toggle-btn" title="" data-i18n-title="ai-chat-theme-toggle">
                     <i class="fas fa-moon"></i>
                 </button>
                 <!-- 刷新按钮 -->
-                <button class="control-btn refresh" onclick="refreshPage()" title="刷新">
+                <button class="control-btn refresh" onclick="refreshPage()" title="" data-i18n-title="ai-chat-refresh">
                     <i class="fas fa-sync-alt"></i>
                 </button>
                 <!-- 返回按钮 -->
-                <button class="control-btn back" onclick="goBack()" title="返回">
+                <button class="control-btn back" onclick="goBack()" title="" data-i18n-title="ai-chat-back">
                     <i class="fas fa-arrow-left"></i> 
                 </button>
             </div>
@@ -44,19 +44,19 @@
             <!-- 侧边栏 -->
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <h3><i class="fas fa-comments"></i> 对话管理</h3>
+                    <h3><i class="fas fa-comments"></i> <span data-i18n="ai-chat-conversation-management">对话管理</span></h3>
                 </div>
                 
                 <!-- 新建对话按钮 -->
                 <button class="new-chat-btn" onclick="aiChat.newConversation()">
                     <i class="fas fa-plus"></i>
-                    新建对话
+                    <span data-i18n="ai-chat-new-conversation">新建对话</span>
                 </button>
 
                 <!-- 对话历史 -->
                 <div class="chat-history">
                     <div class="history-header">
-                        <span>对话历史</span>
+                        <span data-i18n="ai-chat-conversation-history">对话历史</span>
                         <button class="clear-history-btn" onclick="aiChat.clearHistory()">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -69,24 +69,24 @@
                 <!-- 快捷功能 -->
                 <div class="quick-actions">
                     <div class="action-header">
-                        <span>快捷功能</span>
+                        <span data-i18n="ai-chat-quick-functions">快捷功能</span>
                     </div>
                     <div class="action-buttons">
                         <button class="action-btn" onclick="aiChat.quickAction('system-check')">
                             <i class="fas fa-desktop"></i>
-                            系统检查
+                            <span data-i18n="ai-chat-system-check">系统检查</span>
                         </button>
                         <button class="action-btn" onclick="aiChat.quickAction('performance-analysis')">
                             <i class="fas fa-chart-line"></i>
-                            性能分析
+                            <span data-i18n="ai-chat-performance-analysis">性能分析</span>
                         </button>
                         <button class="action-btn" onclick="aiChat.quickAction('security-scan')">
                             <i class="fas fa-shield-alt"></i>
-                            安全扫描
+                            <span data-i18n="ai-chat-security-scan">安全扫描</span>
                         </button>
                         <button class="action-btn" onclick="aiChat.quickAction('log-analysis')">
                             <i class="fas fa-file-alt"></i>
-                            日志分析
+                            <span data-i18n="ai-chat-log-analysis">日志分析</span>
                         </button>
                     </div>
                 </div>
@@ -97,17 +97,17 @@
                 <!-- 聊天头部 -->
                 <div class="chat-header">
                     <div class="chat-title">
-                        <h2 id="current-chat-title">AI 智能助手</h2>
-                        <span class="chat-subtitle" id="current-chat-subtitle">随时为您提供专业的运维支持</span>
+                        <h2 id="current-chat-title" data-i18n="ai-chat-current-title">AI 智能助手</h2>
+                        <span class="chat-subtitle" id="current-chat-subtitle" data-i18n="ai-chat-current-subtitle">随时为您提供专业的运维支持</span>
                     </div>
                     <div class="chat-actions">
-                        <button class="action-btn" onclick="aiChat.exportChat()">
+                        <button class="action-btn" onclick="aiChat.exportChat()" title="" data-i18n-title="ai-chat-export-conversation">
                             <i class="fas fa-download"></i>
-                            导出对话
+                            <span data-i18n="ai-chat-export-conversation">导出对话</span>
                         </button>
-                        <button class="action-btn" onclick="aiChat.shareChat()">
+                        <button class="action-btn" onclick="aiChat.shareChat()" title="" data-i18n-title="ai-chat-share">
                             <i class="fas fa-share"></i>
-                            分享
+                            <span data-i18n="ai-chat-share">分享</span>
                         </button>
                     </div>
                 </div>
@@ -120,16 +120,16 @@
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="welcome-content">
-                            <h3>👋 欢迎使用 AI 智能助手</h3>
-                            <p>我是您的专业运维助手，可以帮助您：</p>
+                            <h3 data-i18n="ai-chat-welcome-title">👋 欢迎使用 AI 智能助手</h3>
+                            <p data-i18n="ai-chat-welcome-intro">我是您的专业运维助手，可以帮助您：</p>
                             <ul>
-                                <li>🔍 系统性能监控与分析</li>
-                                <li>🛡️ 安全威胁检测与处理</li>
-                                <li>📊 数据分析与报告生成</li>
-                                <li>🔧 故障诊断与解决方案</li>
-                                <li>📚 技术文档与最佳实践</li>
+                                <li data-i18n="ai-chat-welcome-feature-1">🔍 系统性能监控与分析</li>
+                                <li data-i18n="ai-chat-welcome-feature-2">🛡️ 安全威胁检测与处理</li>
+                                <li data-i18n="ai-chat-welcome-feature-3">📊 数据分析与报告生成</li>
+                                <li data-i18n="ai-chat-welcome-feature-4">🔧 故障诊断与解决方案</li>
+                                <li data-i18n="ai-chat-welcome-feature-5">📚 技术文档与最佳实践</li>
                             </ul>
-                            <p>请输入您的问题，我将为您提供专业的帮助！</p>
+                            <p data-i18n="ai-chat-welcome-prompt">请输入您的问题，我将为您提供专业的帮助！</p>
                         </div>
                     </div>
                 </div>
@@ -141,6 +141,7 @@
                             <textarea 
                                 id="message-input" 
                                 placeholder="请输入您的问题..."
+                                data-i18n-placeholder="ai-chat-input-placeholder"
                                 rows="1"
                                 maxlength="2000"
                             ></textarea>
@@ -155,7 +156,7 @@
                                 <span id="char-count">0</span>/2000
                             </div>
                             <div class="input-tips">
-                                按 Ctrl+Enter 发送消息
+                                <span data-i18n="ai-chat-input-tips">按 Ctrl+Enter 发送消息</span>
                             </div>
                         </div>
                     </div>
@@ -168,7 +169,7 @@
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner">
             <div class="spinner"></div>
-            <span>AI 正在思考中...</span>
+            <span data-i18n="ai-chat-loading-text">AI 正在思考中...</span>
         </div>
     </div>
 
@@ -177,11 +178,17 @@
 
 
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ai_chat.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/ai_chat.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化主题管理器
             new ThemeManager();
+            // 初始化语言管理器
+            if (typeof LanguageManager !== 'undefined') {
+                const languageManager = new LanguageManager();
+                languageManager.init();
+            }
         });
     </script>
 </body>

@@ -1573,7 +1573,9 @@ def get_security_recommendations():
             {
                 'id': 1,
                 'type': 'warning',
+                'title_key': 'security-center-enable-auto-update-title',
                 'title': '启用自动更新',
+                'description_key': 'security-center-enable-auto-update-desc',
                 'description': '建议启用系统自动更新以获得最新的安全补丁',
                 'priority': 'high',
                 'action': 'enable_auto_update'
@@ -1581,7 +1583,9 @@ def get_security_recommendations():
             {
                 'id': 2,
                 'type': 'info',
+                'title_key': 'security-center-backup-data-title',
                 'title': '定期备份数据',
+                'description_key': 'security-center-backup-data-desc',
                 'description': '建议定期备份重要数据以防止数据丢失',
                 'priority': 'medium',
                 'action': 'setup_backup'
@@ -1589,7 +1593,9 @@ def get_security_recommendations():
             {
                 'id': 3,
                 'type': 'warning',
+                'title_key': 'security-center-update-password-title',
                 'title': '更新密码策略',
+                'description_key': 'security-center-update-password-desc',
                 'description': '建议使用更强的密码策略来提高账户安全性',
                 'priority': 'medium',
                 'action': 'update_password_policy'
@@ -1614,16 +1620,22 @@ def get_security_history():
                 {
                     'id': 1,
                     'type': 'success',
+                    'title_key': 'security-center-scan-complete-title',
                     'title': '系统扫描完成',
+                    'description_key': 'security-center-scan-complete-desc',
                     'description': '快速扫描未发现威胁',
+                    'time_key': 'security-center-2-hours-ago',
                     'time': '2小时前',
                     'timestamp': (datetime.now() - timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')
                 },
                 {
                     'id': 2,
                     'type': 'warning',
+                    'title_key': 'security-center-firewall-update-title',
                     'title': '防火墙规则更新',
+                    'description_key': 'security-center-firewall-update-desc',
                     'description': '已更新防火墙规则以阻止可疑连接',
+                    'time_key': 'security-center-4-hours-ago',
                     'time': '4小时前',
                     'timestamp': (datetime.now() - timedelta(hours=4)).strftime('%Y-%m-%d %H:%M:%S')
                 }
@@ -1633,16 +1645,22 @@ def get_security_history():
                 {
                     'id': 3,
                     'type': 'success',
+                    'title_key': 'security-center-virus-def-update-title',
                     'title': '病毒定义更新',
+                    'description_key': 'security-center-virus-def-update-desc',
                     'description': '病毒定义已更新到最新版本',
+                    'time_key': 'security-center-2-days-ago',
                     'time': '2天前',
                     'timestamp': (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')
                 },
                 {
                     'id': 4,
                     'type': 'error',
+                    'title_key': 'security-center-malware-detected-title',
                     'title': '检测到恶意软件',
+                    'description_key': 'security-center-malware-detected-desc',
                     'description': '已检测并清除1个恶意软件',
+                    'time_key': 'security-center-3-days-ago',
                     'time': '3天前',
                     'timestamp': (datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d %H:%M:%S')
                 }
@@ -1652,16 +1670,22 @@ def get_security_history():
                 {
                     'id': 5,
                     'type': 'success',
+                    'title_key': 'security-center-system-update-title',
                     'title': '系统更新安装',
+                    'description_key': 'security-center-system-update-desc',
                     'description': '已安装5个安全更新',
+                    'time_key': 'security-center-1-week-ago',
                     'time': '1周前',
                     'timestamp': (datetime.now() - timedelta(weeks=1)).strftime('%Y-%m-%d %H:%M:%S')
                 },
                 {
                     'id': 6,
                     'type': 'warning',
+                    'title_key': 'security-center-login-anomaly-title',
                     'title': '登录异常检测',
+                    'description_key': 'security-center-login-anomaly-desc',
                     'description': '检测到异常登录尝试，已自动阻止',
+                    'time_key': 'security-center-2-weeks-ago',
                     'time': '2周前',
                     'timestamp': (datetime.now() - timedelta(weeks=2)).strftime('%Y-%m-%d %H:%M:%S')
                 }

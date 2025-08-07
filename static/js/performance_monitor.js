@@ -126,6 +126,11 @@ class PerformanceMonitor {
         this.setupEventListeners();
         console.log('事件监听器设置完成');
         
+        // 初始化语言管理器
+        if (window.languageManager && !window.languageManager.initialized) {
+            window.languageManager.init();
+        }
+        
         // 监听主题变化（在图表初始化之前设置）
         this.setupThemeListener();
         
@@ -244,6 +249,40 @@ class PerformanceMonitor {
         }
     }
 
+    updateChartLabels() {
+        if (!window.languageManager) return;
+        
+        // 更新CPU详细图表标签
+        if (this.charts.cpuDetailed) {
+            this.charts.cpuDetailed.data.datasets[0].label = window.languageManager.t('performance-monitor-cpu-usage-chart');
+            this.charts.cpuDetailed.update('none');
+        }
+        
+        // 更新内存详细图表标签
+        if (this.charts.memoryDetailed) {
+            this.charts.memoryDetailed.data.datasets[0].label = window.languageManager.t('performance-monitor-memory-usage-chart');
+            this.charts.memoryDetailed.update('none');
+        }
+        
+        // 更新磁盘详细图表标签
+        if (this.charts.diskDetailed) {
+            this.charts.diskDetailed.data.datasets[0].label = window.languageManager.t('performance-monitor-disk-usage-chart');
+            this.charts.diskDetailed.update('none');
+        }
+        
+        // 更新网络详细图表标签
+        if (this.charts.networkDetailed) {
+            this.charts.networkDetailed.data.datasets[0].label = window.languageManager.t('performance-monitor-network-upload-chart');
+            this.charts.networkDetailed.data.datasets[1].label = window.languageManager.t('performance-monitor-network-download-chart');
+            this.charts.networkDetailed.update('none');
+        }
+        
+        // 触发UI更新以刷新动态文本
+        if (this.lastData) {
+            this.updateUI(this.lastData);
+        }
+    }
+
     setupThemeListener() {
         // 监听主题变化事件
         document.addEventListener('themeChanged', () => {
@@ -284,6 +323,11 @@ class PerformanceMonitor {
         // 窗口大小改变时重新调整图表
         window.addEventListener('resize', () => {
             this.resizeCharts();
+        });
+        
+        // 监听语言切换事件
+        document.addEventListener('languageChanged', () => {
+            this.updateChartLabels();
         });
     }
 
@@ -462,7 +506,7 @@ class PerformanceMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'CPU 使用率 (%)',
+                    label: window.languageManager ? window.languageManager.t('performance-monitor-cpu-usage-chart') : 'CPU 使用率 (%)',
                     data: [],
                     borderColor: colors.cpu,
                     backgroundColor: this.hexToRgba(colors.cpu, 0.1),
@@ -479,7 +523,7 @@ class PerformanceMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: '内存使用率 (%)',
+                    label: window.languageManager ? window.languageManager.t('performance-monitor-memory-usage-chart') : '内存使用率 (%)',
                     data: [],
                     borderColor: colors.memory,
                     backgroundColor: this.hexToRgba(colors.memory, 0.1),
@@ -496,7 +540,7 @@ class PerformanceMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: '磁盘使用率 (%)',
+                    label: window.languageManager ? window.languageManager.t('performance-monitor-disk-usage-chart') : '磁盘使用率 (%)',
                     data: [],
                     borderColor: colors.disk,
                     backgroundColor: this.hexToRgba(colors.disk, 0.1),
@@ -516,14 +560,14 @@ class PerformanceMonitor {
             data: {
                 labels: [],
                 datasets: [{
-                    label: '上传 (KB/s)',
+                    label: window.languageManager ? window.languageManager.t('performance-monitor-network-upload-chart') : '上传 (KB/s)',
                     data: [],
                     borderColor: colors.networkUpload,
                     backgroundColor: this.hexToRgba(colors.networkUpload, 0.1),
                     fill: false,
                     borderWidth: 2
                 }, {
-                    label: '下载 (KB/s)',
+                    label: window.languageManager ? window.languageManager.t('performance-monitor-network-download-chart') : '下载 (KB/s)',
                     data: [],
                     borderColor: colors.networkDownload,
                     backgroundColor: this.hexToRgba(colors.networkDownload, 0.1),
@@ -845,11 +889,14 @@ class PerformanceMonitor {
     updateUI(data) {
         console.log('开始更新UI，接收到的数据:', data);
         
+        // 保存数据以供语言切换时使用
+        this.lastData = data;
+        
         // 更新概览页面的数值
         this.updateElement('cpu-usage', `${(data.cpu_average || 0).toFixed(2)}%`);
         this.updateElement('cpu-usage-text', `${(data.cpu_average || 0).toFixed(2)}%`);
         this.updateElement('memory-usage', `${(data.memory_percent || 0).toFixed(2)}%`);
-        this.updateElement('memory-usage-text', `已使用：${this.formatBytes(data.memory_used || 0)}`);
+        this.updateElement('memory-usage-text', `${window.languageManager ? window.languageManager.t('performance-monitor-memory-used-label') : '已使用：'}${this.formatBytes(data.memory_used || 0)}`);
         // 更新CPU名称和详细信息
         if (data.cpu_name) {
             this.updateElement('cpu-model', data.cpu_name);
@@ -860,14 +907,14 @@ class PerformanceMonitor {
         if (data.memory_total) {
             this.updateElement('memory-size', this.formatBytes(data.memory_total));
             this.updateElement('memory-details-header', 
-                `${this.formatBytes(data.memory_total)} 总内存 - ${(data.memory_percent || 0).toFixed(2)}% 已使用`);
+                `${this.formatBytes(data.memory_total)} ${window.languageManager ? window.languageManager.t('performance-monitor-total-memory') : '总内存'} - ${(data.memory_percent || 0).toFixed(2)}% ${window.languageManager ? window.languageManager.t('performance-monitor-memory-used') : '已使用'}`);
         }
         
         // 计算平均磁盘使用率
         const avgDiskUsage = data.total_utilization;
         this.updateElement('disk-usage', `${(avgDiskUsage).toFixed(2)}%`);
         this.updateElement('disk-usage-text',`${(avgDiskUsage).toFixed(2)}%`)
-        this.updateElement('disk-details-header', `平均磁盘使用率：${(avgDiskUsage).toFixed(2)}%`);
+        this.updateElement('disk-details-header', `${window.languageManager ? window.languageManager.t('performance-monitor-average-disk-usage') : '平均磁盘使用率：'}${(avgDiskUsage).toFixed(2)}%`);
 
         // 计算总体负载
         //const totalLoad = data.load_avg ? Math.round(data.load_avg[0] * 100) : Math.round(data.cpu_average || 0);
@@ -1350,11 +1397,7 @@ updateNetworkInterfaces(interfaces) {
 }
 
 // 初始化性能监控器
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM已加载，开始初始化性能监控器...');
-    window.performanceMonitor = new PerformanceMonitor();
-    console.log('性能监控器初始化完成');
-});
+// PerformanceMonitor现在在HTML中延迟初始化，确保languageManager先初始化
 
 // 页面卸载时清理
 window.addEventListener('beforeunload', () => {

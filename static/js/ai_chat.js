@@ -130,11 +130,15 @@ class AIChatInterface {
 
         this.startAutoUpdate();
         
+<<<<<<< Updated upstream
         // 初始化主题图标
         setTimeout(() => {
            this.updateThemeIcon();
         }, 100);
         console.log('AI 对话界面已初始化');
+=======
+        console.log(languageManager ? languageManager.getText('ai-chat-interface-initialized') : 'AI 对话界面已初始化');
+>>>>>>> Stashed changes
     }
     
     // 切换主题
@@ -355,7 +359,7 @@ updateThemeIcon() {
             if (response.status === 202) {
                 // 模型正在加载
                 const data = await response.json();
-                this.addMessage('ai', data.error || '模型正在加载中，请稍后再试...', true);
+                this.addMessage('ai', data.error || (languageManager ? languageManager.getText('ai-chat-model-loading') : '模型正在加载中，请稍后再试...'), true);
                 this.showModelInitButton();
                 return;
             }
@@ -375,8 +379,8 @@ updateThemeIcon() {
             await this.handleStreamResponse(response, message);
             
         } catch (error) {
-            console.error('发送消息失败:', error);
-            this.addMessage('ai', '抱歉，我现在无法回复您的消息。请稍后再试。', true);
+            console.error(languageManager ? languageManager.getText('ai-chat-send-failed') : '发送消息失败:', error);
+            this.addMessage('ai', languageManager ? languageManager.getText('ai-chat-reply-error') : '抱歉，我现在无法回复您的消息。请稍后再试。', true);
         } finally {
             if (sendBtn) {
                 sendBtn.disabled = false;
@@ -733,10 +737,10 @@ updateThemeIcon() {
 
 
         const actions = {
-            'system-check': '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
-            'performance-analysis': '请分析当前系统性能，给出优化建议',
-            'security-scan': '请进行安全扫描，检查系统是否存在安全风险',
-            'log-analysis': '请帮我分析系统日志，查找可能的问题'
+            'system-check': languageManager ? languageManager.getText('ai-chat-system-check-prompt') : '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
+            'performance-analysis': languageManager ? languageManager.getText('ai-chat-performance-analysis-prompt') : '请分析当前系统性能，给出优化建议',
+            'security-scan': languageManager ? languageManager.getText('ai-chat-security-scan-prompt') : '请进行安全扫描，检查系统是否存在安全风险',
+            'log-analysis': languageManager ? languageManager.getText('ai-chat-log-analysis-prompt') : '请帮我分析系统日志，查找可能的问题'
         };
         
         const message = actions[action];
@@ -759,7 +763,7 @@ updateThemeIcon() {
                 this.conversations = JSON.parse(saved);
                 this.renderConversationHistory();
             } catch (error) {
-                console.error('加载对话历史失败:', error);
+                console.error(languageManager ? languageManager.getText('ai-chat-load-history-failed') : '加载对话历史失败:', error);
             }
         }
     }
@@ -843,7 +847,7 @@ updateThemeIcon() {
 
     // 清空对话历史
     clearHistory() {
-        if (confirm('确定要清空所有对话历史吗？此操作不可撤销。')) {
+        if (confirm(languageManager ? languageManager.getText('ai-chat-clear-history-confirm') : '确定要清空所有对话历史吗？此操作不可撤销。')) {
             this.conversations = [];
             localStorage.removeItem('ai_conversations');
             this.renderConversationHistory();
@@ -854,14 +858,18 @@ updateThemeIcon() {
     // 导出对话
     exportChat() {
         if (this.messageHistory.length === 0) {
-            alert('当前对话为空，无法导出。');
+            alert(languageManager ? languageManager.getText('ai-chat-export-empty') : '当前对话为空，无法导出。');
             return;
         }
         
-        let content = `AI 对话记录\n导出时间: ${new Date().toLocaleString()}\n\n`;
+        const exportTitle = languageManager ? languageManager.getText('ai-chat-export-title') : 'AI 对话记录';
+        const exportTime = languageManager ? languageManager.getText('ai-chat-export-time') : '导出时间';
+        let content = `${exportTitle}\n${exportTime}: ${new Date().toLocaleString()}\n\n`;
         
         this.messageHistory.forEach(msg => {
-            const sender = msg.sender === 'user' ? '用户' : 'AI助手';
+            const userLabel = languageManager ? languageManager.getText('ai-chat-export-user') : '用户';
+            const assistantLabel = languageManager ? languageManager.getText('ai-chat-export-assistant') : 'AI助手';
+            const sender = msg.sender === 'user' ? userLabel : assistantLabel;
             const time = new Date(msg.timestamp).toLocaleTimeString();
             content += `[${time}] ${sender}: ${msg.content}\n\n`;
         });
@@ -870,7 +878,8 @@ updateThemeIcon() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `AI对话记录_${new Date().toISOString().split('T')[0]}.txt`;
+        const filename = languageManager ? languageManager.getText('ai-chat-export-filename') : 'AI对话记录';
+        a.download = `${filename}_${new Date().toISOString().split('T')[0]}.txt`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -880,13 +889,13 @@ updateThemeIcon() {
     // 分享对话
     shareChat() {
         if (this.messageHistory.length === 0) {
-            alert('当前对话为空，无法分享。');
+            alert(languageManager ? languageManager.getText('ai-chat-share-empty') : '当前对话为空，无法分享。');
             return;
         }
         
         const shareData = {
-            title: 'AI 对话记录',
-            text: '查看我与AI助手的对话记录',
+            title: languageManager ? languageManager.getText('ai-chat-share-title') : 'AI 对话记录',
+            text: languageManager ? languageManager.getText('ai-chat-share-text') : '查看我与AI助手的对话记录',
             url: window.location.href
         };
         
@@ -896,9 +905,9 @@ updateThemeIcon() {
             // 复制到剪贴板
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
-                alert('对话链接已复制到剪贴板！');
+                alert(languageManager ? languageManager.getText('ai-chat-share-copied') : '对话链接已复制到剪贴板！');
             }).catch(() => {
-                alert('分享功能暂不可用。');
+                alert(languageManager ? languageManager.getText('ai-chat-share-unavailable') : '分享功能暂不可用。');
             });
         }
     }

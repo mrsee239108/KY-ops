@@ -125,6 +125,11 @@ class TaskManager {
         console.log('首次状态加载成功');
         this.startAutoUpdate();
         
+        // 初始化语言管理器（如果尚未初始化）
+        if (window.languageManager && !window.languageManager.initialized) {
+            window.languageManager.init();
+        }
+        
         // 初始化主题图标
         setTimeout(() => {
             this.updateThemeIcon();

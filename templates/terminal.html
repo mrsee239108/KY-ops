@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>远程终端 - 系统管理</title>
+    <title data-i18n="terminal-title">远程终端 - 系统管理</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/terminal.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -15,13 +15,13 @@
         <div class="title-bar">
             <div class="title-bar-left">
                 <i class="fas fa-terminal"></i>
-                <span>远程终端</span>
+                <span data-i18n="terminal-title">远程终端</span>
             </div>
             <div class="title-bar-right">
                 <div class="window-controls">
-                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题"><i class="fas fa-moon"></i></button>
-                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
-                    <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
+                    <button class="control-btn theme-toggle" id="theme-toggle-btn" title="切换主题" data-i18n-title="terminal-theme-toggle"><i class="fas fa-moon"></i></button>
+                    <button class="control-btn refresh" onclick="refreshPage()" title="刷新" data-i18n-title="terminal-refresh"><i class="fas fa-sync-alt"></i></button>
+                    <button class="control-btn back" onclick="goBack()" title="返回" data-i18n-title="terminal-back"><i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
         </div>
@@ -35,69 +35,69 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="user-info">
-                        <div class="user-name">管理员</div>
+                        <div class="user-name" data-i18n="terminal-admin">管理员</div>
                         <div class="user-status">
                             <span class="status-indicator online"></span>
-                            在线
+                            <span data-i18n="terminal-online">在线</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 连接信息 -->
                 <div class="connection-info">
-                    <h3>连接信息</h3>
+                    <h3 data-i18n="terminal-connection-info">连接信息</h3>
                     <div class="info-item">
                         <i class="fas fa-server"></i>
-                        <span>主机: <span id="hostname">localhost</span></span>
+                        <span><span data-i18n="terminal-host">主机</span>: <span id="hostname">localhost</span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-network-wired"></i>
-                        <span>IP: <span id="server-ip">127.0.0.1</span></span>
+                        <span><span data-i18n="terminal-ip">IP</span>: <span id="server-ip">127.0.0.1</span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
-                        <span>连接时间: <span id="connection-time">--:--</span></span>
+                        <span><span data-i18n="terminal-connection-time">连接时间</span>: <span id="connection-time">--:--</span></span>
                     </div>
                 </div>
 
                 <!-- 快捷命令 -->
                 <div class="quick-commands">
-                    <h3>快捷命令</h3>
+                    <h3 data-i18n="terminal-quick-commands">快捷命令</h3>
                     <div class="command-buttons">
                         <button class="quick-cmd-btn" data-command="ls -la">
                             <i class="fas fa-list"></i>
-                            列出文件
+                            <span data-i18n="terminal-list-files">列出文件</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="pwd">
                             <i class="fas fa-folder"></i>
-                            当前目录
+                            <span data-i18n="terminal-current-dir">当前目录</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="ps aux">
                             <i class="fas fa-tasks"></i>
-                            进程列表
+                            <span data-i18n="terminal-process-list">进程列表</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="df -h">
                             <i class="fas fa-hdd"></i>
-                            磁盘使用
+                            <span data-i18n="terminal-disk-usage">磁盘使用</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="free -h">
                             <i class="fas fa-memory"></i>
-                            内存使用
+                            <span data-i18n="terminal-memory-usage">内存使用</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="netstat -tuln">
                             <i class="fas fa-network-wired"></i>
-                            网络连接
+                            <span data-i18n="terminal-network-connections">网络连接</span>
                         </button>
                         <button class="quick-cmd-btn" data-command="clear">
                             <i class="fas fa-broom"></i>
-                            清屏
+                            <span data-i18n="terminal-clear-screen">清屏</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- 历史命令 -->
                 <div class="command-history">
-                    <h3>命令历史</h3>
+                    <h3 data-i18n="terminal-command-history">命令历史</h3>
                     <div class="history-list" id="history-list">
                         <!-- 历史命令将在这里显示 -->
                     </div>
@@ -112,25 +112,25 @@
                         <div class="terminal-info">
                             <span class="terminal-title">
                                 <i class="fas fa-terminal"></i>
-                                SSH 远程终端
+                                <span data-i18n="terminal-ssh-title">SSH 远程终端</span>
                             </span>
                             <span class="terminal-status">
                                 <span class="status-indicator connected"></span>
-                                已连接
+                                <span data-i18n="terminal-connected">已连接</span>
                             </span>
                         </div>
                         <div class="terminal-controls">
-                            <button class="terminal-btn" id="clear-terminal">
+                            <button class="terminal-btn" id="clear-terminal" title="清屏" data-i18n-title="terminal-clear">
                                 <i class="fas fa-broom"></i>
-                                清屏
+                                <span data-i18n="terminal-clear">清屏</span>
                             </button>
-                            <button class="terminal-btn" id="copy-output">
+                            <button class="terminal-btn" id="copy-output" title="复制" data-i18n-title="terminal-copy">
                                 <i class="fas fa-copy"></i>
-                                复制
+                                <span data-i18n="terminal-copy">复制</span>
                             </button>
-                            <button class="terminal-btn" id="save-session">
+                            <button class="terminal-btn" id="save-session" title="保存会话" data-i18n-title="terminal-save-session">
                                 <i class="fas fa-save"></i>
-                                保存会话
+                                <span data-i18n="terminal-save-session">保存会话</span>
                             </button>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="terminal-output" id="terminal-output">
                         <div class="terminal-line welcome">
                             <span class="timestamp">[--:--:--]</span>
-                            <span class="welcome-text">欢迎使用远程终端！输入命令开始操作...</span>
+                            <span class="welcome-text" data-i18n="terminal-welcome">欢迎使用远程终端！输入命令开始操作...</span>
                         </div>
                     </div>
 
@@ -150,7 +150,7 @@
                             <span class="prompt-path">~</span>$
                         </div>
                         <input type="text" class="terminal-input" id="command-input" 
-                               placeholder="输入命令..." autocomplete="off" spellcheck="false">
+                               placeholder="输入命令..." data-i18n-placeholder="terminal-input-placeholder" autocomplete="off" spellcheck="false">
                         <button class="execute-btn" id="execute-btn">
                             <i class="fas fa-play"></i>
                         </button>
@@ -164,14 +164,17 @@
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner">
             <i class="fas fa-spinner fa-spin"></i>
-            <span>执行命令中...</span>
+            <span data-i18n="terminal-executing">执行命令中...</span>
         </div>
     </div>
 
+    <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            window.languageManager = new LanguageManager();
+            window.languageManager.init();
             window.themeManager = new ThemeManager();
         });
     </script>

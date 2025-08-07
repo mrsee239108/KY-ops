@@ -128,6 +128,12 @@ class FileManager {
 
         this.startAutoUpdate();
         
+        // 初始化语言管理器
+        if (!window.languageManager && window.LanguageManager) {
+            window.languageManager = new LanguageManager();
+            window.languageManager.init();
+        }
+        
         // 初始化主题图标
         setTimeout(() => {
             this.updateThemeIcon();
@@ -1307,7 +1313,7 @@ class FileManager {
             <div class="image-preview">
                 <div class="image-loading" style="display: flex; justify-content: center; align-items: center; height: 200px;">
                     <div class="spinner"></div>
-                    <span style="margin-left: 10px;">加载中...</span>
+                    <span style="margin-left: 10px;" data-i18n="file-manager-loading">加载中...</span>
                 </div>
                 <img src="${data.url}" alt="${fileInfo.name}" style="display: none; max-width: 100%; max-height: 500px; transition: opacity 0.3s;">
                 <div class="image-error" style="display: none; text-align: center; padding: 20px; color: #e74c3c;">
@@ -1485,7 +1491,7 @@ class FileManager {
         previewContent.innerHTML = `
             <div class="preview-loading">
                 <div class="loading-spinner"></div>
-                <span>加载中...</span>
+                <span data-i18n="file-manager-loading">加载中...</span>
             </div>
         `;
     }

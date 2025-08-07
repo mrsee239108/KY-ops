@@ -319,7 +319,11 @@ class CommonUtils {
     }
 
     // 加载状态管理
-    showLoading(element, text = '加载中...') {
+    showLoading(element, text = null) {
+        // 如果没有提供文本，使用翻译系统
+        if (!text) {
+            text = window.languageManager ? window.languageManager.t('loading') : '加载中...';
+        }
         const loading = document.createElement('div');
         loading.className = 'loading-overlay';
         loading.innerHTML = `

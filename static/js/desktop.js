@@ -115,6 +115,12 @@ class Windows10Desktop {
         
         // 初始化主题图标
         setTimeout(() => this.updateThemeIcon(), 100);
+        
+        // 初始化语言管理器（如果还未初始化）
+        if (!window.languageManager && typeof LanguageManager !== 'undefined') {
+            window.languageManager = new LanguageManager();
+            window.languageManager.init();
+        }
     }
 
     setupEventListeners() {

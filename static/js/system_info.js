@@ -203,14 +203,6 @@ class SystemInfoManager {
                 targetPanel = document.getElementById('ssh-management-panel');
                 this.loadSSHManagement();
                 break;
-            case '系统管理':
-                targetPanel = document.getElementById('system-management-panel');
-                this.loadSystemManagement();
-                break;
-            case 'MFA':
-                targetPanel = document.getElementById('mfa-panel');
-                this.loadMFASettings();
-                break;
             case 'DNS设置':
                 targetPanel = document.getElementById('dns-settings-panel');
                 this.loadDNSSettings();
@@ -218,14 +210,6 @@ class SystemInfoManager {
             case 'Swap虚拟内存':
                 targetPanel = document.getElementById('swap-memory-panel');
                 this.loadSwapMemoryInfo();
-                break;
-            case '到期设置':
-                targetPanel = document.getElementById('expiry-settings-panel');
-                this.loadExpirySettings();
-                break;
-            case '许可证':
-                targetPanel = document.getElementById('license-panel');
-                this.loadLicenseInfo();
                 break;
             default:
                 targetPanel = document.getElementById('system-status-panel');
@@ -250,13 +234,26 @@ class SystemInfoManager {
 
     // 加载个性化设置
     loadPersonalizationSettings() {
+        // 同步主题选择器与当前主题
+        const themeSelect = document.getElementById('theme-select');
+        if (themeSelect && window.themeManager) {
+            // 设置选择器默认值为当前主题
+            themeSelect.value = window.themeManager.getCurrentTheme();
+        }
         // 设置事件监听器
         this.setupPersonalizationEvents();
     }
 
     setupPersonalizationEvents() {
         // 主题设置现在由全局主题管理器处理
-        // 这里可以添加其他个性化设置的事件监听器
+        // 语言设置事件监听器
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect && window.languageManager) {
+            languageSelect.value = window.languageManager.getCurrentLanguage();
+            languageSelect.addEventListener('change', (e) => {
+                window.languageManager.changeLanguage(e.target.value);
+            });
+        }
     }
 
     // 加载用户管理
@@ -340,66 +337,6 @@ class SystemInfoManager {
         // 这里可以实现实际的断开连接逻辑
     }
 
-    // 加载系统管理
-    loadSystemManagement() {
-        this.setupSystemManagementEvents();
-    }
-
-    setupSystemManagementEvents() {
-        // 重启系统按钮
-        const restartBtn = document.querySelector('.control-button.restart');
-        if (restartBtn) {
-            restartBtn.addEventListener('click', () => {
-                this.confirmSystemAction('重启系统', '确定要重启系统吗？');
-            });
-        }
-
-        // 关闭系统按钮
-        const shutdownBtn = document.querySelector('.control-button.shutdown');
-        if (shutdownBtn) {
-            shutdownBtn.addEventListener('click', () => {
-                this.confirmSystemAction('关闭系统', '确定要关闭系统吗？');
-            });
-        }
-
-        // 系统更新按钮
-        const updateBtn = document.querySelector('.control-button.update');
-        if (updateBtn) {
-            updateBtn.addEventListener('click', () => {
-                this.showNotification('正在检查系统更新...');
-            });
-        }
-
-        // 服务按钮
-        const serviceButtons = document.querySelectorAll('.service-button');
-        serviceButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification(`${btn.textContent}服务功能开发中...`);
-            });
-        });
-    }
-
-    confirmSystemAction(action, message) {
-        if (confirm(message)) {
-            this.showNotification(`${action}命令已发送`);
-            // 这里可以实现实际的系统操作
-        }
-    }
-
-    // 加载MFA设置
-    loadMFASettings() {
-        this.setupMFAEvents();
-    }
-
-    setupMFAEvents() {
-        const mfaButtons = document.querySelectorAll('.mfa-button');
-        mfaButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('MFA配置功能开发中...');
-            });
-        });
-    }
-
     // 加载DNS设置
     loadDNSSettings() {
         this.setupDNSEvents();
@@ -451,34 +388,6 @@ class SystemInfoManager {
     updateSwapDisplay() {
         // 这个方法会在loadSystemInfo中的updateSystemInfo方法中被调用
         // 因为Swap信息已经包含在系统信息API中
-    }
-
-    // 加载到期设置
-    loadExpirySettings() {
-        this.setupExpiryEvents();
-    }
-
-    setupExpiryEvents() {
-        const expiryButtons = document.querySelectorAll('.expiry-button');
-        expiryButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('到期设置功能开发中...');
-            });
-        });
-    }
-
-    // 加载许可证信息
-    loadLicenseInfo() {
-        this.setupLicenseEvents();
-    }
-
-    setupLicenseEvents() {
-        const licenseButtons = document.querySelectorAll('.license-button');
-        licenseButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.showNotification('许可证管理功能开发中...');
-            });
-        });
     }
 
     async loadAlertNotification() {

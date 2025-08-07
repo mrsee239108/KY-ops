@@ -35,7 +35,34 @@ class Terminal {
         
         // 每秒更新连接时间
         setInterval(() => this.updateConnectionTime(), 1000);
+        
+        // 初始化主题图标
+        setTimeout(() => {
+            this.updateThemeIcon();
+        }, 100);
     }
+    toggleTheme() {
+    if (window.themeManager) {
+        window.themeManager.toggleTheme();
+        this.updateThemeIcon();
+    }
+}
+
+updateThemeIcon() {
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn && window.themeManager) {
+        const icon = themeToggleBtn.querySelector('i');
+        const currentTheme = window.themeManager.getCurrentTheme();
+        
+        if (currentTheme === 'light') {
+            icon.className = 'fas fa-sun';
+            themeToggleBtn.title = '切换到深色模式';
+        } else {
+            icon.className = 'fas fa-moon';
+            themeToggleBtn.title = '切换到浅色模式';
+        }
+    }
+}
 
     initializeElements() {
         this.terminalOutput = document.getElementById('terminal-output');
@@ -52,6 +79,13 @@ class Terminal {
     }
 
     bindEvents() {
+        // 主题切换按钮事件
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
         // 命令输入事件
         this.commandInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {

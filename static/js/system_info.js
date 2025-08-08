@@ -118,6 +118,7 @@ class SystemInfoManager {
         this.setupEventListeners();
         this.loadSystemInfo();
         // 主题管理现在由全局主题管理器处理
+        this.loadPerformanceData();
         this.loadAlertNotification();
 
         this.startAutoUpdate();
@@ -209,7 +210,7 @@ class SystemInfoManager {
                 break;
             case 'swap-memory':
                 targetPanel = document.getElementById('swap-memory-panel');
-                this.loadSwapMemoryInfo();
+                this.loadPerformanceData()
                 break;
             default:
                 targetPanel = document.getElementById('system-status-panel');
@@ -404,18 +405,58 @@ class SystemInfoManager {
         }, 2000);
     }
 
-    // 加载Swap内存信息
-    loadSwapMemoryInfo() {
-        // 从系统信息API获取Swap信息并更新显示
-        this.loadSystemInfo().then(() => {
-            // 系统信息加载完成后更新Swap显示
-            this.updateSwapDisplay();
-        });
+    updateElement(id, value) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
     }
 
-    updateSwapDisplay() {
-        // 这个方法会在loadSystemInfo中的updateSystemInfo方法中被调用
-        // 因为Swap信息已经包含在系统信息API中
+    updateSwapDisplay(data) {
+        this.updateElement('swap-total', formatBytes(data.swap_total));
+        this.updateElement('swap-used', formatBytes(data.swap_used));
+        this.updateElement('swap-percent', `${(data.cpu_average || 0).toFixed(2)}%`);
+    }
+
+    async loadPerformanceData() {
+        try {
+            console.log('开始加载性能数据...', new Date().toLocaleTimeString());
+
+            // 使用XMLHttpRequest替代fetch
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/performance-data', true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            console.log('XMLHttpRequest已配置，准备发送请求...');
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(xhr.responseText); // 解析JSON数据
+                            this.updateSwapDisplay(data);
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                            //this.generateMockData();
+                        }
+                    } else {
+                        console.error('HTTP错误:', xhr.status, xhr.statusText);
+                        //this.generateMockData();
+                    }
+                }
+            };
+
+            xhr.onerror = () => {
+                console.error('网络错误');
+                //this.generateMockData();
+            };
+
+            xhr.send(); // 使用异步请求
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+            // 使用模拟数据继续运行
+            //this.generateMockData();
+        }
     }
 
     async loadAlertNotification() {
@@ -513,6 +554,7 @@ class SystemInfoManager {
     startAutoUpdate() {
         // 每1秒自动更新一次，提高刷新频率
         this.updateInterval = setInterval(() => {
+            this.loadPerformanceData();
             this.loadAlertNotification();
         }, 1000);
     }

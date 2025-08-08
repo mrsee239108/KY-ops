@@ -310,17 +310,14 @@
             // 初始化语言管理器
             window.languageManager = new LanguageManager();
             window.languageManager.init();
-            
-            // 初始化系统信息管理器
-            const systemInfoManager = new SystemInfoManager();
-            systemInfoManager.init();
+
             
             loadSystemInfo();
         });
 
         function loadSystemInfo() {
             // 只从info.txt获取数据
-            fetch('../info.txt')
+            fetch('/api/system-info-txt')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('info.txt文件不存在');

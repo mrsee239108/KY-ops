@@ -23,6 +23,7 @@ class GlobalCall:
     real_time_net_data = []
     real_time_disk_data = []
     real_time_jvm_data = []
+    real_time_sys_message_data = []
 
 
     monitor_info_thread_pool = ThreadPool()

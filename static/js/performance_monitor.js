@@ -920,13 +920,13 @@ class PerformanceMonitor {
         //const totalLoad = data.load_avg ? Math.round(data.load_avg[0] * 100) : Math.round(data.cpu_average || 0);
         //改成小数：
         const totalLoad = data.load_avg ? data.load_avg[0] : data.cpu_average || 0;
-        this.updateElement('total-load', `${((100*totalLoad)?.toFixed(2))}%`);
+        this.updateElement('total-load', `${((totalLoad)?.toFixed(2))}`);
 
         // 更新负载平均值
         if (data.load_avg) {
-            this.updateElement('load-1min', `${((data.load_avg[0]*100)?.toFixed(2))}%` || '0%');
-            this.updateElement('load-5min', `${((data.load_avg[1]*100)?.toFixed(2))}%` || '0%');
-            this.updateElement('load-15min', `${((data.load_avg[2]*100)?.toFixed(2))}%` || '0%');
+            this.updateElement('load-1min', `${((data.load_avg[0])?.toFixed(2))}` || '0.00');
+            this.updateElement('load-5min', `${((data.load_avg[1])?.toFixed(2))}` || '0.00');
+            this.updateElement('load-15min', `${((data.load_avg[2])?.toFixed(2))}` || '0.00');
         }
 
         //是否有CPU详细信息

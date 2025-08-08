@@ -114,6 +114,8 @@ class AIChatInterface {
             'network-overload': { type: 'warning', title: '网络过载' },
             'high-process-load': { type: 'info', title: '高进程负载' }
         };
+        this.performanceData = null; // 存储性能数据
+        this.systemLog = null; // 存储系统日志
         this.init();
     }
 
@@ -123,6 +125,8 @@ class AIChatInterface {
         this.autoResizeTextarea();
 
         this.loadAlertNotification();
+        this.loadPerformanceData();
+        this.loadSystemLog();
         // 检查AI模型状态
         setTimeout(() => {
             this.checkInitialAIStatus();
@@ -140,27 +144,27 @@ class AIChatInterface {
     
     // 切换主题
     toggleTheme() {
-    if (window.themeManager) {
-        window.themeManager.toggleTheme();
-        this.updateThemeIcon();
-    }
-}
-
-updateThemeIcon() {
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    if (themeToggleBtn && window.themeManager) {
-        const icon = themeToggleBtn.querySelector('i');
-        const currentTheme = window.themeManager.getCurrentTheme();
-        
-        if (currentTheme === 'light') {
-            icon.className = 'fas fa-sun';
-            themeToggleBtn.title = '切换到深色模式';
-        } else {
-            icon.className = 'fas fa-moon';
-            themeToggleBtn.title = '切换到浅色模式';
+        if (window.themeManager) {
+            window.themeManager.toggleTheme();
+            this.updateThemeIcon();
         }
     }
-}
+
+    updateThemeIcon() {
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn && window.themeManager) {
+            const icon = themeToggleBtn.querySelector('i');
+            const currentTheme = window.themeManager.getCurrentTheme();
+
+            if (currentTheme === 'light') {
+                icon.className = 'fas fa-sun';
+                themeToggleBtn.title = '切换到深色模式';
+            } else {
+                icon.className = 'fas fa-moon';
+                themeToggleBtn.title = '切换到浅色模式';
+            }
+        }
+    }
 
     setupEventListeners() {
         // 主题切换按钮事件
@@ -185,8 +189,6 @@ updateThemeIcon() {
                 }
             });
         }
-
-
     }
 
     // 自动调整文本框高度
@@ -217,6 +219,46 @@ updateThemeIcon() {
         }
     }
 
+    async loadPerformanceData() {
+        try {
+            console.log('开始加载性能数据...', new Date().toLocaleTimeString());
+
+            // 使用XMLHttpRequest替代fetch
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/performance-data', true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            console.log('XMLHttpRequest已配置，准备发送请求...');
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(xhr.responseText); // 解析JSON数据
+
+                            console.log('加载性能数据成功:', data);
+                            this.setPerformanceData(data);
+
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                        }
+                    } else {
+                        console.error('HTTP错误:', xhr.status, xhr.statusText);
+                    }
+                }
+            };
+
+            xhr.onerror = () => {
+                console.error('网络错误');
+            };
+
+            xhr.send(); // 使用异步请求
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+            // 使用模拟数据继续运行
+        }
+    }
+
     async loadAlertNotification() {
         try {
             const xhr2 = new XMLHttpRequest();
@@ -229,6 +271,8 @@ updateThemeIcon() {
                     if (xhr2.status === 200) {
                         try {
                             const alerts = JSON.parse(xhr2.responseText);
+
+                            console.log('加载告警数据成功:', alerts);
                             this.updateAlert(alerts);
                         } catch (parseError) {
                             console.error('解析JSON失败:', parseError);
@@ -242,6 +286,37 @@ updateThemeIcon() {
                 console.error('网络错误');
             }
             xhr2.send();
+        } catch (error) {
+            console.error('加载性能数据失败:', error);
+        }
+    }
+
+    async loadSystemLog() {
+        try {
+            const xhr3 = new XMLHttpRequest();
+            xhr3.open('GET', 'api/system-log', true);
+            xhr3.setRequestHeader('Accept', 'application/json');
+            xhr3.setRequestHeader('Content-Type', 'application/json')
+
+            xhr3.onreadystatechange = () => {
+                if (xhr3.readyState === 4) {
+                    if (xhr3.status === 200) {
+                        try {
+                            const log = JSON.parse(xhr3.responseText);
+                            console.log('加载系统日志成功:', log);
+                            this.setSystemLog(log);
+                        } catch (parseError) {
+                            console.error('解析JSON失败:', parseError);
+                        }
+                    } else{
+                        console.error('HTTP错误:', xhr3.status, xhr3.statusText);
+                    }
+                }
+            };
+            xhr3.onerror = () => {
+                console.error('网络错误');
+            }
+            xhr3.send();
         } catch (error) {
             console.error('加载性能数据失败:', error);
         }
@@ -729,13 +804,268 @@ updateThemeIcon() {
         if (subtitleElement) subtitleElement.textContent = subtitle;
     }
 
+    // 构建问题
+    buildQuery(action) {
+        const template = this.getQueryTemplate(action);
+        if (!template) return null;
+
+        const dataSummary = this.getDataSummary(action);
+        return `${template}\n\n当前系统状态：\n${dataSummary}`;
+    }
+
+    // 查询模板
+    getQueryTemplate(action) {
+        const templates = {
+            'system-check': '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
+            'performance-analysis': '请分析当前系统性能，给出优化建议',
+            'security-scan': '请进行安全扫描，检查系统是否存在安全风险',
+            'log-analysis': '请帮我分析系统日志，查找可能的问题',
+        };
+        return templates[action] || null;
+    }
+
+    // 数据摘要
+    getDataSummary(action) {
+        // 确保加载了最新的性能数据和系统日志
+        this.loadPerformanceData();
+        this.loadSystemLog();
+
+        if (!this.performanceData || !this.systemLog) {
+            return '数据采集失败，请稍后再试';
+        }
+
+        const perf = this.performanceData;
+        const log = this.systemLog;
+        let summary = '';
+
+        // 通用系统状态摘要
+        const systemSummary = () => {
+            return `CPU: ${perf.cpu_percent}% | 内存: ${perf.memory_percent}%
+交换空间: ${perf.swap_percent}% | 系统负载: ${perf.load_avg}
+进程总数: ${perf.process_count}`;
+        };
+
+        // 根据action类型构建综合摘要
+        switch (action) {
+            case 'system-check':
+                // 综合系统检查（包含磁盘、网络等）
+                const diskUsage = perf.disk_usage.map(disk =>
+                    `- ${disk.mountpoint}: ${disk.percent}% (可用 ${(disk.free / 1024 / 1024).toFixed(1)}MB)`
+                ).join('\n');
+
+                const networkSummary = `接收: ${(perf.network_io.bytes_recv / 1024 / 1024).toFixed(2)}MB | 发送: ${(perf.network_io.bytes_sent / 1024 / 1024).toFixed(2)}MB
+丢包: ${perf.network_io.dropin}输入/${perf.network_io.dropout}输出 | 错误: ${perf.network_io.errin}输入/${perf.network_io.errout}输出`;
+
+                summary = `## 综合系统状态检查 ##
+${systemSummary()}
+
+磁盘使用情况:
+${diskUsage}
+
+网络概况:
+${networkSummary}`;
+                break;
+
+            case 'performance-analysis':
+                // 综合性能分析（包含进程、磁盘IO等）
+                const topProcesses = perf.top_processes.slice(0, 5).map(p =>
+                    `- ${p.command.slice(0, 20)} (PID:${p.pid}, CPU:${p.cpu_percent}%, MEM:${p.mem_percent}%)`
+                ).join('\n');
+
+                let highIOTargets = '无高IO设备';
+                if (perf.disk_io && Object.keys(perf.disk_io).length > 0) {
+                    const ioEntries = Object.entries(perf.disk_io);
+                    const highIO = ioEntries
+                        .filter(([_, stats]) => stats.utilization > 50)
+                        .map(([dev, stats]) =>
+                            `- ${dev}: ${stats.utilization}% (读 ${(stats.read_bytes / 1024).toFixed(1)}KB/s, 写 ${(stats.write_bytes / 1024).toFixed(1)}KB/s)`
+                        );
+                    if (highIO.length > 0) {
+                        highIOTargets = highIO.join('\n');
+                    }
+                }
+
+                summary = `## 综合性能分析 ##
+${systemSummary()}
+CPU核心: ${perf.cpu_count_physical}物理/${perf.cpu_count_logical}逻辑
+CPU频率: ${perf.cpu_frequency.current}MHz
+
+高负载进程:
+${topProcesses || '未检测到显著高负载进程'}
+
+高IO设备:
+${highIOTargets}`;
+                break;
+
+            case 'security-scan':
+                // 综合安全扫描（包含网络连接、可疑进程等）
+                const suspiciousProcesses = perf.top_processes
+                    .filter(p =>
+                        parseFloat(p.cpu_percent) > 30 ||
+                        parseFloat(p.mem_percent) > 30 ||
+                        p.command.includes('unknown') ||
+                        p.user === 'unknown'
+                    )
+                    .map(p => `- ${p.command} (PID:${p.pid}, 用户:${p.user})`)
+                    .join('\n') || '未发现可疑进程';
+
+                summary = `## 综合安全扫描 ##
+${systemSummary()}`;
+                break;
+
+            case 'log-analysis':
+                // 错误日志分析
+                if (!this.parsedErrorLogs) {
+                    this.parsedErrorLogs = this.parseErrorLogs(log);
+                }
+
+                const errors = Array.from(this.parsedErrorLogs.values());
+
+                // 按最近发生时间排序
+                errors.sort((a, b) => b.lastOccurrence - a.lastOccurrence);
+
+                // 生成错误摘要
+                const errorSummary = errors.slice(0, 10).map((error, index) => {
+                    return `[错误${index + 1}]
+内容: ${error.message}
+次数: ${error.count}次
+首次发生: ${error.firstOccurrence.toLocaleString()}
+最近发生: ${error.lastOccurrence.toLocaleString()} (${error.timeAgo})`;
+                }).join('\n\n');
+
+                summary = `## 系统错误摘要 ##
+共发现 ${errors.length} 类错误
+
+${errorSummary}`;
+                break;
+// ${errors.length > 10 ? `\n...还有${errors.length - 10}个错误未显示` : ''}`;
+//                 break;
+            default:
+                summary = `当前系统状态:
+${systemSummary()}`;
+        }
+
+        return summary;
+    }
+
+    // 设置性能数据
+    setPerformanceData(data) {
+        console.log('设置性能数据:', data);
+        this.performanceData = data;
+    }
+
+    setSystemLog(log) {
+        console.log('设置系统日志:', log)
+        this.systemLog = log;
+    }
+
+    // 发送消息
+    generateQuery(action) {
+        const query = this.buildQuery(action);
+        if (!query) {
+            console.warn(`未知的操作类型: ${action}`);
+            return;
+        }
+
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            messageInput.value = query;
+            this.updateCharCount();
+            this.autoResizeTextarea();
+
+            // 滚动到输入框
+            messageInput.scrollIntoView({ behavior: 'smooth' });
+            messageInput.focus();
+        }
+    }
+
+    parseErrorLogs(logData) {
+        const uniqueErrors = new Map();
+        const currentYear = new Date().getFullYear();
+        const monthMap = {
+            'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+            'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+        };
+
+        // 处理日志数组
+        const processLogs = (logs) => {
+            logs.forEach(logString => {
+                const lines = logString.split('\n');
+                lines.forEach(line => {
+                    if (!line.trim()) return;
+
+                    // 匹配日志格式: "月 日 时间 主机 进程: 消息"
+                    const match = line.match(/^(\w{3})\s+(\d{1,2}) (\d{2}:\d{2}:\d{2}) \S+ (.+)$/);
+                    if (!match) return;
+
+                    const [, month, day, time, message] = match;
+                    const [hours, minutes, seconds] = time.split(':').map(Number);
+
+                    // 创建时间戳 (假设是当前年)
+                    const timestamp = new Date(
+                        currentYear,
+                        monthMap[month],
+                        parseInt(day),
+                        hours, minutes, seconds
+                    );
+
+                    // 提取错误关键部分 (去除进程ID等变化部分)
+                    const key = message.replace(/\[\d+\]/g, '[PID]')
+                                       .replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, 'IP')
+                                       .replace(/port \d+/g, 'port PORT');
+
+                    // 计算相对时间
+                    const now = new Date();
+                    const timeDiff = Math.floor((now - timestamp) / 1000); // 秒
+                    let timeAgo = '';
+
+                    if (timeDiff < 60) {
+                        timeAgo = `${timeDiff}秒前`;
+                    } else if (timeDiff < 3600) {
+                        timeAgo = `${Math.floor(timeDiff / 60)}分钟前`;
+                    } else if (timeDiff < 86400) {
+                        timeAgo = `${Math.floor(timeDiff / 3600)}小时前`;
+                    } else {
+                        timeAgo = `${Math.floor(timeDiff / 86400)}天前`;
+                    }
+
+                    // 添加或更新错误条目
+                    if (uniqueErrors.has(key)) {
+                        const entry = uniqueErrors.get(key);
+                        entry.count++;
+                        if (timestamp < entry.firstOccurrence) {
+                            entry.firstOccurrence = timestamp;
+                        }
+                        if (timestamp > entry.lastOccurrence) {
+                            entry.lastOccurrence = timestamp;
+                        }
+                    } else {
+                        uniqueErrors.set(key, {
+                            message: message,
+                            count: 1,
+                            firstOccurrence: timestamp,
+                            lastOccurrence: timestamp,
+                            timeAgo: timeAgo
+                        });
+                    }
+                });
+            });
+        };
+
+        // 处理错误日志和最近日志
+        if (logData.error_logs) processLogs(logData.error_logs);
+        if (logData.recent_logs) processLogs(logData.recent_logs);
+
+        return uniqueErrors;
+    }
+
+
+
     // 快捷操作
     async quickAction(action) {
 
 
         const actions = {
-            'system-check': languageManager ? languageManager.translate('ai-chat-system-check-prompt') : '请帮我检查系统状态，包括CPU、内存、磁盘使用情况',
-            'performance-analysis': languageManager ? languageManager.translate('ai-chat-performance-analysis-prompt') : '请分析当前系统性能，给出优化建议',
             'security-scan': languageManager ? languageManager.translate('ai-chat-security-scan-prompt') : '请进行安全扫描，检查系统是否存在安全风险',
             'log-analysis': languageManager ? languageManager.translate('ai-chat-log-analysis-prompt') : '请帮我分析系统日志，查找可能的问题'
         };

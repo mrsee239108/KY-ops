@@ -70,7 +70,7 @@ class RealTimeMemory:
             if len(mem_line) > 6:
                 mem_available = float(mem_line[6])
             mem_used = mem_total - mem_available
-            mem_buffers = float(mem_line[5])
+            mem_buffers =log float(mem_line[5])
             mem_cached = float(mem_line[5])
 
             # 提取交换内存数据

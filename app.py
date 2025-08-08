@@ -79,6 +79,20 @@ except Exception as e:
     print(f"启动实时磁盘监控失败: {e}")
     real_time_disk_monitor = None
 
+try:
+    from extune.category.get_system_message import RealTimeSysMessage
+    from extune.common.global_call import GlobalCall
+    real_time_sys_message_monitor = RealTimeSysMessage(interval=2)
+    real_time_sys_message_monitor.start_broadcasting()
+    print("系统消息实时监控已启动")
+except ImportError as e:
+    print(f"无法导入系统消息实时监控: {e}")
+    real_time_sys_message_monitor = None
+except Exception as e:
+    print(f"启动系统消息实时监控失败: {e}")
+    real_time_sys_message_monitor = None
+
+
 
 # 添加CORS支持
 @app.after_request
@@ -844,7 +858,7 @@ def check_alert():
             for proc in cpu_data.get('top_processes', [])[:5]:  # 检查前5个高负载进程
                 if proc.get('cpu_percent', 0) > ALERT_THRESHOLDS["high-process-load"]:
                     update_alert("high-process-load",
-                                 f"进程 {proc.get('command', '未知')} 占用过高CPU: {proc['cpu_percent']:.2f}%",
+                                 f"进程 {proc.get('command', '未知')} 占用过高CPU: {proc['cpu_percent']}%",
                                  current_time)
 
         return jsonify(performanceAlert)
@@ -875,6 +889,18 @@ def update_alert(alert_code, description, timestamp):
             "solution": ""  # 初始为空，由AI后续生成
         }
         performanceAlert.append(new_alert)
+
+
+@app.route('/api/system-log')
+def get_system_log():
+    try:
+        system_log = GlobalCall.real_time_sys_message_data
+        recent_logs = system_log['recent_logs']
+        error_logs = system_log['error_logs']
+        return jsonify({'recent_logs': recent_logs, 'error_logs': error_logs})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/api/processes')
 def get_processes():

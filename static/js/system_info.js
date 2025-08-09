@@ -101,6 +101,7 @@ function closeAlertNotification(alertNotification) {
 // 系统信息页面功能
 class SystemInfoManager {
     constructor() {
+        this.boundHandleHashChange = this.handleHashNavigation.bind(this);
         this.updateInterval = null;
         this.currentAlerts = new Map(); // 存储当前活动的告警
         this.alertTypeMap = {
@@ -121,11 +122,27 @@ class SystemInfoManager {
         this.loadPerformanceData();
         this.loadAlertNotification();
 
+        // 添加hash监听
+        window.addEventListener('hashchange', this.boundHandleHashChange);
+        // 初始处理hash
+        this.handleHashNavigation();
+
         this.startAutoUpdate();
         // 初始化主题图标
         setTimeout(() => {
             this.updateThemeIcon();
         }, 100);
+    }
+
+    // 处理URL hash导航
+    handleHashNavigation() {
+        const hash = window.location.hash.substring(1); // 去掉#
+        if (!hash) return;
+
+        const navItem = document.querySelector(`.nav-item[data-nav="${hash}"]`);
+        if (navItem) {
+            this.handleNavigation(navItem);
+        }
     }
 
     setupEventListeners() {
@@ -170,6 +187,8 @@ class SystemInfoManager {
     }
 
     handleNavigation(navItem) {
+        if (navItem.classList.contains('active')) return;
+
         // 移除所有活动状态
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
@@ -224,6 +243,7 @@ class SystemInfoManager {
 
         // 更新面包屑
         this.updateBreadcrumb(navType);
+        window.location.hash = navType;
     }
 
     updateBreadcrumb(navType) {
@@ -695,6 +715,7 @@ class SystemInfoManager {
 
     destroy() {
         // 清理资源
+        window.removeEventListener('hashchange', this.boundHandleHashChange);
         console.log('SystemInfoManager 已销毁');
     }
 }

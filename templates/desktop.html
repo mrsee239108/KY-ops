@@ -111,7 +111,7 @@
             <div class="system-tray">
                 <!-- 系统图标 -->
                 <div class="tray-icons">
-                    <div class="tray-icon" data-i18n-title="desktop-network-tooltip" title="网络">
+                    <div class="tray-icon" id="net-tray-btn" data-i18n-title="desktop-network-tooltip" title="网络">
                         <i class="fas fa-wifi"></i>
                     </div>
                     <div class="tray-icon" data-i18n-title="desktop-battery-tooltip" title="电池">
@@ -120,12 +120,11 @@
                     <div class="tray-icon" id="theme-toggle-btn" data-i18n-title="desktop-theme-toggle-tooltip" title="切换主题">
                         <i class="fas fa-moon"></i>
                     </div>
+                    <div class="tray-icon" id="ai-tray-btn" data-i18n-title="AI-assistant-tooltip" title="AI 助手">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
                 </div>
 
-                <!-- 通知区域 -->
-                <div class="notification-area">
-                    <i class="fas fa-comment-alt"></i>
-                </div>
 
                 <!-- 时间和日期 -->
                 <div class="datetime-display" id="datetime-display">
@@ -227,32 +226,6 @@
             <div class="menu-item">
                 <i class="fas fa-sync-alt"></i>
                 <span data-i18n="desktop-context-refresh">刷新</span>
-            </div>
-            <div class="menu-separator"></div>
-            <div class="menu-item">
-                <i class="fas fa-window-restore"></i>
-                <span data-i18n="desktop-context-window-manager">窗口管理</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-times-circle"></i>
-                <span data-i18n="desktop-context-close-all">关闭所有窗口</span>
-            </div>
-            <div class="menu-separator"></div>
-            <div class="menu-item">
-                <i class="fas fa-sort"></i>
-                <span data-i18n="desktop-context-sort">排序方式</span>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-eye"></i>
-                <span data-i18n="desktop-context-view">查看</span>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="menu-separator"></div>
-            <div class="menu-item">
-                <i class="fas fa-plus"></i>
-                <span data-i18n="desktop-context-new">新建</span>
-                <i class="fas fa-chevron-right"></i>
             </div>
             <div class="menu-separator"></div>
             <div class="menu-item">

@@ -910,7 +910,7 @@ ${highIOTargets}`;
                     .join('\n') || '未发现可疑进程';
 
                 summary = `## 综合安全扫描 ##
-${systemSummary()}`;
+${systemSummary()} | 可疑进程：${suspiciousProcesses}`;
                 break;
 
             case 'log-analysis':

@@ -226,6 +226,23 @@ class Windows10Desktop {
                 this.toggleTheme();
             });
         }
+
+        const networkBtn = document.getElementById('net-tray-btn');
+        if (networkBtn) {
+            networkBtn.addEventListener('click', (e) => {
+                this.openApplication('network-monitor');
+                this.closeStartMenu();
+            });
+        }
+
+        const aiBtn = document.getElementById('ai-tray-btn');
+        if (aiBtn) {
+            aiBtn.addEventListener('click', (e) => {
+                this.openApplication("ai-chat");
+                this.closeStartMenu();
+            });
+        }
+
     }
 
     updateDateTime() {
@@ -379,6 +396,7 @@ class Windows10Desktop {
         this.startMenuOpen = true;
     }
 
+    // 关闭开始菜单
     closeStartMenu() {
         const startMenu = document.getElementById('start-menu');
         const startButton = document.getElementById('start-button');
@@ -389,17 +407,23 @@ class Windows10Desktop {
     }
 
     openApplication(appName) {
-        console.log(`打开应用: ${appName}`);
-        
-        // 获取应用URL
-        const appUrl = this.getAppUrl(appName);
-        if (!appUrl) {
-            this.showNotification('应用', `${appName} 功能开发中...`);
+        // 获取基础URL（不含锚点）
+        const baseUrl = this.getAppUrl(appName.split('#')[0]);
+
+        if (!baseUrl) {
+            this.showNotification('应用', `${appName.split('#')[0]} 功能开发中...`);
             return;
         }
-        
-        // 直接在当前页面跳转到应用页面
-        window.location.href = appUrl;
+
+        // 保留原始应用名中的锚点
+        const hashPart = appName.includes('#')
+            ? '#' + appName.split('#')[1]
+            : '';
+
+        // 构建完整URL
+        const fullUrl = baseUrl + hashPart;
+
+        window.location.href = fullUrl;
     }
     
     getAppUrl(appName) {
@@ -511,14 +535,16 @@ class Windows10Desktop {
                 location.reload();
                 break;
             case '个性化':
-                this.showNotification('个性化', '个性化设置功能开发中...');
+                this.openApplication('system-info#personalization');
                 break;
+        /* 弃用中...
             case '窗口管理':
                 this.showWindowManager();
                 break;
             case '关闭所有窗口':
                 this.showNotification('窗口管理', '当前使用单页面模式，无需关闭窗口');
                 break;
+         */
             default:
                 console.log(`执行操作: ${action}`);
         }

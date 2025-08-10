@@ -1,0 +1,25 @@
+2025-01-10 21:50:01 INFO System startup completed successfully
+2025-01-10 21:50:02 INFO Network interface eth0 is up
+2025-01-10 21:50:03 INFO Database connection established
+2025-01-10 21:50:05 WARN High memory usage detected: 85%
+2025-01-10 21:50:10 ERROR Failed to connect to external service: timeout (errno=110 ETIMEDOUT)
+2025-01-10 21:50:15 INFO User login: admin from 192.168.1.100
+2025-01-10 21:50:20 ERROR Authentication failed for user: hacker from 192.168.1.200 (errno=13 EACCES)
+2025-01-10 21:50:25 WARN Disk space low on /var partition: 90% full (errno=28 ENOSPC)
+2025-01-10 21:50:30 INFO Backup process started
+2025-01-10 21:50:35 ERROR Backup failed: permission denied (errno=13 EACCES)
+2025-01-10 21:50:40 CRITICAL System overheating detected: CPU temperature 95°C
+2025-01-10 21:50:45 INFO Service restart: apache2
+2025-01-10 21:50:50 WARN Slow query detected: SELECT * FROM large_table took 5.2s
+2025-01-10 21:50:55 ERROR SQL injection attempt detected from 192.168.1.201
+2025-01-10 21:51:00 INFO System health check passed
+2025-01-10 21:51:05 ERROR Memory leak detected in process PID 1234 (errno=12 ENOMEM)
+2025-01-10 21:51:10 WARN Connection timeout to database server (errno=110 ETIMEDOUT)
+2025-01-10 21:51:15 INFO User logout: admin
+2025-01-10 21:51:20 ERROR Segmentation fault in application core (errno=11 SIGSEGV)
+2025-01-10 21:51:25 INFO System maintenance scheduled for 02:00
+2025-01-10 21:51:30 WARN High CPU usage: 95% for 5 minutes
+2025-01-10 21:51:35 ERROR Failed login attempt: invalid user 'root' from 192.168.1.202 (errno=13 EACCES)
+2025-01-10 21:51:40 INFO Cache cleared successfully
+2025-01-10 21:51:45 ERROR Disk full: unable to write log file (errno=28 ENOSPC)
+2025-01-10 21:51:50 CRITICAL Security breach detected: unauthorized access attempt

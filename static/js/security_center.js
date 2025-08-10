@@ -1,973 +1,639 @@
-// 通用函数：刷新页面
-function refreshPage() {
-    location.reload();
-}
+'use strict';
 
-// 通用函数：返回上一页
-function goBack() {
-    if (window.history.length > 1) {
-        window.history.back();
-    } else {
-        // 如果没有历史记录，返回桌面
-        window.location.href = '/';
+(function(){
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+  // Chart.js defaults if available
+  function configureChartDefaults(){
+    if (!window.Chart) return;
+    Chart.defaults.color = '#cbd5e1';
+    Chart.defaults.borderColor = 'rgba(148,163,184,0.25)';
+    Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, \"Microsoft YaHei\", \"PingFang SC\", sans-serif';
+    Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    Chart.defaults.plugins.legend.labels.boxWidth = 8;
+    Chart.defaults.elements.point.radius = 0;
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+  }
+
+  const API = {
+    systemLog: '/api/system-log', // GET
+    securityScan: '/api/security-scan', // POST (start scan) or GET (status)
+    systemStatus: '/api/system-status', // GET
+    performanceData: '/api/performance-data', // GET
+    files: '/api/files', // GET list, POST save
+    executeCommand: '/api/execute-command', // POST {cmd}
+  };
+
+  function notify(message, type='info', timeout=3500){
+    let box = document.getElementById('alertNotification-container');
+    if(!box){
+      box = document.createElement('div');
+      box.id = 'alertNotification-container';
+      document.body.appendChild(box);
     }
-}
+    const el = document.createElement('div');
+    el.className = `alert ${type}`;
+    el.textContent = message;
+    box.appendChild(el);
+    setTimeout(()=>{
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-4px)';
+      setTimeout(()=> el.remove(), 250);
+    }, timeout);
+  }
 
-const alertNotificationContainer = document.getElementById('alertNotification-container');
-
-// 显示通知函数
-function showAlertNotification(options) {
-    // 创建通知元素
-    const alertNotification = document.createElement('div');
-    alertNotification.className = 'alertNotification';
-
-    // 设置类型对应的颜色
-    const colors = {
-                info: '#0078d7',
-        success: '#107c10',
-        warning: '#d83b01',
-        error: '#e81123'
-    };
-    const color = colors[options.type] || '#0078d7';
-
-    // 设置图标
-    const icons = {
-        info: 'ℹ️',
-        success: '✅',
-        warning: '⚠️',
-        error: '❌'
-    };
-    const icon = icons[options.type] || 'ℹ️';
-
-    // 创建通知内容
-    alertNotification.innerHTML = `
-        <div class="alertNotification-icon">${icon}</div>
-        <div class="alertNotification-content">
-            <div class="alertNotification-title">${options.title}</div>
-            <div class="alertNotification-message">${options.message}</div>
-        </div>
-        <button class="alertNotification-close">×</button>
-        <div class="alertNotification-progress"></div>
-    `;
-
-    // 设置边框颜色
-    alertNotification.style.borderLeftColor = color;
-
-    // 添加到容器
-    alertNotificationContainer.appendChild(alertNotification);
-
-    // 显示通知
-    setTimeout(() => {
-        alertNotification.classList.add('show');
-
-        // 设置进度条动画
-        const progressBar = alertNotification.querySelector('.alertNotification-progress');
-        if (progressBar) {
-            progressBar.style.transition = `transform ${options.duration}s linear`;
-            progressBar.style.transform = 'scaleX(0)';
-        }
-    }, 10);
-
-    // 设置关闭事件
-    const closeBtn = alertNotification.querySelector('.alertNotification-close');
-    closeBtn.addEventListener('click', () => {
-        closeAlertNotification(alertNotification);
+  function initTabs(){
+    const tabs = $$('.tab-btn');
+    const views = $$('.tab-content');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        tabs.forEach(b=>b.classList.remove('active'));
+        views.forEach(v=>v.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.getAttribute('data-target');
+        const view = document.getElementById(target);
+        if(view) view.classList.add('active');
+      });
     });
+  }
 
-    // 自动关闭
-    if (options.duration > 0) {
-        setTimeout(() => {
-            closeAlertNotification(alertNotification);
-            }, options.duration * 1000);
+  // Utility
+  function escapeHtml(str=''){
+    return str.replace(/[&<>"']/g, s=>({
+      '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'
+    })[s]||s);
+  }
+
+  // Log Analyzer
+  class LogAnalyzer{
+    constructor(){
+      this.listEl = $('#logStream');
+      this.anomalyEl = $('#anomalyList');
+      this.progressModal = $('#scanProgressModal');
+      this.progressBar = $('#scanProgressBar');
+      this.progressText = $('#scanProgressText');
+      this.countInfo = $('#scanCountInfo');
+      this.autoRepairToggle = $('#autoRepairToggle');
+      this.btnViewRepairs = $('#btnViewRepairs');
+      this.repairActionsModal = $('#repairActionsModal');
+      this.repairActionsList = $('#repairActionsList');
+
+      this.levelChart = null;
+      this.levelChartEl = $('#logLevelChart');
+      this.levelStats = {info:0, warn:0, error:0};
+
+      this.currentScanId = null;
+      this.currentLogFile = '/var/log/syslog';
+
+      $('#btnStartScan')?.addEventListener('click', ()=> this.startScan());
+      $('#btnExportAnomalies')?.addEventListener('click', ()=> this.exportAnomalies());
+      this.btnViewRepairs?.addEventListener('click', ()=> this.viewRepairActions());
+
+      this.fetchTimer = null;
+      this.startFetchLoop();
     }
 
-    // 返回通知元素，以便外部控制
-    return alertNotification;
-}
-
-        // 关闭通知
-function closeAlertNotification(alertNotification) {
-    alertNotification.classList.remove('show');
-    alertNotification.classList.add('hide');
-
-    // 动画结束后移除元素
-    setTimeout(() => {
-        if (alertNotification.parentNode) {
-            alertNotification.parentNode.removeChild(alertNotification);
-        }
-    }, 400);
-}
-
-// 安全中心页面功能
-class SecurityCenter {
-    constructor() {
-        this.currentAlerts = new Map(); // 存储当前活动的告警
-        this.alertTypeMap = {
-            'cpu-overload': { type: 'warning', title: 'CPU 过载' },
-            'memory-overload': { type: 'error', title: '内存不足' },
-            'disk-space-overload': { type: 'error', title: '磁盘空间不足' },
-            'disk-io-overload': { type: 'warning', title: '磁盘IO过载' },
-            'network-overload': { type: 'warning', title: '网络过载' },
-            'high-process-load': { type: 'info', title: '高进程负载' }
-        };
-        this.currentScanId = null;
-        this.scanInterval = null;
-        this.updateInterval = null;
-        this.init();
+    startFetchLoop(){
+      this.fetchRealTimeLogs();
+      this.fetchTimer = setInterval(()=> this.fetchRealTimeLogs(), 4000);
     }
 
-    init() {
-        this.setupEventListeners();
-        this.loadSecurityData();
-        this.loadRecommendations();
-        this.loadSecurityHistory('today');
-        this.loadAlertNotification();
+    async fetchRealTimeLogs(){
+      try{
+        const res = await fetch(`/api/real-time-logs?log_file=${encodeURIComponent(this.currentLogFile)}&lines=50`);
+        if(!res.ok) throw new Error('获取实时日志失败');
+        const data = await res.json();
+        const logs = Array.isArray(data?.logs) ? data.logs : [];
+        this.renderLogs(logs);
+      }catch(e){
+        console.warn(e);
+        // 回退到原有API
+        this.fetchOnce();
+      }
+    }
+
+    async fetchOnce(){
+      try{
+        const res = await fetch(API.systemLog);
+        if(!res.ok) throw new Error('获取系统日志失败');
+        const data = await res.json();
+        const lines = Array.isArray(data?.logs) ? data.logs : (Array.isArray(data) ? data : []);
+        this.renderLogs(lines);
+      }catch(e){
+        console.warn(e);
+      }
+    }
+
+    renderLogs(logs){
+      if(!this.listEl) return;
+      
+      // 清空现有日志
+      this.listEl.innerHTML = '';
+      
+      logs.slice(-200).forEach(logEntry=>{
+        const text = String(logEntry?.message || logEntry?.content || logEntry).trim();
+        if(!text) return;
         
-        // 应用当前语言翻译（延迟执行确保DOM完全加载）
-        setTimeout(() => {
-            if (window.languageManager) {
-                window.languageManager.applyLanguage(window.languageManager.getCurrentLanguage());
-            }
-            this.updateThemeIcon();
-        }, 200);
+        const level = logEntry?.level || this.detectLogLevel(text);
+        const timestamp = logEntry?.timestamp || new Date().toLocaleTimeString();
+
+        this.levelStats[level] = (this.levelStats[level] || 0) + 1;
         
-        // 定期更新安全状态
-        this.updateInterval = setInterval(() => {
-            this.loadSecurityData();
-        }, 30000); // 每30秒更新一次
+        const div = document.createElement('div');
+        div.className = `log-entry ${level}`;
+        div.innerHTML = `<span class="time">[${timestamp}]</span>${escapeHtml(text)}`;
+        this.listEl.appendChild(div);
+      });
+      
+      this.listEl.scrollTop = this.listEl.scrollHeight;
+      this.updateLevelChart();
     }
 
-    setupEventListeners() {
-        // 快速扫描按钮
-        const quickScanBtn = document.getElementById('quick-scan-btn');
-        if (quickScanBtn) {
-            quickScanBtn.addEventListener('click', () => this.startScan('quick'));
-        }
+    detectLogLevel(text){
+      const lower = text.toLowerCase();
+      if(/error|fail|traceback|exception|critical|fatal/.test(lower)) return 'error';
+      if(/warn|warning|timeout|retry|deprecated/.test(lower)) return 'warn';
+      return 'info';
+    }
 
-        // 查看详情按钮
-        const viewDetailsBtn = document.getElementById('view-details-btn');
-        if (viewDetailsBtn) {
-            viewDetailsBtn.addEventListener('click', () => this.showSecurityDetails());
-        }
-
-        // 功能切换开关
-        const firewallToggle = document.getElementById('firewall-toggle');
-        if (firewallToggle) {
-            firewallToggle.addEventListener('change', (e) => {
-                this.toggleSecurityFeature('firewall', e.target.checked);
-            });
-        }
-
-        const antivirusToggle = document.getElementById('antivirus-toggle');
-        if (antivirusToggle) {
-            antivirusToggle.addEventListener('change', (e) => {
-                this.toggleSecurityFeature('antivirus', e.target.checked);
-            });
-        }
-
-        // 更新按钮
-        const updateBtn = document.getElementById('update-btn');
-        if (updateBtn) {
-            updateBtn.addEventListener('click', () => this.checkForUpdates());
-        }
-
-        // 账户设置按钮
-        const accountBtn = document.getElementById('account-btn');
-        if (accountBtn) {
-            accountBtn.addEventListener('click', () => this.openAccountSettings());
-        }
-
-        // 刷新建议按钮
-        const refreshRecommendationsBtn = document.getElementById('refresh-recommendations');
-        if (refreshRecommendationsBtn) {
-            refreshRecommendationsBtn.addEventListener('click', () => this.loadRecommendations());
-        }
-
-        // 历史记录时间段按钮
-        const historyBtns = document.querySelectorAll('.history-btn');
-        historyBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                // 移除所有活动状态
-                historyBtns.forEach(b => b.classList.remove('active'));
-                // 添加当前按钮的活动状态
-                e.target.classList.add('active');
-                // 加载对应时间段的历史记录
-                this.loadSecurityHistory(e.target.dataset.period);
-            });
+    updateLevelChart(){
+      if(!this.levelChartEl || !window.Chart) return;
+      if(!this.levelChart){
+        this.levelChart = new Chart(this.levelChartEl.getContext('2d'),{
+          type:'doughnut',
+          data:{
+            labels:['INFO','WARN','ERROR'],
+            datasets:[{data:[0,0,0], backgroundColor:['#9dbcfb','#fde68a','#fecaca'], borderWidth:0}]
+          },
+          options:{plugins:{legend:{position:'bottom'}}, cutout:'65%'}
         });
-
-        // 扫描模态框关闭按钮
-        const scanModalClose = document.getElementById('scan-modal-close');
-        if (scanModalClose) {
-            scanModalClose.addEventListener('click', () => this.closeScanModal());
-        }
-
-        // 点击模态框外部关闭
-        const scanModal = document.getElementById('scan-modal');
-        if (scanModal) {
-            scanModal.addEventListener('click', (e) => {
-                if (e.target === scanModal) {
-                    this.closeScanModal();
-                }
-            });
-        }
-
-        // 主题切换按钮
-        const themeToggleBtn = document.getElementById('theme-toggle-btn');
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => this.toggleTheme());
-        }
-
-        // 扫描暂停按钮
-        const pauseScanBtn = document.getElementById('pause-scan');
-        if (pauseScanBtn) {
-            pauseScanBtn.addEventListener('click', () => this.pauseScan());
-        }
-
-        // 扫描取消按钮
-        const cancelScanBtn = document.getElementById('cancel-scan');
-        if (cancelScanBtn) {
-            cancelScanBtn.addEventListener('click', () => this.cancelScan());
-        }
-
-        console.log('安全中心页面已初始化');
+      }
+      const ds = this.levelChart.data.datasets[0];
+      ds.data = [this.levelStats.info || 0, this.levelStats.warn || 0, this.levelStats.error || 0];
+      this.levelChart.update();
     }
 
-    async loadSecurityData() {
-        try {
-            const response = await fetch('/api/security-status');
-            const data = await response.json();
-
-            if (data.error) {
-                console.error('获取安全状态失败:', data.error);
-                return;
-            }
-
-            this.updateSecurityStatus(data);
-            this.updateFeatureCards(data);
-        } catch (error) {
-            console.error('加载安全数据失败:', error);
-        }
-    }
-
-    updateSecurityStatus(data) {
-        const statusTitle = document.getElementById('security-status-title');
-        const statusMessage = document.getElementById('security-status-message');
-        const statusDetail = document.getElementById('security-status-detail');
-        const mainIcon = document.getElementById('main-security-icon');
-
-        if (data.security_level === 'excellent') {
-            statusTitle.setAttribute('data-i18n', 'security-center-system-secure');
-            statusMessage.setAttribute('data-i18n', 'security-center-device-protected');
-            statusDetail.setAttribute('data-i18n', 'security-center-all-features-normal');
-            mainIcon.className = 'fas fa-shield-alt';
-            mainIcon.style.color = '#107c10';
-        } else if (data.security_level === 'good') {
-            statusTitle.setAttribute('data-i18n', 'security-center-system-basic-secure');
-            statusMessage.setAttribute('data-i18n', 'security-center-most-features-normal');
-            statusDetail.setAttribute('data-i18n', 'security-center-check-settings');
-            mainIcon.className = 'fas fa-shield-alt';
-            mainIcon.style.color = '#ca5010';
-        } else if (data.security_level === 'warning') {
-            statusTitle.setAttribute('data-i18n', 'security-center-needs-attention');
-            statusMessage.setAttribute('data-i18n', 'security-center-security-issues-found');
-            statusDetail.setAttribute('data-i18n', 'security-center-handle-issues-immediately');
-            mainIcon.className = 'fas fa-exclamation-triangle';
-            mainIcon.style.color = '#d13438';
-        } else {
-            statusTitle.setAttribute('data-i18n', 'security-center-security-risk');
-            statusMessage.setAttribute('data-i18n', 'security-center-serious-issues');
-            statusDetail.setAttribute('data-i18n', 'security-center-take-action-immediately');
-            mainIcon.className = 'fas fa-exclamation-triangle';
-            mainIcon.style.color = '#d13438';
-        }
+    async startScan(){
+      try{
+        this.showProgress(true);
+        this.progressBar.style.width = '0%';
+        this.progressText.textContent = '0%';
+        this.countInfo.innerHTML = '正在启动扫描...';
         
-        // 重新应用翻译
-        if (window.languageManager) {
-            window.languageManager.applyLanguage();
-        }
-    }
-
-    updateFeatureCards(data) {
-        // 更新防火墙状态
-        const firewallStatus = document.getElementById('firewall-status');
-        const firewallToggle = document.getElementById('firewall-toggle');
-        const firewallBlocked = document.getElementById('firewall-blocked');
-        const firewallUpdated = document.getElementById('firewall-updated');
-
-        if (firewallStatus && firewallToggle) {
-            firewallToggle.checked = data.firewall_active;
-            firewallStatus.setAttribute('data-i18n', data.firewall_active ? 'security-center-enabled' : 'security-center-disabled');
-            firewallStatus.className = `feature-status ${data.firewall_active ? 'enabled' : 'disabled'}`;
-        }
-        if (firewallBlocked) firewallBlocked.textContent = data.threats_blocked || 0;
-        if (firewallUpdated) firewallUpdated.setAttribute('data-i18n', 'security-center-just-now');
-
-        // 更新防病毒状态
-        const antivirusStatus = document.getElementById('antivirus-status');
-        const antivirusToggle = document.getElementById('antivirus-toggle');
-        const antivirusScan = document.getElementById('antivirus-scan');
-        const antivirusDefinitions = document.getElementById('antivirus-definitions');
-
-        if (antivirusStatus && antivirusToggle) {
-            antivirusToggle.checked = data.antivirus_active;
-            antivirusStatus.setAttribute('data-i18n', data.antivirus_active ? 'security-center-enabled' : 'security-center-disabled');
-            antivirusStatus.className = `feature-status ${data.antivirus_active ? 'enabled' : 'disabled'}`;
-        }
-        if (antivirusScan) antivirusScan.setAttribute('data-i18n', 'security-center-today');
-        if (antivirusDefinitions) antivirusDefinitions.setAttribute('data-i18n', 'security-center-latest');
-
-        // 更新系统更新状态
-        const updateStatus = document.getElementById('update-status');
-        const availableUpdates = document.getElementById('available-updates');
-        const lastCheck = document.getElementById('last-check');
-
-        if (updateStatus) {
-            if (data.updates_available > 0) {
-                updateStatus.setAttribute('data-i18n', 'security-center-updates-available');
-                updateStatus.className = 'feature-status warning';
-            } else {
-                updateStatus.setAttribute('data-i18n', 'security-center-up-to-date');
-                updateStatus.className = 'feature-status enabled';
-            }
-        }
-        if (availableUpdates) availableUpdates.textContent = data.updates_available || 0;
-        if (lastCheck) lastCheck.setAttribute('data-i18n', 'security-center-1-hour-ago');
+        // 启动真实的日志扫描
+        const enableAutoRepair = this.autoRepairToggle?.checked || false;
+        const scanRes = await fetch('/api/security-scan', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            scan_type: 'log_analysis',
+            max_lines: 10000,
+            log_files: ['/var/log/syslog', '/var/log/messages', '/var/log/kern.log'],
+            enable_auto_repair: enableAutoRepair
+          })
+        });
         
-        // 重新应用翻译
-        if (window.languageManager) {
-            window.languageManager.applyLanguage();
-        }
-
-        // 更新账户保护状态
-        const accountStatus = document.getElementById('account-status');
-        const loginAttempts = document.getElementById('login-attempts');
-        const permissionRequests = document.getElementById('permission-requests');
-
-        if (accountStatus) {
-            accountStatus.textContent = '已启用';
-            accountStatus.className = 'feature-status enabled';
-        }
-        if (loginAttempts) loginAttempts.textContent = data.failed_logins || 0;
-        if (permissionRequests) permissionRequests.textContent = data.permission_requests || 2;
-    }
-
-    async startScan(type = 'quick') {
-        try {
-            const response = await fetch('/api/security-scan', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ type })
-            });
-
-            const data = await response.json();
-            
-            if (data.error) {
-                console.error('启动扫描失败:', data.error);
-                return;
-            }
-
-            this.currentScanId = data.scan_id;
-            this.showScanModal();
-            this.updateScanProgress(data);
-            
-            // 开始轮询扫描状态
-            this.scanInterval = setInterval(() => {
-                this.checkScanStatus();
-            }, 2000);
-
-        } catch (error) {
-            console.error('启动扫描失败:', error);
-        }
-    }
-
-    async checkScanStatus() {
-        if (!this.currentScanId) return;
-
-        try {
-            const response = await fetch(`/api/security-scan/${this.currentScanId}`);
-            const data = await response.json();
-
-            this.updateScanProgress(data);
-
-            if (data.status === 'completed') {
-                clearInterval(this.scanInterval);
-                this.scanInterval = null;
-                
-                // 延迟关闭模态框
-                setTimeout(() => {
-                    this.closeScanModal();
-                    this.showScanResults(data);
-                }, 2000);
-            }
-        } catch (error) {
-            console.error('检查扫描状态失败:', error);
-        }
-    }
-
-    updateScanProgress(data) {
-        const scanStatus = document.getElementById('scan-status');
-        const scanDetail = document.getElementById('scan-detail');
-        const scanProgress = document.getElementById('scan-progress');
-        const scannedFiles = document.getElementById('scanned-files');
-        const threatsFound = document.getElementById('threats-found');
-        const timeRemaining = document.getElementById('time-remaining');
-
-        if (scanStatus) {
-            if (data.status === 'completed') {
-                scanStatus.setAttribute('data-i18n', 'security-center-scan-completed');
-            } else {
-                scanStatus.setAttribute('data-i18n', 'security-center-scanning-system');
-            }
-        }
-
-        if (scanDetail) {
-            if (data.current_file) {
-                scanDetail.textContent = data.current_file;
-            } else {
-                scanDetail.setAttribute('data-i18n', 'security-center-check-system-files');
-            }
-        }
-
-        if (scanProgress) {
-            scanProgress.style.width = `${data.progress || 0}%`;
-        }
-
-        if (scannedFiles) scannedFiles.textContent = data.files_scanned || 0;
-        if (threatsFound) threatsFound.textContent = data.threats_found || 0;
-        if (timeRemaining) {
-            const remaining = data.estimated_time || 0;
-            if (remaining > 0) {
-                timeRemaining.textContent = `${Math.ceil(remaining)} `;
-                // 为秒数添加翻译
-                const secondsSpan = document.createElement('span');
-                secondsSpan.setAttribute('data-i18n', 'security-center-seconds');
-                timeRemaining.appendChild(secondsSpan);
-            } else {
-                timeRemaining.setAttribute('data-i18n', 'security-center-almost-done');
-            }
-        }
+        if(!scanRes.ok) throw new Error('启动扫描失败');
+        const scanData = await scanRes.json();
+        this.currentScanId = scanData.scan_id;
         
-        // 重新应用翻译
-        if (window.languageManager) {
-            window.languageManager.applyLanguage();
-        }
+        // 监控扫描进度
+        this.monitorScanProgress();
+        
+      }catch(e){
+        console.error(e);
+        notify('启动扫描失败: ' + e.message,'danger');
+        this.showProgress(false);
+      }
     }
 
-    showScanModal() {
-        const modal = document.getElementById('scan-modal');
-        if (modal) {
-            modal.style.display = 'flex';
-            // 确保弹窗内容应用当前语言设置
-            if (window.languageManager) {
-                window.languageManager.applyLanguage();
-            }
-        }
-    }
-
-    closeScanModal() {
-        const modal = document.getElementById('scan-modal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
-
-        // 清理扫描状态
-        if (this.scanInterval) {
-            clearInterval(this.scanInterval);
-            this.scanInterval = null;
-        }
-        this.currentScanId = null;
-    }
-
-    pauseScan() {
-        if (this.scanInterval) {
-            clearInterval(this.scanInterval);
-            this.scanInterval = null;
-            
-            // 更新扫描状态显示
-            const scanStatus = document.getElementById('scan-status');
-            if (scanStatus) {
-                const pausedText = window.languageManager ? window.languageManager.translate('security-center-scan-paused') : '扫描已暂停';
-                scanStatus.textContent = pausedText;
+    async monitorScanProgress(){
+      if(!this.currentScanId) return;
+      
+      const checkProgress = async () => {
+        try{
+          const res = await fetch(`/api/security-scan/${this.currentScanId}`);
+          if(!res.ok) throw new Error('获取扫描状态失败');
+          
+          const data = await res.json();
+          const progress = data.progress || 0;
+          const status = data.status;
+          
+          this.progressBar.style.width = `${progress}%`;
+          this.progressText.textContent = `${progress}%`;
+          
+          let statusText = `状态：${status} | 已扫描：${data.lines_scanned || 0} 行 | 发现异常：${data.anomalies_found || 0}`;
+          if(data.auto_repair_enabled){
+            statusText += ` | 修复操作：${data.repair_actions_count || 0}`;
+          }
+          this.countInfo.innerHTML = statusText;
+          
+          if(status === 'completed'){
+            // 显示查看修复按钮
+            if(data.auto_repair_enabled && data.repair_actions_count > 0){
+              this.btnViewRepairs.style.display = 'inline-block';
             }
             
-            // 更改按钮文本为继续
-            const pauseBtn = document.getElementById('pause-scan');
-            if (pauseBtn) {
-                const resumeText = window.languageManager ? window.languageManager.translate('security-center-resume') : '继续';
-                pauseBtn.textContent = resumeText;
-                pauseBtn.onclick = () => this.resumeScan();
-            }
-        }
-    }
-
-    resumeScan() {
-        // 恢复扫描
-        if (this.currentScanId) {
-            this.scanInterval = setInterval(() => {
-                this.checkScanStatus();
+            setTimeout(()=> {
+              this.showProgress(false);
+              this.loadAnomalies();
             }, 1000);
-            
-            // 更新扫描状态显示
-            const scanStatus = document.getElementById('scan-status');
-            if (scanStatus) {
-                const scanningText = window.languageManager ? window.languageManager.translate('security-center-scanning-system') : '正在扫描系统...';
-                scanStatus.textContent = scanningText;
-            }
-            
-            // 更改按钮文本为暂停
-            const pauseBtn = document.getElementById('pause-scan');
-            if (pauseBtn) {
-                const pauseText = window.languageManager ? window.languageManager.translate('security-center-pause') : '暂停';
-                pauseBtn.textContent = pauseText;
-                pauseBtn.onclick = () => this.pauseScan();
-            }
-        }
-    }
-
-    cancelScan() {
-        // 显示确认对话框
-        const confirmText = window.languageManager ? window.languageManager.translate('security-center-cancel-scan-confirm') : '确定要取消扫描吗？';
-        if (confirm(confirmText)) {
-            // 停止扫描并关闭弹窗
-            this.closeScanModal();
-            
-            // 可以在这里添加取消扫描的API调用
-            // 例如: fetch('/api/cancel-scan', { method: 'POST' });
-        }
-    }
-
-    showScanResults(data) {
-        // 使用翻译键构建消息
-        const scanCompleted = window.languageManager ? window.languageManager.translate('security-center-scan-completed') : '扫描完成';
-        const scannedFiles = window.languageManager ? window.languageManager.translate('security-center-scanned-files') : '已扫描文件';
-        
-        let message = `${scanCompleted}!\n${scannedFiles}: ${data.files_scanned}`;
-        
-        if (data.threats_found > 0) {
-            const threatsFound = window.languageManager ? window.languageManager.translate('security-center-threats-found') : '发现威胁';
-            const handled = window.languageManager ? window.languageManager.translate('security-center-handle') : '已处理';
-            message += `\n${threatsFound}: ${data.threats_found}, ${handled}`;
-        } else {
-            const noThreats = window.languageManager ? window.languageManager.translate('security-center-device-protected') : '系统安全';
-            message += `\n${noThreats}`;
-        }
-
-        alert(message);
-        
-        // 重新加载安全数据
-        this.loadSecurityData();
-    }
-
-    async toggleSecurityFeature(feature, enabled) {
-        try {
-            const response = await fetch('/api/security-toggle', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ feature, enabled })
-            });
-
-            const data = await response.json();
-            
-            if (data.success) {
-                console.log(data.message);
-                // 重新加载安全数据
-                this.loadSecurityData();
-            } else {
-                console.error('切换功能失败:', data.error);
-            }
-        } catch (error) {
-            console.error('切换功能失败:', error);
-        }
-    }
-
-    checkForUpdates() {
-        const checkingMessage = window.languageManager ? 
-            window.languageManager.translate('security-center-checking-updates') : 
-            '正在检查系统更新...\n这可能需要几分钟时间。';
-        alert(checkingMessage);
-        
-        // 模拟更新检查
-        setTimeout(() => {
-            const completeMessage = window.languageManager ? 
-                window.languageManager.translate('security-center-update-check-complete') : 
-                '更新检查完成！\n发现 3 个可用更新，建议尽快安装。';
-            alert(completeMessage);
-        }, 2000);
-    }
-
-    openAccountSettings() {
-        const message = window.languageManager ? 
-            window.languageManager.translate('security-center-account-settings') : 
-            '账户保护设置\n\n当前设置：\n- 用户账户控制：已启用\n- 登录保护：已启用\n- 权限管理：严格模式';
-        alert(message);
-    }
-
-    showSecurityDetails() {
-        // 创建详情模态框
-        const modal = document.createElement('div');
-        modal.className = 'security-details-modal';
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        `;
-        
-        const content = document.createElement('div');
-        content.className = 'security-details-content';
-        content.style.cssText = `
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            color: var(--text-primary);
-        `;
-        
-        const title = document.createElement('h3');
-        title.textContent = window.languageManager ? 
-            window.languageManager.translate('security-center-security-details').split('\n')[0] : 
-            '安全详情';
-        title.style.cssText = `
-            margin: 0 0 16px 0;
-            color: var(--text-primary);
-            font-size: 18px;
-        `;
-        
-        const details = document.createElement('div');
-        const detailsText = window.languageManager ? 
-            window.languageManager.translate('security-center-security-details') : 
-            '安全详情\n\n系统安全评分：90/100\n\n详细信息：\n- 防火墙：正常运行\n- 病毒防护：实时保护已启用\n- 系统更新：有可用更新\n- 账户保护：已启用';
-        
-        details.innerHTML = detailsText.split('\n').slice(1).join('<br>').replace(/- /g, '• ');
-        details.style.cssText = `
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-        `;
-        
-        const closeBtn = document.createElement('button');
-        closeBtn.textContent = '关闭';
-        closeBtn.style.cssText = `
-            background: var(--text-accent);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            float: right;
-        `;
-        
-        closeBtn.onclick = () => {
-            document.body.removeChild(modal);
-        };
-        
-        modal.onclick = (e) => {
-            if (e.target === modal) {
-                document.body.removeChild(modal);
-            }
-        };
-        
-        content.appendChild(title);
-        content.appendChild(details);
-        content.appendChild(closeBtn);
-        modal.appendChild(content);
-        document.body.appendChild(modal);
-    }
-
-    async loadRecommendations() {
-        try {
-            const response = await fetch('/api/security-recommendations');
-            const data = await response.json();
-
-            if (data.error) {
-                console.error('获取安全建议失败:', data.error);
-                return;
-            }
-
-            this.renderRecommendations(data);
-        } catch (error) {
-            console.error('加载安全建议失败:', error);
-        }
-    }
-
-    renderRecommendations(recommendations) {
-        const container = document.getElementById('recommendations-list');
-        if (!container) return;
-
-        container.innerHTML = '';
-
-        recommendations.forEach(rec => {
-            const item = document.createElement('div');
-            item.className = 'recommendation-item';
-            
-            const iconClass = rec.type === 'warning' ? 'warning' : 'info';
-            const iconName = rec.type === 'warning' ? 'exclamation-triangle' : 'info-circle';
-
-            // 使用翻译键或回退到原始文本
-            const title = rec.title_key && window.languageManager ? 
-                window.languageManager.translate(rec.title_key) : rec.title;
-            const description = rec.description_key && window.languageManager ? 
-                window.languageManager.translate(rec.description_key) : rec.description;
-
-            item.innerHTML = `
-                <div class="recommendation-icon ${iconClass}">
-                    <i class="fas fa-${iconName}"></i>
-                </div>
-                <div class="recommendation-content">
-                    <div class="recommendation-title">${title}</div>
-                    <div class="recommendation-description">${description}</div>
-                </div>
-                <div class="recommendation-action">
-                    <button class="recommendation-btn" data-i18n="security-center-handle" onclick="securityCenter.handleRecommendation('${rec.action}')">
-                        处理
-                    </button>
-                </div>
-            `;
-
-            container.appendChild(item);
-        });
-        
-        // 重新应用翻译
-        if (window.languageManager) {
-            window.languageManager.applyLanguage();
-        }
-    }
-
-    handleRecommendation(action) {
-        let message;
-        switch (action) {
-            case 'enable_auto_update':
-                message = window.languageManager ? 
-                    window.languageManager.translate('security-center-enabling-auto-update') : 
-                    '正在启用自动更新...\n自动更新已启用，系统将自动下载并安装安全更新。';
-                break;
-            case 'setup_backup':
-                message = window.languageManager ? 
-                    window.languageManager.translate('security-center-backup-settings') : 
-                    '数据备份设置\n\n建议：\n- 定期备份重要文件\n- 使用云存储服务\n- 创建系统还原点';
-                break;
-            case 'update_password_policy':
-                message = window.languageManager ? 
-                    window.languageManager.translate('security-center-password-policy') : 
-                    '密码策略更新\n\n建议：\n- 使用强密码（8位以上）\n- 包含大小写字母、数字和符号\n- 定期更换密码';
-                break;
-            default:
-                message = window.languageManager ? 
-                    window.languageManager.translate('security-center-processing-recommendation') : 
-                    '正在处理该建议...';
-        }
-        alert(message);
-    }
-
-    async loadSecurityHistory(period) {
-        try {
-            const response = await fetch(`/api/security-history?period=${period}`);
-            const data = await response.json();
-
-            if (data.error) {
-                console.error('获取安全历史失败:', data.error);
-                return;
-            }
-
-            // 处理PowerShell返回的数据结构
-            const historyData = data.value || data;
-            this.renderSecurityHistory(historyData);
-        } catch (error) {
-            console.error('加载安全历史失败:', error);
-        }
-    }
-
-    renderSecurityHistory(history) {
-        const container = document.getElementById('history-list');
-        if (!container) return;
-
-        container.innerHTML = '';
-
-        if (history.length === 0) {
-            const noHistoryText = window.languageManager ? window.languageManager.translate('security-center-no-history') : '暂无历史记录';
-            container.innerHTML = `<div style="text-align: center; color: #666; padding: 20px;">${noHistoryText}</div>`;
+            notify('日志扫描完成','success');
             return;
+          }
+          
+          if(status === 'failed'){
+            this.showProgress(false);
+            notify('日志扫描失败','danger');
+            return;
+          }
+          
+          // 继续监控
+          setTimeout(checkProgress, 1000);
+          
+        }catch(e){
+          console.error(e);
+          this.showProgress(false);
+          notify('监控扫描进度失败','danger');
         }
+      };
+      
+      checkProgress();
+    }
 
-        history.forEach(item => {
-            const historyItem = document.createElement('div');
-            historyItem.className = 'history-item';
-            
-            const iconName = item.type === 'success' ? 'check-circle' : 
-                           item.type === 'warning' ? 'exclamation-triangle' : 'times-circle';
-
-            // 使用翻译键或回退到原始文本
-            const title = item.title_key && window.languageManager ? 
-                window.languageManager.translate(item.title_key) : item.title;
-            const description = item.description_key && window.languageManager ? 
-                window.languageManager.translate(item.description_key) : item.description;
-            const time = item.time_key && window.languageManager ? 
-                window.languageManager.translate(item.time_key) : item.time;
-
-            historyItem.innerHTML = `
-                <div class="history-icon ${item.type}">
-                    <i class="fas fa-${iconName}"></i>
-                </div>
-                <div class="history-content">
-                    <div class="history-title">${title}</div>
-                    <div class="history-description">${description}</div>
-                    <div class="history-time">${time}</div>
-                </div>
-            `;
-
-            container.appendChild(historyItem);
+    async loadAnomalies(){
+      if(!this.currentScanId || !this.anomalyEl) return;
+      
+      try{
+        const res = await fetch(`/api/anomaly-list?scan_id=${this.currentScanId}`);
+        if(!res.ok) throw new Error('获取异常列表失败');
+        
+        const data = await res.json();
+        const anomalies = Array.isArray(data?.anomalies) ? data.anomalies : [];
+        
+        this.anomalyEl.innerHTML = '';
+        
+        anomalies.forEach(anomaly => {
+          const item = document.createElement('div');
+          item.className = `anomaly-item ${anomaly.severity || 'medium'}`;
+          item.innerHTML = `
+            <div class="title">${escapeHtml(anomaly.type || 'ANOMALY')} - ${escapeHtml(anomaly.message || anomaly.content || '')}</div>
+            <div class="meta">时间：${anomaly.timestamp || ''} | 严重程度：${anomaly.severity || 'unknown'}</div>
+          `;
+          this.anomalyEl.appendChild(item);
         });
-    }
-
-        async loadAlertNotification() {
-        try {
-            const xhr2 = new XMLHttpRequest();
-            xhr2.open('GET', 'api/check-alert', true);
-            xhr2.setRequestHeader('Accept', 'application/json');
-            xhr2.setRequestHeader('Content-Type', 'application/json')
-
-            xhr2.onreadystatechange = () => {
-                if (xhr2.readyState === 4) {
-                    if (xhr2.status === 200) {
-                        try {
-                            const alerts = JSON.parse(xhr2.responseText);
-                            this.updateAlert(alerts);
-                        } catch (parseError) {
-                            console.error('解析JSON失败:', parseError);
-                        }
-                    } else{
-                        console.error('HTTP错误:', xhr2.status, xhr2.statusText);
-                    }
-                }
-            };
-            xhr2.onerror = () => {
-                console.error('网络错误');
-            }
-            xhr2.send();
-        } catch (error) {
-            console.error('加载性能数据失败:', error);
+        
+        if(anomalies.length === 0){
+          this.anomalyEl.innerHTML = '<div class="no-data">未发现异常</div>';
         }
+        
+      }catch(e){
+        console.error(e);
+        notify('加载异常列表失败','danger');
+      }
     }
 
-    updateAlert(alerts) {
-        // 1. 创建新告警的临时集合
-        const newAlertSet = new Set(alerts.map(a => a.alert_code));
+    showProgress(show){
+      if(!this.progressModal) return;
+      this.progressModal.classList.toggle('show', !!show);
+    }
 
-        // 2. 移除已消失的告警
-        this.currentAlerts.forEach((_, alertCode) => {
-            if (!newAlertSet.has(alertCode)) {
-                const notification = this.currentAlerts.get(alertCode).notification;
-                if (document.body.contains(notification)) {
-                    closeAlertNotification(notification);
-                }
-                this.currentAlerts.delete(alertCode);
-            }
+    exportAnomalies(){
+      const items = $$('.anomaly-item', this.anomalyEl).map(x=>x.textContent.trim());
+      const blob = new Blob([items.join('\n')], {type:'text/plain;charset=utf-8'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `anomalies_${Date.now()}.txt`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      notify('异常列表已导出','info');
+    }
+
+    async viewRepairActions(){
+       if(!this.repairActionsModal || !this.repairActionsList || !this.currentScanId) return;
+       
+       try{
+         const res = await fetch(`/api/repair-actions?scan_id=${this.currentScanId}`);
+         if(!res.ok) throw new Error('获取修复记录失败');
+         
+         const data = await res.json();
+         const actions = Array.isArray(data?.repair_actions) ? data.repair_actions : [];
+        
+        this.repairActionsList.innerHTML = '';
+        
+        actions.forEach(action => {
+          const item = document.createElement('div');
+          item.className = `repair-action-item ${action.status || 'pending'}`;
+          item.innerHTML = `
+            <div class="action-header">
+              <span class="action-type">${escapeHtml(action.type || 'REPAIR')}</span>
+              <span class="action-status ${action.status}">${escapeHtml(action.status || 'pending')}</span>
+            </div>
+            <div class="action-description">${escapeHtml(action.description || '')}</div>
+            <div class="action-meta">
+              <span>时间：${action.timestamp || ''}</span>
+              <span>目标：${escapeHtml(action.target || '')}</span>
+            </div>
+            ${action.result ? `<div class="action-result">${escapeHtml(action.result)}</div>` : ''}
+          `;
+          this.repairActionsList.appendChild(item);
         });
+        
+        if(actions.length === 0){
+          this.repairActionsList.innerHTML = '<div class="no-data">暂无修复记录</div>';
+        }
+        
+        this.repairActionsModal.classList.add('show');
+        
+      }catch(e){
+        console.error(e);
+        notify('获取修复记录失败','danger');
+      }
+    }
+  }
 
-        // 3. 处理新告警
-        alerts.forEach(alert => {
-            const {alert_code, description, timestamp, solution} = alert;
+  // Predictor
+  class Predictor{
+    constructor(){
+      this.cpuChart = null; this.memChart = null; this.diskChart=null; this.netChart=null; this.riskChart=null;
+      this.initCharts();
+      this.loop();
+    }
 
-            if (this.currentAlerts.has(alert_code)) {
-                // 更新现有告警
-                const existing = this.currentAlerts.get(alert_code);
-                const notification = existing.notification;
+    initCharts(){
+      const cpuEl=$('#cpuChart'), memEl=$('#memChart'), diskEl=$('#diskChart'), netEl=$('#netChart'), riskEl=$('#riskTrend');
+      if(window.Chart){
+        this.cpuChart = new Chart(cpuEl, {type:'line', data:this.series('CPU %'), options:this.lineOpts()});
+        this.memChart = new Chart(memEl, {type:'line', data:this.series('Memory %','#22c55e'), options:this.lineOpts()});
+        this.diskChart= new Chart(diskEl,{type:'line', data:this.series('Disk %','#f59e0b'), options:this.lineOpts()});
+        this.netChart = new Chart(netEl, {type:'line', data:this.series('Net I/O','#a78bfa'), options:this.lineOpts()});
+        this.riskChart= new Chart(riskEl,{type:'bar', data:{labels:[], datasets:[{label:'风险值', data:[], backgroundColor:'#ef4444aa'}]}, options:{responsive:true,maintainAspectRatio:false, scales:{y:{min:0,max:100}}}});
+      }
+    }
 
-                if (document.body.contains(notification)) {
-                    // 追加解决方案（如果存在）
-                    let newMessage = description;
-                    if (solution) {
-                        newMessage += `<br><br><strong>解决方案:</strong> ${solution}`;
-                    }
+    series(label,color='#3b82f6'){
+      return {labels:[], datasets:[{label, data:[], tension:.25, borderColor:color, backgroundColor: color+'33', fill:true, pointRadius:0}]};
+    }
+    lineOpts(){
+      return {responsive:true, maintainAspectRatio:false, scales:{y:{min:0,max:100}}};
+    }
 
-                    // 更新通知内容
-                    const content = notification.querySelector('.alertNotification-content');
-                    if (content) {
-                        content.querySelector('.alertNotification-message').innerHTML = newMessage;
-                    }
+    loop(){
+      this.fetchOnce();
+      this.timer = setInterval(()=> this.fetchOnce(), 3000);
+    }
 
-                    // 更新存储的数据
-                    existing.description = description;
-                    existing.solution = solution;
-                }
-            } else {
-                // 创建新告警
-                const alertType = this.alertTypeMap[alert_code] || {type: 'warning', title: '系统告警'};
+    async fetchOnce(){
+      let data=null;
+      try{
+        const res = await fetch(API.performanceData);
+        if(res.ok) data = await res.json();
+      }catch{}
+      if(!data){
+        try{
+          const res = await fetch(API.systemStatus);
+          if(res.ok) data = await res.json();
+        }catch{}
+      }
+      if(!data) return;
+      this.consume(data);
+    }
 
-                // 创建通知
-                const notification = showAlertNotification({
-                    title: `${alertType.title} [${new Date(timestamp).toLocaleTimeString()}]`,
-                    message: description,
-                    type: alertType.type,
-                    duration: -1 // 常驻通知
-                });
+    consume(data){
+      const now = new Date().toLocaleTimeString();
+      const cpu = Math.round((data.cpu_percent ?? data.cpu?.total ?? 0));
+      const mem = Math.round((data.memory_percent ?? data.memory?.percent ?? 0));
+      const disk = Math.round((data.disk_percent ?? data.disk?.percent ?? data.disk_usage?.percent ?? 0));
+      const netIn = Number(data.network?.bytes_recv ?? data.network_io?.bytes_recv ?? 0);
+      const netOut = Number(data.network?.bytes_sent ?? data.network_io?.bytes_sent ?? 0);
+      const net = Math.min(100, Math.round(((netIn+netOut)%1e7)/1e5));
 
-                // 存储告警信息
-                this.currentAlerts.set(alert_code, {
-                    notification,
-                    description,
-                    timestamp,
-                    solution
-                });
-            }
+      this.pushPoint(this.cpuChart, now, cpu);
+      this.pushPoint(this.memChart, now, mem);
+      this.pushPoint(this.diskChart,now, disk);
+      this.pushPoint(this.netChart, now, net);
+
+      const risk = Math.min(100, Math.round(cpu*0.4 + mem*0.25 + disk*0.2 + net*0.15));
+      if(this.riskChart){
+        const l = this.riskChart.data.labels; const d = this.riskChart.data.datasets[0].data;
+        l.push(now); d.push(risk);
+        if(l.length>20){l.shift(); d.shift();}
+        this.riskChart.update();
+      }
+
+      // thresholds alerts
+      if(cpu>=85) notify(`CPU 使用率较高：${cpu}%`,'warning');
+      if(mem>=90) notify(`内存使用率较高：${mem}%`,'warning');
+      if(disk>=90) notify(`磁盘使用率较高：${disk}%`,'warning');
+    }
+
+    pushPoint(chart, label, value){
+      if(!chart) return;
+      const labels = chart.data.labels;
+      const data = chart.data.datasets[0].data;
+      labels.push(label); data.push(value);
+      if(labels.length>30){ labels.shift(); data.shift(); }
+      chart.update();
+    }
+  }
+
+  // Script Center
+  class ScriptCenter{
+    constructor(){
+      this.modal = $('#scriptEditorModal');
+      this.titleEl = $('#scriptEditorTitle');
+      this.nameEl = $('#scriptName');
+      this.typeEl = $('#scriptType');
+      this.descEl = $('#scriptDesc');
+      this.codeEl = $('#scriptCode');
+      this.execLogs = $('#executionLogs');
+
+      this.current = null; // {name, type, desc, content}
+
+      $('#btnNewScript')?.addEventListener('click', ()=> this.openEditor());
+      $('#btnSaveScript')?.addEventListener('click', ()=> this.saveScript());
+      $('#btnCloseEditor')?.addEventListener('click', ()=> this.showEditor(false));
+
+      this.listEl = $('#scriptList');
+      this.loadList();
+    }
+
+    async loadList(){
+      try{
+        const res = await fetch(API.files);
+        const data = await res.json().catch(()=>[]);
+        const files = Array.isArray(data?.files) ? data.files : (Array.isArray(data)?data:[]);
+        this.renderList(files);
+      }catch(e){ console.warn(e); }
+    }
+
+    renderList(files){
+      if(!this.listEl) return;
+      this.listEl.innerHTML = '';
+      files.filter(f=>/\.(sh|ps1|bat|py|js)$/i.test(f.name||f)).slice(0,100).forEach(item=>{
+        const name = item.name || item;
+        const meta = item.size ? `${(item.size/1024).toFixed(1)} KB` : '';
+        const el = document.createElement('div');
+        el.className = 'script-item';
+        el.innerHTML = `
+          <div>
+            <div class="title">${escapeHtml(name)}</div>
+            <div class="meta">${escapeHtml(meta)}</div>
+          </div>
+          <div class="script-actions">
+            <button class="btn btn-sm" data-act="edit">编辑</button>
+            <button class="btn btn-sm primary" data-act="run">运行</button>
+            <button class="btn btn-sm" data-act="download">下载</button>
+          </div>`;
+        el.addEventListener('click', (ev)=>{
+          const act = ev.target?.dataset?.act;
+          if(act==='edit') this.openEditor({name});
+          if(act==='run') this.runScript(name);
+          if(act==='download') this.download(name);
         });
-    }
-    startAutoUpdate() {
-        // 每2秒自动更新一次，提高刷新频率
-        this.updateInterval = setInterval(() => {
-            this.loadAlertNotification();
-        }, 1000);
-    }
-    // 切换主题
-    toggleTheme() {
-        if (window.themeManager) {
-            window.themeManager.toggleTheme();
-            this.updateThemeIcon();
-        }
+        this.listEl.appendChild(el);
+      });
     }
 
-    // 更新主题图标
-    updateThemeIcon() {
-        const themeToggleBtn = document.getElementById('theme-toggle-btn');
-        if (themeToggleBtn && window.themeManager) {
-            const icon = themeToggleBtn.querySelector('i');
-            const isDark = window.themeManager.getCurrentTheme() === 'dark';
-            
-            if (icon) {
-                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    openEditor(script=null){
+      this.current = script;
+      this.titleEl.textContent = script? `编辑脚本 - ${script.name}` : '新建脚本';
+      this.nameEl.value = script?.name || '';
+      this.typeEl.value = this.detectType(script?.name || '');
+      this.descEl.value = '';
+      this.codeEl.value = '';
+      this.showEditor(true);
+    }
+
+    detectType(name){
+      if(/\.ps1$/i.test(name)) return 'ps1';
+      if(/\.bat$/i.test(name)) return 'bat';
+      if(/\.py$/i.test(name)) return 'py';
+      if(/\.js$/i.test(name)) return 'js';
+      return 'sh';
+    }
+
+    showEditor(show){ this.modal?.classList.toggle('show', !!show); }
+
+    async saveScript(){
+      try{
+        const body = {
+          name: this.nameEl.value.trim(),
+          type: this.typeEl.value,
+          desc: this.descEl.value.trim(),
+          content: this.codeEl.value
+        };
+        if(!body.name){ notify('脚本名称不能为空','danger'); return; }
+        const res = await fetch(API.files, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+        if(!res.ok) throw new Error('保存失败');
+        notify('脚本已保存','success');
+        this.showEditor(false);
+        this.loadList();
+      }catch(e){
+        console.error(e);
+        notify('保存脚本失败','danger');
+      }
+    }
+
+    async runScript(name){
+      try{
+        const cmd = this.composeRunCommand(name);
+        const res = await fetch(API.executeCommand, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({cmd})});
+        const data = await res.json().catch(()=>({}));
+        const out = data.output || data.stdout || JSON.stringify(data);
+        this.appendLog(`$ ${cmd}\n${out}`);
+        notify('脚本执行完成','success');
+      }catch(e){
+        console.error(e);
+        this.appendLog(`执行失败: ${e.message}`);
+        notify('脚本执行失败','danger');
+      }
+    }
+
+    composeRunCommand(name){
+      if(/\.ps1$/i.test(name)) return `powershell -ExecutionPolicy Bypass -File \"${name}\"`;
+      if(/\.bat$/i.test(name)) return `cmd /c \"${name}\"`;
+      if(/\.py$/i.test(name)) return `python \"${name}\"`;
+      if(/\.js$/i.test(name)) return `node \"${name}\"`;
+      return `bash \"${name}\"`;
+    }
+
+    download(name){
+      const a = document.createElement('a');
+      a.href = `${API.files}?name=${encodeURIComponent(name)}`;
+      a.download = name;
+      a.click();
+    }
+
+    appendLog(text){
+      if(!this.execLogs) return;
+      const el = document.createElement('div');
+      el.className = 'exec-entry';
+      el.textContent = text;
+      this.execLogs.appendChild(el);
+      this.execLogs.scrollTop = this.execLogs.scrollHeight;
+    }
+  }
+
+  function refreshPage(){ location.reload(); }
+  function goBack(){ history.back(); }
+
+  // 主题切换功能
+function toggleTheme() {
+    if (window.themeManager) {
+        window.themeManager.toggleTheme();
+        updateThemeIcon();
+    } else {
+        // 如果主题管理器还没有初始化，等待一下再尝试
+        setTimeout(() => {
+            if (window.themeManager) {
+                window.themeManager.toggleTheme();
+                updateThemeIcon();
             }
-            themeToggleBtn.title = isDark ? '切换到浅色主题' : '切换到深色主题';
-        }
-    }
-
-    // 清理资源
-    destroy() {
-        if (this.updateInterval) {
-            clearInterval(this.updateInterval);
-        }
-        if (this.scanInterval) {
-            clearInterval(this.scanInterval);
-        }
+        }, 100);
     }
 }
 
-// 全局变量，供HTML中的onclick使用
-// 页面卸载时清理资源
-window.addEventListener('beforeunload', function() {
-    if (window.securityCenter) {
-        window.securityCenter.destroy();
+function updateThemeIcon() {
+    const themeIcon = document.getElementById('themeIcon');
+    if (themeIcon && window.themeManager) {
+        const isDark = window.themeManager.getCurrentTheme() === 'dark';
+        themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
     }
+}
+
+// 监听主题变化事件
+window.addEventListener('themeChanged', function(e) {
+    updateThemeIcon();
 });
+
+// 页面加载完成后初始化主题图标
+document.addEventListener('DOMContentLoaded', function() {
+    // 延迟一下确保主题管理器已经初始化
+    setTimeout(() => {
+        updateThemeIcon();
+    }, 50);
+});
+
+  // 将函数暴露到全局作用域
+  window.refreshPage = refreshPage;
+  window.goBack = goBack;
+  window.toggleTheme = toggleTheme;
+
+  function main(){
+    configureChartDefaults();
+    initTabs();
+    window.SecurityCenter = {
+      logAnalyzer: new LogAnalyzer(),
+      predictor: new Predictor(),
+      scriptCenter: new ScriptCenter(),
+      refreshPage, goBack
+    };
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', main);
+  }else{ main(); }
+})();

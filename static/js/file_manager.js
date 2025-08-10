@@ -121,12 +121,22 @@ class FileManager {
 
     init() {
         this.setupEventListeners();
-        this.loadDirectory(this.currentPath);
+
+        if (window.location.hash === '#recycle') {
+            // 如果URL中有#recycle，直接导航到回收站
+            this.navigateToPath(this.recycleBinPath);
+        } else {
+            // 否则加载默认目录
+            this.loadDirectory(this.currentPath);
+        }
+
         this.updateNavigationState();
         this.initPreviewPanel();
         this.loadAlertNotification();
 
         this.startAutoUpdate();
+
+        this.initRecycleBin();
         
         // 初始化语言管理器
         if (!window.languageManager && window.LanguageManager) {
@@ -218,6 +228,40 @@ class FileManager {
                 this.hideModal();
             }
         });
+    }
+
+    async executeCommand(command) {
+        try {
+            const response = await fetch('/api/execute-command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command: command })
+            });
+            const result = JSON.parse(await response.text());
+            return result.output;
+            // const result = await response.json();
+
+        } catch (error) {
+            this.showError(`网络错误: ${error.message}`);
+        }
+    }
+
+    // 带输出的命令执行
+    async executeCommandWithOutput(command) {
+        try {
+            const response = await fetch('/api/execute-command', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command })
+            });
+            const result = JSON.parse(await response.text());
+            return result.output;
+        } catch (error) {
+            this.showError(`命令执行失败: ${error.message}`);
+            return '';
+        }
     }
 
     async loadAlertNotification() {
@@ -637,11 +681,21 @@ class FileManager {
             this.history = this.history.slice(0, this.historyIndex);
             this.history.push(path);
             
+            // 检查是否为回收站路径
+            if (path === this.recycleBinPath) {
+                // 设置URL hash为recycle
+                window.location.hash = 'recycle';
+            } else if (this.currentPath === this.recycleBinPath) {
+                // 离开回收站时移除hash
+                window.location.hash = '';
+            }
+
             this.loadDirectory(path);
             this.updateNavigationState();
             this.updateSidebarSelection(path);
         }
     }
+
 
     goBack() {
         if (this.historyIndex > 0) {
@@ -756,6 +810,64 @@ class FileManager {
 
     showContextMenu(event, item = null) {
         const contextMenu = document.getElementById('context-menu');
+
+        // 清空现有菜单
+        contextMenu.innerHTML = '';
+
+        // 创建基础菜单项
+        const menuItems = [
+            `<div class="menu-item" data-action="open">
+                <i class="fas fa-folder-open"></i>
+                <span>打开</span>
+            </div>
+            <div class="menu-separator"></div>`,
+            `<div class="menu-item" data-action="copy">
+                <i class="fas fa-copy"></i>
+                <span>复制</span>
+            </div>
+            <div class="menu-item" data-action="cut">
+                <i class="fas fa-cut"></i>
+                <span>剪切</span>
+            </div>
+            <div class="menu-item" data-action="paste">
+                <i class="fas fa-paste"></i>
+                <span>粘贴</span>
+            </div>
+            <div class="menu-separator"></div>`,
+            `<div class="menu-item" data-action="rename">
+                <i class="fas fa-edit"></i>
+                <span>重命名</span>
+            </div>`
+        ];
+
+        // 根据当前路径决定显示"删除"还是"恢复"
+        if (this.currentPath === this.recycleBinPath) {
+            menuItems.push(
+                `<div class="menu-item" data-action="retrieve">
+                    <i class="fas fa-undo"></i>
+                    <span>恢复</span>
+                </div>`
+            );
+        } else {
+            menuItems.push(
+                `<div class="menu-item" data-action="delete">
+                    <i class="fas fa-trash"></i>
+                    <span>删除</span>
+                </div>`
+            );
+        }
+
+        // 添加属性菜单项
+        menuItems.push(
+            `<div class="menu-separator"></div>
+            <div class="menu-item" data-action="properties">
+                <i class="fas fa-info-circle"></i>
+                <span>属性</span>
+            </div>`
+        );
+
+        // 构建菜单HTML
+        contextMenu.innerHTML = menuItems.join('');
         contextMenu.style.display = 'block';
         contextMenu.style.left = `${event.pageX}px`;
         contextMenu.style.top = `${event.pageY}px`;
@@ -783,7 +895,7 @@ class FileManager {
     }
 
     handleContextMenuAction(action, item) {
-        switch(action) {
+        switch (action) {
             case 'open':
                 if (item) this.openFile({}, item);
                 break;
@@ -802,12 +914,16 @@ class FileManager {
             case 'delete':
                 this.deleteItems();
                 break;
+            case 'retrieve':  // 新增恢复操作
+                this.retrieveItems();
+                break;
             case 'properties':
                 this.showProperties(item);
                 break;
             default:
                 console.log(`执行操作: ${action}`);
         }
+        this.refresh();
     }
 
     copyItems() {
@@ -841,8 +957,16 @@ class FileManager {
 
     pasteItems() {
         if (this.clipboard && this.clipboard.items.length > 0) {
-            this.showNotification(`粘贴功能开发中...`);
+            // this.showNotification(`粘贴功能开发中...`);
             // 这里可以实现实际的粘贴功能
+            if (this.clipboard.action === 'copy') {
+                this.executeCommand(`cp -r ${this.clipboard.items.map(item => item.path).join(' ')} ${this.currentPath}`);
+                this.refresh();
+            }
+            if (this.clipboard.action === 'cut') {
+                this.executeCommand(`mv ${this.clipboard.items.map(item => item.path).join(' ')} ${this.currentPath}`);
+                this.refresh();
+            }
         }
     }
 
@@ -856,15 +980,111 @@ class FileManager {
         }
     }
 
-    deleteItems() {
+    // 修改删除方法
+    async deleteItems() {
         if (this.selectedItems.length > 0) {
-            const confirmed = confirm(`确定要删除选中的 ${this.selectedItems.length} 个项目吗？`);
+            const confirmed = confirm(`删除 ${this.selectedItems.length} 个项目?`);
             if (confirmed) {
-                this.showNotification(`删除功能开发中...`);
-                // 这里可以实现实际的删除功能
+                const items = this.selectedItems.map(item => item.dataset.path);
+                const itemPath = items[0];
+
+                // 移动文件到回收站
+                const timestamp = new Date().getTime();
+                const baseName = itemPath.split('/').pop();
+                const recycledPath = `${this.recycleBinPath}/_del_${timestamp}_${baseName}`;
+                this.executeCommand(`mv "${itemPath}" "${recycledPath}"`);
+
+                // 记录原始路径
+                await this.writeFormerPath(this.currentPath, `_del_${timestamp}_${baseName}`);
+
+                this.refresh();
             }
         }
     }
+
+
+    // 修改恢复方法
+    async retrieveItems() {
+        if (this.selectedItems.length > 0) {
+            const confirmed = confirm(`恢复 ${this.selectedItems.length} 个项目?`);
+            if (confirmed) {
+
+                const items = this.selectedItems.map(item => item.dataset.path);
+                const itemPath = items[0];
+
+                const baseName = itemPath.split('/').pop();
+                const recycledPath = `${this.recycleBinPath}/${baseName}`;
+                const formerPath = await this.retrieveFormerPath(baseName);
+
+                const formerName = baseName.split('_')[3];
+
+                // 恢复文件名
+                this.executeCommand(`mv "${recycledPath}" "${this.recycleBinPath}/${formerName}"`);
+
+                if (formerPath) {
+                    // 恢复文件
+                    this.executeCommand(`mv "${this.recycleBinPath}/${formerName}" "${formerPath}"`);
+                }
+
+                this.refresh();
+            }
+        }
+    }
+
+    get recycleBinPath() {
+        return '/root/公共/ky-ops-recycle/wait_delete';
+    }
+
+    get mappingFilePath() {
+        return '/root/公共/ky-ops-recycle/.path_mapping';
+    }
+
+    initRecycleBin() {
+        this.executeCommand(`mkdir -p ${this.recycleBinPath}`);
+    }
+
+    // 修改 writeFormerPath 方法
+    async writeFormerPath(formerPath, baseName) {
+        let mappingContent = "";
+
+        mappingContent += `${baseName}->${formerPath}`;
+
+        // 检测是否存在映射文件
+        if (!await this.executeCommandWithOutput(`ls ${this.mappingFilePath}`)) {
+            // 创建映射文件
+            await this.executeCommand(`touch ${this.mappingFilePath}`);
+        }
+
+        // 使用追加模式写入映射文件
+        const cmd = `echo "${mappingContent}" >> ${this.mappingFilePath}`;
+        await this.executeCommand(cmd);
+    }
+
+    // 修改 retrieveFormerPath 方法
+async retrieveFormerPath(baseName) {
+    try {
+        const cmd = `cat ${this.mappingFilePath}`;
+        const output = await this.executeCommandWithOutput(cmd);
+        if (!output) return null;
+
+
+        const lines = output.split('\n');
+        console.log('lines:', lines);
+        for (const line of lines) {
+            if (line.includes(baseName))
+                return line.split('->')[1].trim();
+            console.log('line:', line);
+            // const match = line.match(new RegExp(`^${baseName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}->(.*)$`));
+            // if (match && match[1]) {
+            //     return match[1].trim();
+            // }
+        }
+        return null;
+    } catch (error) {
+        console.error('检索原始路径失败:', error);
+        return null;
+    }
+}
 
     showProperties(item) {
         if (item) {

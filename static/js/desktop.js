@@ -440,8 +440,7 @@ class Windows10Desktop {
         };
         
         if (appName === 'recycle') {
-            this.showNotification('回收站', '回收站为空');
-            return null;
+            return 'file-manager#recycle';
         }
         
         return appUrls[appName] || null;

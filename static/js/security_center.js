@@ -44,6 +44,14 @@
     }, timeout);
   }
 
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
   function initTabs(){
     const tabs = $$('.tab-btn');
     const views = $$('.tab-content');
@@ -102,10 +110,11 @@
 
     async fetchRealTimeLogs(){
       try{
-        const res = await fetch(`/api/real-time-logs?log_file=${encodeURIComponent(this.currentLogFile)}&lines=50`);
+        const res = await fetch(`/api/system-log`);
         if(!res.ok) throw new Error('获取实时日志失败');
         const data = await res.json();
-        const logs = Array.isArray(data?.logs) ? data.logs : [];
+        const raw = data.recent_logs[0];
+        const logs = raw.split('\n');
         this.renderLogs(logs);
       }catch(e){
         console.warn(e);
@@ -119,8 +128,9 @@
         const res = await fetch(API.systemLog);
         if(!res.ok) throw new Error('获取系统日志失败');
         const data = await res.json();
-        const lines = Array.isArray(data?.logs) ? data.logs : (Array.isArray(data) ? data : []);
-        this.renderLogs(lines);
+        const raw = data.recent_logs[0];
+        const logs = raw.split('\n');
+        this.renderLogs(logs);
       }catch(e){
         console.warn(e);
       }
@@ -137,6 +147,7 @@
         if(!text) return;
         
         const level = logEntry?.level || this.detectLogLevel(text);
+        console.log(level, text);
         const timestamp = logEntry?.timestamp || new Date().toLocaleTimeString();
 
         this.levelStats[level] = (this.levelStats[level] || 0) + 1;
@@ -401,19 +412,32 @@
       this.consume(data);
     }
 
+    updateElement(id, value) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+
+
     consume(data){
       const now = new Date().toLocaleTimeString();
       const cpu = Math.round((data.cpu_percent ?? data.cpu?.total ?? 0));
       const mem = Math.round((data.memory_percent ?? data.memory?.percent ?? 0));
-      const disk = Math.round((data.disk_percent ?? data.disk?.percent ?? data.disk_usage?.percent ?? 0));
-      const netIn = Number(data.network?.bytes_recv ?? data.network_io?.bytes_recv ?? 0);
-      const netOut = Number(data.network?.bytes_sent ?? data.network_io?.bytes_sent ?? 0);
+      const disk = Math.round(data.total_utilization);
+      const netIn = Number(data.rx_speed ?? 0);
+      const netOut = Number(data.tx_speed ?? 0);
       const net = Math.min(100, Math.round(((netIn+netOut)%1e7)/1e5));
 
       this.pushPoint(this.cpuChart, now, cpu);
       this.pushPoint(this.memChart, now, mem);
       this.pushPoint(this.diskChart,now, disk);
       this.pushPoint(this.netChart, now, net);
+
+      this.updateElement('cpuVal', `${cpu}%`);
+      this.updateElement('memVal', `${mem}%`);
+      this.updateElement('diskVal', `${disk}%`);
+      this.updateElement('netVal', `↓${formatBytes(netIn)} / ↑${formatBytes(netOut)}`);
 
       const risk = Math.min(100, Math.round(cpu*0.4 + mem*0.25 + disk*0.2 + net*0.15));
       if(this.riskChart){

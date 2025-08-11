@@ -812,7 +812,7 @@ collect_system_info() {
     log_header "收集系统信息"
     
     # 检查extune目录是否存在
-    if [[ ! -d "extune" ]]; then
+    if [[ ! -d "extuner" ]]; then
         log_warning "未找到extune目录，跳过系统信息收集"
         log_info "应用将使用实时获取的系统信息"
         return 0
@@ -829,7 +829,7 @@ collect_system_info() {
     fi
     
     # 检查extune数据目录
-    local extune_data_dir="extune/extunerData"
+    local extune_data_dir="extuner/extunerData"
     if [[ ! -d "$extune_data_dir" ]]; then
         log_info "创建extune数据目录..."
         mkdir -p "$extune_data_dir"
@@ -838,9 +838,9 @@ collect_system_info() {
     log_info "正在使用extune收集系统硬件信息..."
     
     # 尝试运行extune数据收集
-    cd extune
+    cd extuner
     if python3 main.py; then
-        log_success "extune系统信息收集完成"
+        log_success "extuner系统信息收集完成"
         cd ..
         
         # 检查生成的数据文件

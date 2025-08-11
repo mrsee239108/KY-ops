@@ -1,6 +1,6 @@
 import threading
 
-from extune import common
+from extuner import common
 from flask import Flask, render_template, jsonify, request, send_file, make_response, Response
 import psutil
 import platform
@@ -18,6 +18,9 @@ from pathlib import Path
 # 导入AI服务
 from ai_service import ai_service
 
+
+from security_scanner import start_new_scan, get_specified_scan_status
+
 app = Flask(__name__)
 
 # 配置
@@ -25,8 +28,8 @@ app.config['SECRET_KEY'] = 'your-secret-key-here'
 
 # 初始化实时CPU监控
 try:
-    from extune.category.get_cpu_info import RealTimeCPU
-    from extune.common.global_call import GlobalCall
+    from extuner.category.get_cpu_info import RealTimeCPU
+    from extuner.common.global_call import GlobalCall
     real_time_cpu_monitor = RealTimeCPU(interval=2)
     real_time_cpu_monitor.start_broadcasting()
     print("CPU实时监控已启动")
@@ -39,8 +42,8 @@ except Exception as e:
 
 # 初始化实时内存监控
 try:
-    from extune.category.get_memory_info import RealTimeMemory
-    from extune.common.global_call import GlobalCall
+    from extuner.category.get_memory_info import RealTimeMemory
+    from extuner.common.global_call import GlobalCall
     real_time_memory_monitor = RealTimeMemory(interval=2)
     real_time_memory_monitor.start_broadcasting()
     print("内存实时监控已启动")
@@ -53,8 +56,8 @@ except Exception as e:
 
 # 初始化实时网络监控
 try:
-    from extune.category.get_net_info import RealTimeNet
-    from extune.common.global_call import GlobalCall
+    from extuner.category.get_net_info import RealTimeNet
+    from extuner.common.global_call import GlobalCall
     real_time_net_monitor = RealTimeNet(interval=2)
     real_time_net_monitor.start_broadcasting()
     print("网络实时监控已启动")
@@ -67,8 +70,8 @@ except Exception as e:
 
 # 初始化实时磁盘监控
 try:
-    from extune.category.get_disk_info import RealTimeDisk
-    from extune.common.global_call import GlobalCall
+    from extuner.category.get_disk_info import RealTimeDisk
+    from extuner.common.global_call import GlobalCall
     real_time_disk_monitor = RealTimeDisk(interval=2)
     real_time_disk_monitor.start_broadcasting()
     print("磁盘实时监控已启动")
@@ -80,8 +83,8 @@ except Exception as e:
     real_time_disk_monitor = None
 
 try:
-    from extune.category.get_system_message import RealTimeSysMessage
-    from extune.common.global_call import GlobalCall
+    from extuner.category.get_system_message import RealTimeSysMessage
+    from extuner.common.global_call import GlobalCall
     real_time_sys_message_monitor = RealTimeSysMessage(interval=2)
     real_time_sys_message_monitor.start_broadcasting()
     print("系统消息实时监控已启动")
@@ -150,7 +153,7 @@ def format_uptime(seconds):
 
 def parse_extune_data():
     """解析extune输出的数据文件"""
-    extune_data_path = os.path.join(os.path.dirname(__file__), 'extune', 'extunerData')
+    extune_data_path = os.path.join(os.path.dirname(__file__), 'extuner', 'extunerData')
     
     result = {
         'hostname': '未知',
@@ -584,7 +587,7 @@ def system_status():
 def get_system_info_txt():
     """从info.txt文件获取系统信息"""
     try:
-        info_file = os.path.join(os.path.dirname(__file__), 'extune', 'info.txt')
+        info_file = os.path.join(os.path.dirname(__file__), 'extuner', 'info.txt')
         
         if not os.path.exists(info_file):
             return jsonify({
@@ -1550,18 +1553,8 @@ def start_security_scan():
     """启动安全扫描"""
     try:
         scan_type = request.json.get('type', 'quick')
-        
-        # 模拟扫描过程
-        scan_results = {
-            'scan_id': f"scan_{int(time.time())}",
-            'type': scan_type,
-            'status': 'running',
-            'progress': 0,
-            'files_scanned': 0,
-            'threats_found': 0,
-            'estimated_time': 300 if scan_type == 'full' else 60,
-            'start_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
+        scan_results = start_new_scan(scan_type)
+
         
         return jsonify(scan_results)
     except Exception as e:
@@ -1571,23 +1564,27 @@ def start_security_scan():
 def get_scan_status(scan_id):
     """获取扫描状态"""
     try:
-        # 模拟扫描进度
-        import random
-        progress = min(random.randint(10, 100), 100)
-        files_scanned = progress * 10
-        threats_found = random.randint(0, 2) if progress > 80 else 0
-        
-        scan_status = {
+        scan_status = get_specified_scan_status(scan_id)
+
+        progress = scan_status['progress']
+        files_scanned = scan_status['files_scanned']
+        threats_found = scan_status['threats_found']
+
+
+        scan_status_dict = {
             'scan_id': scan_id,
             'status': 'completed' if progress >= 100 else 'running',
             'progress': progress,
             'files_scanned': files_scanned,
             'threats_found': threats_found,
             'estimated_time': max(0, 60 - (progress * 0.6)),
-            'current_file': f'C:\\Windows\\System32\\file_{files_scanned}.dll' if progress < 100 else 'Scan completed'
+            'current_file': '正在扫描'
         }
+
+        if (progress >= 100):
+            scan_status_dict['result_summary']  = scan_status['result_summary']
         
-        return jsonify(scan_status)
+        return jsonify(scan_status_dict)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

@@ -154,7 +154,7 @@ class Config:
         '''
             Get the output file save directory
         '''
-        # 修改输出路径到 extune\extunerData
+        # 修改输出路径到 extuner\extunerData
         return Config.path_format(Config.out_path + '/')
     
     @staticmethod

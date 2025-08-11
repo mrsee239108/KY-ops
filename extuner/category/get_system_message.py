@@ -63,9 +63,9 @@ class RealTimeSysMessage:
             recent_logs = []
             for log_file in self.data['log_sources']:
                 try:
-                    cmd = f"tail -n 50 {log_file} 2>/dev/null"
+                    cmd = f"tail -n 100 {log_file} 2>/dev/null"
                     output = subprocess.check_output(cmd, shell=True, text=True)
-                    recent_logs.append(f"## {log_file} ##\n{output}")
+                    recent_logs.append(f"{output}")
                 except Exception as e:
                     Logger().error(f"Error reading {log_file}: {str(e)}")
 

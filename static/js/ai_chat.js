@@ -127,6 +127,10 @@ class AIChatInterface {
         this.loadAlertNotification();
         this.loadPerformanceData();
         this.loadSystemLog();
+        
+        // 检查是否有预填充的提示词
+        this.checkPrefillPrompt();
+        
         // 检查AI模型状态
         setTimeout(() => {
             this.checkInitialAIStatus();
@@ -793,6 +797,38 @@ class AIChatInterface {
         }
         
         this.updateChatTitle('AI 智能助手', '随时为您提供专业的运维支持');
+    }
+
+    // 检查预填充提示词
+    checkPrefillPrompt() {
+        try {
+            const prefillPrompt = sessionStorage.getItem('ai_prefill_prompt');
+            if (prefillPrompt) {
+                // 清除sessionStorage中的数据
+                sessionStorage.removeItem('ai_prefill_prompt');
+                
+                // 获取消息输入框
+                const messageInput = document.getElementById('message-input');
+                if (messageInput) {
+                    // 设置预填充内容
+                    messageInput.value = prefillPrompt;
+                    
+                    // 更新字符计数和自动调整高度
+                    this.updateCharCount();
+                    this.autoResizeTextarea();
+                    
+                    // 聚焦到输入框
+                    messageInput.focus();
+                    
+                    // 将光标移到文本末尾
+                    messageInput.setSelectionRange(prefillPrompt.length, prefillPrompt.length);
+                    
+                    console.log('已预填充AI询问内容');
+                }
+            }
+        } catch (error) {
+            console.error('处理预填充提示词时出错:', error);
+        }
     }
 
     // 更新对话标题

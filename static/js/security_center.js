@@ -24,6 +24,8 @@
     performanceData: '/api/performance-data', // GET
     files: '/api/files', // GET list, POST save
     executeCommand: '/api/execute-command', // POST {cmd}
+    securityOverview: '/api/security-overview', // GET
+    todayLogsExport: '/api/today-logs-export', // GET
   };
 
   function notify(message, type='info', timeout=3500){
@@ -74,9 +76,98 @@
     })[s]||s);
   }
 
+  // Security Overview
+  class SecurityOverview{
+    constructor(){
+      this.todayLogsEl = $('#todayLogs');
+      this.todayAnomaliesEl = $('#todayAnomalies');
+      this.riskLevelEl = $('#riskLevel');
+      this.monitorStatusEl = $('#monitorStatus');
+      
+      // 共享日志统计数据
+      this.sharedLogStats = {
+        totalLogs: 0,
+        levelStats: {info: 0, warn: 0, error: 0}
+      };
+      
+      this.fetchTimer = null;
+      this.startFetchLoop();
+    }
+
+    startFetchLoop(){
+      this.fetchOverviewData();
+      this.fetchTimer = setInterval(()=> this.fetchOverviewData(), 30000); // 每30秒更新一次
+    }
+
+    async fetchOverviewData(){
+      try{
+        const res = await fetch(API.securityOverview);
+        if(!res.ok) throw new Error('获取安全概览数据失败');
+        const data = await res.json();
+        this.updateOverviewDisplay(data);
+      }catch(e){
+        console.warn('获取安全概览数据失败:', e);
+        // 使用默认值
+        this.updateOverviewDisplay({
+          today_logs: '--',
+          today_anomalies: '--',
+          risk_level: '--',
+          monitor_status: '运行中'
+        });
+      }
+    }
+
+    updateOverviewDisplay(data){
+      if(this.todayLogsEl){
+        this.todayLogsEl.textContent = this.formatNumber(data.today_logs);
+        // 更新共享统计数据
+        this.sharedLogStats.totalLogs = data.today_logs || 0;
+      }
+      
+      if(this.todayAnomaliesEl){
+        this.todayAnomaliesEl.textContent = this.formatNumber(data.today_anomalies);
+      }
+      
+      if(this.riskLevelEl){
+        this.riskLevelEl.textContent = data.risk_level || '--';
+        // 根据风险等级设置样式
+        this.riskLevelEl.className = 'value ' + this.getRiskLevelClass(data.risk_level);
+      }
+      
+      if(this.monitorStatusEl){
+        this.monitorStatusEl.textContent = data.monitor_status || '运行中';
+      }
+    }
+
+    formatNumber(num){
+      if(num === null || num === undefined || num === '--') return '--';
+      if(typeof num === 'number'){
+        return num.toLocaleString();
+      }
+      return String(num);
+    }
+
+    getRiskLevelClass(level){
+      switch(level){
+        case '高危': return 'danger';
+        case '中等': return 'warn';
+        case '低风险': return 'info';
+        case '正常': return 'info';
+        default: return '';
+      }
+    }
+
+    destroy(){
+      if(this.fetchTimer){
+        clearInterval(this.fetchTimer);
+        this.fetchTimer = null;
+      }
+    }
+  }
+
   // Log Analyzer
   class LogAnalyzer{
-    constructor(){
+    constructor(securityOverview){
       this.listEl = $('#logStream');
       this.anomalyEl = $('#anomalyList');
       this.progressModal = $('#scanProgressModal');
@@ -90,6 +181,9 @@
 
       this.levelChart = null;
       this.levelChartEl = $('#logLevelChart');
+      
+      // 使用SecurityOverview的共享统计数据
+      this.securityOverview = securityOverview;
       this.levelStats = {info:0, warn:0, error:0};
 
       this.currentScanId = null;
@@ -101,6 +195,8 @@
 
       this.fetchTimer = null;
       this.startFetchLoop();
+      // 初始化时就加载异常列表
+      this.loadAnomalies();
     }
 
     startFetchLoop(){
@@ -169,7 +265,7 @@
       return 'info';
     }
 
-    updateLevelChart(){
+    async updateLevelChart(){
       if(!this.levelChartEl || !window.Chart) return;
       if(!this.levelChart){
         this.levelChart = new Chart(this.levelChartEl.getContext('2d'),{
@@ -181,9 +277,35 @@
           options:{plugins:{legend:{position:'bottom'}}, cutout:'65%'}
         });
       }
-      const ds = this.levelChart.data.datasets[0];
-      ds.data = [this.levelStats.info || 0, this.levelStats.warn || 0, this.levelStats.error || 0];
-      this.levelChart.update();
+      
+      try {
+        // 从后端API获取准确的日志级别统计数据
+        const res = await fetch('/api/log-level-stats');
+        if(res.ok) {
+          const stats = await res.json();
+          const data = [stats.info || 0, stats.warn || 0, stats.error || 0];
+          this.levelChart.data.datasets[0].data = data;
+          this.levelChart.update();
+          
+          // 同步更新本地统计数据
+          this.levelStats = {
+            info: stats.info || 0,
+            warn: stats.warn || 0,
+            error: stats.error || 0
+          };
+        } else {
+          // 如果API不可用，使用本地统计数据
+          const ds = this.levelChart.data.datasets[0];
+          ds.data = [this.levelStats.info || 0, this.levelStats.warn || 0, this.levelStats.error || 0];
+          this.levelChart.update();
+        }
+      } catch(e) {
+        console.warn('获取日志级别统计失败，使用本地数据:', e);
+        // 使用本地统计数据作为备选
+        const ds = this.levelChart.data.datasets[0];
+        ds.data = [this.levelStats.info || 0, this.levelStats.warn || 0, this.levelStats.error || 0];
+        this.levelChart.update();
+      }
     }
 
     async startScan(){
@@ -223,25 +345,45 @@
     async monitorScanProgress(){
       if(!this.currentScanId) return;
       
+      let retryCount = 0;
+      const maxRetries = 3;
+      
       const checkProgress = async () => {
         try{
           const res = await fetch(`/api/security-scan/${this.currentScanId}`);
-          if(!res.ok) throw new Error('获取扫描状态失败');
+          
+          // 处理HTTP错误状态
+          if(!res.ok) {
+            if(res.status === 404) {
+              throw new Error('扫描任务不存在');
+            } else {
+              throw new Error(`HTTP ${res.status}: 获取扫描状态失败`);
+            }
+          }
           
           const data = await res.json();
-          const progress = data.progress || 0;
-          const status = data.status;
           
+          // 检查返回的数据是否有错误
+          if(data.error) {
+            throw new Error(data.error);
+          }
+          
+          const progress = Math.min(100, Math.max(0, data.progress || 0));
+          const status = data.status || 'unknown';
+          
+          // 更新进度条
           this.progressBar.style.width = `${progress}%`;
           this.progressText.textContent = `${progress}%`;
           
-          let statusText = `状态：${status} | 已扫描：${data.lines_scanned || 0} 行 | 发现异常：${data.anomalies_found || 0}`;
+          // 更新状态信息
+          let statusText = `状态：${status} | 已扫描：${data.lines_scanned || data.files_scanned || 0} 项 | 发现威胁：${data.anomalies_found || data.threats_found || 0}`;
           if(data.auto_repair_enabled){
             statusText += ` | 修复操作：${data.repair_actions_count || 0}`;
           }
           this.countInfo.innerHTML = statusText;
           
-          if(status === 'completed'){
+          // 处理完成状态
+          if(status === 'completed' || progress >= 100){
             // 显示查看修复按钮
             if(data.auto_repair_enabled && data.repair_actions_count > 0){
               this.btnViewRepairs.style.display = 'inline-block';
@@ -251,23 +393,35 @@
               this.showProgress(false);
               this.loadAnomalies();
             }, 1000);
-            notify('日志扫描完成','success');
+            notify('安全扫描完成','success');
             return;
           }
           
-          if(status === 'failed'){
+          // 处理失败状态
+          if(status === 'failed' || status === 'not_found'){
             this.showProgress(false);
-            notify('日志扫描失败','danger');
+            notify(`安全扫描失败: ${data.error || '未知错误'}`, 'danger');
             return;
           }
+          
+          // 重置重试计数器（成功获取状态）
+          retryCount = 0;
           
           // 继续监控
           setTimeout(checkProgress, 1000);
           
         }catch(e){
-          console.error(e);
-          this.showProgress(false);
-          notify('监控扫描进度失败','danger');
+          console.error('监控扫描进度错误:', e);
+          retryCount++;
+          
+          if(retryCount >= maxRetries) {
+            this.showProgress(false);
+            notify(`监控扫描进度失败: ${e.message}`, 'danger');
+            return;
+          }
+          
+          // 重试前等待更长时间
+          setTimeout(checkProgress, 2000 * retryCount);
         }
       };
       
@@ -275,34 +429,110 @@
     }
 
     async loadAnomalies(){
-      if(!this.currentScanId || !this.anomalyEl) return;
+      if(!this.anomalyEl) return;
       
       try{
-        const res = await fetch(`/api/anomaly-list?scan_id=${this.currentScanId}`);
+        // 如果有当前扫描ID，优先获取该扫描的异常
+        let url = '/api/anomaly-list';
+        if(this.currentScanId) {
+          url += `?scan_id=${this.currentScanId}`;
+        }
+        
+        const res = await fetch(url);
         if(!res.ok) throw new Error('获取异常列表失败');
         
         const data = await res.json();
         const anomalies = Array.isArray(data?.anomalies) ? data.anomalies : [];
         
-        this.anomalyEl.innerHTML = '';
-        
-        anomalies.forEach(anomaly => {
-          const item = document.createElement('div');
-          item.className = `anomaly-item ${anomaly.severity || 'medium'}`;
-          item.innerHTML = `
-            <div class="title">${escapeHtml(anomaly.type || 'ANOMALY')} - ${escapeHtml(anomaly.message || anomaly.content || '')}</div>
-            <div class="meta">时间：${anomaly.timestamp || ''} | 严重程度：${anomaly.severity || 'unknown'}</div>
-          `;
-          this.anomalyEl.appendChild(item);
-        });
-        
-        if(anomalies.length === 0){
-          this.anomalyEl.innerHTML = '<div class="no-data">未发现异常</div>';
-        }
+        console.log('加载异常列表:', anomalies.length, '个异常');
+        this.renderAnomalies(anomalies);
         
       }catch(e){
-        console.error(e);
-        notify('加载异常列表失败','danger');
+        console.error('加载异常列表失败:', e);
+        // 显示错误信息但不弹出通知，避免过于频繁
+        if(this.anomalyEl) {
+          this.anomalyEl.innerHTML = '<div class="error-message">加载异常列表失败，请稍后重试</div>';
+        }
+      }
+    }
+
+    renderAnomalies(anomalies){
+      if(!this.anomalyEl) return;
+      
+      this.anomalyEl.innerHTML = '';
+      
+      anomalies.forEach(anomaly => {
+        const item = document.createElement('div');
+        item.className = `anomaly-item ${anomaly.severity || 'medium'}`;
+        
+        // 根据异常类型显示不同的图标和样式
+        const typeIcon = this.getAnomalyIcon(anomaly.type);
+        const severityClass = this.getSeverityClass(anomaly.severity);
+        
+        // 生成建议脚本
+        const suggestedScript = this.generateSuggestedScript(anomaly);
+        
+        item.innerHTML = `
+          <div class="anomaly-header">
+            <span class="anomaly-icon ${severityClass}">${typeIcon}</span>
+            <span class="anomaly-type">${escapeHtml(anomaly.type || 'ANOMALY')}</span>
+            <span class="anomaly-severity ${severityClass}">${escapeHtml(anomaly.severity || 'unknown')}</span>
+          </div>
+          <div class="anomaly-message">${escapeHtml(anomaly.message || anomaly.content || '')}</div>
+          <div class="anomaly-meta">
+            <span class="timestamp">时间：${anomaly.timestamp || ''}</span>
+            ${anomaly.source ? `<span class="source">来源：${escapeHtml(anomaly.source)}</span>` : ''}
+            ${anomaly.count ? `<span class="count">出现次数：${anomaly.count}</span>` : ''}
+          </div>
+          ${anomaly.suggestion ? `<div class="anomaly-suggestion">建议：${escapeHtml(anomaly.suggestion)}</div>` : ''}
+          <div class="suggested-script">
+            <div class="script-header">
+              <span><i class="fas fa-code"></i> 建议脚本</span>
+            </div>
+            <div class="script-content">
+              <textarea class="script-code" readonly>${suggestedScript}</textarea>
+            </div>
+            <div class="script-actions">
+              <button class="script-btn copy-btn" onclick="securityOverview.copyScript(\`${suggestedScript.replace(/`/g, '\\`')}\`)">
+                <i class="fas fa-copy"></i> 复制脚本
+              </button>
+              <button class="script-btn ai-btn" onclick="securityOverview.askAI(${JSON.stringify(anomaly).replace(/"/g, '&quot;')})">
+                <i class="fas fa-robot"></i> AI询问
+              </button>
+            </div>
+          </div>
+        `;
+        
+        this.anomalyEl.appendChild(item);
+      });
+      
+      if(anomalies.length === 0){
+        this.anomalyEl.innerHTML = '<div class="no-data">未发现异常</div>';
+      }
+    }
+
+    getAnomalyIcon(type){
+      const iconMap = {
+        'FAILED_LOGIN': '🔐',
+        'SUSPICIOUS_ACTIVITY': '⚠️',
+        'SYSTEM_ERROR': '❌',
+        'PERFORMANCE_ISSUE': '📊',
+        'SECURITY_THREAT': '🛡️',
+        'NETWORK_ANOMALY': '🌐',
+        'FILE_ACCESS': '📁',
+        'PRIVILEGE_ESCALATION': '⬆️',
+        'MALWARE_DETECTED': '🦠',
+        'BRUTE_FORCE': '🔨'
+      };
+      return iconMap[type] || '⚠️';
+    }
+
+    getSeverityClass(severity){
+      switch(severity?.toLowerCase()){
+        case 'critical': case 'high': return 'severity-high';
+        case 'medium': case 'moderate': return 'severity-medium';
+        case 'low': case 'info': return 'severity-low';
+        default: return 'severity-unknown';
       }
     }
 
@@ -311,15 +541,87 @@
       this.progressModal.classList.toggle('show', !!show);
     }
 
-    exportAnomalies(){
-      const items = $$('.anomaly-item', this.anomalyEl).map(x=>x.textContent.trim());
-      const blob = new Blob([items.join('\n')], {type:'text/plain;charset=utf-8'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `anomalies_${Date.now()}.txt`;
-      a.click();
-      URL.revokeObjectURL(a.href);
-      notify('异常列表已导出','info');
+    async exportAnomalies(){
+      try{
+        notify('正在获取今日日志数据...', 'info');
+        
+        // 获取今日日志数据
+        const res = await fetch(API.todayLogsExport);
+        if(!res.ok) throw new Error('获取日志数据失败');
+        
+        const data = await res.json();
+        const logs = data.logs || [];
+        
+        if(logs.length === 0){
+          notify('没有找到今日日志数据', 'warning');
+          return;
+        }
+        
+        // 生成CSV内容
+        const csvContent = this.generateCSV(logs, data.export_time);
+        
+        // 创建并下载CSV文件
+        const blob = new Blob([csvContent], {type:'text/csv;charset=utf-8-sig'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        
+        const today = new Date().toISOString().split('T')[0];
+        a.download = `今日处理日志_${today}.csv`;
+        
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        
+        notify(`成功导出 ${logs.length} 条日志记录`, 'success');
+        
+      }catch(e){
+        console.error('导出日志失败:', e);
+        notify('导出日志失败: ' + e.message, 'danger');
+      }
+    }
+
+    generateCSV(logs, exportTime){
+      // CSV头部
+      const headers = ['时间戳', '日志级别', '来源', '消息内容'];
+      let csvContent = '\uFEFF'; // UTF-8 BOM for Excel compatibility
+      
+      // 添加导出信息
+      csvContent += `# 今日处理日志导出报告\n`;
+      csvContent += `# 导出时间: ${exportTime}\n`;
+      csvContent += `# 记录总数: ${logs.length}\n`;
+      csvContent += `# 系统: KY-ops 智能运维管家\n`;
+      csvContent += `\n`;
+      
+      // 添加CSV头部
+      csvContent += headers.join(',') + '\n';
+      
+      // 添加数据行
+      logs.forEach(log => {
+        const row = [
+          this.escapeCsvField(log.timestamp || ''),
+          this.escapeCsvField(log.level || ''),
+          this.escapeCsvField(log.source || ''),
+          this.escapeCsvField(log.message || '')
+        ];
+        csvContent += row.join(',') + '\n';
+      });
+      
+      return csvContent;
+    }
+
+    escapeCsvField(field){
+      // 处理CSV字段转义
+      if(field === null || field === undefined) return '';
+      
+      const str = String(field);
+      
+      // 如果包含逗号、引号或换行符，需要用引号包围并转义内部引号
+      if(str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')){
+        return '"' + str.replace(/"/g, '""') + '"';
+      }
+      
+      return str;
     }
 
     async viewRepairActions(){
@@ -361,6 +663,190 @@
       }catch(e){
         console.error(e);
         notify('获取修复记录失败','danger');
+      }
+    }
+
+    // 生成建议脚本
+    generateSuggestedScript(anomaly) {
+      const type = anomaly.type || 'UNKNOWN';
+      const message = anomaly.message || anomaly.content || '';
+      
+      // 根据异常类型生成相应的脚本
+      switch(type) {
+        case 'FAILED_LOGIN':
+          return `# 检查失败登录记录
+# Windows
+Get-EventLog -LogName Security -InstanceId 4625 | Select-Object -First 10
+
+# Linux
+sudo grep "Failed password" /var/log/auth.log | tail -10
+
+# 锁定可疑IP
+# iptables -A INPUT -s <suspicious_ip> -j DROP`;
+
+        case 'SYSTEM_ERROR':
+          return `# 系统错误诊断
+# 检查系统日志
+# Windows
+Get-EventLog -LogName System -EntryType Error | Select-Object -First 10
+
+# Linux
+sudo journalctl -p err -n 10
+
+# 检查磁盘空间
+df -h
+
+# 检查内存使用
+free -h`;
+
+        case 'PERFORMANCE_ISSUE':
+          return `# 性能问题诊断
+# 检查CPU使用率
+top -n 1
+
+# 检查内存使用
+free -h
+
+# 检查磁盘IO
+iostat -x 1 5
+
+# 检查网络连接
+netstat -tuln`;
+
+        case 'SECURITY_THREAT':
+          return `# 安全威胁处理
+# 扫描恶意进程
+ps aux | grep -E "(malware|virus|trojan)"
+
+# 检查网络连接
+netstat -tuln | grep ESTABLISHED
+
+# 更新系统
+# Ubuntu/Debian
+sudo apt update && sudo apt upgrade
+
+# CentOS/RHEL
+sudo yum update`;
+
+        case 'NETWORK_ANOMALY':
+          return `# 网络异常诊断
+# 检查网络接口
+ip addr show
+
+# 检查路由表
+ip route show
+
+# 测试网络连通性
+ping -c 4 8.8.8.8
+
+# 检查DNS解析
+nslookup google.com`;
+
+        case 'FILE_ACCESS':
+          return `# 文件访问异常检查
+# 检查文件权限
+ls -la /path/to/file
+
+# 检查文件访问日志
+# Linux
+sudo ausearch -f /path/to/file
+
+# 检查进程文件句柄
+lsof | grep /path/to/file`;
+
+        default:
+          return `# 通用系统诊断脚本
+# 检查系统状态
+uptime
+
+# 检查磁盘使用
+df -h
+
+# 检查内存使用
+free -h
+
+# 检查进程
+ps aux | head -10
+
+# 检查网络
+netstat -tuln | head -10
+
+# 检查日志
+tail -n 20 /var/log/syslog`;
+      }
+    }
+
+    // 复制脚本到剪贴板
+    copyScript(script) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(script).then(() => {
+          notify('脚本已复制到剪贴板', 'success');
+        }).catch(err => {
+          console.error('复制失败:', err);
+          this.fallbackCopyScript(script);
+        });
+      } else {
+        this.fallbackCopyScript(script);
+      }
+    }
+
+    // 备用复制方法
+    fallbackCopyScript(script) {
+      const textArea = document.createElement('textarea');
+      textArea.value = script;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        notify('脚本已复制到剪贴板', 'success');
+      } catch (err) {
+        console.error('复制失败:', err);
+        notify('复制失败，请手动复制', 'danger');
+      }
+      
+      document.body.removeChild(textArea);
+    }
+
+    // 跳转到AI助手并预填充错误日志
+    askAI(anomalyData) {
+      try {
+        // 解析异常数据
+        const anomaly = typeof anomalyData === 'string' ? JSON.parse(anomalyData) : anomalyData;
+        
+        // 构建AI询问的提示词
+        const prompt = `请帮我分析以下系统异常并提供解决方案：
+
+异常类型：${anomaly.type || 'UNKNOWN'}
+严重程度：${anomaly.severity || 'unknown'}
+异常消息：${anomaly.message || anomaly.content || ''}
+发生时间：${anomaly.timestamp || ''}
+${anomaly.source ? `来源：${anomaly.source}` : ''}
+${anomaly.count ? `出现次数：${anomaly.count}` : ''}
+
+请提供：
+1. 问题的可能原因分析
+2. 详细的解决步骤
+3. 预防措施建议
+4. 相关的诊断命令或脚本
+
+谢谢！`;
+
+        // 将提示词存储到sessionStorage，以便AI助手页面读取
+        sessionStorage.setItem('ai_prefill_prompt', prompt);
+        
+        // 跳转到AI助手页面
+        window.open('/ai-chat', '_blank');
+        
+        notify('正在跳转到AI助手...', 'info');
+        
+      } catch (error) {
+        console.error('跳转AI助手失败:', error);
+        notify('跳转AI助手失败', 'danger');
       }
     }
   }
@@ -649,8 +1135,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function main(){
     configureChartDefaults();
     initTabs();
+    const securityOverview = new SecurityOverview();
     window.SecurityCenter = {
-      logAnalyzer: new LogAnalyzer(),
+      securityOverview: securityOverview,
+      logAnalyzer: new LogAnalyzer(securityOverview),
       predictor: new Predictor(),
       scriptCenter: new ScriptCenter(),
       refreshPage, goBack

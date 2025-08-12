@@ -811,7 +811,7 @@ check_ai_model() {
 collect_system_info() {
     log_header "收集系统信息"
     
-    # 检查extune目录是否存在
+    # 检查extuner目录是否存在
     if [[ ! -d "extuner" ]]; then
         log_warning "未找到extune目录，跳过系统信息收集"
         log_info "应用将使用实时获取的系统信息"

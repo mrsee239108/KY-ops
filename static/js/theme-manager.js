@@ -158,13 +158,7 @@ class ThemeManager {
 }
 
 // 创建全局主题管理器实例
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.themeManager = new ThemeManager();
-    });
-} else {
-    window.themeManager = new ThemeManager();
-}
+window.themeManager = new ThemeManager();
 
 // 导出给其他模块使用
 if (typeof module !== 'undefined' && module.exports) {

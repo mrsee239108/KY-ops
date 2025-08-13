@@ -1,0 +1,1857 @@
+Command: dmesg -T
+SubCommand: dmesg -T
+[Wed Aug 13 10:53:43 2025] Linux version 4.19.90-89.11.v2401.ky10.x86_64 (root@localhost.localdomain) (gcc version 7.3.0 (GCC)) #1 SMP Tue May 7 18:33:01 CST 2024
+[Wed Aug 13 10:53:43 2025] Command line: BOOT_IMAGE=/vmlinuz-4.19.90-89.11.v2401.ky10.x86_64 root=/dev/mapper/klas-root ro resume=/dev/mapper/klas-swap rd.lvm.lv=klas/root rd.lvm.lv=klas/swap rhgb quiet crashkernel=1024M,high audit=0
+[Wed Aug 13 10:53:43 2025] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[Wed Aug 13 10:53:43 2025] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[Wed Aug 13 10:53:43 2025] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[Wed Aug 13 10:53:43 2025] x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+[Wed Aug 13 10:53:43 2025] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[Wed Aug 13 10:53:43 2025] x86/fpu: xstate_offset[9]:  832, xstate_sizes[9]:    8
+[Wed Aug 13 10:53:43 2025] x86/fpu: Enabled xstate features 0x207, context size is 840 bytes, using 'compacted' format.
+[Wed Aug 13 10:53:43 2025] BIOS-provided physical RAM map:
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x0000000000000000-0x0000000000000fff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x0000000000001000-0x0000000000001fff] reserved
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x0000000000002000-0x000000000009ffff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x00000000000c0000-0x00000000000fffff] reserved
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x0000000000100000-0x000000000dba8fff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000dba9000-0x000000000dbc5fff] ACPI data
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000dbc6000-0x000000000e049fff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000e04a000-0x000000000e04ffff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000e050000-0x000000000fb6efff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000fb6f000-0x000000000fbdefff] reserved
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000fbdf000-0x000000000fbfdfff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000fbfe000-0x000000000fbfefff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x000000000fbff000-0x00000000bfffffff] usable
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x00000000ffc00000-0x00000000ffc29fff] reserved
+[Wed Aug 13 10:53:43 2025] BIOS-e820: [mem 0x0000000100000000-0x000000023fffffff] usable
+[Wed Aug 13 10:53:43 2025] NX (Execute Disable) protection: active
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad87018-0x0ad8f057] usable ==> usable
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad87018-0x0ad8f057] usable ==> usable
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad84018-0x0ad86057] usable ==> usable
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad84018-0x0ad86057] usable ==> usable
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad82018-0x0ad83857] usable ==> usable
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x0ad82018-0x0ad83857] usable ==> usable
+[Wed Aug 13 10:53:43 2025] extended physical RAM map:
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x0000000000000000-0x0000000000000fff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x0000000000001000-0x0000000000001fff] reserved
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x0000000000002000-0x000000000009ffff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x00000000000c0000-0x00000000000fffff] reserved
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x0000000000100000-0x000000000ad82017] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad82018-0x000000000ad83857] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad83858-0x000000000ad84017] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad84018-0x000000000ad86057] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad86058-0x000000000ad87017] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad87018-0x000000000ad8f057] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000ad8f058-0x000000000dba8fff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000dba9000-0x000000000dbc5fff] ACPI data
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000dbc6000-0x000000000e049fff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000e04a000-0x000000000e04ffff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000e050000-0x000000000fb6efff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000fb6f000-0x000000000fbdefff] reserved
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000fbdf000-0x000000000fbfdfff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000fbfe000-0x000000000fbfefff] ACPI NVS
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x000000000fbff000-0x00000000bfffffff] usable
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x00000000ffc00000-0x00000000ffc29fff] reserved
+[Wed Aug 13 10:53:43 2025] reserve setup_data: [mem 0x0000000100000000-0x000000023fffffff] usable
+[Wed Aug 13 10:53:43 2025] efi: EFI v2.70 by VMware, Inc.
+[Wed Aug 13 10:53:43 2025] efi:  SMBIOS=0xe04a000  MEMATTR=0xf85a018  ACPI 2.0=0xdba9000 
+[Wed Aug 13 10:53:43 2025] SMBIOS 2.7 present.
+[Wed Aug 13 10:53:43 2025] DMI: VMware, Inc. VMware20,1/440BX Desktop Reference Platform, BIOS VMW201.00V.21805430.B64.2305221830 05/22/2023
+[Wed Aug 13 10:53:43 2025] Hypervisor detected: VMware
+[Wed Aug 13 10:53:43 2025] vmware: TSC freq read from hypervisor : 2496.006 MHz
+[Wed Aug 13 10:53:43 2025] vmware: Host bus clock speed read from hypervisor : 66000000 Hz
+[Wed Aug 13 10:53:43 2025] vmware: using sched offset of 10826946014 ns
+[Wed Aug 13 10:53:43 2025] tsc: Detected 2496.006 MHz processor
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+[Wed Aug 13 10:53:43 2025] e820: remove [mem 0x000a0000-0x000fffff] usable
+[Wed Aug 13 10:53:43 2025] last_pfn = 0x240000 max_arch_pfn = 0x400000000
+[Wed Aug 13 10:53:43 2025] MTRR default type: uncachable
+[Wed Aug 13 10:53:43 2025] MTRR fixed ranges enabled:
+[Wed Aug 13 10:53:43 2025]   00000-9FFFF write-back
+[Wed Aug 13 10:53:43 2025]   A0000-FFFFF uncachable
+[Wed Aug 13 10:53:43 2025] MTRR variable ranges enabled:
+[Wed Aug 13 10:53:43 2025]   0 base 000000000000 mask 1FC000000000 write-back
+[Wed Aug 13 10:53:43 2025]   1 base 0000C0000000 mask 1FFFC0000000 uncachable
+[Wed Aug 13 10:53:43 2025]   2 disabled
+[Wed Aug 13 10:53:43 2025]   3 disabled
+[Wed Aug 13 10:53:43 2025]   4 disabled
+[Wed Aug 13 10:53:43 2025]   5 disabled
+[Wed Aug 13 10:53:43 2025]   6 disabled
+[Wed Aug 13 10:53:43 2025]   7 disabled
+[Wed Aug 13 10:53:43 2025] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[Wed Aug 13 10:53:43 2025] total RAM covered: 261120M
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 64K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 128K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 256K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 512K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 1M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64K 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 128K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 256K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 512K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 1M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128K 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 256K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 512K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 1M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256K 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 512K 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 1M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512K 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 1M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 2M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 4M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 4M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 8M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 8M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 16M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 16M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 32M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 32M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 64M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 64M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128M 	chunk_size: 128M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 128M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256M 	chunk_size: 256M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 256M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512M 	chunk_size: 512M 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512M 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 512M 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1G 	chunk_size: 1G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 1G 	chunk_size: 2G 	num_reg: 8  	lose cover RAM: 0G
+[Wed Aug 13 10:53:43 2025]  gran_size: 2G 	chunk_size: 2G 	num_reg: 7  	lose cover RAM: 1G
+[Wed Aug 13 10:53:43 2025] mtrr_cleanup: can not find optimal value
+[Wed Aug 13 10:53:43 2025] please specify mtrr_gran_size/mtrr_chunk_size
+[Wed Aug 13 10:53:43 2025] e820: update [mem 0xc0000000-0xffffffff] usable ==> reserved
+[Wed Aug 13 10:53:43 2025] last_pfn = 0xc0000 max_arch_pfn = 0x400000000
+[Wed Aug 13 10:53:43 2025] Using GB pages for direct mapping
+[Wed Aug 13 10:53:43 2025] Incomplete global flushes, disabling PCID
+[Wed Aug 13 10:53:43 2025] Secure boot disabled
+[Wed Aug 13 10:53:43 2025] RAMDISK: [mem 0x0ad90000-0x0d59cfff]
+[Wed Aug 13 10:53:43 2025] ACPI: Early table checksum verification disabled
+[Wed Aug 13 10:53:43 2025] ACPI: RSDP 0x000000000DBA9000 000024 (v02 VMWARE)
+[Wed Aug 13 10:53:43 2025] ACPI: XSDT 0x000000000DBA9064 00005C (v01 INTEL  440BX    06040000 VMW  01324272)
+[Wed Aug 13 10:53:43 2025] ACPI: SRAT 0x000000000DBA90C0 0008D0 (v03 VMWARE EFISRAT  06040001 VMW  000007CE)
+[Wed Aug 13 10:53:43 2025] ACPI: FACP 0x000000000DBC4CDD 0000F4 (v04 INTEL  440BX    06040000 PTL  000F4240)
+[Wed Aug 13 10:53:43 2025] ACPI: DSDT 0x000000000DBA9990 01B34D (v01 PTLTD  Custom   00000000 INTL 20130823)
+[Wed Aug 13 10:53:43 2025] ACPI: FACS 0x000000000FBFE000 000040
+[Wed Aug 13 10:53:43 2025] ACPI: FACS 0x000000000FBFE000 000040
+[Wed Aug 13 10:53:43 2025] ACPI: APIC 0x000000000DBC5000 000742 (v03 VMWARE EFIAPIC  06040001 VMW  000007CE)
+[Wed Aug 13 10:53:43 2025] ACPI: MCFG 0x000000000DBC5742 00003C (v01 VMWARE EFIMCFG  06040001 VMW  000007CE)
+[Wed Aug 13 10:53:43 2025] ACPI: HPET 0x000000000DBC577E 000038 (v01 VMWARE VMW HPET 00000000 VMW  00000000)
+[Wed Aug 13 10:53:43 2025] ACPI: WAET 0x000000000DBC57B6 000028 (v01 VMWARE VMW WAET 06040001 VMW  00000001)
+[Wed Aug 13 10:53:43 2025] ACPI: WSMT 0x000000000DBC57DE 000028 (v01 VMWARE VMW WSMT 06040001 VMW  00000001)
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving SRAT table memory at [mem 0xdba90c0-0xdba998f]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving FACP table memory at [mem 0xdbc4cdd-0xdbc4dd0]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving DSDT table memory at [mem 0xdba9990-0xdbc4cdc]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving FACS table memory at [mem 0xfbfe000-0xfbfe03f]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving FACS table memory at [mem 0xfbfe000-0xfbfe03f]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving APIC table memory at [mem 0xdbc5000-0xdbc5741]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving MCFG table memory at [mem 0xdbc5742-0xdbc577d]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving HPET table memory at [mem 0xdbc577e-0xdbc57b5]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving WAET table memory at [mem 0xdbc57b6-0xdbc57dd]
+[Wed Aug 13 10:53:43 2025] ACPI: Reserving WSMT table memory at [mem 0xdbc57de-0xdbc5805]
+[Wed Aug 13 10:53:43 2025] ACPI: Local APIC address 0xfee00000
+[Wed Aug 13 10:53:43 2025] system APIC only can use physical flat
+[Wed Aug 13 10:53:43 2025] Setting APIC routing to physical flat.
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x00 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x01 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x02 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x03 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x04 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x05 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x06 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x07 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x08 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x09 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x0f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x10 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x11 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x12 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x13 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x14 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x15 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x16 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x17 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x18 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x19 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x1f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x20 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x21 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x22 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x23 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x24 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x25 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x26 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x27 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x28 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x29 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x2f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x30 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x31 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x32 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x33 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x34 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x35 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x36 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x37 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x38 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x39 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x3f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x40 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x41 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x42 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x43 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x44 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x45 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x46 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x47 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x48 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x49 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x4f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x50 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x51 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x52 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x53 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x54 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x55 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x56 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x57 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x58 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x59 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x5f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x60 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x61 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x62 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x63 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x64 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x65 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x66 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x67 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x68 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x69 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x6f -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x70 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x71 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x72 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x73 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x74 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x75 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x76 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x77 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x78 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x79 -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7a -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7b -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7c -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7d -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7e -> Node 0
+[Wed Aug 13 10:53:43 2025] SRAT: PXM 0 -> APIC 0x7f -> Node 0
+[Wed Aug 13 10:53:43 2025] ACPI: SRAT: Node 0 PXM 0 [mem 0x00000000-0x0009ffff]
+[Wed Aug 13 10:53:43 2025] ACPI: SRAT: Node 0 PXM 0 [mem 0x00100000-0xbfffffff]
+[Wed Aug 13 10:53:43 2025] ACPI: SRAT: Node 0 PXM 0 [mem 0x100000000-0x23fffffff]
+[Wed Aug 13 10:53:43 2025] ACPI: SRAT: Node 0 PXM 0 [mem 0x240000000-0x203fffffff] hotplug
+[Wed Aug 13 10:53:43 2025] NUMA: Node 0 [mem 0x00000000-0x0009ffff] + [mem 0x00100000-0xbfffffff] -> [mem 0x00000000-0xbfffffff]
+[Wed Aug 13 10:53:43 2025] NUMA: Node 0 [mem 0x00000000-0xbfffffff] + [mem 0x100000000-0x23fffffff] -> [mem 0x00000000-0x23fffffff]
+[Wed Aug 13 10:53:43 2025] NODE_DATA(0) allocated [mem 0x23ffd5000-0x23fffffff]
+[Wed Aug 13 10:53:43 2025] kexec_core: Reserving 256MB of low memory at 2816MB for crashkernel (System low RAM: 3071MB)
+[Wed Aug 13 10:53:43 2025] Reserving 1024MB of memory at 8176MB for crashkernel (System RAM: 8191MB)
+[Wed Aug 13 10:53:43 2025] Zone ranges:
+[Wed Aug 13 10:53:43 2025]   DMA      [mem 0x0000000000002000-0x0000000000ffffff]
+[Wed Aug 13 10:53:43 2025]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+[Wed Aug 13 10:53:43 2025]   Normal   [mem 0x0000000100000000-0x000000023fffffff]
+[Wed Aug 13 10:53:43 2025]   Device   empty
+[Wed Aug 13 10:53:43 2025] Movable zone start for each node
+[Wed Aug 13 10:53:43 2025] Early memory node ranges
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x0000000000002000-0x000000000009ffff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x0000000000100000-0x000000000dba8fff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x000000000dbc6000-0x000000000e049fff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x000000000e050000-0x000000000fb6efff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x000000000fbdf000-0x000000000fbfdfff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x000000000fbff000-0x00000000bfffffff]
+[Wed Aug 13 10:53:43 2025]   node   0: [mem 0x0000000100000000-0x000000023fffffff]
+[Wed Aug 13 10:53:43 2025] Zeroed struct page in unavailable ranges: 246 pages
+[Wed Aug 13 10:53:43 2025] Initmem setup node 0 [mem 0x0000000000002000-0x000000023fffffff]
+[Wed Aug 13 10:53:43 2025] On node 0 totalpages: 2096906
+[Wed Aug 13 10:53:43 2025]   DMA zone: 64 pages used for memmap
+[Wed Aug 13 10:53:43 2025]   DMA zone: 21 pages reserved
+[Wed Aug 13 10:53:43 2025]   DMA zone: 3998 pages, LIFO batch:0
+[Wed Aug 13 10:53:43 2025]   DMA32 zone: 12222 pages used for memmap
+[Wed Aug 13 10:53:43 2025]   DMA32 zone: 782188 pages, LIFO batch:63
+[Wed Aug 13 10:53:43 2025]   Normal zone: 20480 pages used for memmap
+[Wed Aug 13 10:53:43 2025]   Normal zone: 1310720 pages, LIFO batch:63
+[Wed Aug 13 10:53:43 2025] ACPI: PM-Timer IO Port: 0x448
+[Wed Aug 13 10:53:43 2025] ACPI: Local APIC address 0xfee00000
+[Wed Aug 13 10:53:43 2025] system APIC only can use physical flat
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x00] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x02] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x03] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x04] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x05] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x06] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x07] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x08] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x09] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x0f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x10] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x11] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x12] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x13] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x14] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x15] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x16] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x17] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x18] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x19] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x1f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x20] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x21] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x22] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x23] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x24] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x25] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x26] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x27] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x28] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x29] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x2f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x30] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x31] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x32] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x33] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x34] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x35] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x36] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x37] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x38] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x39] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x3f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x40] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x41] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x42] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x43] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x44] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x45] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x46] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x47] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x48] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x49] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x4f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x50] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x51] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x52] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x53] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x54] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x55] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x56] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x57] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x58] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x59] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x5f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x60] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x61] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x62] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x63] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x64] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x65] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x66] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x67] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x68] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x69] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x6f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x70] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x71] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x72] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x73] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x74] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x75] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x76] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x77] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x78] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x79] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7a] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7b] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7c] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7d] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7e] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] ACPI: LAPIC_NMI (acpi_id[0x7f] high edge lint[0x1])
+[Wed Aug 13 10:53:43 2025] IOAPIC[0]: apic_id 128, version 32, address 0xfec00000, GSI 0-23
+[Wed Aug 13 10:53:43 2025] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
+[Wed Aug 13 10:53:43 2025] ACPI: IRQ0 used by override.
+[Wed Aug 13 10:53:43 2025] ACPI: IRQ9 used by override.
+[Wed Aug 13 10:53:43 2025] Using ACPI (MADT) for SMP configuration information
+[Wed Aug 13 10:53:43 2025] ACPI: HPET id: 0x8086af01 base: 0xfed00000
+[Wed Aug 13 10:53:43 2025] TSC deadline timer available
+[Wed Aug 13 10:53:43 2025] smpboot: Allowing 128 CPUs, 120 hotplug CPUs
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x00000000-0x00000fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x00001000-0x00001fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x000a0000-0x000bffff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x000c0000-0x000fffff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad82000-0x0ad82fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad83000-0x0ad83fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad84000-0x0ad84fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad86000-0x0ad86fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad87000-0x0ad87fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0ad8f000-0x0ad8ffff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0dba9000-0x0dbc5fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0e04a000-0x0e04ffff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0fb6f000-0x0fbdefff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0x0fbfe000-0x0fbfefff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0xc0000000-0xffbfffff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0xffc00000-0xffc29fff]
+[Wed Aug 13 10:53:43 2025] PM: Registered nosave memory: [mem 0xffc2a000-0xffffffff]
+[Wed Aug 13 10:53:43 2025] [mem 0xc0000000-0xffbfffff] available for PCI devices
+[Wed Aug 13 10:53:43 2025] Booting paravirtualized kernel on VMware hypervisor
+[Wed Aug 13 10:53:43 2025] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[Wed Aug 13 10:53:43 2025] setup_percpu: NR_CPUS:8192 nr_cpumask_bits:128 nr_cpu_ids:128 nr_node_ids:1
+[Wed Aug 13 10:53:43 2025] percpu: Embedded 60 pages/cpu s208896 r8192 d28672 u262144
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: s208896 r8192 d28672 u262144 alloc=1*2097152
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 000 001 002 003 004 005 006 007 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 008 009 010 011 012 013 014 015 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 016 017 018 019 020 021 022 023 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 024 025 026 027 028 029 030 031 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 032 033 034 035 036 037 038 039 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 040 041 042 043 044 045 046 047 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 048 049 050 051 052 053 054 055 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 056 057 058 059 060 061 062 063 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 064 065 066 067 068 069 070 071 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 072 073 074 075 076 077 078 079 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 080 081 082 083 084 085 086 087 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 088 089 090 091 092 093 094 095 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 096 097 098 099 100 101 102 103 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 104 105 106 107 108 109 110 111 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 112 113 114 115 116 117 118 119 
+[Wed Aug 13 10:53:43 2025] pcpu-alloc: [0] 120 121 122 123 124 125 126 127 
+[Wed Aug 13 10:53:43 2025] Built 1 zonelists, mobility grouping on.  Total pages: 2064119
+[Wed Aug 13 10:53:43 2025] Policy zone: Normal
+[Wed Aug 13 10:53:43 2025] Kernel command line: BOOT_IMAGE=/vmlinuz-4.19.90-89.11.v2401.ky10.x86_64 root=/dev/mapper/klas-root ro resume=/dev/mapper/klas-swap rd.lvm.lv=klas/root rd.lvm.lv=klas/swap rhgb quiet crashkernel=1024M,high audit=0
+[Wed Aug 13 10:53:43 2025] audit: disabled (until reboot)
+[Wed Aug 13 10:53:43 2025] Memory: 2874964K/8387624K available (12293K kernel code, 2584K rwdata, 6040K rodata, 2496K init, 7924K bss, 1652920K reserved, 0K cma-reserved)
+[Wed Aug 13 10:53:43 2025] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=128, Nodes=1
+[Wed Aug 13 10:53:43 2025] ftrace: allocating 38626 entries in 151 pages
+[Wed Aug 13 10:53:43 2025] rcu: Hierarchical RCU implementation.
+[Wed Aug 13 10:53:43 2025] rcu: 	RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=128.
+[Wed Aug 13 10:53:43 2025] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=128
+[Wed Aug 13 10:53:43 2025] NR_IRQS: 524544, nr_irqs: 1448, preallocated irqs: 16
+[Wed Aug 13 10:53:43 2025] random: crng init done
+[Wed Aug 13 10:53:43 2025] Console: colour dummy device 80x25
+[Wed Aug 13 10:53:43 2025] console [tty0] enabled
+[Wed Aug 13 10:53:43 2025] ACPI: Core revision 20180810
+[Wed Aug 13 10:53:43 2025] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 133484882848 ns
+[Wed Aug 13 10:53:43 2025] hpet clockevent registered
+[Wed Aug 13 10:53:43 2025] APIC: Switch to symmetric I/O mode setup
+[Wed Aug 13 10:53:43 2025] x2apic enabled
+[Wed Aug 13 10:53:43 2025] Switched APIC routing to physical x2apic.
+[Wed Aug 13 10:53:43 2025] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[Wed Aug 13 10:53:43 2025] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x23fa7cdd331, max_idle_ns: 440795301699 ns
+[Wed Aug 13 10:53:43 2025] Calibrating delay loop (skipped) preset value.. 4992.01 BogoMIPS (lpj=2496006)
+[Wed Aug 13 10:53:43 2025] pid_max: default: 131072 minimum: 1024
+[Wed Aug 13 10:53:43 2025] Security Framework initialized
+[Wed Aug 13 10:53:43 2025] LSM: module capability registered, index 0
+[Wed Aug 13 10:53:43 2025] KYSEC: Disabled.
+[Wed Aug 13 10:53:43 2025] Box:  Disabled.
+[Wed Aug 13 10:53:43 2025] AppArmor: AppArmor disabled by boot time parameter
+[Wed Aug 13 10:53:43 2025] KIC: Disabled.
+[Wed Aug 13 10:53:43 2025] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes)
+[Wed Aug 13 10:53:43 2025] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes)
+[Wed Aug 13 10:53:43 2025] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[Wed Aug 13 10:53:43 2025] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[Wed Aug 13 10:53:43 2025] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+[Wed Aug 13 10:53:43 2025] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[Wed Aug 13 10:53:43 2025] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[Wed Aug 13 10:53:43 2025] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[Wed Aug 13 10:53:43 2025] Spectre V2 : Mitigation: Enhanced IBRS
+[Wed Aug 13 10:53:43 2025] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[Wed Aug 13 10:53:43 2025] Spectre V2 : Spectre v2 / PBRSB-eIBRS: Retire a single CALL on VMEXIT
+[Wed Aug 13 10:53:43 2025] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[Wed Aug 13 10:53:43 2025] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl and seccomp
+[Wed Aug 13 10:53:43 2025] Freeing SMP alternatives memory: 36K
+[Wed Aug 13 10:53:43 2025] smpboot: CPU0: 12th Gen Intel(R) Core(TM) i5-12450H (family: 0x6, model: 0x9a, stepping: 0x3)
+[Wed Aug 13 10:53:43 2025] Performance Events: generic architected perfmon v1, core PMU driver.
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'cpu cycles' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'instructions' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'bus cycles' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'cache references' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'cache misses' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'branch instructions' unavailable
+[Wed Aug 13 10:53:43 2025] core: CPUID marked event: 'branch misses' unavailable
+[Wed Aug 13 10:53:43 2025] ... version:                1
+[Wed Aug 13 10:53:43 2025] ... bit width:              48
+[Wed Aug 13 10:53:43 2025] ... generic registers:      6
+[Wed Aug 13 10:53:43 2025] ... value mask:             0000ffffffffffff
+[Wed Aug 13 10:53:43 2025] ... max period:             000000007fffffff
+[Wed Aug 13 10:53:43 2025] ... fixed-purpose events:   0
+[Wed Aug 13 10:53:43 2025] ... event mask:             000000000000003f
+[Wed Aug 13 10:53:43 2025] rcu: Hierarchical SRCU implementation.
+[Wed Aug 13 10:53:43 2025] smp: Bringing up secondary CPUs ...
+[Wed Aug 13 10:53:43 2025] x86: Booting SMP configuration:
+[Wed Aug 13 10:53:43 2025] .... node  #0, CPUs:          #1   #2   #3   #4
+[Wed Aug 13 10:53:43 2025] smpboot: CPU 4 Converting physical 0 to logical die 1
+[Wed Aug 13 10:53:43 2025]    #5   #6   #7
+[Wed Aug 13 10:53:43 2025] smp: Brought up 1 node, 8 CPUs
+[Wed Aug 13 10:53:43 2025] smpboot: Max logical packages: 32
+[Wed Aug 13 10:53:43 2025] smpboot: Total of 8 processors activated (39936.09 BogoMIPS)
+[Wed Aug 13 10:53:43 2025] node 0 initialised, 964935 pages in 186ms
+[Wed Aug 13 10:53:43 2025] devtmpfs: initialized
+[Wed Aug 13 10:53:43 2025] x86/mm: Memory block size: 128MB
+[Wed Aug 13 10:53:43 2025] PM: Registering ACPI NVS region [mem 0x00000000-0x00000fff] (4096 bytes)
+[Wed Aug 13 10:53:43 2025] PM: Registering ACPI NVS region [mem 0x0e04a000-0x0e04ffff] (24576 bytes)
+[Wed Aug 13 10:53:43 2025] PM: Registering ACPI NVS region [mem 0x0fbfe000-0x0fbfefff] (4096 bytes)
+[Wed Aug 13 10:53:43 2025] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[Wed Aug 13 10:53:43 2025] futex hash table entries: 32768 (order: 9, 2097152 bytes)
+[Wed Aug 13 10:53:43 2025] pinctrl core: initialized pinctrl subsystem
+[Wed Aug 13 10:53:43 2025] NET: Registered protocol family 16
+[Wed Aug 13 10:53:43 2025] cpuidle: using governor menu
+[Wed Aug 13 10:53:43 2025] ACPI: bus type PCI registered
+[Wed Aug 13 10:53:43 2025] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+[Wed Aug 13 10:53:43 2025] PCI: MMCONFIG for domain 0000 [bus 00-7f] at [mem 0xe0000000-0xe7ffffff] (base 0xe0000000)
+[Wed Aug 13 10:53:43 2025] PCI: not using MMCONFIG
+[Wed Aug 13 10:53:43 2025] PCI: Using configuration type 1 for base access
+[Wed Aug 13 10:53:43 2025] HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+[Wed Aug 13 10:53:43 2025] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[Wed Aug 13 10:53:43 2025] cryptd: max_cpu_qlen set to 1000
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(Module Device)
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(Processor Device)
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(3.0 _SCP Extensions)
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(Processor Aggregator Device)
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(Linux-Dell-Video)
+[Wed Aug 13 10:53:43 2025] ACPI: Added _OSI(Linux-Lenovo-NV-HDMI-Audio)
+[Wed Aug 13 10:53:43 2025] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[Wed Aug 13 10:53:43 2025] ACPI: [Firmware Bug]: BIOS _OSI(Linux) query ignored
+[Wed Aug 13 10:53:43 2025] ACPI: BIOS _OSI(Darwin) query ignored
+[Wed Aug 13 10:53:44 2025] ACPI: Interpreter enabled
+[Wed Aug 13 10:53:44 2025] ACPI: (supports S0 S1 S4 S5)
+[Wed Aug 13 10:53:44 2025] ACPI: Using IOAPIC for interrupt routing
+[Wed Aug 13 10:53:44 2025] PCI: MMCONFIG for domain 0000 [bus 00-7f] at [mem 0xe0000000-0xe7ffffff] (base 0xe0000000)
+[Wed Aug 13 10:53:44 2025] PCI: MMCONFIG at [mem 0xe0000000-0xe7ffffff] reserved in ACPI motherboard resources
+[Wed Aug 13 10:53:44 2025] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[Wed Aug 13 10:53:44 2025] ACPI: Enabled 4 GPEs in block 00 to 0F
+[Wed Aug 13 10:53:44 2025] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-7f])
+[Wed Aug 13 10:53:44 2025] acpi PNP0A03:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI]
+[Wed Aug 13 10:53:44 2025] acpi PNP0A03:00: _OSC: platform does not support [AER LTR]
+[Wed Aug 13 10:53:44 2025] acpi PNP0A03:00: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME PCIeCapability]
+[Wed Aug 13 10:53:44 2025] PCI host bridge to bus 0000:00
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xfef00000-0xffdfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xfed45000-0xfedfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xfec10000-0xfed3ffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xfa400000-0xfebfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xf0000000-0xfa3fffff pref window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xefffffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000c4000-0x000c7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000c8000-0x000cbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000d4000-0x000d7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000d8000-0x000dbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000e4000-0x000e7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000e8000-0x000ebfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [mem 0x000ec000-0x000effff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: root bus resource [bus 00-7f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:00.0: [8086:7190] type 00 class 0x060000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:01.0: [8086:7191] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.0: [8086:7110] type 00 class 0x060100
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: [8086:7111] type 00 class 0x01018a
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: reg 0x20: [io  0x2050-0x205f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: legacy IDE quirk: reg 0x10: [io  0x01f0-0x01f7]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: legacy IDE quirk: reg 0x14: [io  0x03f6]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: legacy IDE quirk: reg 0x18: [io  0x0170-0x0177]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.1: legacy IDE quirk: reg 0x1c: [io  0x0376]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.3: [8086:7113] type 00 class 0x068000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.3: quirk: [io  0x0440-0x047f] claimed by PIIX4 ACPI
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.7: [15ad:0740] type 00 class 0x088000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.7: reg 0x10: [io  0x2000-0x203f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:07.7: reg 0x14: [mem 0xffbc0000-0xffbfffff 64bit]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: [15ad:0405] type 00 class 0x030000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: reg 0x10: [io  0x2040-0x204f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: reg 0x14: [mem 0xf0000000-0xf7ffffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: reg 0x18: [mem 0xfb800000-0xfbffffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: reg 0x30: [mem 0xffff8000-0xffffffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: BAR 1: assigned to efifb
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0: [15ad:0790] type 01 class 0x060401
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: [15ad:07a0] type 01 class 0x060400
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: PME# supported from D0 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:01: extended config space not accessible
+[Wed Aug 13 10:53:44 2025] pci 0000:00:01.0: PCI bridge to [bus 01]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: extended config space not accessible
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [32] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [33] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [34] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [35] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [36] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [37] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [38] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [39] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [40] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [41] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [42] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [43] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [44] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [45] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [46] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [47] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [48] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [49] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [50] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [51] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [52] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [53] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [54] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [55] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [56] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [57] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [58] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [59] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [60] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [61] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [62] registered
+[Wed Aug 13 10:53:44 2025] acpiphp: Slot [63] registered
+[Wed Aug 13 10:53:44 2025] pci 0000:02:00.0: [15ad:0774] type 00 class 0x0c0300
+[Wed Aug 13 10:53:44 2025] pci 0000:02:00.0: reg 0x20: [io  0x1040-0x105f]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:01.0: [1274:1371] type 00 class 0x040100
+[Wed Aug 13 10:53:44 2025] pci 0000:02:01.0: reg 0x10: [io  0x1000-0x103f]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:02.0: [15ad:0770] type 00 class 0x0c0320
+[Wed Aug 13 10:53:44 2025] pci 0000:02:02.0: reg 0x10: [mem 0xfc011000-0xfc011fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: [15ad:07e0] type 00 class 0x010601
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: reg 0x24: [mem 0xfc010000-0xfc010fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: reg 0x30: [mem 0xffff0000-0xffffffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: PME# supported from D3hot
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0: PCI bridge to [bus 02] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [io  0x1000-0x1fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfc000000-0xfc9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xf8000000-0xf84fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [io  0x0d00-0xffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [io  0x0000-0x0cf7 window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfef00000-0xffdfffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfed45000-0xfedfffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfec10000-0xfed3ffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfa400000-0xfebfffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xf0000000-0xfa3fffff pref window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xc0000000-0xefffffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000a0000-0x000bffff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000c4000-0x000c7fff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000c8000-0x000cbfff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000d4000-0x000d7fff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000d8000-0x000dbfff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000e4000-0x000e7fff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000e8000-0x000ebfff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0x000ec000-0x000effff window] (subtractive decode)
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: [15ad:07b0] type 00 class 0x020000
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: reg 0x10: [mem 0xfea13000-0xfea13fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: reg 0x14: [mem 0xfea12000-0xfea12fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: reg 0x18: [mem 0xfea10000-0xfea11fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: reg 0x1c: [io  0x3000-0x300f]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: reg 0x30: [mem 0xffff0000-0xffffffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: supports D1 D2
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: PME# supported from D0 D1 D2 D3hot D3cold
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: disabling ASPM on pre-1.1 PCIe device.  You can enable it with 'pcie_aspm=force'
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: PCI bridge to [bus 03]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0:   bridge window [io  0x3000-0x3fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0:   bridge window [mem 0xfea00000-0xfeafffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: PCI bridge to [bus 04]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1:   bridge window [mem 0xfe900000-0xfe9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1:   bridge window [mem 0xfa300000-0xfa3fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: PCI bridge to [bus 05]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2:   bridge window [mem 0xfe800000-0xfe8fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2:   bridge window [mem 0xfa200000-0xfa2fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: PCI bridge to [bus 06]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3:   bridge window [mem 0xfe700000-0xfe7fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3:   bridge window [mem 0xfa100000-0xfa1fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: PCI bridge to [bus 07]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4:   bridge window [mem 0xfe600000-0xfe6fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4:   bridge window [mem 0xfa000000-0xfa0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: PCI bridge to [bus 08]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5:   bridge window [mem 0xfe500000-0xfe5fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5:   bridge window [mem 0xf9f00000-0xf9ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: PCI bridge to [bus 09]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6:   bridge window [mem 0xfe400000-0xfe4fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6:   bridge window [mem 0xf9e00000-0xf9efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: PCI bridge to [bus 0a]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7:   bridge window [mem 0xfe300000-0xfe3fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7:   bridge window [mem 0xf9d00000-0xf9dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: PCI bridge to [bus 0b]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0:   bridge window [mem 0xfe200000-0xfe2fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0:   bridge window [mem 0xf9c00000-0xf9cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: PCI bridge to [bus 0c]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1:   bridge window [mem 0xfe100000-0xfe1fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1:   bridge window [mem 0xf9b00000-0xf9bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: PCI bridge to [bus 0d]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2:   bridge window [mem 0xfe000000-0xfe0fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2:   bridge window [mem 0xf9a00000-0xf9afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: PCI bridge to [bus 0e]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3:   bridge window [mem 0xfdf00000-0xfdffffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3:   bridge window [mem 0xf9900000-0xf99fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: PCI bridge to [bus 0f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4:   bridge window [mem 0xfde00000-0xfdefffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4:   bridge window [mem 0xf9800000-0xf98fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: PCI bridge to [bus 10]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5:   bridge window [mem 0xfdd00000-0xfddfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5:   bridge window [mem 0xf9700000-0xf97fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: PCI bridge to [bus 11]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6:   bridge window [mem 0xfdc00000-0xfdcfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6:   bridge window [mem 0xf9600000-0xf96fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: PCI bridge to [bus 12]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7:   bridge window [mem 0xfdb00000-0xfdbfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7:   bridge window [mem 0xf9500000-0xf95fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: PCI bridge to [bus 13]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0:   bridge window [mem 0xfda00000-0xfdafffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0:   bridge window [mem 0xf9400000-0xf94fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: PCI bridge to [bus 14]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1:   bridge window [mem 0xfd900000-0xfd9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1:   bridge window [mem 0xf9300000-0xf93fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: PCI bridge to [bus 15]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2:   bridge window [mem 0xfd800000-0xfd8fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2:   bridge window [mem 0xf9200000-0xf92fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: PCI bridge to [bus 16]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3:   bridge window [mem 0xfd700000-0xfd7fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3:   bridge window [mem 0xf9100000-0xf91fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: PCI bridge to [bus 17]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4:   bridge window [mem 0xfd600000-0xfd6fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4:   bridge window [mem 0xf9000000-0xf90fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: PCI bridge to [bus 18]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5:   bridge window [mem 0xfd500000-0xfd5fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5:   bridge window [mem 0xf8f00000-0xf8ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: PCI bridge to [bus 19]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6:   bridge window [mem 0xfd400000-0xfd4fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6:   bridge window [mem 0xf8e00000-0xf8efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: PCI bridge to [bus 1a]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7:   bridge window [mem 0xfd300000-0xfd3fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7:   bridge window [mem 0xf8d00000-0xf8dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: PCI bridge to [bus 1b]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0:   bridge window [mem 0xfd200000-0xfd2fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0:   bridge window [mem 0xf8c00000-0xf8cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: PCI bridge to [bus 1c]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1:   bridge window [mem 0xfd100000-0xfd1fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1:   bridge window [mem 0xf8b00000-0xf8bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: PCI bridge to [bus 1d]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2:   bridge window [mem 0xfd000000-0xfd0fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2:   bridge window [mem 0xf8a00000-0xf8afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: PCI bridge to [bus 1e]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3:   bridge window [mem 0xfcf00000-0xfcffffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3:   bridge window [mem 0xf8900000-0xf89fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: PCI bridge to [bus 1f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4:   bridge window [mem 0xfce00000-0xfcefffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4:   bridge window [mem 0xf8800000-0xf88fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: PCI bridge to [bus 20]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5:   bridge window [mem 0xfcd00000-0xfcdfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5:   bridge window [mem 0xf8700000-0xf87fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: PCI bridge to [bus 21]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6:   bridge window [mem 0xfcc00000-0xfccfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6:   bridge window [mem 0xf8600000-0xf86fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: PCI bridge to [bus 22]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7:   bridge window [mem 0xfcb00000-0xfcbfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7:   bridge window [mem 0xf8500000-0xf85fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] ACPI: PCI Interrupt Link [LNKA] (IRQs 3 4 5 6 7 9 10 11 14 15) *0, disabled.
+[Wed Aug 13 10:53:44 2025] ACPI: PCI Interrupt Link [LNKB] (IRQs 3 4 5 6 7 9 10 11 14 15) *0, disabled.
+[Wed Aug 13 10:53:44 2025] ACPI: PCI Interrupt Link [LNKC] (IRQs 3 4 5 6 7 9 10 11 14 15) *0, disabled.
+[Wed Aug 13 10:53:44 2025] ACPI: PCI Interrupt Link [LNKD] (IRQs 3 4 5 6 7 9 10 11 14 15) *0, disabled.
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: vgaarb: setting as boot VGA device
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+[Wed Aug 13 10:53:44 2025] pci 0000:00:0f.0: vgaarb: bridge control possible
+[Wed Aug 13 10:53:44 2025] vgaarb: loaded
+[Wed Aug 13 10:53:44 2025] SCSI subsystem initialized
+[Wed Aug 13 10:53:44 2025] ACPI: bus type USB registered
+[Wed Aug 13 10:53:44 2025] usbcore: registered new interface driver usbfs
+[Wed Aug 13 10:53:44 2025] usbcore: registered new interface driver hub
+[Wed Aug 13 10:53:44 2025] usbcore: registered new device driver usb
+[Wed Aug 13 10:53:44 2025] pps_core: LinuxPPS API ver. 1 registered
+[Wed Aug 13 10:53:44 2025] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[Wed Aug 13 10:53:44 2025] PTP clock support registered
+[Wed Aug 13 10:53:44 2025] EDAC MC: Ver: 3.0.0
+[Wed Aug 13 10:53:44 2025] Registered efivars operations
+[Wed Aug 13 10:53:44 2025] PCI: Using ACPI for IRQ routing
+[Wed Aug 13 10:53:44 2025] PCI: pci_cache_line_size set to 64 bytes
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0ad82018-0x0bffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0ad84018-0x0bffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0ad87018-0x0bffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0dba9000-0x0fffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0e04a000-0x0fffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0fb6f000-0x0fffffff]
+[Wed Aug 13 10:53:44 2025] e820: reserve RAM buffer [mem 0x0fbfe000-0x0fffffff]
+[Wed Aug 13 10:53:44 2025] NetLabel: Initializing
+[Wed Aug 13 10:53:44 2025] NetLabel:  domain hash size = 128
+[Wed Aug 13 10:53:44 2025] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[Wed Aug 13 10:53:44 2025] NetLabel:  unlabeled traffic allowed by default
+[Wed Aug 13 10:53:44 2025] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+[Wed Aug 13 10:53:44 2025] hpet0: 16 comparators, 64-bit 14.318180 MHz counter
+[Wed Aug 13 10:53:44 2025] clocksource: Switched to clocksource tsc-early
+[Wed Aug 13 10:53:44 2025] VFS: Disk quotas dquot_6.6.0
+[Wed Aug 13 10:53:44 2025] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[Wed Aug 13 10:53:44 2025] KYSEC: Init kysecfs SUCCESS!
+[Wed Aug 13 10:53:44 2025] Init box entries under sysfs SUCCESS!
+[Wed Aug 13 10:53:44 2025] Init kicfs SUCCESS!
+[Wed Aug 13 10:53:44 2025] pnp: PnP ACPI init
+[Wed Aug 13 10:53:44 2025] system 00:00: [io  0x0440-0x047f] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:00: [io  0x5658-0x5659] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:00: [io  0x5670] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:00: [io  0x0cf0-0x0cf1] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:00: Plug and Play ACPI device, IDs PNP0c02 (active)
+[Wed Aug 13 10:53:44 2025] pnp 00:01: Plug and Play ACPI device, IDs PNP0b00 (active)
+[Wed Aug 13 10:53:44 2025] pnp 00:02: Plug and Play ACPI device, IDs PNP0303 (active)
+[Wed Aug 13 10:53:44 2025] pnp 00:03: Plug and Play ACPI device, IDs VMW0003 PNP0f13 (active)
+[Wed Aug 13 10:53:44 2025] system 00:04: [mem 0xfed00000-0xfed003ff] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:04: Plug and Play ACPI device, IDs PNP0103 PNP0c01 (active)
+[Wed Aug 13 10:53:44 2025] system 00:05: [io  0x0400-0x041f] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:05: [mem 0xe0000000-0xe7ffffff] has been reserved
+[Wed Aug 13 10:53:44 2025] system 00:05: [mem 0xffc00000-0xffdfffff] could not be reserved
+[Wed Aug 13 10:53:44 2025] system 00:05: Plug and Play ACPI device, IDs PNP0c02 (active)
+[Wed Aug 13 10:53:44 2025] pnp: PnP ACPI: found 6 devices
+[Wed Aug 13 10:53:44 2025] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: can't claim BAR 6 [mem 0xffff0000-0xffffffff pref]: no compatible bridge window
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: can't claim BAR 6 [mem 0xffff0000-0xffffffff pref]: no compatible bridge window
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: bridge window [mem 0x00100000-0x000fffff 64bit pref] to [bus 03] add_size 200000 add_align 100000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: bridge window [io  0x1000-0x0fff] to [bus 04] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: bridge window [io  0x1000-0x0fff] to [bus 05] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: bridge window [io  0x1000-0x0fff] to [bus 06] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: bridge window [io  0x1000-0x0fff] to [bus 07] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: bridge window [io  0x1000-0x0fff] to [bus 08] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: bridge window [io  0x1000-0x0fff] to [bus 09] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: bridge window [io  0x1000-0x0fff] to [bus 0a] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: bridge window [io  0x1000-0x0fff] to [bus 0b] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: bridge window [io  0x1000-0x0fff] to [bus 0c] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: bridge window [io  0x1000-0x0fff] to [bus 0d] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: bridge window [io  0x1000-0x0fff] to [bus 0e] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: bridge window [io  0x1000-0x0fff] to [bus 0f] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: bridge window [io  0x1000-0x0fff] to [bus 10] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: bridge window [io  0x1000-0x0fff] to [bus 11] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: bridge window [io  0x1000-0x0fff] to [bus 12] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: bridge window [io  0x1000-0x0fff] to [bus 13] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: bridge window [io  0x1000-0x0fff] to [bus 14] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: bridge window [io  0x1000-0x0fff] to [bus 15] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: bridge window [io  0x1000-0x0fff] to [bus 16] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: bridge window [io  0x1000-0x0fff] to [bus 17] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: bridge window [io  0x1000-0x0fff] to [bus 18] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: bridge window [io  0x1000-0x0fff] to [bus 19] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: bridge window [io  0x1000-0x0fff] to [bus 1a] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: bridge window [io  0x1000-0x0fff] to [bus 1b] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: bridge window [io  0x1000-0x0fff] to [bus 1c] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: bridge window [io  0x1000-0x0fff] to [bus 1d] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: bridge window [io  0x1000-0x0fff] to [bus 1e] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: bridge window [io  0x1000-0x0fff] to [bus 1f] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: bridge window [io  0x1000-0x0fff] to [bus 20] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: bridge window [io  0x1000-0x0fff] to [bus 21] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: bridge window [io  0x1000-0x0fff] to [bus 22] add_size 1000
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: BAR 15: assigned [mem 0xfef00000-0xff0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: BAR 13: assigned [io  0x4000-0x4fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: BAR 13: assigned [io  0x6000-0x6fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: BAR 13: assigned [io  0x7000-0x7fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: BAR 13: assigned [io  0x8000-0x8fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: BAR 13: assigned [io  0x9000-0x9fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: BAR 13: assigned [io  0xa000-0xafff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: BAR 13: assigned [io  0xb000-0xbfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: BAR 13: assigned [io  0xc000-0xcfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: BAR 13: assigned [io  0xd000-0xdfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: BAR 13: assigned [io  0xe000-0xefff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: BAR 13: assigned [io  0xf000-0xffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: BAR 13: assigned [io  0x4000-0x4fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: BAR 13: assigned [io  0x6000-0x6fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: BAR 13: assigned [io  0x7000-0x7fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: BAR 13: assigned [io  0x8000-0x8fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: BAR 13: assigned [io  0x9000-0x9fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: BAR 13: assigned [io  0xa000-0xafff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: BAR 13: assigned [io  0xb000-0xbfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: BAR 13: assigned [io  0xc000-0xcfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: BAR 13: assigned [io  0xd000-0xdfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: BAR 13: assigned [io  0xe000-0xefff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: BAR 13: assigned [io  0xf000-0xffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: BAR 13: no space for [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: BAR 13: failed to assign [io  size 0x1000]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:01.0: PCI bridge to [bus 01]
+[Wed Aug 13 10:53:44 2025] pci 0000:02:03.0: BAR 6: assigned [mem 0xfc000000-0xfc00ffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0: PCI bridge to [bus 02]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [io  0x1000-0x1fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xfc000000-0xfc9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:11.0:   bridge window [mem 0xf8000000-0xf84fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:03:00.0: BAR 6: assigned [mem 0xfea00000-0xfea0ffff pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0: PCI bridge to [bus 03]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0:   bridge window [io  0x3000-0x3fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0:   bridge window [mem 0xfea00000-0xfeafffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.0:   bridge window [mem 0xfef00000-0xff0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1: PCI bridge to [bus 04]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1:   bridge window [mem 0xfe900000-0xfe9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.1:   bridge window [mem 0xfa300000-0xfa3fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2: PCI bridge to [bus 05]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2:   bridge window [mem 0xfe800000-0xfe8fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.2:   bridge window [mem 0xfa200000-0xfa2fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3: PCI bridge to [bus 06]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3:   bridge window [mem 0xfe700000-0xfe7fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.3:   bridge window [mem 0xfa100000-0xfa1fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4: PCI bridge to [bus 07]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4:   bridge window [mem 0xfe600000-0xfe6fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.4:   bridge window [mem 0xfa000000-0xfa0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5: PCI bridge to [bus 08]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5:   bridge window [mem 0xfe500000-0xfe5fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.5:   bridge window [mem 0xf9f00000-0xf9ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6: PCI bridge to [bus 09]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6:   bridge window [mem 0xfe400000-0xfe4fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.6:   bridge window [mem 0xf9e00000-0xf9efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7: PCI bridge to [bus 0a]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7:   bridge window [mem 0xfe300000-0xfe3fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:15.7:   bridge window [mem 0xf9d00000-0xf9dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0: PCI bridge to [bus 0b]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0:   bridge window [mem 0xfe200000-0xfe2fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.0:   bridge window [mem 0xf9c00000-0xf9cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1: PCI bridge to [bus 0c]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1:   bridge window [mem 0xfe100000-0xfe1fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.1:   bridge window [mem 0xf9b00000-0xf9bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2: PCI bridge to [bus 0d]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2:   bridge window [mem 0xfe000000-0xfe0fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.2:   bridge window [mem 0xf9a00000-0xf9afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3: PCI bridge to [bus 0e]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3:   bridge window [mem 0xfdf00000-0xfdffffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.3:   bridge window [mem 0xf9900000-0xf99fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4: PCI bridge to [bus 0f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4:   bridge window [mem 0xfde00000-0xfdefffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.4:   bridge window [mem 0xf9800000-0xf98fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5: PCI bridge to [bus 10]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5:   bridge window [mem 0xfdd00000-0xfddfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.5:   bridge window [mem 0xf9700000-0xf97fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6: PCI bridge to [bus 11]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6:   bridge window [mem 0xfdc00000-0xfdcfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.6:   bridge window [mem 0xf9600000-0xf96fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7: PCI bridge to [bus 12]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7:   bridge window [mem 0xfdb00000-0xfdbfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:16.7:   bridge window [mem 0xf9500000-0xf95fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0: PCI bridge to [bus 13]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0:   bridge window [mem 0xfda00000-0xfdafffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.0:   bridge window [mem 0xf9400000-0xf94fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1: PCI bridge to [bus 14]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1:   bridge window [mem 0xfd900000-0xfd9fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.1:   bridge window [mem 0xf9300000-0xf93fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2: PCI bridge to [bus 15]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2:   bridge window [mem 0xfd800000-0xfd8fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.2:   bridge window [mem 0xf9200000-0xf92fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3: PCI bridge to [bus 16]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3:   bridge window [mem 0xfd700000-0xfd7fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.3:   bridge window [mem 0xf9100000-0xf91fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4: PCI bridge to [bus 17]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4:   bridge window [mem 0xfd600000-0xfd6fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.4:   bridge window [mem 0xf9000000-0xf90fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5: PCI bridge to [bus 18]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5:   bridge window [io  0xf000-0xffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5:   bridge window [mem 0xfd500000-0xfd5fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.5:   bridge window [mem 0xf8f00000-0xf8ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6: PCI bridge to [bus 19]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6:   bridge window [io  0xe000-0xefff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6:   bridge window [mem 0xfd400000-0xfd4fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.6:   bridge window [mem 0xf8e00000-0xf8efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7: PCI bridge to [bus 1a]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7:   bridge window [io  0xd000-0xdfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7:   bridge window [mem 0xfd300000-0xfd3fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:17.7:   bridge window [mem 0xf8d00000-0xf8dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0: PCI bridge to [bus 1b]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0:   bridge window [io  0xc000-0xcfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0:   bridge window [mem 0xfd200000-0xfd2fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.0:   bridge window [mem 0xf8c00000-0xf8cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1: PCI bridge to [bus 1c]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1:   bridge window [io  0xb000-0xbfff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1:   bridge window [mem 0xfd100000-0xfd1fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.1:   bridge window [mem 0xf8b00000-0xf8bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2: PCI bridge to [bus 1d]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2:   bridge window [io  0xa000-0xafff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2:   bridge window [mem 0xfd000000-0xfd0fffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.2:   bridge window [mem 0xf8a00000-0xf8afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3: PCI bridge to [bus 1e]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3:   bridge window [io  0x9000-0x9fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3:   bridge window [mem 0xfcf00000-0xfcffffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.3:   bridge window [mem 0xf8900000-0xf89fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4: PCI bridge to [bus 1f]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4:   bridge window [io  0x8000-0x8fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4:   bridge window [mem 0xfce00000-0xfcefffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.4:   bridge window [mem 0xf8800000-0xf88fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5: PCI bridge to [bus 20]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5:   bridge window [io  0x7000-0x7fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5:   bridge window [mem 0xfcd00000-0xfcdfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.5:   bridge window [mem 0xf8700000-0xf87fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6: PCI bridge to [bus 21]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6:   bridge window [io  0x6000-0x6fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6:   bridge window [mem 0xfcc00000-0xfccfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.6:   bridge window [mem 0xf8600000-0xf86fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7: PCI bridge to [bus 22]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7:   bridge window [io  0x4000-0x4fff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7:   bridge window [mem 0xfcb00000-0xfcbfffff]
+[Wed Aug 13 10:53:44 2025] pci 0000:00:18.7:   bridge window [mem 0xf8500000-0xf85fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 4 [io  0x0d00-0xffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 5 [io  0x0000-0x0cf7 window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 6 [mem 0xfef00000-0xffdfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 7 [mem 0xfed45000-0xfedfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 8 [mem 0xfec10000-0xfed3ffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 9 [mem 0xfa400000-0xfebfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 10 [mem 0xf0000000-0xfa3fffff pref window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 11 [mem 0xc0000000-0xefffffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 12 [mem 0x000a0000-0x000bffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 13 [mem 0x000c4000-0x000c7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 14 [mem 0x000c8000-0x000cbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 15 [mem 0x000d4000-0x000d7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 16 [mem 0x000d8000-0x000dbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 17 [mem 0x000e4000-0x000e7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 18 [mem 0x000e8000-0x000ebfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:00: resource 19 [mem 0x000ec000-0x000effff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 0 [io  0x1000-0x1fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 1 [mem 0xfc000000-0xfc9fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 2 [mem 0xf8000000-0xf84fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 4 [io  0x0d00-0xffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 5 [io  0x0000-0x0cf7 window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 6 [mem 0xfef00000-0xffdfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 7 [mem 0xfed45000-0xfedfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 8 [mem 0xfec10000-0xfed3ffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 9 [mem 0xfa400000-0xfebfffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 10 [mem 0xf0000000-0xfa3fffff pref window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 11 [mem 0xc0000000-0xefffffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 12 [mem 0x000a0000-0x000bffff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 13 [mem 0x000c4000-0x000c7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 14 [mem 0x000c8000-0x000cbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 15 [mem 0x000d4000-0x000d7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 16 [mem 0x000d8000-0x000dbfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 17 [mem 0x000e4000-0x000e7fff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 18 [mem 0x000e8000-0x000ebfff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:02: resource 19 [mem 0x000ec000-0x000effff window]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:03: resource 0 [io  0x3000-0x3fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:03: resource 1 [mem 0xfea00000-0xfeafffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:03: resource 2 [mem 0xfef00000-0xff0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:04: resource 1 [mem 0xfe900000-0xfe9fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:04: resource 2 [mem 0xfa300000-0xfa3fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:05: resource 1 [mem 0xfe800000-0xfe8fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:05: resource 2 [mem 0xfa200000-0xfa2fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:06: resource 1 [mem 0xfe700000-0xfe7fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:06: resource 2 [mem 0xfa100000-0xfa1fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:07: resource 1 [mem 0xfe600000-0xfe6fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:07: resource 2 [mem 0xfa000000-0xfa0fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:08: resource 1 [mem 0xfe500000-0xfe5fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:08: resource 2 [mem 0xf9f00000-0xf9ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:09: resource 1 [mem 0xfe400000-0xfe4fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:09: resource 2 [mem 0xf9e00000-0xf9efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0a: resource 1 [mem 0xfe300000-0xfe3fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0a: resource 2 [mem 0xf9d00000-0xf9dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0b: resource 1 [mem 0xfe200000-0xfe2fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0b: resource 2 [mem 0xf9c00000-0xf9cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0c: resource 1 [mem 0xfe100000-0xfe1fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0c: resource 2 [mem 0xf9b00000-0xf9bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0d: resource 1 [mem 0xfe000000-0xfe0fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0d: resource 2 [mem 0xf9a00000-0xf9afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0e: resource 1 [mem 0xfdf00000-0xfdffffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0e: resource 2 [mem 0xf9900000-0xf99fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0f: resource 1 [mem 0xfde00000-0xfdefffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:0f: resource 2 [mem 0xf9800000-0xf98fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:10: resource 1 [mem 0xfdd00000-0xfddfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:10: resource 2 [mem 0xf9700000-0xf97fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:11: resource 1 [mem 0xfdc00000-0xfdcfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:11: resource 2 [mem 0xf9600000-0xf96fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:12: resource 1 [mem 0xfdb00000-0xfdbfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:12: resource 2 [mem 0xf9500000-0xf95fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:13: resource 1 [mem 0xfda00000-0xfdafffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:13: resource 2 [mem 0xf9400000-0xf94fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:14: resource 1 [mem 0xfd900000-0xfd9fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:14: resource 2 [mem 0xf9300000-0xf93fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:15: resource 1 [mem 0xfd800000-0xfd8fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:15: resource 2 [mem 0xf9200000-0xf92fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:16: resource 1 [mem 0xfd700000-0xfd7fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:16: resource 2 [mem 0xf9100000-0xf91fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:17: resource 1 [mem 0xfd600000-0xfd6fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:17: resource 2 [mem 0xf9000000-0xf90fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:18: resource 0 [io  0xf000-0xffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:18: resource 1 [mem 0xfd500000-0xfd5fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:18: resource 2 [mem 0xf8f00000-0xf8ffffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:19: resource 0 [io  0xe000-0xefff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:19: resource 1 [mem 0xfd400000-0xfd4fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:19: resource 2 [mem 0xf8e00000-0xf8efffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1a: resource 0 [io  0xd000-0xdfff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1a: resource 1 [mem 0xfd300000-0xfd3fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1a: resource 2 [mem 0xf8d00000-0xf8dfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1b: resource 0 [io  0xc000-0xcfff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1b: resource 1 [mem 0xfd200000-0xfd2fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1b: resource 2 [mem 0xf8c00000-0xf8cfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1c: resource 0 [io  0xb000-0xbfff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1c: resource 1 [mem 0xfd100000-0xfd1fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1c: resource 2 [mem 0xf8b00000-0xf8bfffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1d: resource 0 [io  0xa000-0xafff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1d: resource 1 [mem 0xfd000000-0xfd0fffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1d: resource 2 [mem 0xf8a00000-0xf8afffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1e: resource 0 [io  0x9000-0x9fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1e: resource 1 [mem 0xfcf00000-0xfcffffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1e: resource 2 [mem 0xf8900000-0xf89fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1f: resource 0 [io  0x8000-0x8fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1f: resource 1 [mem 0xfce00000-0xfcefffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:1f: resource 2 [mem 0xf8800000-0xf88fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:20: resource 0 [io  0x7000-0x7fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:20: resource 1 [mem 0xfcd00000-0xfcdfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:20: resource 2 [mem 0xf8700000-0xf87fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:21: resource 0 [io  0x6000-0x6fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:21: resource 1 [mem 0xfcc00000-0xfccfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:21: resource 2 [mem 0xf8600000-0xf86fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:22: resource 0 [io  0x4000-0x4fff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:22: resource 1 [mem 0xfcb00000-0xfcbfffff]
+[Wed Aug 13 10:53:44 2025] pci_bus 0000:22: resource 2 [mem 0xf8500000-0xf85fffff 64bit pref]
+[Wed Aug 13 10:53:44 2025] NET: Registered protocol family 2
+[Wed Aug 13 10:53:44 2025] IP idents hash table entries: 131072 (order: 8, 1048576 bytes)
+[Wed Aug 13 10:53:44 2025] tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes)
+[Wed Aug 13 10:53:44 2025] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes)
+[Wed Aug 13 10:53:44 2025] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
+[Wed Aug 13 10:53:44 2025] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+[Wed Aug 13 10:53:44 2025] TCP: Hash tables configured (established 65536 bind 65536)
+[Wed Aug 13 10:53:44 2025] UDP hash table entries: 4096 (order: 5, 131072 bytes)
+[Wed Aug 13 10:53:44 2025] UDP-Lite hash table entries: 4096 (order: 5, 131072 bytes)
+[Wed Aug 13 10:53:44 2025] NET: Registered protocol family 1
+[Wed Aug 13 10:53:44 2025] NET: Registered protocol family 44
+[Wed Aug 13 10:53:44 2025] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[Wed Aug 13 10:53:44 2025] PCI: CLS 32 bytes, default 64
+[Wed Aug 13 10:53:44 2025] Unpacking initramfs...
+[Wed Aug 13 10:53:45 2025] Freeing initrd memory: 41012K
+[Wed Aug 13 10:53:45 2025] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[Wed Aug 13 10:53:45 2025] software IO TLB: mapped [mem 0xac000000-0xb0000000] (64MB)
+[Wed Aug 13 10:53:45 2025] Initialise system trusted keyrings
+[Wed Aug 13 10:53:45 2025] Key type blacklist registered
+[Wed Aug 13 10:53:45 2025] workingset: timestamp_bits=37 max_order=21 bucket_order=0
+[Wed Aug 13 10:53:45 2025] zbud: loaded
+[Wed Aug 13 10:53:45 2025] alg: No test for sm2 (sm2-generic)
+[Wed Aug 13 10:53:45 2025] Key type asymmetric registered
+[Wed Aug 13 10:53:45 2025] Asymmetric key parser 'x509' registered
+[Wed Aug 13 10:53:45 2025] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 245)
+[Wed Aug 13 10:53:45 2025] io scheduler mq-deadline registered
+[Wed Aug 13 10:53:45 2025] io scheduler kyber registered
+[Wed Aug 13 10:53:45 2025] io scheduler bfq registered
+[Wed Aug 13 10:53:45 2025] atomic64_test: passed for x86-64 platform with CX8 and with SSE
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.0: Signaling PME with IRQ 24
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.0:pcie004: Slot #160 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.1: Signaling PME with IRQ 25
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.1:pcie004: Slot #161 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.2: Signaling PME with IRQ 26
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.2:pcie004: Slot #162 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.3: Signaling PME with IRQ 27
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.3:pcie004: Slot #163 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.4: Signaling PME with IRQ 28
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.4:pcie004: Slot #164 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.5: Signaling PME with IRQ 29
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.5:pcie004: Slot #165 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.6: Signaling PME with IRQ 30
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.6:pcie004: Slot #166 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:15.7: Signaling PME with IRQ 31
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:15.7:pcie004: Slot #167 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.0: Signaling PME with IRQ 32
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.0:pcie004: Slot #192 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.1: Signaling PME with IRQ 33
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.1:pcie004: Slot #193 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.2: Signaling PME with IRQ 34
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.2:pcie004: Slot #194 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.3: Signaling PME with IRQ 35
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.3:pcie004: Slot #195 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.4: Signaling PME with IRQ 36
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.4:pcie004: Slot #196 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.5: Signaling PME with IRQ 37
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.5:pcie004: Slot #197 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.6: Signaling PME with IRQ 38
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.6:pcie004: Slot #198 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:16.7: Signaling PME with IRQ 39
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:16.7:pcie004: Slot #199 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.0: Signaling PME with IRQ 40
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.0:pcie004: Slot #224 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.1: Signaling PME with IRQ 41
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.1:pcie004: Slot #225 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.2: Signaling PME with IRQ 42
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.2:pcie004: Slot #226 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.3: Signaling PME with IRQ 43
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.3:pcie004: Slot #227 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.4: Signaling PME with IRQ 44
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.4:pcie004: Slot #228 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.5: Signaling PME with IRQ 45
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.5:pcie004: Slot #229 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.6: Signaling PME with IRQ 46
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.6:pcie004: Slot #230 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:17.7: Signaling PME with IRQ 47
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:17.7:pcie004: Slot #231 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.0: Signaling PME with IRQ 48
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.0:pcie004: Slot #256 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.1: Signaling PME with IRQ 49
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.1:pcie004: Slot #257 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.2: Signaling PME with IRQ 50
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.2:pcie004: Slot #258 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.3: Signaling PME with IRQ 51
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.3:pcie004: Slot #259 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.4: Signaling PME with IRQ 52
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.4:pcie004: Slot #260 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.5: Signaling PME with IRQ 53
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.5:pcie004: Slot #261 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.6: Signaling PME with IRQ 54
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.6:pcie004: Slot #262 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] pcieport 0000:00:18.7: Signaling PME with IRQ 55
+[Wed Aug 13 10:53:45 2025] pciehp 0000:00:18.7:pcie004: Slot #263 AttnBtn+ PwrCtrl+ MRL- AttnInd- PwrInd- HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+[Wed Aug 13 10:53:45 2025] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[Wed Aug 13 10:53:45 2025] efifb: probing for efifb
+[Wed Aug 13 10:53:45 2025] efifb: framebuffer at 0xf0000000, using 3072k, total 3072k
+[Wed Aug 13 10:53:45 2025] efifb: mode is 1024x768x32, linelength=4096, pages=1
+[Wed Aug 13 10:53:45 2025] efifb: scrolling: redraw
+[Wed Aug 13 10:53:45 2025] efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
+[Wed Aug 13 10:53:45 2025] Console: switching to colour frame buffer device 128x48
+[Wed Aug 13 10:53:45 2025] fb0: EFI VGA frame buffer device
+[Wed Aug 13 10:53:45 2025] ACPI: AC Adapter [ACAD] (on-line)
+[Wed Aug 13 10:53:45 2025] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[Wed Aug 13 10:53:45 2025] ACPI: Power Button [PWRF]
+[Wed Aug 13 10:53:45 2025] Serial: 8250/16550 driver, 32 ports, IRQ sharing enabled
+[Wed Aug 13 10:53:45 2025] Non-volatile memory driver v1.3
+[Wed Aug 13 10:53:45 2025] rdac: device handler registered
+[Wed Aug 13 10:53:45 2025] hp_sw: device handler registered
+[Wed Aug 13 10:53:45 2025] emc: device handler registered
+[Wed Aug 13 10:53:45 2025] alua: device handler registered
+[Wed Aug 13 10:53:45 2025] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[Wed Aug 13 10:53:45 2025] ehci-pci: EHCI PCI platform driver
+[Wed Aug 13 10:53:45 2025] ehci-pci 0000:02:02.0: EHCI Host Controller
+[Wed Aug 13 10:53:45 2025] ehci-pci 0000:02:02.0: new USB bus registered, assigned bus number 1
+[Wed Aug 13 10:53:45 2025] ehci-pci 0000:02:02.0: cache line size of 32 is not supported
+[Wed Aug 13 10:53:45 2025] ehci-pci 0000:02:02.0: irq 16, io mem 0xfc011000
+[Wed Aug 13 10:53:45 2025] ehci-pci 0000:02:02.0: USB 2.0 started, EHCI 1.00
+[Wed Aug 13 10:53:45 2025] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 4.19
+[Wed Aug 13 10:53:45 2025] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[Wed Aug 13 10:53:45 2025] usb usb1: Product: EHCI Host Controller
+[Wed Aug 13 10:53:45 2025] usb usb1: Manufacturer: Linux 4.19.90-89.11.v2401.ky10.x86_64 ehci_hcd
+[Wed Aug 13 10:53:45 2025] usb usb1: SerialNumber: 0000:02:02.0
+[Wed Aug 13 10:53:45 2025] hub 1-0:1.0: USB hub found
+[Wed Aug 13 10:53:45 2025] hub 1-0:1.0: 6 ports detected
+[Wed Aug 13 10:53:45 2025] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[Wed Aug 13 10:53:45 2025] ohci-pci: OHCI PCI platform driver
+[Wed Aug 13 10:53:45 2025] uhci_hcd: USB Universal Host Controller Interface driver
+[Wed Aug 13 10:53:45 2025] uhci_hcd 0000:02:00.0: UHCI Host Controller
+[Wed Aug 13 10:53:45 2025] uhci_hcd 0000:02:00.0: new USB bus registered, assigned bus number 2
+[Wed Aug 13 10:53:45 2025] uhci_hcd 0000:02:00.0: detected 2 ports
+[Wed Aug 13 10:53:45 2025] uhci_hcd 0000:02:00.0: irq 18, io base 0x00001040
+[Wed Aug 13 10:53:45 2025] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 4.19
+[Wed Aug 13 10:53:45 2025] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[Wed Aug 13 10:53:45 2025] usb usb2: Product: UHCI Host Controller
+[Wed Aug 13 10:53:45 2025] usb usb2: Manufacturer: Linux 4.19.90-89.11.v2401.ky10.x86_64 uhci_hcd
+[Wed Aug 13 10:53:45 2025] usb usb2: SerialNumber: 0000:02:00.0
+[Wed Aug 13 10:53:45 2025] hub 2-0:1.0: USB hub found
+[Wed Aug 13 10:53:45 2025] hub 2-0:1.0: 2 ports detected
+[Wed Aug 13 10:53:45 2025] usbcore: registered new interface driver usbserial_generic
+[Wed Aug 13 10:53:45 2025] usbserial: USB Serial support registered for generic
+[Wed Aug 13 10:53:45 2025] i8042: PNP: PS/2 Controller [PNP0303:KBC,PNP0f13:MOUS] at 0x60,0x64 irq 1,12
+[Wed Aug 13 10:53:45 2025] serio: i8042 KBD port at 0x60,0x64 irq 1
+[Wed Aug 13 10:53:45 2025] serio: i8042 AUX port at 0x60,0x64 irq 12
+[Wed Aug 13 10:53:45 2025] mousedev: PS/2 mouse device common for all mice
+[Wed Aug 13 10:53:45 2025] rtc_cmos 00:01: registered as rtc0
+[Wed Aug 13 10:53:45 2025] rtc_cmos 00:01: setting system clock to 2025-08-13T01:58:55 UTC (1755050335)
+[Wed Aug 13 10:53:45 2025] rtc_cmos 00:01: alarms up to one month, y3k, 242 bytes nvram, hpet irqs
+[Wed Aug 13 10:53:45 2025] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+[Wed Aug 13 10:53:45 2025] EFI Variables Facility v0.08 2004-May-17
+[Wed Aug 13 10:53:45 2025] hidraw: raw HID events driver (C) Jiri Kosina
+[Wed Aug 13 10:53:45 2025] usbcore: registered new interface driver usbhid
+[Wed Aug 13 10:53:45 2025] usbhid: USB HID core driver
+[Wed Aug 13 10:53:45 2025] ashmem: initialized
+[Wed Aug 13 10:53:45 2025] drop_monitor: Initializing network drop monitor service
+[Wed Aug 13 10:53:45 2025] Initializing XFRM netlink socket
+[Wed Aug 13 10:53:45 2025] NET: Registered protocol family 10
+[Wed Aug 13 10:53:45 2025] Segment Routing with IPv6
+[Wed Aug 13 10:53:45 2025] NET: Registered protocol family 17
+[Wed Aug 13 10:53:45 2025] mpls_gso: MPLS GSO support
+[Wed Aug 13 10:53:45 2025] core: Using 8 MCE banks
+[Wed Aug 13 10:53:45 2025] RAS: Correctable Errors collector initialized.
+[Wed Aug 13 10:53:45 2025] AVX2 version of gcm_enc/dec engaged.
+[Wed Aug 13 10:53:45 2025] AES CTR mode by8 optimization enabled
+[Wed Aug 13 10:53:45 2025] sched_clock: Marking stable (2717287902, 3087924)->(2845236169, -124860343)
+[Wed Aug 13 10:53:45 2025] registered taskstats version 1
+[Wed Aug 13 10:53:45 2025] Loading compiled-in X.509 certificates
+[Wed Aug 13 10:53:45 2025] Loaded X.509 cert 'Kylin Software: Kylin Enterprise Linux kernel signing key: 805e66cadd7dc0869dcac717f4327955c046546a'
+[Wed Aug 13 10:53:45 2025] Loaded X.509 cert 'Kylin Software: Kylin Linux kernel signing key: 33b184906948ac617841b9e3a146d74ec51ed4a8'
+[Wed Aug 13 10:53:45 2025] zswap: loaded using pool lzo/zbud
+[Wed Aug 13 10:53:45 2025] Key type big_key registered
+[Wed Aug 13 10:53:45 2025] Key type trusted registered
+[Wed Aug 13 10:53:45 2025] Key type encrypted registered
+[Wed Aug 13 10:53:45 2025] ima: No TPM chip found, activating TPM-bypass!
+[Wed Aug 13 10:53:45 2025] ima: Allocated hash algorithm: sha256
+[Wed Aug 13 10:53:45 2025] evm: Initialising EVM extended attributes:
+[Wed Aug 13 10:53:45 2025] evm: security.selinux
+[Wed Aug 13 10:53:45 2025] evm: security.apparmor
+[Wed Aug 13 10:53:45 2025] evm: security.ima
+[Wed Aug 13 10:53:45 2025] evm: security.capability
+[Wed Aug 13 10:53:45 2025] evm: HMAC attrs: 0x1
+[Wed Aug 13 10:53:45 2025] NMI watchdog: Perf NMI watchdog permanently disabled
+[Wed Aug 13 10:53:45 2025] Freeing unused decrypted memory: 2036K
+[Wed Aug 13 10:53:45 2025] Freeing unused kernel image memory: 2496K
+[Wed Aug 13 10:53:45 2025] Write protecting the kernel read-only data: 20480k
+[Wed Aug 13 10:53:45 2025] Freeing unused kernel image memory: 2032K
+[Wed Aug 13 10:53:45 2025] Freeing unused kernel image memory: 104K
+[Wed Aug 13 10:53:45 2025] Run /init as init process
+[Wed Aug 13 10:53:45 2025] systemd[1]: systemd v243-67.p05.ky10 running in system mode. (+PAM +AUDIT +SELINUX +IMA -APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 default-hierarchy=legacy)
+[Wed Aug 13 10:53:45 2025] systemd[1]: Detected virtualization vmware.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Detected architecture x86-64.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Running in initial RAM disk.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Set hostname to <localhost.localdomain>.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Reached target Local File Systems.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Reached target Slices.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Reached target Swap.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Reached target Timers.
+[Wed Aug 13 10:53:45 2025] systemd[1]: Condition check resulted in Journal Audit Socket being skipped.
+[Wed Aug 13 10:53:45 2025] usb 2-1: new full-speed USB device number 2 using uhci_hcd
+[Wed Aug 13 10:53:46 2025] device-mapper: uevent: version 1.0.3
+[Wed Aug 13 10:53:46 2025] device-mapper: ioctl: 4.39.0-ioctl (2018-04-03) initialised: dm-devel@redhat.com
+[Wed Aug 13 10:53:46 2025] usb 2-1: New USB device found, idVendor=0e0f, idProduct=0003, bcdDevice= 1.03
+[Wed Aug 13 10:53:46 2025] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[Wed Aug 13 10:53:46 2025] usb 2-1: Product: VMware Virtual USB Mouse
+[Wed Aug 13 10:53:46 2025] usb 2-1: Manufacturer: VMware
+[Wed Aug 13 10:53:46 2025] input: VMware VMware Virtual USB Mouse as /devices/pci0000:00/0000:00:11.0/0000:02:00.0/usb2/2-1/2-1:1.0/0003:0E0F:0003.0001/input/input3
+[Wed Aug 13 10:53:46 2025] hid-generic 0003:0E0F:0003.0001: input,hidraw0: USB HID v1.10 Mouse [VMware VMware Virtual USB Mouse] on usb-0000:02:00.0-1/input0
+[Wed Aug 13 10:53:46 2025] usb 2-2: new full-speed USB device number 3 using uhci_hcd
+[Wed Aug 13 10:53:46 2025] VMware vmxnet3 virtual NIC driver - version 1.4.16.0-k-NAPI
+[Wed Aug 13 10:53:46 2025] vmxnet3 0000:03:00.0: # of Tx queues : 8, # of Rx queues : 8
+[Wed Aug 13 10:53:46 2025] vmxnet3 0000:03:00.0: enabling device (0000 -> 0003)
+[Wed Aug 13 10:53:46 2025] vmxnet3 0000:03:00.0 eth0: NIC Link is Up 10000 Mbps
+[Wed Aug 13 10:53:46 2025] libata version 3.00 loaded.
+[Wed Aug 13 10:53:46 2025] ata_piix 0000:00:07.1: version 2.13
+[Wed Aug 13 10:53:46 2025] scsi host0: ata_piix
+[Wed Aug 13 10:53:46 2025] scsi host1: ata_piix
+[Wed Aug 13 10:53:46 2025] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x2050 irq 14
+[Wed Aug 13 10:53:46 2025] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x2058 irq 15
+[Wed Aug 13 10:53:46 2025] usb 2-2: New USB device found, idVendor=0e0f, idProduct=0002, bcdDevice= 1.00
+[Wed Aug 13 10:53:46 2025] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[Wed Aug 13 10:53:46 2025] usb 2-2: Product: VMware Virtual USB Hub
+[Wed Aug 13 10:53:46 2025] usb 2-2: Manufacturer: VMware, Inc.
+[Wed Aug 13 10:53:46 2025] hub 2-2:1.0: USB hub found
+[Wed Aug 13 10:53:46 2025] hub 2-2:1.0: 7 ports detected
+[Wed Aug 13 10:53:46 2025] vmxnet3 0000:03:00.0 ens160: renamed from eth0
+[Wed Aug 13 10:53:46 2025] ahci 0000:02:03.0: version 3.0
+[Wed Aug 13 10:53:46 2025] ahci 0000:02:03.0: AHCI 0001.0300 32 slots 30 ports 6 Gbps 0x3fffffff impl SATA mode
+[Wed Aug 13 10:53:46 2025] ahci 0000:02:03.0: flags: 64bit ncq clo only 
+[Wed Aug 13 10:53:46 2025] scsi host2: ahci
+[Wed Aug 13 10:53:46 2025] scsi host3: ahci
+[Wed Aug 13 10:53:46 2025] scsi host4: ahci
+[Wed Aug 13 10:53:46 2025] scsi host5: ahci
+[Wed Aug 13 10:53:46 2025] scsi host6: ahci
+[Wed Aug 13 10:53:46 2025] scsi host7: ahci
+[Wed Aug 13 10:53:46 2025] scsi host8: ahci
+[Wed Aug 13 10:53:46 2025] scsi host9: ahci
+[Wed Aug 13 10:53:46 2025] scsi host10: ahci
+[Wed Aug 13 10:53:46 2025] scsi host11: ahci
+[Wed Aug 13 10:53:46 2025] scsi host12: ahci
+[Wed Aug 13 10:53:46 2025] scsi host13: ahci
+[Wed Aug 13 10:53:46 2025] scsi host14: ahci
+[Wed Aug 13 10:53:46 2025] scsi host15: ahci
+[Wed Aug 13 10:53:46 2025] scsi host16: ahci
+[Wed Aug 13 10:53:46 2025] scsi host17: ahci
+[Wed Aug 13 10:53:46 2025] scsi host18: ahci
+[Wed Aug 13 10:53:46 2025] scsi host19: ahci
+[Wed Aug 13 10:53:46 2025] scsi host20: ahci
+[Wed Aug 13 10:53:46 2025] scsi host21: ahci
+[Wed Aug 13 10:53:46 2025] scsi host22: ahci
+[Wed Aug 13 10:53:46 2025] scsi host23: ahci
+[Wed Aug 13 10:53:46 2025] scsi host24: ahci
+[Wed Aug 13 10:53:46 2025] scsi host25: ahci
+[Wed Aug 13 10:53:46 2025] scsi host26: ahci
+[Wed Aug 13 10:53:46 2025] scsi host27: ahci
+[Wed Aug 13 10:53:46 2025] scsi host28: ahci
+[Wed Aug 13 10:53:46 2025] scsi host29: ahci
+[Wed Aug 13 10:53:46 2025] scsi host30: ahci
+[Wed Aug 13 10:53:46 2025] scsi host31: ahci
+[Wed Aug 13 10:53:46 2025] ata3: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010100 irq 65
+[Wed Aug 13 10:53:46 2025] ata4: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010180 irq 65
+[Wed Aug 13 10:53:46 2025] ata5: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010200 irq 65
+[Wed Aug 13 10:53:46 2025] ata6: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010280 irq 65
+[Wed Aug 13 10:53:46 2025] ata7: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010300 irq 65
+[Wed Aug 13 10:53:46 2025] ata8: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010380 irq 65
+[Wed Aug 13 10:53:46 2025] ata9: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010400 irq 65
+[Wed Aug 13 10:53:46 2025] ata10: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010480 irq 65
+[Wed Aug 13 10:53:46 2025] ata11: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010500 irq 65
+[Wed Aug 13 10:53:46 2025] ata12: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010580 irq 65
+[Wed Aug 13 10:53:46 2025] ata13: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010600 irq 65
+[Wed Aug 13 10:53:46 2025] ata14: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010680 irq 65
+[Wed Aug 13 10:53:46 2025] ata15: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010700 irq 65
+[Wed Aug 13 10:53:46 2025] ata16: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010780 irq 65
+[Wed Aug 13 10:53:46 2025] ata17: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010800 irq 65
+[Wed Aug 13 10:53:46 2025] ata18: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010880 irq 65
+[Wed Aug 13 10:53:46 2025] ata19: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010900 irq 65
+[Wed Aug 13 10:53:46 2025] ata20: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010980 irq 65
+[Wed Aug 13 10:53:46 2025] ata21: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010a00 irq 65
+[Wed Aug 13 10:53:46 2025] ata22: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010a80 irq 65
+[Wed Aug 13 10:53:46 2025] ata23: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010b00 irq 65
+[Wed Aug 13 10:53:46 2025] ata24: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010b80 irq 65
+[Wed Aug 13 10:53:46 2025] ata25: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010c00 irq 65
+[Wed Aug 13 10:53:46 2025] ata26: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010c80 irq 65
+[Wed Aug 13 10:53:46 2025] ata27: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010d00 irq 65
+[Wed Aug 13 10:53:46 2025] ata28: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010d80 irq 65
+[Wed Aug 13 10:53:46 2025] ata29: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010e00 irq 65
+[Wed Aug 13 10:53:46 2025] ata30: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010e80 irq 65
+[Wed Aug 13 10:53:46 2025] ata31: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010f00 irq 65
+[Wed Aug 13 10:53:46 2025] ata32: SATA max UDMA/133 abar m4096@0xfc010000 port 0xfc010f80 irq 65
+[Wed Aug 13 10:53:46 2025] tsc: Refined TSC clocksource calibration: 2496.011 MHz
+[Wed Aug 13 10:53:46 2025] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x23fa819abfc, max_idle_ns: 440795230006 ns
+[Wed Aug 13 10:53:46 2025] clocksource: Switched to clocksource tsc
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: new full-speed USB device number 4 using uhci_hcd
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: New USB device found, idVendor=0e0f, idProduct=0008, bcdDevice= 1.00
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: Product: Virtual Bluetooth Adapter
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: Manufacturer: VMware
+[Wed Aug 13 10:53:46 2025] usb 2-2.1: SerialNumber: 000650268328
+[Wed Aug 13 10:53:46 2025] ata17: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata23: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata24: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata14: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata27: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata30: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata9: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata5: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata6: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata3: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata20: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata21: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata18: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata29: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata19: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata4: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata4.00: ATAPI: VMware Virtual SATA CDRW Drive, 00000001, max UDMA/33
+[Wed Aug 13 10:53:46 2025] ata4.00: configured for UDMA/33
+[Wed Aug 13 10:53:46 2025] ata32: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata28: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata8: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata7: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata3.00: ATA-6: VMware Virtual SATA Hard Drive, 00000001, max UDMA/100
+[Wed Aug 13 10:53:46 2025] ata3.00: 83886080 sectors, multi 0: LBA48 NCQ (depth 32)
+[Wed Aug 13 10:53:46 2025] ata16: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata31: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata26: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata22: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata25: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata10: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata3.00: configured for UDMA/100
+[Wed Aug 13 10:53:46 2025] scsi 2:0:0:0: Direct-Access     ATA      VMware Virtual S 0001 PQ: 0 ANSI: 5
+[Wed Aug 13 10:53:46 2025] ata11: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata13: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata15: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] ata12: SATA link down (SStatus 0 SControl 300)
+[Wed Aug 13 10:53:46 2025] scsi 3:0:0:0: CD-ROM            NECVMWar VMware SATA CD01 1.00 PQ: 0 ANSI: 5
+[Wed Aug 13 10:53:46 2025] sd 2:0:0:0: [sda] 83886080 512-byte logical blocks: (42.9 GB/40.0 GiB)
+[Wed Aug 13 10:53:46 2025] sd 2:0:0:0: [sda] Write Protect is off
+[Wed Aug 13 10:53:46 2025] sd 2:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[Wed Aug 13 10:53:46 2025] sd 2:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[Wed Aug 13 10:53:46 2025] [drm] DMA map mode: Using physical TTM page addresses.
+[Wed Aug 13 10:53:46 2025] [drm] Capabilities:
+[Wed Aug 13 10:53:46 2025] [drm]   Rect copy.
+[Wed Aug 13 10:53:46 2025] [drm]   Cursor.
+[Wed Aug 13 10:53:46 2025] [drm]   Cursor bypass.
+[Wed Aug 13 10:53:46 2025] [drm]   Cursor bypass 2.
+[Wed Aug 13 10:53:46 2025] [drm]   8bit emulation.
+[Wed Aug 13 10:53:46 2025] [drm]   Alpha cursor.
+[Wed Aug 13 10:53:46 2025] [drm]   3D.
+[Wed Aug 13 10:53:46 2025] [drm]   Extended Fifo.
+[Wed Aug 13 10:53:46 2025] [drm]   Multimon.
+[Wed Aug 13 10:53:46 2025] [drm]   Pitchlock.
+[Wed Aug 13 10:53:46 2025] [drm]   Irq mask.
+[Wed Aug 13 10:53:46 2025] [drm]   Display Topology.
+[Wed Aug 13 10:53:46 2025] [drm]   GMR.
+[Wed Aug 13 10:53:46 2025] [drm]   Traces.
+[Wed Aug 13 10:53:46 2025] [drm]   GMR2.
+[Wed Aug 13 10:53:46 2025] [drm]   Screen Object 2.
+[Wed Aug 13 10:53:46 2025] [drm]   Command Buffers.
+[Wed Aug 13 10:53:46 2025] [drm]   Command Buffers 2.
+[Wed Aug 13 10:53:46 2025] [drm]   Guest Backed Resources.
+[Wed Aug 13 10:53:46 2025] [drm]   DX Features.
+[Wed Aug 13 10:53:46 2025] [drm]   HP Command Queue.
+[Wed Aug 13 10:53:46 2025] [drm] Capabilities2:
+[Wed Aug 13 10:53:46 2025] [drm]   Grow oTable.
+[Wed Aug 13 10:53:46 2025] [drm]   IntraSurface copy.
+[Wed Aug 13 10:53:46 2025] [drm] Max GMR ids is 64
+[Wed Aug 13 10:53:46 2025] [drm] Max number of GMR pages is 65536
+[Wed Aug 13 10:53:46 2025] [drm] Max dedicated hypervisor surface memory is 0 kiB
+[Wed Aug 13 10:53:46 2025] [drm] Maximum display memory size is 262144 kiB
+[Wed Aug 13 10:53:46 2025] [drm] VRAM at 0xf0000000 size is 4096 kiB
+[Wed Aug 13 10:53:46 2025] [drm] MMIO at 0xfb800000 size is 256 kiB
+[Wed Aug 13 10:53:46 2025] [drm] global init.
+[Wed Aug 13 10:53:46 2025] [TTM] Zone  kernel: Available graphics memory: 3407220 kiB
+[Wed Aug 13 10:53:46 2025] [TTM] Zone   dma32: Available graphics memory: 2097152 kiB
+[Wed Aug 13 10:53:46 2025] [TTM] Initializing pool allocator
+[Wed Aug 13 10:53:46 2025] [TTM] Initializing DMA pool allocator
+[Wed Aug 13 10:53:46 2025] vmwgfx 0000:00:0f.0: BAR 1: can't reserve [mem 0xf0000000-0xf7ffffff pref]
+[Wed Aug 13 10:53:46 2025] [drm] It appears like vesafb is loaded. Ignore above error if any.
+[Wed Aug 13 10:53:46 2025]  sda: sda1 sda2 sda3
+[Wed Aug 13 10:53:46 2025] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[Wed Aug 13 10:53:46 2025] [drm] No driver support for vblank timestamp query.
+[Wed Aug 13 10:53:46 2025] sr 3:0:0:0: [sr0] scsi3-mmc drive: 1x/1x writer dvd-ram cd/rw xa/form2 cdda tray
+[Wed Aug 13 10:53:46 2025] cdrom: Uniform CD-ROM driver Revision: 3.20
+[Wed Aug 13 10:53:46 2025] [drm] Screen Target Display device initialized
+[Wed Aug 13 10:53:46 2025] [drm] width 1024
+[Wed Aug 13 10:53:46 2025] [drm] height 768
+[Wed Aug 13 10:53:46 2025] [drm] bpp 32
+[Wed Aug 13 10:53:46 2025] [drm] Fifo max 0x00040000 min 0x00001000 cap 0x0000077f
+[Wed Aug 13 10:53:46 2025] sd 2:0:0:0: [sda] Attached SCSI disk
+[Wed Aug 13 10:53:46 2025] sr 3:0:0:0: Attached scsi CD-ROM sr0
+[Wed Aug 13 10:53:46 2025] [drm] Using command buffers with DMA pool.
+[Wed Aug 13 10:53:46 2025] [drm] DX: yes.
+[Wed Aug 13 10:53:46 2025] [drm] Atomic: yes.
+[Wed Aug 13 10:53:46 2025] [drm] SM4_1: yes.
+[Wed Aug 13 10:53:46 2025] checking generic (f0000000 300000) vs hw (f0000000 400000)
+[Wed Aug 13 10:53:46 2025] fb: switching to svgadrmfb from EFI VGA
+[Wed Aug 13 10:53:46 2025] Console: switching to colour dummy device 80x25
+[Wed Aug 13 10:53:46 2025] fbcon: svgadrmfb (fb0) is primary device
+[Wed Aug 13 10:53:46 2025] Console: switching to colour frame buffer device 128x48
+[Wed Aug 13 10:53:46 2025] [drm] Initialized vmwgfx 2.15.0 20180704 for 0000:00:0f.0 on minor 0
+[Wed Aug 13 10:53:47 2025] SGI XFS with ACLs, security attributes, no debug enabled
+[Wed Aug 13 10:53:47 2025] XFS (dm-0): Mounting V5 Filesystem
+[Wed Aug 13 10:53:47 2025] XFS (dm-0): Starting recovery (logdev: internal)
+[Wed Aug 13 10:53:47 2025] XFS (dm-0): Ending recovery (logdev: internal)
+[Wed Aug 13 10:53:47 2025] systemd-journald[271]: Received SIGTERM from PID 1 (systemd).
+[Wed Aug 13 10:53:47 2025] systemd: 21 output lines suppressed due to ratelimiting
+[Wed Aug 13 10:53:47 2025] systemd[1]: systemd v243-67.p05.ky10 running in system mode. (+PAM +AUDIT +SELINUX +IMA -APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 default-hierarchy=legacy)
+[Wed Aug 13 10:53:47 2025] systemd[1]: Detected virtualization vmware.
+[Wed Aug 13 10:53:47 2025] systemd[1]: Detected architecture x86-64.
+[Wed Aug 13 10:53:47 2025] systemd[1]: Set hostname to <localhost.localdomain>.
+[Wed Aug 13 10:53:47 2025] systemd-rc-local-generator[756]: /etc/rc.d/rc.local is not marked executable, skipping.
+[Wed Aug 13 10:53:48 2025] systemd[1]: /usr/lib/systemd/system/sssd.service:13: PIDFile= references a path below legacy directory /var/run/, updating /var/run/sssd.pid → /run/sssd.pid; please update the unit file accordingly.
+[Wed Aug 13 10:53:48 2025] systemd[1]: /usr/lib/systemd/system/cups.socket:6: ListenStream= references a path below legacy directory /var/run/, updating /var/run/cups/cups.sock → /run/cups/cups.sock; please update the unit file accordingly.
+[Wed Aug 13 10:53:48 2025] systemd[1]: /usr/lib/systemd/system/dbus.socket:5: ListenStream= references a path below legacy directory /var/run/, updating /var/run/dbus/system_bus_socket → /run/dbus/system_bus_socket; please update the unit file accordingly.
+[Wed Aug 13 10:53:48 2025] systemd[1]: initrd-switch-root.service: Succeeded.
+[Wed Aug 13 10:53:48 2025] systemd[1]: Stopped Switch Root.
+[Wed Aug 13 10:53:48 2025] systemd[1]: systemd-journald.service: Service has no hold-off time (RestartSec=0), scheduling restart.
+[Wed Aug 13 10:53:48 2025] VFS: Open an write opened block device exclusively dm-1 [768 swapon].
+[Wed Aug 13 10:53:48 2025] Adding 4194300k swap on /dev/mapper/klas-swap.  Priority:-2 extents:1 across:4194300k FS
+[Wed Aug 13 10:53:48 2025] systemd-journald[780]: Received client request to flush runtime journal.
+[Wed Aug 13 10:53:48 2025] piix4_smbus 0000:00:07.3: SMBus base address uninitialized - upgrade BIOS or use force_addr=0xaddr
+[Wed Aug 13 10:53:48 2025] vmw_vmci 0000:00:07.7: enabling device (0000 -> 0003)
+[Wed Aug 13 10:53:48 2025] vmw_vmci 0000:00:07.7: Found VMCI PCI device at 0x12000, irq 16
+[Wed Aug 13 10:53:48 2025] vmw_vmci 0000:00:07.7: Using capabilities 0x8000003c
+[Wed Aug 13 10:53:48 2025] Guest personality initialized and is active
+[Wed Aug 13 10:53:48 2025] VMCI host device registered (name=vmci, major=10, minor=52)
+[Wed Aug 13 10:53:48 2025] Initialized host personality
+[Wed Aug 13 10:53:48 2025] sd 2:0:0:0: Attached scsi generic sg0 type 0
+[Wed Aug 13 10:53:48 2025] sr 3:0:0:0: Attached scsi generic sg1 type 5
+[Wed Aug 13 10:53:48 2025] input: PC Speaker as /devices/platform/pcspkr/input/input4
+[Wed Aug 13 10:53:48 2025] snd_ens1371 0000:02:01.0: enabling device (0000 -> 0001)
+[Wed Aug 13 10:53:48 2025] input: VirtualPS/2 VMware VMMouse as /devices/platform/i8042/serio1/input/input6
+[Wed Aug 13 10:53:48 2025] input: VirtualPS/2 VMware VMMouse as /devices/platform/i8042/serio1/input/input5
+[Wed Aug 13 10:53:48 2025] Bluetooth: Core ver 2.22
+[Wed Aug 13 10:53:48 2025] NET: Registered protocol family 31
+[Wed Aug 13 10:53:48 2025] Bluetooth: HCI device and connection manager initialized
+[Wed Aug 13 10:53:48 2025] Bluetooth: HCI socket layer initialized
+[Wed Aug 13 10:53:48 2025] Bluetooth: L2CAP socket layer initialized
+[Wed Aug 13 10:53:48 2025] Bluetooth: SCO socket layer initialized
+[Wed Aug 13 10:53:48 2025] usbcore: registered new interface driver btusb
+[Wed Aug 13 10:53:48 2025] XFS (sda2): Mounting V5 Filesystem
+[Wed Aug 13 10:53:48 2025] XFS (sda2): Starting recovery (logdev: internal)
+[Wed Aug 13 10:53:48 2025] XFS (sda2): Ending recovery (logdev: internal)
+[Wed Aug 13 10:53:48 2025] RPC: Registered named UNIX socket transport module.
+[Wed Aug 13 10:53:48 2025] RPC: Registered udp transport module.
+[Wed Aug 13 10:53:48 2025] RPC: Registered tcp transport module.
+[Wed Aug 13 10:53:48 2025] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[Wed Aug 13 10:53:49 2025] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[Wed Aug 13 10:53:49 2025] Bluetooth: BNEP filters: protocol multicast
+[Wed Aug 13 10:53:49 2025] Bluetooth: BNEP socket layer initialized
+[Wed Aug 13 10:53:49 2025] vmxnet3 0000:03:00.0 ens160: intr type 3, mode 0, 9 vectors allocated
+[Wed Aug 13 10:53:49 2025] vmxnet3 0000:03:00.0 ens160: NIC Link is Up 10000 Mbps
+[Wed Aug 13 10:54:03 2025] fuse init (API version 7.27)
+[Wed Aug 13 10:54:04 2025] Bluetooth: RFCOMM TTY layer initialized
+[Wed Aug 13 10:54:04 2025] Bluetooth: RFCOMM socket layer initialized
+[Wed Aug 13 10:54:04 2025] Bluetooth: RFCOMM ver 1.11
+[Wed Aug 13 10:54:04 2025] ISO 9660 Extensions: Microsoft Joliet Level 3
+[Wed Aug 13 10:54:04 2025] ISO 9660 Extensions: RRIP_1991A
+[Wed Aug 13 11:18:16 2025] hrtimer: interrupt took 5891407 ns
+[Wed Aug 13 13:23:10 2025] vmxnet3 0000:03:00.0 ens160: NIC Link is Down
+[Wed Aug 13 13:23:15 2025] vmxnet3 0000:03:00.0 ens160: NIC Link is Up 10000 Mbps
+[Wed Aug 13 13:46:41 2025] systemd-rc-local-generator[185335]: /etc/rc.d/rc.local is not marked executable, skipping.
+[Wed Aug 13 13:46:42 2025] systemd-rc-local-generator[185371]: /etc/rc.d/rc.local is not marked executable, skipping.
+[Wed Aug 13 13:46:42 2025] systemd-rc-local-generator[185426]: /etc/rc.d/rc.local is not marked executable, skipping.
+[Wed Aug 13 13:46:46 2025] systemd-rc-local-generator[185501]: /etc/rc.d/rc.local is not marked executable, skipping.
+=========================kylin=========================

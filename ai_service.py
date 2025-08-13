@@ -30,10 +30,15 @@ class AIService:
         self.load_error = None
         self.conversation_history = {}
         self._lock = threading.Lock()
+
+        # 创建历史记录目录
+        self.history_dir = os.path.join(os.path.dirname(__file__), 'LLM', 'history')
+        os.makedirs(self.history_dir, exist_ok=True)
+
+        self.load_history_files()
         
         # 启动时自动初始化模型
-        print("AI服务已创建，准备初始化模型...")
-        self.initialize_model()
+        print("AI服务已创建，正在启动中...")
         
     def initialize_model(self):
         """初始化AI模型"""
@@ -95,6 +100,55 @@ class AIService:
         # 在后台线程中加载模型
         threading.Thread(target=load_model, daemon=True).start()
         return False
+
+    # 添加保存对话历史的方法
+    def save_conversation_history(self, conversation_id: str):
+        """保存对话历史到文件"""
+        if conversation_id not in self.conversation_history:
+            return
+
+        history = self.conversation_history[conversation_id]
+        file_path = os.path.join(self.history_dir, f"{conversation_id}.json")
+
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                # 仅保存用户和助手的对话
+                save_history = [
+                    {"role": msg["role"], "content": msg["content"]}
+                    for msg in history
+                    if msg["role"] in ["user", "assistant"]
+                ]
+                json.dump(save_history, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"保存对话历史失败: {e}")
+
+    # 添加加载对话历史的方法
+    def load_conversation_history(self, conversation_id: str) -> List[Dict[str, Any]]:
+        """从文件加载对话历史"""
+        file_path = os.path.join(self.history_dir, f"{conversation_id}.json")
+
+        if not os.path.exists(file_path):
+            return []
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"加载对话历史失败: {e}")
+            return []
+
+    def load_history_files(self):
+        try:
+            for file_name in os.listdir(self.history_dir):
+                if not file_name.endswith('.json'):
+                    continue
+
+                conversation_id = file_name.split('.')[0]
+                self.conversation_history[conversation_id] = self.load_conversation_history(conversation_id)
+        except Exception as e:
+            print(f"加载各对话历史文件失败: {e}")
+
+
     
     def is_model_ready(self) -> bool:
         """检查模型是否准备就绪"""
@@ -176,6 +230,7 @@ class AIService:
                                 "content": response_text,
                                 "timestamp": datetime.now().isoformat()
                             })
+                        self.save_conversation_history(conversation_id)
                         
                     except Exception as e:
                         yield {
@@ -208,6 +263,7 @@ class AIService:
                         "content": response_text,
                         "timestamp": datetime.now().isoformat()
                     })
+                self.save_conversation_history(conversation_id)
                 
                 return {
                     "response": response_text,
@@ -249,13 +305,29 @@ class AIService:
         """获取对话历史"""
         with self._lock:
             return self.conversation_history.get(conversation_id, [])
-    
+
+    # 修改 clear_conversation 方法，删除历史文件
     def clear_conversation(self, conversation_id: str = None):
-        """清空对话历史"""
         with self._lock:
             if conversation_id:
+                # 删除历史文件
+                file_path = os.path.join(self.history_dir, f"{conversation_id}.json")
+                if os.path.exists(file_path):
+                    try:
+                        os.remove(file_path)
+                    except Exception as e:
+                        print(f"删除对话文件失败: {e}")
+
                 self.conversation_history.pop(conversation_id, None)
             else:
+                # 清空所有对话
+                for cid in list(self.conversation_history.keys()):
+                    file_path = os.path.join(self.history_dir, f"{cid}.json")
+                    if os.path.exists(file_path):
+                        try:
+                            os.remove(file_path)
+                        except Exception as e:
+                            print(f"删除对话文件失败: {e}")
                 self.conversation_history.clear()
     
     def get_model_info(self) -> Dict[str, Any]:

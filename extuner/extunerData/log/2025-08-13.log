@@ -1,0 +1,60 @@
+2025-08-13 10:00:31,597 - INFO - /root/KY-ops/extuner/extuner.py:31 - Extuner 开始执行
+2025-08-13 10:00:31,607 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:209 - __get_free_info failed!!!
+2025-08-13 10:00:31,607 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:213 - Get memory information end : total [2] success[1] failed[1] waiting threads[0]
+2025-08-13 10:00:31,607 - INFO - /root/KY-ops/extuner/summary_info.py:42 - 内存数据采集完成
+2025-08-13 10:00:31,633 - INFO - /root/KY-ops/extuner/summary_info.py:46 - 网络数据采集完成
+2025-08-13 10:00:31,646 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: perf
+2025-08-13 10:00:31,647 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: dstat
+2025-08-13 10:00:31,652 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: numactl
+2025-08-13 10:00:31,652 - INFO - /root/KY-ops/extuner/summary_info.py:49 - CPU数据采集完成
+2025-08-13 10:00:31,673 - INFO - /root/KY-ops/extuner/summary_info.py:52 - 磁盘数据采集完成
+2025-08-13 10:00:31,762 - INFO - /root/KY-ops/extuner/summary_info.py:55 - 系统参数采集完成
+2025-08-13 10:00:31,776 - ERROR - /root/KY-ops/extuner/main.py:20 - Error: 'super' object has no attribute 'start_broadcasting'
+2025-08-13 12:24:04,532 - INFO - /root/KY-ops/extuner/extuner.py:31 - Extuner 开始执行
+2025-08-13 12:24:04,539 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:209 - __get_free_info failed!!!
+2025-08-13 12:24:04,539 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:213 - Get memory information end : total [2] success[1] failed[1] waiting threads[0]
+2025-08-13 12:24:04,539 - INFO - /root/KY-ops/extuner/summary_info.py:42 - 内存数据采集完成
+2025-08-13 12:24:04,570 - INFO - /root/KY-ops/extuner/summary_info.py:46 - 网络数据采集完成
+2025-08-13 12:24:04,597 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: dstat
+2025-08-13 12:24:04,602 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: numactl
+2025-08-13 12:24:04,603 - INFO - /root/KY-ops/extuner/summary_info.py:49 - CPU数据采集完成
+2025-08-13 12:24:04,608 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: perf
+2025-08-13 12:24:04,634 - INFO - /root/KY-ops/extuner/summary_info.py:52 - 磁盘数据采集完成
+2025-08-13 12:24:04,701 - INFO - /root/KY-ops/extuner/summary_info.py:55 - 系统参数采集完成
+2025-08-13 12:24:04,709 - ERROR - /root/KY-ops/extuner/main.py:20 - Error: 'super' object has no attribute 'start_broadcasting'
+2025-08-13 12:31:09,349 - INFO - /root/KY-ops/extuner/extuner.py:31 - Extuner 开始执行
+2025-08-13 12:31:09,356 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:209 - __get_free_info failed!!!
+2025-08-13 12:31:09,356 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:213 - Get memory information end : total [2] success[1] failed[1] waiting threads[0]
+2025-08-13 12:31:09,356 - INFO - /root/KY-ops/extuner/summary_info.py:42 - 内存数据采集完成
+2025-08-13 12:31:09,394 - INFO - /root/KY-ops/extuner/summary_info.py:46 - 网络数据采集完成
+2025-08-13 12:31:09,414 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: dstat
+2025-08-13 12:31:09,416 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: numactl
+2025-08-13 12:31:09,417 - INFO - /root/KY-ops/extuner/summary_info.py:49 - CPU数据采集完成
+2025-08-13 12:31:09,420 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: perf
+2025-08-13 12:31:09,437 - INFO - /root/KY-ops/extuner/summary_info.py:52 - 磁盘数据采集完成
+2025-08-13 12:31:09,501 - INFO - /root/KY-ops/extuner/summary_info.py:55 - 系统参数采集完成
+2025-08-13 12:31:09,512 - ERROR - /root/KY-ops/extuner/main.py:20 - Error: 'super' object has no attribute 'start_broadcasting'
+2025-08-13 14:15:06,120 - INFO - /root/KY-ops/extuner/extuner.py:31 - Extuner 开始执行
+2025-08-13 14:15:06,128 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:209 - __get_free_info failed!!!
+2025-08-13 14:15:06,128 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:213 - Get memory information end : total [2] success[1] failed[1] waiting threads[0]
+2025-08-13 14:15:06,128 - INFO - /root/KY-ops/extuner/summary_info.py:42 - 内存数据采集完成
+2025-08-13 14:15:06,164 - INFO - /root/KY-ops/extuner/summary_info.py:46 - 网络数据采集完成
+2025-08-13 14:15:06,178 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: dstat
+2025-08-13 14:15:06,180 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: numactl
+2025-08-13 14:15:06,180 - INFO - /root/KY-ops/extuner/summary_info.py:49 - CPU数据采集完成
+2025-08-13 14:15:06,183 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: perf
+2025-08-13 14:15:06,203 - INFO - /root/KY-ops/extuner/summary_info.py:52 - 磁盘数据采集完成
+2025-08-13 14:15:06,273 - INFO - /root/KY-ops/extuner/summary_info.py:55 - 系统参数采集完成
+2025-08-13 14:15:06,284 - ERROR - /root/KY-ops/extuner/main.py:20 - Error: 'super' object has no attribute 'start_broadcasting'
+2025-08-13 14:18:24,708 - INFO - /root/KY-ops/extuner/extuner.py:31 - Extuner 开始执行
+2025-08-13 14:18:24,715 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:209 - __get_free_info failed!!!
+2025-08-13 14:18:24,715 - DEBUG - /root/KY-ops/extuner/category/get_memory_info.py:213 - Get memory information end : total [2] success[1] failed[1] waiting threads[0]
+2025-08-13 14:18:24,715 - INFO - /root/KY-ops/extuner/summary_info.py:42 - 内存数据采集完成
+2025-08-13 14:18:24,743 - INFO - /root/KY-ops/extuner/summary_info.py:46 - 网络数据采集完成
+2025-08-13 14:18:24,767 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: dstat
+2025-08-13 14:18:24,772 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: numactl
+2025-08-13 14:18:24,773 - INFO - /root/KY-ops/extuner/summary_info.py:49 - CPU数据采集完成
+2025-08-13 14:18:24,780 - WARNING - /root/KY-ops/extuner/common/command.py:186 - Command not found: perf
+2025-08-13 14:18:24,793 - INFO - /root/KY-ops/extuner/summary_info.py:52 - 磁盘数据采集完成
+2025-08-13 14:18:24,897 - INFO - /root/KY-ops/extuner/summary_info.py:55 - 系统参数采集完成
+2025-08-13 14:18:24,906 - ERROR - /root/KY-ops/extuner/main.py:20 - Error: 'super' object has no attribute 'start_broadcasting'

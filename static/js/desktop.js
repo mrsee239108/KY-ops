@@ -184,34 +184,6 @@ class Windows10Desktop {
             this.hideContextMenu();
         });
 
-        document.getElementById('wechat-download-btn').addEventListener('click', () => {
-            const downloadLink = 'https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb';
-            const a = document.createElement('a');
-            a.href = downloadLink;
-            a.download = 'wechat-linux.deb';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-        document.getElementById('qq-download-btn').addEventListener('click', () => {
-            const downloadLink = 'https://dldir1v6.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.18_250724_amd64_01.deb';
-            const a = document.createElement('a');
-            a.href = downloadLink;
-            a.download = 'qq-linux.deb';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-        document.getElementById('wps-download-btn').addEventListener('click', () => {
-            const downloadLink = 'https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/17900/wps-office_12.1.0.17900_amd64.deb?t=1754886097&k=14eb1ff89d162114e0426d9f70ff14fb';
-            const a = document.createElement('a');
-            a.href = downloadLink;
-            a.download = 'wps-linux.deb';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-
         // 搜索框事件
         const searchInput = document.querySelector('.search-box input');
         searchInput.addEventListener('focus', () => {

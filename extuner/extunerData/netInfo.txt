@@ -1,0 +1,187 @@
+Command: nmcli con show
+SubCommand: nmcli con show
+NAME    UUID                                  TYPE      DEVICE 
+ens160  79ee3deb-d5bd-427b-848d-686bb4f85757  ethernet  ens160 
+-------------------------kylin-------------------------
+Command: nmcli con show
+SubCommand: ethtool -i ens160
+driver: vmxnet3
+version: 1.4.16.0-k-NAPI
+firmware-version: 
+expansion-rom-version: 
+bus-info: 0000:03:00.0
+supports-statistics: yes
+supports-test: no
+supports-eeprom-access: no
+supports-register-dump: yes
+supports-priv-flags: no
+-------------------------kylin-------------------------
+Command: nmcli con show
+SubCommand: ethtool ens160
+Settings for ens160:
+	Supported ports: [ TP ]
+	Supported link modes:   1000baseT/Full 
+	                        10000baseT/Full 
+	Supported pause frame use: No
+	Supports auto-negotiation: No
+	Supported FEC modes: Not reported
+	Advertised link modes:  Not reported
+	Advertised pause frame use: No
+	Advertised auto-negotiation: No
+	Advertised FEC modes: Not reported
+	Speed: 10000Mb/s
+	Duplex: Full
+	Port: Twisted Pair
+	PHYAD: 0
+	Transceiver: internal
+	Auto-negotiation: off
+	MDI-X: Unknown
+	Supports Wake-on: uag
+	Wake-on: d
+	Link detected: yes
+=========================kylin=========================
+Command: ethtool
+SubCommand: ethtool -k ens160
+Features for ens160:
+rx-checksumming: on
+tx-checksumming: on
+	tx-checksum-ipv4: off [fixed]
+	tx-checksum-ip-generic: on
+	tx-checksum-ipv6: off [fixed]
+	tx-checksum-fcoe-crc: off [fixed]
+	tx-checksum-sctp: off [fixed]
+scatter-gather: on
+	tx-scatter-gather: on
+	tx-scatter-gather-fraglist: off [fixed]
+tcp-segmentation-offload: on
+	tx-tcp-segmentation: on
+	tx-tcp-ecn-segmentation: off [fixed]
+	tx-tcp-mangleid-segmentation: off
+	tx-tcp6-segmentation: on
+generic-segmentation-offload: on
+generic-receive-offload: on
+large-receive-offload: on
+rx-vlan-offload: on
+tx-vlan-offload: on
+ntuple-filters: off [fixed]
+receive-hashing: on
+highdma: on
+rx-vlan-filter: on [fixed]
+vlan-challenged: off [fixed]
+tx-lockless: off [fixed]
+netns-local: off [fixed]
+tx-gso-robust: off [fixed]
+tx-fcoe-segmentation: off [fixed]
+tx-gre-segmentation: off [fixed]
+tx-gre-csum-segmentation: off [fixed]
+tx-ipxip4-segmentation: off [fixed]
+tx-ipxip6-segmentation: off [fixed]
+tx-udp_tnl-segmentation: off [fixed]
+tx-udp_tnl-csum-segmentation: off [fixed]
+tx-gso-partial: off [fixed]
+tx-sctp-segmentation: off [fixed]
+tx-esp-segmentation: off [fixed]
+tx-udp-segmentation: off [fixed]
+fcoe-mtu: off [fixed]
+tx-nocache-copy: off
+loopback: off [fixed]
+rx-fcs: off [fixed]
+rx-all: off [fixed]
+tx-vlan-stag-hw-insert: off [fixed]
+rx-vlan-stag-hw-parse: off [fixed]
+rx-vlan-stag-filter: off [fixed]
+l2-fwd-offload: off [fixed]
+hw-tc-offload: off [fixed]
+esp-hw-offload: off [fixed]
+esp-tx-csum-hw-offload: off [fixed]
+rx-udp_tunnel-port-offload: off [fixed]
+tls-hw-tx-offload: off [fixed]
+tls-hw-rx-offload: off [fixed]
+rx-gro-hw: off [fixed]
+tls-hw-record: off [fixed]
+-------------------------kylin-------------------------
+Command: ethtool
+SubCommand: ethtool -c ens160
+Coalesce parameters for ens160:
+Adaptive RX: off  TX: off
+stats-block-usecs: 0
+sample-interval: 0
+pkt-rate-low: 0
+pkt-rate-high: 0
+
+rx-usecs: 0
+rx-frames: 0
+rx-usecs-irq: 0
+rx-frames-irq: 0
+
+tx-usecs: 0
+tx-frames: 0
+tx-usecs-irq: 0
+tx-frames-irq: 0
+
+rx-usecs-low: 0
+rx-frames-low: 0
+tx-usecs-low: 0
+tx-frames-low: 0
+
+rx-usecs-high: 0
+rx-frames-high: 0
+tx-usecs-high: 0
+tx-frames-high: 0
+
+-------------------------kylin-------------------------
+Command: ethtool
+SubCommand: ethtool -g ens160
+Ring parameters for ens160:
+Pre-set maximums:
+RX:		4096
+RX Mini:	0
+RX Jumbo:	4096
+TX:		4096
+Current hardware settings:
+RX:		1024
+RX Mini:	0
+RX Jumbo:	256
+TX:		512
+
+=========================kylin=========================
+Command: sar -n DEV
+SubCommand: sar -n DEV 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:27 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:27 PM    ens160      1.66      2.99      0.13      0.36      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:       ens160      1.66      2.99      0.13      0.36      0.00      0.00      0.00      0.00
+-------------------------kylin-------------------------
+Command: sar -n DEV
+SubCommand: sar -n EDEV 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:27 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:27 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:       ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+=========================kylin=========================
+Command: sar -n TCP
+SubCommand: sar -n TCP 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM  active/s passive/s    iseg/s    oseg/s
+02:18:27 PM      0.00      0.00      1.33      2.33
+Average:         0.00      0.00      1.33      2.33
+-------------------------kylin-------------------------
+Command: sar -n TCP
+SubCommand: sar -n ETCP 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s
+02:18:27 PM      0.00      0.00      0.00      0.00      0.00
+Average:         0.00      0.00      0.00      0.00      0.00
+=========================kylin=========================

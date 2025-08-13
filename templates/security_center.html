@@ -1,269 +1,246 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="security-center-title">安全中心</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/security_center.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>安全中心</title>
+  <link rel="stylesheet" href="/static/css/security_center.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  {#    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script src="https://fastly.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/js/theme-manager.js"></script>
 </head>
 <body>
-    <div id="alertNotification-container"></div>
-    <div class="security-center">
-        <!-- 标题栏 -->
-        <div class="title-bar">
-            <div class="title-bar-left">
-                <i class="fas fa-shield-alt"></i>
-                <span data-i18n="security-center-title">安全中心</span>
-            </div>
-            <div class="title-bar-right">
-                <div class="window-controls">
-                    <button class="control-btn theme-toggle" id="theme-toggle-btn" data-i18n-title="security-center-theme-toggle" title="切换主题"><i class="fas fa-moon"></i></button>
-                    <button class="control-btn refresh" onclick="refreshPage()" data-i18n-title="security-center-refresh" title="刷新"><i class="fas fa-sync-alt"></i></button>
-                    <button class="control-btn back" onclick="goBack()" data-i18n-title="security-center-back" title="返回"><i class="fas fa-arrow-left"></i></button>
-                </div>
-            </div>
+  <div class="security-center">
+    <!-- 标题栏 -->
+    <div class="title-bar">
+      <div class="title-bar-left">
+        <i class="fas fa-shield-alt"></i>
+        <span>安全中心</span>
+      </div>
+      <div class="title-bar-right">
+        <div class="window-controls">
+          <button class="control-btn theme-toggle" onclick="toggleTheme()" title="切换主题">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <button class="control-btn refresh" onclick="refreshPage()" title="刷新"><i class="fas fa-sync-alt"></i></button>
+          <button class="control-btn back" onclick="goBack()" title="返回"><i class="fas fa-arrow-left"></i></button>
         </div>
-
-        <!-- 主要内容 -->
-        <div class="main-content">
-            <!-- 安全状态概览 -->
-            <div class="security-overview">
-                <div class="overview-card main-status">
-                    <div class="status-icon-large">
-                        <i class="fas fa-shield-alt" id="main-security-icon"></i>
-                    </div>
-                    <div class="status-content">
-                        <h2 id="security-status-title" data-i18n="security-center-system-secure">系统安全</h2>
-                        <p class="status-message" id="security-status-message" data-i18n="security-center-device-protected">您的设备受到保护</p>
-                        <p class="status-detail" id="security-status-detail" data-i18n="security-center-all-features-normal">所有安全功能都在正常运行</p>
-                        <div class="status-actions">
-                            <button class="action-btn primary" id="quick-scan-btn" data-i18n="security-center-quick-scan">
-                                <i class="fas fa-search"></i>
-                                快速扫描
-                            </button>
-                            <button class="action-btn secondary" id="view-details-btn" data-i18n="security-center-view-details">
-                                查看详情
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 安全功能卡片 -->
-            <div class="security-features">
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div class="feature-info">
-                            <h3 data-i18n="security-center-firewall">防火墙</h3>
-                        <p class="feature-status enabled" id="firewall-status" data-i18n="security-center-enabled">已启用</p>
-                        </div>
-                        <div class="feature-toggle">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="firewall-toggle" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                        <p data-i18n="security-center-firewall-description">防火墙正在保护您的设备免受网络威胁</p>
-                        <div class="feature-stats">
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-threats-blocked">已阻止威胁</span>
-                                <span class="stat-value" id="firewall-blocked">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-last-updated">最后更新</span>
-                                <span class="stat-value" id="firewall-updated" data-i18n="security-center-just-now">刚刚</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-virus"></i>
-                        </div>
-                        <div class="feature-info">
-                            <h3 data-i18n="security-center-antivirus">病毒防护</h3>
-                            <p class="feature-status enabled" id="antivirus-status" data-i18n="security-center-enabled">已启用</p>
-                        </div>
-                        <div class="feature-toggle">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="antivirus-toggle" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                        <p data-i18n="security-center-realtime-protection">实时保护正在监控您的系统</p>
-                        <div class="feature-stats">
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-last-scan">上次扫描</span>
-                                <span class="stat-value" id="antivirus-scan" data-i18n="security-center-today">今天</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-threat-definitions">威胁定义</span>
-                                <span class="stat-value" id="antivirus-definitions" data-i18n="security-center-latest">最新</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <div class="feature-info">
-                            <h3 data-i18n="security-center-system-updates">系统更新</h3>
-                            <p class="feature-status warning" id="update-status" data-i18n="security-center-updates-available">有可用更新</p>
-                        </div>
-                        <div class="feature-action">
-                            <button class="feature-btn" id="update-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                        <p data-i18n="security-center-keep-system-updated">保持系统最新以获得最佳安全性</p>
-                        <div class="feature-stats">
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-available-updates">可用更新</span>
-                                <span class="stat-value" id="available-updates">3</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-last-check">上次检查</span>
-                                <span class="stat-value" id="last-check" data-i18n="security-center-1-hour-ago">1小时前</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <div class="feature-info">
-                            <h3 data-i18n="security-center-account-protection">账户保护</h3>
-                        <p class="feature-status enabled" id="account-status" data-i18n="security-center-enabled">已启用</p>
-                        </div>
-                        <div class="feature-action">
-                            <button class="feature-btn" id="account-btn">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                        <p data-i18n="security-center-uac-protection">用户账户控制正在保护您的系统</p>
-                        <div class="feature-stats">
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-login-attempts">登录尝试</span>
-                                <span class="stat-value" id="login-attempts">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label" data-i18n="security-center-permission-requests">权限请求</span>
-                                <span class="stat-value" id="permission-requests">2</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 安全建议 -->
-            <div class="recommendations-section">
-                <div class="section-header">
-                    <h2 data-i18n="security-center-security-recommendations">安全建议</h2>
-                    <button class="section-btn" id="refresh-recommendations">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-                <div class="recommendations-list" id="recommendations-list">
-                    <!-- 安全建议将通过JavaScript填充 -->
-                </div>
-            </div>
-
-            <!-- 安全历史 -->
-            <div class="history-section">
-                <div class="section-header">
-                    <h2 data-i18n="security-center-security-history">安全历史</h2>
-                    <div class="history-controls">
-                        <button class="history-btn active" data-period="today" data-i18n="security-center-today-btn">今天</button>
-                        <button class="history-btn" data-period="week" data-i18n="security-center-this-week-btn">本周</button>
-                        <button class="history-btn" data-period="month" data-i18n="security-center-this-month-btn">本月</button>
-                    </div>
-                </div>
-                <div class="history-list" id="history-list">
-                    <!-- 安全历史将通过JavaScript填充 -->
-                </div>
-            </div>
-        </div>
-
-        <!-- 扫描进度对话框 -->
-        <div class="modal-overlay" id="scan-modal">
-            <div class="modal">
-                <div class="modal-header">
-                    <h3 data-i18n="security-center-system-scan">系统扫描</h3>
-                    <button class="modal-close" id="scan-modal-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="scan-progress">
-                        <div class="scan-icon">
-                            <i class="fas fa-search scanning"></i>
-                        </div>
-                        <div class="scan-info">
-                            <h4 id="scan-status" data-i18n="security-center-scanning-system">正在扫描系统...</h4>
-                            <p id="scan-detail" data-i18n="security-center-checking-files">检查系统文件和设置</p>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="scan-progress"></div>
-                    </div>
-                    <div class="scan-stats">
-                        <div class="scan-stat">
-                            <span class="stat-label" data-i18n="security-center-scanned-files">已扫描文件</span>
-                            <span class="stat-value" id="scanned-files">0</span>
-                        </div>
-                        <div class="scan-stat">
-                            <span class="stat-label" data-i18n="security-center-threats-found">发现威胁</span>
-                            <span class="stat-value" id="threats-found">0</span>
-                        </div>
-                        <div class="scan-stat">
-                            <span class="stat-label" data-i18n="security-center-time-remaining">剩余时间</span>
-                            <span class="stat-value" id="time-remaining" data-i18n="security-center-calculating">计算中...</span>
-                        </div>
-                    </div>
-                    <div class="scan-actions">
-                        <button class="btn btn-secondary" id="pause-scan" data-i18n="security-center-pause">暂停</button>
-                        <button class="btn btn-danger" id="cancel-scan" data-i18n="security-center-cancel">取消</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/language-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/security_center.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.languageManager = new LanguageManager();
-            window.languageManager.init();
-            window.themeManager = new ThemeManager();
-            window.themeManager.init();
-            
-            // 初始化安全中心
-            setTimeout(() => {
-                window.securityCenter = new SecurityCenter();
-            }, 100);
-        });
-    </script>
+    <div class="security-content">
+      <div class="main-content">
+      <div class="tabs">
+        <button class="tab-btn active" data-target="tab-logs">日志扫描异常分析</button>
+        <button class="tab-btn" data-target="tab-predict">异常预测</button>
+        <button class="tab-btn" data-target="tab-scripts">自动运维脚本</button>
+      </div>
+
+      <div id="tab-logs" class="tab-content active">
+        <div class="overview">
+          <div class="overview-card">
+            <div class="label">今日处理日志</div>
+            <div class="value info" id="todayLogs">--</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">今日异常</div>
+            <div class="value warn" id="todayAnomalies">--</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">告警等级</div>
+            <div class="value danger" id="riskLevel">--</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">监控状态</div>
+            <div class="value" id="monitorStatus">运行中</div>
+          </div>
+        </div>
+
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-header">
+              <h3>实时日志流</h3>
+              <div>
+                <label class="checkbox-label" style="margin-right: 10px;">
+                  <input type="checkbox" id="autoRepairToggle">
+                  <span>启用自动修复</span>
+                </label>
+                <button class="btn btn-sm" id="btnStartScan">启动扫描</button>
+                <button class="btn btn-sm" id="btnExportAnomalies">导出异常</button>
+                <button class="btn btn-sm" id="btnViewRepairs" style="display:none;">查看修复</button>
+              </div>
+            </div>
+            <div class="log-stream" id="logStream"></div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-header">
+              <h3>异常列表</h3>
+            </div>
+            <div class="anomaly-list" id="anomalyList"></div>
+          </div>
+
+          <div class="module-card wide">
+            <div class="module-header">
+              <h3>日志级别分布</h3>
+            </div>
+            <div class="chart-area">
+              <canvas id="logLevelChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-predict" class="tab-content">
+        <div class="overview">
+          <div class="overview-card">
+            <div class="label">CPU</div>
+            <div class="value info" id="cpuVal">--%</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">内存</div>
+            <div class="value warn" id="memVal">--%</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">磁盘</div>
+            <div class="value" id="diskVal">--%</div>
+          </div>
+          <div class="overview-card">
+            <div class="label">网络</div>
+            <div class="value" id="netVal">--</div>
+          </div>
+        </div>
+
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-header"><h3>CPU 使用率</h3></div>
+            <div class="chart-area"><canvas id="cpuChart"></canvas></div>
+          </div>
+          <div class="module-card">
+            <div class="module-header"><h3>内存使用率</h3></div>
+            <div class="chart-area"><canvas id="memChart"></canvas></div>
+          </div>
+          <div class="module-card">
+            <div class="module-header"><h3>磁盘使用率</h3></div>
+            <div class="chart-area"><canvas id="diskChart"></canvas></div>
+          </div>
+          <div class="module-card">
+            <div class="module-header"><h3>网络 I/O 指标</h3></div>
+            <div class="chart-area"><canvas id="netChart"></canvas></div>
+          </div>
+          <div class="module-card wide">
+            <div class="module-header"><h3>风险趋势</h3></div>
+            <div class="chart-area"><canvas id="riskTrend"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-scripts" class="tab-content">
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-header">
+              <h3>脚本列表</h3>
+              <div>
+                <button class="btn btn-sm primary" id="btnNewScript">新建脚本</button>
+              </div>
+            </div>
+            <div class="script-list" id="scriptList"></div>
+          </div>
+          <div class="module-card">
+            <div class="module-header"><h3>执行日志</h3></div>
+            <div class="execution-logs" id="executionLogs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- 日志扫描进度 -->
+  <div class="modal" id="scanProgressModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>日志扫描进度</h3>
+        <button class="modal-close" onclick="document.getElementById('scanProgressModal').classList.remove('show')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar" id="scanProgressBar" style="width:0%"></div>
+        </div>
+        <div class="progress-info">
+          <span>进度：<span id="scanProgressText">0%</span></span>
+          <span id="scanCountInfo">已扫描：0 行 | 发现异常：0</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="document.getElementById('scanProgressModal').classList.remove('show')">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 修复操作查看 -->
+  <div class="modal" id="repairActionsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>自动修复操作历史</h3>
+        <button class="modal-close" onclick="document.getElementById('repairActionsModal').classList.remove('show')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="repair-actions-list" id="repairActionsList">
+          <div class="no-data">暂无修复操作记录</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="document.getElementById('repairActionsModal').classList.remove('show')">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 脚本编辑器 -->
+  <div class="modal" id="scriptEditorModal">
+    <div class="modal-content large">
+      <div class="modal-header">
+        <h3 id="scriptEditorTitle">新建脚本</h3>
+        <button class="modal-close" id="btnCloseEditor">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-field">
+            <label>脚本名称</label>
+            <input id="scriptName" placeholder="例如: cleanup_temp.sh" />
+          </div>
+          <div class="form-field">
+            <label>脚本类型</label>
+            <select id="scriptType" class="select">
+              <option value="sh">Bash (.sh)</option>
+              <option value="ps1">PowerShell (.ps1)</option>
+              <option value="bat">Batch (.bat)</option>
+              <option value="py">Python (.py)</option>
+              <option value="js">Node.js (.js)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full">
+            <label>脚本描述</label>
+            <input id="scriptDesc" placeholder="脚本用途说明 (可选)" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full">
+            <label>脚本内容</label>
+            <textarea id="scriptCode" rows="12" placeholder="# 在此编写脚本...\necho \"hello\""></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="btnSaveScript">保存</button>
+        <button class="btn ghost" id="btnCloseEditor">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/security_center.js"></script>
 </body>
 </html>

@@ -1,0 +1,84 @@
+Command: fdisk -l
+SubCommand: fdisk -l
+Disk /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectors
+Disk model: VMware Virtual S
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 02B886BF-06E6-45CC-9518-E3FB00A8A25B
+
+Device       Start      End  Sectors  Size Type
+/dev/sda1     2048  1230847  1228800  600M EFI System
+/dev/sda2  1230848  3327999  2097152    1G Linux filesystem
+/dev/sda3  3328000 83884031 80556032 38.4G Linux LVM
+
+
+Disk /dev/mapper/klas-root: 34.41 GiB, 36947623936 bytes, 72163328 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/klas-swap: 4 GiB, 4294967296 bytes, 8388608 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+-------------------------kylin-------------------------
+Command: fdisk -l
+SubCommand: blkid
+/dev/mapper/klas-swap: UUID="7a8dd9b0-4f20-4fff-aae8-782d04647bb8" TYPE="swap"
+/dev/sr0: BLOCK_SIZE="2048" UUID="2024-05-17-06-04-27-00" LABEL="Kylin-Server-10" TYPE="iso9660" PTUUID="12264aeb" PTTYPE="dos"
+/dev/mapper/klas-root: UUID="e9065c6e-87ae-4ebd-9044-7ac63fda50f7" BLOCK_SIZE="512" TYPE="xfs"
+/dev/sda2: UUID="0ff49b55-5ac5-4c3d-95ec-43168a8201fb" BLOCK_SIZE="512" TYPE="xfs" PARTUUID="01ff9ea8-6e33-4ff6-89ee-83a542182350"
+/dev/sda3: UUID="jOOqf3-JvIK-RHRt-ZHeQ-7pIE-s7GL-Br6uFA" TYPE="LVM2_member" PARTUUID="5e54fa8d-b381-437f-bf6c-79df97740366"
+/dev/sda1: UUID="7F41-60EF" BLOCK_SIZE="512" TYPE="vfat" PARTLABEL="EFI System Partition" PARTUUID="e0da8918-caa1-403d-b8eb-9fa2e89ba8f4"
+=========================kylin=========================
+Command: df -h
+SubCommand: df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               3.3G     0  3.3G   0% /dev
+tmpfs                  3.3G  4.0K  3.3G   1% /dev/shm
+tmpfs                  3.3G  9.7M  3.3G   1% /run
+tmpfs                  3.3G     0  3.3G   0% /sys/fs/cgroup
+/dev/mapper/klas-root   35G   24G   11G  70% /
+tmpfs                  3.3G   36K  3.3G   1% /tmp
+/dev/sda2             1014M  204M  811M  21% /boot
+/dev/sda1              599M  6.7M  593M   2% /boot/efi
+tmpfs                  666M   44K  666M   1% /run/user/0
+/dev/sr0               4.4G  4.4G     0 100% /run/media/root/Kylin-Server-10
+=========================kylin=========================
+Command: cat /etc/fstab
+SubCommand: cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Wed Aug  6 17:59:18 2025
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+/dev/mapper/klas-root   /                       xfs     defaults        0 0
+UUID=0ff49b55-5ac5-4c3d-95ec-43168a8201fb /boot                   xfs     defaults        0 0
+UUID=7F41-60EF          /boot/efi               vfat    umask=0077,shortname=winnt 0 2
+/dev/mapper/klas-swap   none                    swap    defaults        0 0
+=========================kylin=========================
+Command: iostat
+SubCommand: iostat -xmt 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+08/13/2025 02:18:24 PM
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.53    0.00    0.77    0.01    0.00   98.70
+
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz  aqu-sz  %util
+dm-0             1.74      0.08     0.00   0.00    0.93    46.48    0.50      0.01     0.00   0.00    2.25    14.90    0.00      0.00     0.00   0.00    0.00     0.00    0.00   0.18
+dm-1             0.01      0.00     0.00   0.00    0.42    22.85    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00   0.00
+sda              1.86      0.08     0.05   2.49    0.83    45.94    0.43      0.01     0.07  14.74    2.01    17.78    0.00      0.00     0.00   0.00    0.00     0.00    0.00   0.18
+scd0             0.01      0.00     0.00   0.00    0.23    23.34    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00   0.00
+
+
+=========================kylin=========================

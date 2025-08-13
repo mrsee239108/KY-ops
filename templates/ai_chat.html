@@ -57,9 +57,14 @@
                 <div class="chat-history">
                     <div class="history-header">
                         <span data-i18n="ai-chat-conversation-history">对话历史</span>
-                        <button class="clear-history-btn" onclick="aiChat && aiChat.clearHistory()">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <div>
+                            <button class="refresh-history-btn" onclick="aiChat && aiChat.loadConversations()" title="刷新列表">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button class="clear-history-btn" onclick="aiChat && aiChat.clearHistory()">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="history-list" id="history-list">
                         <!-- 历史对话项目将在这里动态生成 -->
@@ -101,6 +106,9 @@
                         <span class="chat-subtitle" id="current-chat-subtitle" data-i18n="ai-chat-current-subtitle">随时为您提供专业的运维支持</span>
                     </div>
                     <div class="chat-actions">
+                        <button class="action-btn" id="context-toggle-btn" title="" data-i18n-title="ai-chat-context-mode">
+                            <i class="fas fa-comments"></i>
+                        </button>
                         <button class="action-btn" onclick="aiChat && aiChat.exportChat()" title="" data-i18n-title="ai-chat-export-conversation">
                             <i class="fas fa-download"></i>
                             <span data-i18n="ai-chat-export-conversation">导出对话</span>

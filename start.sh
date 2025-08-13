@@ -811,9 +811,9 @@ check_ai_model() {
 collect_system_info() {
     log_header "收集系统信息"
     
-    # 检查extune目录是否存在
-    if [[ ! -d "extune" ]]; then
-        log_warning "未找到extune目录，跳过系统信息收集"
+    # 检查extuner目录是否存在
+    if [[ ! -d "extuner" ]]; then
+        log_warning "未找到extuner目录，跳过系统信息收集"
         log_info "应用将使用实时获取的系统信息"
         return 0
     fi
@@ -828,23 +828,23 @@ collect_system_info() {
         fi
     fi
     
-    # 检查extune数据目录
-    local extune_data_dir="extune/extunerData"
-    if [[ ! -d "$extune_data_dir" ]]; then
-        log_info "创建extune数据目录..."
-        mkdir -p "$extune_data_dir"
+    # 检查extuner数据目录
+    local extuner_data_dir="extuner/extunerData"
+    if [[ ! -d "$extuner_data_dir" ]]; then
+        log_info "创建extuner数据目录..."
+        mkdir -p "$extuner_data_dir"
     fi
     
-    log_info "正在使用extune收集系统硬件信息..."
+    log_info "正在使用extuner收集系统硬件信息..."
     
-    # 尝试运行extune数据收集
-    cd extune
+    # 尝试运行extuner数据收集
+    cd extuner
     if python3 main.py; then
-        log_success "extune系统信息收集完成"
+        log_success "extuner系统信息收集完成"
         cd ..
         
         # 检查生成的数据文件
-        local data_files=("$extune_data_dir/CPUInfo.txt" "$extune_data_dir/memInfo.txt" "$extune_data_dir/diskInfo.txt" "$extune_data_dir/netInfo.txt" "$extune_data_dir/sysParamInfo.txt")
+        local data_files=("$extuner_data_dir/CPUInfo.txt" "$extuner_data_dir/memInfo.txt" "$extuner_data_dir/diskInfo.txt" "$extuner_data_dir/netInfo.txt" "$extuner_data_dir/sysParamInfo.txt")
         local found_files=0
         
         for file in "${data_files[@]}"; do
@@ -854,35 +854,35 @@ collect_system_info() {
         done
         
         if [[ $found_files -gt 0 ]]; then
-            log_success "系统信息已保存到 $extune_data_dir/ ($found_files 个文件)"
+            log_success "系统信息已保存到 $extuner_data_dir/ ($found_files 个文件)"
             
             # 显示收集到的主要信息
             log_info "收集到的主要信息:"
             
             # 从CPUInfo.txt提取CPU信息
-            if [[ -f "$extune_data_dir/CPUInfo.txt" ]]; then
-                local cpu_info=$(grep "Model name" "$extune_data_dir/CPUInfo.txt" | head -1 | cut -d':' -f2 | sed 's/^[ \t]*//')
+            if [[ -f "$extuner_data_dir/CPUInfo.txt" ]]; then
+                local cpu_info=$(grep "Model name" "$extuner_data_dir/CPUInfo.txt" | head -1 | cut -d':' -f2 | sed 's/^[ \t]*//')
                 if [[ -n "$cpu_info" ]]; then
                     echo -e "  ${CYAN}CPU${NC}: $cpu_info"
                 fi
             fi
             
             # 从memInfo.txt提取内存信息
-            if [[ -f "$extune_data_dir/memInfo.txt" ]]; then
-                local mem_info=$(grep "MemTotal" "$extune_data_dir/memInfo.txt" | head -1 | awk '{print $2 " " $3}')
+            if [[ -f "$extuner_data_dir/memInfo.txt" ]]; then
+                local mem_info=$(grep "MemTotal" "$extuner_data_dir/memInfo.txt" | head -1 | awk '{print $2 " " $3}')
                 if [[ -n "$mem_info" ]]; then
                     echo -e "  ${CYAN}内存${NC}: $mem_info"
                 fi
             fi
             
             # 从sysParamInfo.txt提取主机名和系统信息
-            if [[ -f "$extune_data_dir/sysParamInfo.txt" ]]; then
-                local hostname_info=$(grep "Static hostname" "$extune_data_dir/sysParamInfo.txt" | head -1 | cut -d':' -f2 | sed 's/^[ \t]*//')
+            if [[ -f "$extuner_data_dir/sysParamInfo.txt" ]]; then
+                local hostname_info=$(grep "Static hostname" "$extuner_data_dir/sysParamInfo.txt" | head -1 | cut -d':' -f2 | sed 's/^[ \t]*//')
                 if [[ -n "$hostname_info" ]]; then
                     echo -e "  ${CYAN}主机名${NC}: $hostname_info"
                 fi
                 
-                local os_info=$(grep "PRETTY_NAME" "$extune_data_dir/sysParamInfo.txt" | head -1 | cut -d'=' -f2 | sed 's/"//g')
+                local os_info=$(grep "PRETTY_NAME" "$extuner_data_dir/sysParamInfo.txt" | head -1 | cut -d'=' -f2 | sed 's/"//g')
                 if [[ -n "$os_info" ]]; then
                     echo -e "  ${CYAN}操作系统${NC}: $os_info"
                 fi
@@ -892,11 +892,11 @@ collect_system_info() {
         fi
     else
         cd ..
-        log_warning "extune系统信息收集失败，但不影响应用启动"
+        log_warning "extuner系统信息收集失败，但不影响应用启动"
         log_info "应用将使用实时获取的系统信息和现有的示例数据"
         
         # 检查是否已有示例数据文件
-        if [[ -f "$extune_data_dir/CPUInfo.txt" ]]; then
+        if [[ -f "$extuner_data_dir/CPUInfo.txt" ]]; then
             log_info "发现现有的系统信息数据文件，将使用这些数据"
         fi
     fi

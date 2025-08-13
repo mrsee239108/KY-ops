@@ -375,6 +375,12 @@ body {
     padding: 0 20px;
 }
 
+/* 禁用状态的历史记录 */
+.chat-history.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .history-header {
     display: flex;
     justify-content: space-between;
@@ -400,6 +406,21 @@ body {
     background: rgba(255, 69, 58, 0.1);
 }
 
+.refresh-history-btn {
+    background: none;
+    border: none;
+    color: var(--text-danger);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.refresh-history-btn:hover {
+    background: rgba(255, 69, 58, 0.1);
+}
+
+
 .history-item {
     padding: 12px;
     margin-bottom: 8px;
@@ -420,6 +441,11 @@ body {
 .history-item.active {
     background: #007aff;
     color: white;
+}
+
+.history-list.disabled .history-item {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .history-title {
@@ -481,6 +507,12 @@ body {
     border-color: var(--text-accent);
     color: var(--text-primary);
 }
+
+.action-btn.context-toggle.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
 
 /* 聊天区域 - 深色调整 */
 .chat-area {

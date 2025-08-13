@@ -44,6 +44,14 @@ class ThemeManager {
     applyTheme(theme) {
         const body = document.body;
         
+        // 如果body还没有加载，延迟执行
+        if (!body) {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.applyTheme(theme);
+            });
+            return;
+        }
+        
         // 移除所有主题类
         body.classList.remove('theme-dark', 'theme-light');
         
@@ -150,7 +158,13 @@ class ThemeManager {
 }
 
 // 创建全局主题管理器实例
-window.themeManager = new ThemeManager();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.themeManager = new ThemeManager();
+    });
+} else {
+    window.themeManager = new ThemeManager();
+}
 
 // 导出给其他模块使用
 if (typeof module !== 'undefined' && module.exports) {

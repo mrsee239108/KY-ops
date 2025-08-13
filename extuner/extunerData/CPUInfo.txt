@@ -1,0 +1,1991 @@
+Command: cat /proc/cpuinfo
+SubCommand: lscpu
+Architecture:                       x86_64
+CPU op-mode(s):                     32-bit, 64-bit
+Byte Order:                         Little Endian
+Address sizes:                      45 bits physical, 48 bits virtual
+CPU(s):                             8
+On-line CPU(s) list:                0-7
+Thread(s) per core:                 1
+Core(s) per socket:                 4
+Socket(s):                          2
+NUMA node(s):                       1
+Vendor ID:                          GenuineIntel
+BIOS Vendor ID:                     GenuineIntel
+CPU family:                         6
+Model:                              154
+Model name:                         12th Gen Intel(R) Core(TM) i5-12450H
+BIOS Model name:                    12th Gen Intel(R) Core(TM) i5-12450H
+Stepping:                           3
+CPU MHz:                            2496.006
+BogoMIPS:                           4992.01
+Hypervisor vendor:                  VMware
+Virtualization type:                full
+L1d cache:                          384 KiB
+L1i cache:                          256 KiB
+L2 cache:                           10 MiB
+L3 cache:                           24 MiB
+NUMA node0 CPU(s):                  0-7
+Vulnerability Gather data sampling: Not affected
+Vulnerability Itlb multihit:        KVM: Vulnerable
+Vulnerability L1tf:                 Not affected
+Vulnerability Mds:                  Not affected
+Vulnerability Meltdown:             Not affected
+Vulnerability Mmio stale data:      Not affected
+Vulnerability Retbleed:             Not affected
+Vulnerability Spec store bypass:    Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:           Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:           Mitigation; Enhanced IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS SW sequence
+Vulnerability Srbds:                Not affected
+Vulnerability Tsx async abort:      Not affected
+Flags:                              fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+-------------------------kylin-------------------------
+Command: cat /proc/cpuinfo
+SubCommand: dmidecode -t processor | grep 'Socket Designation:\|Max Speed:\|Current Speed:'
+	Socket Designation: CPU 0
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 1
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 2
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 3
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 4
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 5
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 6
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 7
+	Max Speed: 2380 MHz
+	Current Speed: 2380 MHz
+	Socket Designation: CPU 8
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 9
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 10
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 11
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 12
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 13
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 14
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 15
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 16
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 17
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 18
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 19
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 20
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 21
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 22
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 23
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 24
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 25
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 26
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 27
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 28
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 29
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 30
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 31
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 32
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 33
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 34
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 35
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 36
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 37
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 38
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 39
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 40
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 41
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 42
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 43
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 44
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 45
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 46
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 47
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 48
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 49
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 50
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 51
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 52
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 53
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 54
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 55
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 56
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 57
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 58
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 59
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 60
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 61
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 62
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 63
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 64
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 65
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 66
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 67
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 68
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 69
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 70
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 71
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 72
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 73
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 74
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 75
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 76
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 77
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 78
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 79
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 80
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 81
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 82
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 83
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 84
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 85
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 86
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 87
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 88
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 89
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 90
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 91
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 92
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 93
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 94
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 95
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 96
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 97
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 98
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 99
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 100
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 101
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 102
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 103
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 104
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 105
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 106
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 107
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 108
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 109
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 110
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 111
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 112
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 113
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 114
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 115
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 116
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 117
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 118
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 119
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 120
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 121
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 122
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 123
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 124
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 125
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 126
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+	Socket Designation: CPU 127
+	Max Speed: 2380 MHz
+	Current Speed: Unknown
+-------------------------kylin-------------------------
+Command: cat /proc/cpuinfo
+SubCommand: cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 1
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 1
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 1
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 154
+model name	: 12th Gen Intel(R) Core(TM) i5-12450H
+stepping	: 3
+microcode	: 0x430
+cpu MHz		: 2496.006
+cache size	: 12288 KB
+physical id	: 1
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 32
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves arat umip pku ospke gfni vaes vpclmulqdq rdpid movdiri movdir64b md_clear flush_l1d arch_capabilities
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs itlb_multihit eibrs_pbrsb
+bogomips	: 4992.01
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 45 bits physical, 48 bits virtual
+power management:
+
+=========================kylin=========================
+Command: mpstat
+SubCommand: mpstat -P ALL 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02:18:27 PM  all    0.04    0.00    0.42    0.04    0.04    0.00    0.00    0.00    0.00   99.46
+02:18:27 PM    0    0.33    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.34
+02:18:27 PM    1    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+02:18:27 PM    2    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00
+02:18:27 PM    3    0.00    0.00    0.33    0.33    0.00    0.00    0.00    0.00    0.00   99.34
+02:18:27 PM    4    0.00    0.00    0.66    0.00    0.00    0.00    0.00    0.00    0.00   99.34
+02:18:27 PM    5    0.00    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.67
+02:18:27 PM    6    0.00    0.00    0.33    0.00    0.33    0.00    0.00    0.00    0.00   99.34
+02:18:27 PM    7    0.00    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.67
+
+Average:     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+Average:     all    0.04    0.00    0.42    0.04    0.04    0.00    0.00    0.00    0.00   99.46
+Average:       0    0.33    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.34
+Average:       1    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
+Average:       2    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00
+Average:       3    0.00    0.00    0.33    0.33    0.00    0.00    0.00    0.00    0.00   99.34
+Average:       4    0.00    0.00    0.66    0.00    0.00    0.00    0.00    0.00    0.00   99.34
+Average:       5    0.00    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.67
+Average:       6    0.00    0.00    0.33    0.00    0.33    0.00    0.00    0.00    0.00   99.34
+Average:       7    0.00    0.00    0.33    0.00    0.00    0.00    0.00    0.00    0.00   99.67
+=========================kylin=========================
+Command: top
+SubCommand: uptime
+ 14:18:24 up  3:24,  2 users,  load average: 0.29, 0.19, 0.18
+ 14:18:25 up  3:24,  2 users,  load average: 0.29, 0.19, 0.18
+ 14:18:26 up  3:24,  2 users,  load average: 0.26, 0.18, 0.17
+ 14:18:27 up  3:24,  2 users,  load average: 0.26, 0.18, 0.17
+ 14:18:28 up  3:24,  2 users,  load average: 0.26, 0.18, 0.17
+-------------------------kylin-------------------------
+Command: top
+SubCommand: top -b -n 3
+top - 14:18:30 up  3:24,  2 users,  load average: 0.26, 0.18, 0.17
+Tasks: 315 total,   2 running, 313 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.2 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   6654.7 total,   4776.4 free,    780.6 used,   1097.8 buff/cache
+MiB Swap:   4096.0 total,   4096.0 free,      0.0 used.   5601.3 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    997 dbus      20   0    8868   6016   4176 S   0.3   0.1   0:10.75 dbus-daemon
+   1435 root      20   0  307972  92428  49008 S   0.3   1.4   8:46.91 Xorg
+   2527 root      20   0 2613332  81304  62408 S   0.3   1.2   0:49.15 mate-indicators
+      1 root      20   0  105124  12200   8772 S   0.0   0.2   0:04.49 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.05 kthreadd
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-kblockd
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq
+      9 root      20   0       0      0      0 S   0.0   0.0   0:01.21 ksoftirqd/0
+     10 root      20   0       0      0      0 R   0.0   0.0   0:13.18 rcu_sched
+     11 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_bh
+     12 root      rt   0       0      0      0 S   0.0   0.0   0:00.78 migration/0
+     13 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+     14 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+     15 root      rt   0       0      0      0 S   0.0   0.0   0:01.57 migration/1
+     16 root      20   0       0      0      0 S   0.0   0.0   0:00.41 ksoftirqd/1
+     18 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0H-kblockd
+     19 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/2
+     20 root      rt   0       0      0      0 S   0.0   0.0   0:02.62 migration/2
+     21 root      20   0       0      0      0 S   0.0   0.0   0:00.64 ksoftirqd/2
+     23 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/2:0H-kblockd
+     24 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/3
+     25 root      rt   0       0      0      0 S   0.0   0.0   0:01.60 migration/3
+     26 root      20   0       0      0      0 S   0.0   0.0   0:00.44 ksoftirqd/3
+     28 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/3:0H-kblockd
+     29 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/4
+     30 root      rt   0       0      0      0 S   0.0   0.0   0:01.61 migration/4
+     31 root      20   0       0      0      0 S   0.0   0.0   0:01.32 ksoftirqd/4
+     33 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/4:0H-kblockd
+     34 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/5
+     35 root      rt   0       0      0      0 S   0.0   0.0   0:01.67 migration/5
+     36 root      20   0       0      0      0 S   0.0   0.0   0:00.29 ksoftirqd/5
+     38 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/5:0H-kblockd
+     39 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/6
+     40 root      rt   0       0      0      0 S   0.0   0.0   0:01.64 migration/6
+     41 root      20   0       0      0      0 S   0.0   0.0   0:00.40 ksoftirqd/6
+     43 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/6:0H-xfs-log/dm-0
+     44 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/7
+     45 root      rt   0       0      0      0 S   0.0   0.0   0:01.32 migration/7
+     46 root      20   0       0      0      0 S   0.0   0.0   0:00.83 ksoftirqd/7
+     48 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/7:0H-kblockd
+     50 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kdevtmpfs
+     51 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 netns
+     55 root      20   0       0      0      0 S   0.0   0.0   0:00.00 khungtaskd
+     56 root      20   0       0      0      0 S   0.0   0.0   0:00.00 oom_reaper
+     57 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 writeback
+     58 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kcompactd0
+     59 root      25   5       0      0      0 S   0.0   0.0   0:00.00 ksmd
+     60 root      39  19       0      0      0 S   0.0   0.0   0:05.43 khugepaged
+     61 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 crypto
+     62 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kintegrityd
+     63 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kblockd
+     65 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 md
+     66 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 edac-poller
+     67 root      rt   0       0      0      0 S   0.0   0.0   0:00.00 watchdogd
+     81 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kswapd0
+     82 root      20   0       0      0      0 S   0.0   0.0   0:00.00 ecryptfs-kthrea
+    135 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kthrotld
+    136 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/24-pciehp
+    137 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/25-pciehp
+    138 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/26-pciehp
+    139 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/27-pciehp
+    140 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/28-pciehp
+    141 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/29-pciehp
+    142 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/30-pciehp
+    143 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/31-pciehp
+    144 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/32-pciehp
+    145 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/33-pciehp
+    146 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/34-pciehp
+    147 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/35-pciehp
+    148 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/36-pciehp
+    149 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/37-pciehp
+    150 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/38-pciehp
+    151 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/39-pciehp
+    152 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/40-pciehp
+    153 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/41-pciehp
+    154 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/42-pciehp
+    155 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/43-pciehp
+    156 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/44-pciehp
+    157 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/45-pciehp
+    158 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/46-pciehp
+    159 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/47-pciehp
+    160 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/48-pciehp
+    161 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/49-pciehp
+    162 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/50-pciehp
+    163 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/51-pciehp
+    164 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/52-pciehp
+    165 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/53-pciehp
+    166 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/54-pciehp
+    167 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/55-pciehp
+    168 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 acpi_thermal_pm
+    169 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kmpath_rdacd
+    170 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kaluad
+    172 root      20   0       0      0      0 S   0.0   0.0   0:00.00 ion_system_heap
+    173 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 ipv6_addrconf
+    174 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kstrp
+    466 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 ata_sff
+    467 root      20   0       0      0      0 S   0.0   0.0   0:00.02 scsi_eh_0
+    468 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_0
+    469 root      20   0       0      0      0 S   0.0   0.0   0:00.01 scsi_eh_1
+    470 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_1
+    485 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_2
+    486 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_2
+    487 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_3
+    488 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_3
+    489 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_4
+    490 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_4
+    491 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_5
+    492 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_5
+    493 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_6
+    494 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_6
+    495 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_7
+    496 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_7
+    497 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_8
+    498 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_8
+    499 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_9
+    500 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_9
+    501 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_10
+    502 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_10
+    503 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_11
+    504 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_11
+    505 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_12
+    506 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_12
+    507 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_13
+    508 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_13
+    509 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_14
+    510 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_14
+    511 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_15
+    512 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_15
+    513 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_16
+    514 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_16
+    515 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_17
+    516 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_17
+    517 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_18
+    518 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_18
+    519 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_19
+    520 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_19
+    521 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_20
+    522 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_20
+    523 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_21
+    524 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_21
+    525 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_22
+    526 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_22
+    527 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_23
+    528 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_23
+    529 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_24
+    530 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_24
+    531 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_25
+    532 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_25
+    533 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_26
+    534 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_26
+    535 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_27
+    536 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_27
+    537 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_28
+    538 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_28
+    539 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_29
+    540 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_29
+    541 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_30
+    542 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_30
+    543 root      20   0       0      0      0 S   0.0   0.0   0:00.00 scsi_eh_31
+    544 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 scsi_tmf_31
+    573 root       0 -20       0      0      0 I   0.0   0.0   0:00.02 kworker/7:1H-kblockd
+    574 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 ttm_swap
+    575 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 irq/16-vmwgfx
+    577 root       0 -20       0      0      0 I   0.0   0.0   0:00.02 kworker/1:1H-kblockd
+    603 root       0 -20       0      0      0 I   0.0   0.0   0:00.12 kworker/5:1H-kblockd
+    637 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kdmflush
+    644 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kdmflush
+    661 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfsalloc
+    662 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs_mru_cache
+    663 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-buf/dm-0
+    664 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-conv/dm-0
+    665 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-cil/dm-0
+    666 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-reclaim/dm-
+    667 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-log/dm-0
+    668 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-eofblocks/d
+    669 root      20   0       0      0      0 S   0.0   0.0   0:02.20 xfsaild/dm-0
+    670 root       0 -20       0      0      0 I   0.0   0.0   0:00.09 kworker/4:1H-kblockd
+    740 root       0 -20       0      0      0 I   0.0   0.0   0:00.03 kworker/0:1H-xfs-log/dm-0
+    761 root       0 -20       0      0      0 I   0.0   0.0   0:00.02 kworker/2:1H-kblockd
+    780 root      20   0   30880  16644  13268 S   0.0   0.2   0:02.87 systemd-journal
+    792 root       0 -20       0      0      0 I   0.0   0.0   0:00.10 kworker/6:1H-kblockd
+    798 root      20   0   46944  11252   7988 S   0.0   0.2   0:00.42 systemd-udevd
+    832 root       0 -20       0      0      0 I   0.0   0.0   0:00.05 kworker/3:1H-xfs-log/dm-0
+    893 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/u257:0-hci0
+    896 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/u257:2-hci0
+    958 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-buf/sda2
+    959 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-conv/sda2
+    960 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-cil/sda2
+    961 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-reclaim/sda
+    962 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-log/sda2
+    963 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs-eofblocks/s
+    967 root      20   0       0      0      0 S   0.0   0.0   0:00.01 xfsaild/sda2
+    991 root      20   0    3280    164     12 S   0.0   0.0   0:00.00 mdadm
+    994 root      20   0  314064  10684   8920 S   0.0   0.2   0:00.08 ModemManager
+    995 root      20   0    9188   4832   4400 S   0.0   0.1   0:00.02 bluetoothd
+   1005 root      20   0  231828   7720   6584 S   0.0   0.1   0:00.01 kylin_sock_serv
+   1006 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rpciod
+   1007 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xprtiod
+   1008 libstor+  20   0   10604   1904   1748 S   0.0   0.0   0:00.04 lsmd
+   1011 root      20   0   11200   2016   1852 S   0.0   0.0   0:00.00 mcelog
+   1013 root      20   0    5580   2972   2704 S   0.0   0.0   0:00.04 rasdaemon
+   1015 root      20   0   90928   6144   5296 S   0.0   0.1   0:00.58 rngd
+   1016 rtkit     21   1  161992   3352   3040 S   0.0   0.0   0:01.03 rtkit-daemon
+   1019 root      20   0   10540   5580   4368 S   0.0   0.1   0:00.03 smartd
+   1021 root      20   0   80016   1776   1480 S   0.0   0.0   0:00.62 irqbalance
+   1023 root      20   0  251140  11608   9880 S   0.0   0.2   0:00.08 sssd
+   1026 root      20   0  404528  14380  11888 S   0.0   0.2   0:00.11 udisksd
+   1105 root      20   0  251764  12748  10272 S   0.0   0.2   0:00.82 sssd_be
+   1117 root      20   0  264608  36352  34964 S   0.0   0.5   0:03.03 sssd_nss
+   1118 root      20   0  231720   9868   8620 S   0.0   0.1   0:00.11 sssd_pam
+   1120 polkitd   20   0 2929140  21996  17300 S   0.0   0.3   0:00.47 polkitd
+   1138 root      20   0  451516   8100   7100 S   0.0   0.1   0:00.56 accounts-daemon
+   1159 root      20   0  620912  22804  17724 S   0.0   0.3   0:00.59 NetworkManager
+   1161 root      20   0   26956   8960   7804 S   0.0   0.1   0:00.59 systemd-logind
+   1368 root      20   0  163348  10208   7272 S   0.0   0.1   0:01.23 rsyslogd
+   1369 root      20   0   21912   7384   6464 S   0.0   0.1   0:00.03 sshd
+   1372 root      20   0  261632   4008   3284 S   0.0   0.1   0:00.00 gssproxy
+   1387 root      20   0   18160   2380   2168 S   0.0   0.0   0:00.00 atd
+   1389 root      20   0  222892   3116   2724 S   0.0   0.0   0:00.01 crond
+   1391 root      20   0  450980   8596   7556 S   0.0   0.1   0:00.03 lightdm
+   1701 root      20   0  393488  10144   8820 S   0.0   0.1   0:00.01 lightdm
+   1724 root      20   0   20724  10244   8480 S   0.0   0.2   0:00.10 systemd
+   1727 root      20   0   33500   3708     20 S   0.0   0.1   0:00.00 (sd-pam)
+   1734 root      20   0  462012  19008  16380 S   0.0   0.3   0:00.18 mate-session
+   1748 root      20   0   26276   5440   4440 S   0.0   0.1   0:04.50 dbus-daemon
+   1758 root      20   0  443112   8068   6960 S   0.0   0.1   0:00.28 imsettings-daem
+   1761 root      20   0  444260   8000   6996 S   0.0   0.1   0:00.02 gvfsd
+   1766 root      20   0  378048   7968   5280 S   0.0   0.1   0:00.00 gvfsd-fuse
+   1912 root      20   0    7124    556      0 S   0.0   0.0   0:00.02 ssh-agent
+   1955 root      20   0  305124   6720   5972 S   0.0   0.1   0:00.00 at-spi-bus-laun
+   1960 root      20   0   25736   4848   4368 S   0.0   0.1   0:00.01 dbus-daemon
+   1966 root      20   0  156144   5500   4716 S   0.0   0.1   0:00.14 dconf-service
+   1970 root      20   0  444744   6460   5436 S   0.0   0.1   0:00.01 gnome-keyring-d
+   1980 root      20   0 1308876  29264  22592 S   0.0   0.4   0:08.95 mate-settings-d
+   1982 root      20   0  160700   7640   6844 S   0.0   0.1   0:00.02 at-spi2-registr
+   1988 root      20   0  504372  39632  25268 S   0.0   0.6   0:35.87 marco
+   1993 root      20   0  811256  48032  32036 S   0.0   0.7   0:00.56 caja
+   2007 root      20   0  471920  22580  17724 S   0.0   0.3   0:00.63 mate-power-mana
+   2014 root      20   0  759496  37036  24640 S   0.0   0.5   0:00.21 mate-volume-con
+   2028 root      20   0  519848  53288  43560 S   0.0   0.8   0:00.31 polkit-mate-aut
+   2036 root      20   0  527048  10240   8740 S   0.0   0.2   0:00.02 gvfs-udisks2-vo
+   2045 root       9 -11  704436  11984   8792 S   0.0   0.2   0:01.94 pulseaudio
+   2048 root      20   0  825444 102592  67440 S   0.0   1.5   0:00.64 nm-applet
+   2071 root      20   0  605612  39568  30708 S   0.0   0.6   0:00.20 ukui-screensave
+   2082 root      20   0  440196   6040   5420 S   0.0   0.1   0:00.00 gvfs-mtp-volume
+   2103 root      20   0  442672   6720   5980 S   0.0   0.1   0:00.01 gvfs-gphoto2-vo
+   2105 root      20   0  457012  10072   8796 S   0.0   0.1   0:00.41 upowerd
+   2128 root      20   0  440296   6092   5552 S   0.0   0.1   0:00.01 gvfs-goa-volume
+   2151 root      20   0  727832  37532  29692 S   0.0   0.6   0:00.28 goa-daemon
+   2171 root      20   0  240540   8568   7600 S   0.0   0.1   0:00.02 gsettings-helpe
+   2199 root      20   0   19340   6188   5280 S   0.0   0.1   0:00.00 gconf-helper
+   2208 root      20   0  230344   6560   5980 S   0.0   0.1   0:00.02 gconfd-2
+   2256 root      10 -10       0      0      0 S   0.0   0.0   0:00.00 krfcommd
+   2407 root      20   0  471180  14508  12656 S   0.0   0.2   0:00.02 goa-identity-se
+   2425 root      20   0  521660   9224   8172 S   0.0   0.1   0:00.01 gvfs-afc-volume
+   2452 root      20   0  518560   8992   7848 S   0.0   0.1   0:00.02 gvfsd-trash
+   2457 root      20   0  268668  33392  17820 S   0.0   0.5   0:00.25 fcitx
+   2468 root      20   0   25744   3512   3140 S   0.0   0.1   0:00.02 dbus-daemon
+   2474 root      39  19    6192    280      0 S   0.0   0.0   0:00.00 fcitx-dbus-watc
+   2515 root      20   0  577076  39424  26720 S   0.0   0.6   0:00.28 mate-panel
+   2523 root      20   0  760440  69616  35748 S   0.0   1.0   0:06.73 python2
+   2525 root      20   0  564188  35236  22700 S   0.0   0.5   0:00.25 wnck-applet
+   2550 root      20   0  232960   6700   6176 S   0.0   0.1   0:00.01 pxgsettings
+   2675 root      20   0  478152  32784  19236 S   0.0   0.5   0:00.22 bamfdaemon
+   2712 root      20   0  244308  10164   8848 S   0.0   0.1   0:00.01 sshd
+   2778 root      20   0  244308   4984   3640 S   0.0   0.1   0:00.04 sshd
+   2783 root      20   0   23088   4740   4188 S   0.0   0.1   0:00.02 sftp-server
+  14495 root      20   0  560124  71544  48624 S   0.0   1.0   3:19.73 mate-system-mon
+ 128012 root      20   0       0      0      0 I   0.0   0.0   0:00.51 kworker/6:0-cgroup_pidlist_destroy
+ 153259 root      20   0       0      0      0 I   0.0   0.0   0:00.04 kworker/3:1-cgroup_pidlist_destroy
+ 159575 root      20   0       0      0      0 I   0.0   0.0   0:00.23 kworker/7:0-cgroup_pidlist_destroy
+ 161437 root      20   0    9696   5376   4052 S   0.0   0.1   0:00.06 dhclient
+ 181654 root      20   0       0      0      0 I   0.0   0.0   0:00.05 kworker/1:1-events
+ 184227 root      20   0       0      0      0 I   0.0   0.0   0:00.02 kworker/3:2-cgroup_destroy
+ 185513 chrony    20   0   86752   2340   2116 S   0.0   0.0   0:00.01 chronyd
+ 191121 root      20   0  924000 108612  71100 S   0.0   1.6   0:02.32 ukui-screensave
+ 191164 root      20   0       0      0      0 I   0.0   0.0   0:00.11 kworker/u256:2-xfs-cil/dm-0
+ 195536 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/6:3-cgroup_pidlist_destroy
+ 198571 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/2:1-mm_percpu_wq
+ 201979 root      20   0       0      0      0 I   0.0   0.0   0:00.06 kworker/4:0-events
+ 202587 root      20   0       0      0      0 I   0.0   0.0   0:00.04 kworker/u256:1-flush-253:0
+ 205963 root      20   0       0      0      0 I   0.0   0.0   0:00.05 kworker/2:2-events_power_efficient
+ 206502 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/5:0-mm_percpu_wq
+ 206513 root      20   0       0      0      0 I   0.0   0.0   0:00.02 kworker/1:0-events
+ 208685 root      20   0       0      0      0 I   0.0   0.0   0:00.11 kworker/5:3-mm_percpu_wq
+ 209805 root      20   0       0      0      0 I   0.0   0.0   0:00.11 kworker/0:0-events
+ 209813 root      20   0       0      0      0 I   0.0   0.0   0:00.01 kworker/7:3-events
+ 210907 root      20   0  930076  48276   9976 S   0.0   0.7   0:00.05 ukui-screensave
+ 211030 root      20   0       0      0      0 I   0.0   0.0   0:00.01 kworker/4:1-events_freezable_power_
+ 211042 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/6:2-mm_percpu_wq
+ 211221 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0:3-cgroup_destroy
+ 213383 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/3:0-events
+ 213689 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/2:0-mm_percpu_wq
+ 213746 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/u256:0
+ 214893 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/5:1-events
+ 214913 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/7:1-cgroup_pidlist_destroy
+ 214914 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/7:2-mm_percpu_wq
+ 214916 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0:1-cgroup_pidlist_destroy
+ 214917 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0:2-cgroup_destroy
+ 214927 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/1:2-mm_percpu_wq
+ 214937 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/3:3-events
+ 214938 root      20   0  250568  10768   9424 S   0.0   0.2   0:00.01 sshd
+ 214946 root      20   0  244308  10024   8712 S   0.0   0.1   0:00.01 sshd
+ 214950 root      20   0  244648   5596   4108 S   0.0   0.1   0:00.01 sshd
+ 214958 root      20   0  223648   5536   3628 S   0.0   0.1   0:00.02 bash
+ 215013 root      20   0  244308   4972   3628 S   0.0   0.1   0:00.01 sshd
+ 215018 root      20   0   23088   5032   4476 S   0.0   0.1   0:00.00 sftp-server
+ 215061 root      20   0  214388   4056   3176 S   0.0   0.1   0:00.00 bash
+ 215128 root      20   0  240520  10360   9052 S   0.0   0.2   0:00.00 kylin_kms_daemo
+ 215168 root      20   0 1288868  18332   8032 S   0.0   0.3   0:00.10 python3
+ 215232 root      20   0  212456    784    716 S   0.0   0.0   0:00.00 sar
+ 215233 root      20   0  225748   4560   3844 R   0.0   0.1   0:00.01 top
+ 215234 root      20   0  214100   2028   1808 S   0.0   0.0   0:00.00 sadc
+=========================kylin=========================
+Command: pidstat
+SubCommand: pidstat -w 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM   UID       PID   cswch/s nvcswch/s  Command
+02:18:27 PM     0         1      0.66      0.00  systemd
+02:18:27 PM     0         9      0.33      0.00  ksoftirqd/0
+02:18:27 PM     0        10     28.81      0.00  rcu_sched
+02:18:27 PM     0        12      1.99      0.00  migration/0
+02:18:27 PM     0        15      0.99      0.00  migration/1
+02:18:27 PM     0        16      0.66      0.00  ksoftirqd/1
+02:18:27 PM     0        20      0.99      0.00  migration/2
+02:18:27 PM     0        21      1.66      0.00  ksoftirqd/2
+02:18:27 PM     0        25      1.99      0.00  migration/3
+02:18:27 PM     0        26      2.98      0.00  ksoftirqd/3
+02:18:27 PM     0        30      1.66      0.00  migration/4
+02:18:27 PM     0        31      4.30      0.00  ksoftirqd/4
+02:18:27 PM     0        35      0.66      0.00  migration/5
+02:18:27 PM     0        36      0.99      0.00  ksoftirqd/5
+02:18:27 PM     0        40      1.66      0.00  migration/6
+02:18:27 PM     0        41      2.32      0.00  ksoftirqd/6
+02:18:27 PM     0        45      0.66      0.00  migration/7
+02:18:27 PM     0        46      0.66      0.00  ksoftirqd/7
+02:18:27 PM     0       577      0.33      0.00  kworker/1:1H-kblockd
+02:18:27 PM     0       669     16.56      0.00  xfsaild/dm-0
+02:18:27 PM     0       761     12.25      0.00  kworker/2:1H-xfs-log/dm-0
+02:18:27 PM     0       832     44.37      0.00  kworker/3:1H-xfs-log/dm-0
+02:18:27 PM    81       997      0.99      0.00  dbus-daemon
+02:18:27 PM     0      1023      0.33      0.00  sssd
+02:18:27 PM     0      1117      2.98      0.00  sssd_nss
+02:18:27 PM     0      1435      4.97      0.00  Xorg
+02:18:27 PM     0      1748      0.99      0.00  dbus-daemon
+02:18:27 PM     0      1912      0.33      0.00  ssh-agent
+02:18:27 PM     0      1980      0.99      0.00  mate-settings-d
+02:18:27 PM     0      1988      2.98      0.00  marco
+02:18:27 PM     0      2045      0.99      0.00  pulseaudio
+02:18:27 PM     0      2527      3.97      0.00  mate-indicators
+02:18:27 PM     0     14495      9.60      0.00  mate-system-mon
+02:18:27 PM     0    191121      0.99      0.00  ukui-screensave
+02:18:27 PM     0    191164     13.91      0.00  kworker/u256:2-xfs-cil/dm-0
+02:18:27 PM     0    202587     16.23      0.00  kworker/u256:1-events_unbound
+02:18:27 PM     0    209805      1.32      0.00  kworker/0:0-events
+02:18:27 PM     0    211030      9.93      0.00  kworker/4:1-events
+02:18:27 PM     0    211042      1.32      0.00  kworker/6:2-events
+02:18:27 PM     0    213689      8.61      0.00  kworker/2:0-mm_percpu_wq
+02:18:27 PM     0    214893      1.32      0.00  kworker/5:1-events
+02:18:27 PM     0    214914      1.99      0.00  kworker/7:2-events
+02:18:27 PM     0    214927      2.32      0.00  kworker/1:2-events
+02:18:27 PM     0    214937     23.84      0.00  kworker/3:3-events
+02:18:27 PM     0    214950      1.32      0.00  sshd
+02:18:27 PM     0    215128      0.66      0.00  kylin_kms_daemo
+02:18:27 PM     0    215168     26.82      0.00  python3
+02:18:27 PM     0    215217      1.99      0.00  sh
+02:18:27 PM     0    215226      0.33      0.00  pidstat
+02:18:27 PM     0    215232      1.32      0.66  sar
+02:18:27 PM     0    215233      2.98      0.33  top
+02:18:27 PM     0    215234      0.66      0.00  sadc
+
+Average:      UID       PID   cswch/s nvcswch/s  Command
+Average:        0         1      0.66      0.00  systemd
+Average:        0         9      0.33      0.00  ksoftirqd/0
+Average:        0        10     28.81      0.00  rcu_sched
+Average:        0        12      1.99      0.00  migration/0
+Average:        0        15      0.99      0.00  migration/1
+Average:        0        16      0.66      0.00  ksoftirqd/1
+Average:        0        20      0.99      0.00  migration/2
+Average:        0        21      1.66      0.00  ksoftirqd/2
+Average:        0        25      1.99      0.00  migration/3
+Average:        0        26      2.98      0.00  ksoftirqd/3
+Average:        0        30      1.66      0.00  migration/4
+Average:        0        31      4.30      0.00  ksoftirqd/4
+Average:        0        35      0.66      0.00  migration/5
+Average:        0        36      0.99      0.00  ksoftirqd/5
+Average:        0        40      1.66      0.00  migration/6
+Average:        0        41      2.32      0.00  ksoftirqd/6
+Average:        0        45      0.66      0.00  migration/7
+Average:        0        46      0.66      0.00  ksoftirqd/7
+Average:        0       577      0.33      0.00  kworker/1:1H-kblockd
+Average:        0       669     16.56      0.00  xfsaild/dm-0
+Average:        0       761     12.25      0.00  kworker/2:1H-xfs-log/dm-0
+Average:        0       832     44.37      0.00  kworker/3:1H-xfs-log/dm-0
+Average:       81       997      0.99      0.00  dbus-daemon
+Average:        0      1023      0.33      0.00  sssd
+Average:        0      1117      2.98      0.00  sssd_nss
+Average:        0      1435      4.97      0.00  Xorg
+Average:        0      1748      0.99      0.00  dbus-daemon
+Average:        0      1912      0.33      0.00  ssh-agent
+Average:        0      1980      0.99      0.00  mate-settings-d
+Average:        0      1988      2.98      0.00  marco
+Average:        0      2045      0.99      0.00  pulseaudio
+Average:        0      2527      3.97      0.00  mate-indicators
+Average:        0     14495      9.60      0.00  mate-system-mon
+Average:        0    191121      0.99      0.00  ukui-screensave
+Average:        0    191164     13.91      0.00  kworker/u256:2-xfs-cil/dm-0
+Average:        0    202587     16.23      0.00  kworker/u256:1-events_unbound
+Average:        0    209805      1.32      0.00  kworker/0:0-events
+Average:        0    211030      9.93      0.00  kworker/4:1-events
+Average:        0    211042      1.32      0.00  kworker/6:2-events
+Average:        0    213689      8.61      0.00  kworker/2:0-mm_percpu_wq
+Average:        0    214893      1.32      0.00  kworker/5:1-events
+Average:        0    214914      1.99      0.00  kworker/7:2-events
+Average:        0    214927      2.32      0.00  kworker/1:2-events
+Average:        0    214937     23.84      0.00  kworker/3:3-events
+Average:        0    214950      1.32      0.00  sshd
+Average:        0    215128      0.66      0.00  kylin_kms_daemo
+Average:        0    215168     26.82      0.00  python3
+Average:        0    215217      1.99      0.00  sh
+Average:        0    215226      0.33      0.00  pidstat
+Average:        0    215232      1.32      0.66  sar
+Average:        0    215233      2.98      0.33  top
+Average:        0    215234      0.66      0.00  sadc
+-------------------------kylin-------------------------
+Command: pidstat
+SubCommand: pidstat |sort -ir -k 9
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:27 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:18:27 PM     0      1435    2.73    1.56    0.00    0.42    4.29     0  Xorg
+02:18:27 PM     0     14495    0.81    0.82    0.00    0.13    1.63     0  mate-system-mon
+02:18:27 PM     0      2527    0.11    0.29    0.00    0.07    0.40     2  mate-indicators
+02:18:27 PM     0      1988    0.04    0.25    0.00    0.65    0.29     1  marco
+02:18:27 PM     0        10    0.00    0.11    0.00    0.36    0.11     5  rcu_sched
+02:18:27 PM    81       997    0.04    0.05    0.00    0.04    0.09     7  dbus-daemon
+02:18:27 PM     0      1980    0.01    0.06    0.00    0.03    0.07     1  mate-settings-d
+02:18:27 PM     0      2523    0.02    0.03    0.00    0.00    0.05     6  python2
+02:18:27 PM     0        60    0.00    0.04    0.00    0.00    0.04     7  khugepaged
+02:18:27 PM     0      1748    0.01    0.03    0.00    0.04    0.04     6  dbus-daemon
+02:18:27 PM     0         1    0.00    0.03    0.00    0.00    0.04     5  systemd
+02:18:27 PM     0      1117    0.00    0.02    0.00    0.04    0.02     7  sssd_nss
+02:18:27 PM     0       780    0.00    0.02    0.00    0.01    0.02     5  systemd-journal
+02:18:27 PM     0       669    0.00    0.02    0.00    0.12    0.02     4  xfsaild/dm-0
+02:18:27 PM     0        20    0.00    0.02    0.00    0.01    0.02     2  migration/2
+02:18:27 PM     0    191121    0.00    0.01    0.00    0.01    0.02     1  ukui-screensave
+02:18:27 PM     0      2045    0.00    0.01    0.00    0.04    0.02     0  pulseaudio
+02:18:27 PM     0        45    0.00    0.01    0.00    0.00    0.01     7  migration/7
+02:18:27 PM     0        46    0.00    0.01    0.00    0.01    0.01     7  ksoftirqd/7
+02:18:27 PM     0        40    0.00    0.01    0.00    0.00    0.01     6  migration/6
+02:18:27 PM     0        35    0.00    0.01    0.00    0.02    0.01     5  migration/5
+02:18:27 PM     0        30    0.00    0.01    0.00    0.01    0.01     4  migration/4
+02:18:27 PM     0        31    0.00    0.01    0.00    0.02    0.01     4  ksoftirqd/4
+02:18:27 PM     0      1368    0.00    0.01    0.00    0.00    0.01     3  rsyslogd
+02:18:27 PM     0        25    0.00    0.01    0.00    0.00    0.01     3  migration/3
+02:18:27 PM     0      2007    0.00    0.00    0.00    0.01    0.01     3  mate-power-mana
+02:18:27 PM     0      1021    0.00    0.00    0.00    0.00    0.01     3  irqbalance
+02:18:27 PM     0      1105    0.00    0.00    0.00    0.00    0.01     2  sssd_be
+02:18:27 PM     0        21    0.00    0.01    0.00    0.02    0.01     2  ksoftirqd/2
+02:18:27 PM   172      1016    0.00    0.01    0.00    0.00    0.01     1  rtkit-daemon
+02:18:27 PM     0        15    0.00    0.01    0.00    0.00    0.01     1  migration/1
+02:18:27 PM     0      2048    0.00    0.00    0.00    0.00    0.01     0  nm-applet
+02:18:27 PM     0        12    0.00    0.01    0.00    0.00    0.01     0  migration/0
+02:18:27 PM     0         9    0.00    0.01    0.00    0.02    0.01     0  ksoftirqd/0
+02:18:27 PM     0    210907    0.00    0.00    0.00    0.00    0.00     7  ukui-screensave
+02:18:27 PM     0      1161    0.00    0.00    0.00    0.00    0.00     7  systemd-logind
+02:18:27 PM     0      2712    0.00    0.00    0.00    0.00    0.00     7  sshd
+02:18:27 PM     0      2783    0.00    0.00    0.00    0.00    0.00     7  sftp-server
+02:18:27 PM     0      2028    0.00    0.00    0.00    0.00    0.00     7  polkit-mate-aut
+02:18:27 PM     0      2014    0.00    0.00    0.00    0.00    0.00     7  mate-volume-con
+02:18:27 PM     0      1734    0.00    0.00    0.00    0.00    0.00     7  mate-session
+02:18:27 PM     0    209813    0.00    0.00    0.00    0.00    0.00     7  kworker/7:3-events
+02:18:27 PM     0       573    0.00    0.00    0.00    0.00    0.00     7  kworker/7:1H-kblockd
+02:18:27 PM     0    159575    0.00    0.00    0.00    0.00    0.00     7  kworker/7:0-cgroup_pidlist_destroy
+02:18:27 PM     0      1960    0.00    0.00    0.00    0.00    0.00     7  dbus-daemon
+02:18:27 PM     0    214946    0.00    0.00    0.00    0.00    0.00     6  sshd
+02:18:27 PM     0      1019    0.00    0.00    0.00    0.00    0.00     6  smartd
+02:18:27 PM     0    215168    0.00    0.00    0.00    0.00    0.00     6  python3
+02:18:27 PM     0      2550    0.00    0.00    0.00    0.00    0.00     6  pxgsettings
+02:18:27 PM   995      1120    0.00    0.00    0.00    0.00    0.00     6  polkitd
+02:18:27 PM     0    191164    0.00    0.00    0.00    0.00    0.00     6  kworker/u256:2-xfs-cil/dm-0
+02:18:27 PM     0       792    0.00    0.00    0.00    0.00    0.00     6  kworker/6:1H-kblockd
+02:18:27 PM     0    128012    0.00    0.00    0.00    0.01    0.00     6  kworker/6:0-cgroup_pidlist_destroy
+02:18:27 PM     0        41    0.00    0.00    0.00    0.02    0.00     6  ksoftirqd/6
+02:18:27 PM     0      2425    0.00    0.00    0.00    0.00    0.00     6  gvfs-afc-volume
+02:18:27 PM     0      1966    0.00    0.00    0.00    0.00    0.00     6  dconf-service
+02:18:27 PM     0      2105    0.00    0.00    0.00    0.00    0.00     5  upowerd
+02:18:27 PM     0      2778    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:27 PM     0    214938    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:27 PM     0      1391    0.00    0.00    0.00    0.00    0.00     5  lightdm
+02:18:27 PM     0    208685    0.00    0.00    0.00    0.00    0.00     5  kworker/5:3-mm_percpu_wq
+02:18:27 PM     0       603    0.00    0.00    0.00    0.00    0.00     5  kworker/5:1H-kblockd
+02:18:27 PM     0         2    0.00    0.00    0.00    0.00    0.00     5  kthreadd
+02:18:27 PM     0        36    0.00    0.00    0.00    0.02    0.00     5  ksoftirqd/5
+02:18:27 PM     0      2151    0.00    0.00    0.00    0.00    0.00     5  goa-daemon
+02:18:27 PM     0      2457    0.00    0.00    0.00    0.00    0.00     5  fcitx
+02:18:27 PM     0      1389    0.00    0.00    0.00    0.00    0.00     5  crond
+02:18:27 PM     0       995    0.00    0.00    0.00    0.00    0.00     5  bluetoothd
+02:18:27 PM     0      1724    0.00    0.00    0.00    0.00    0.00     4  systemd
+02:18:27 PM     0    215013    0.00    0.00    0.00    0.00    0.00     4  sshd
+02:18:27 PM     0       467    0.00    0.00    0.00    0.00    0.00     4  scsi_eh_0
+02:18:27 PM     0      1701    0.00    0.00    0.00    0.00    0.00     4  lightdm
+02:18:27 PM     0       670    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1H-kblockd
+02:18:27 PM     0    211030    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1-events
+02:18:27 PM     0    201979    0.00    0.00    0.00    0.00    0.00     4  kworker/4:0-events
+02:18:27 PM     0      1970    0.00    0.00    0.00    0.00    0.00     4  gnome-keyring-d
+02:18:27 PM     0    161437    0.00    0.00    0.00    0.00    0.00     4  dhclient
+02:18:27 PM     0      2468    0.00    0.00    0.00    0.00    0.00     4  dbus-daemon
+02:18:27 PM   987    185513    0.00    0.00    0.00    0.00    0.00     4  chronyd
+02:18:27 PM     0      1138    0.00    0.00    0.00    0.00    0.00     4  accounts-daemon
+02:18:27 PM     0    214950    0.00    0.00    0.00    0.00    0.00     3  sshd
+02:18:27 PM     0       469    0.00    0.00    0.00    0.00    0.00     3  scsi_eh_1
+02:18:27 PM     0      1159    0.00    0.00    0.00    0.00    0.00     3  NetworkManager
+02:18:27 PM     0      1005    0.00    0.00    0.00    0.00    0.00     3  kylin_sock_serv
+02:18:27 PM     0    184227    0.00    0.00    0.00    0.00    0.00     3  kworker/3:2-cgroup_destroy
+02:18:27 PM     0       832    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1H-xfs-log/dm-0
+02:18:27 PM     0    153259    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1-cgroup_pidlist_destroy
+02:18:27 PM     0        26    0.00    0.00    0.00    0.02    0.00     3  ksoftirqd/3
+02:18:27 PM     0      1758    0.00    0.00    0.00    0.00    0.00     3  imsettings-daem
+02:18:27 PM     0      2036    0.00    0.00    0.00    0.00    0.00     3  gvfs-udisks2-vo
+02:18:27 PM     0      1761    0.00    0.00    0.00    0.00    0.00     3  gvfsd
+02:18:27 PM     0      2407    0.00    0.00    0.00    0.00    0.00     3  goa-identity-se
+02:18:27 PM     0      1993    0.00    0.00    0.00    0.00    0.00     3  caja
+02:18:27 PM     0      2675    0.00    0.00    0.00    0.00    0.00     3  bamfdaemon
+02:18:27 PM     0      2525    0.00    0.00    0.00    0.00    0.00     2  wnck-applet
+02:18:27 PM     0      2071    0.00    0.00    0.00    0.00    0.00     2  ukui-screensave
+02:18:27 PM     0      1015    0.00    0.00    0.00    0.00    0.00     2  rngd
+02:18:27 PM     0      1013    0.00    0.00    0.00    0.00    0.00     2  rasdaemon
+02:18:27 PM     0       994    0.00    0.00    0.00    0.00    0.00     2  ModemManager
+02:18:27 PM     0    202587    0.00    0.00    0.00    0.00    0.00     2  kworker/u256:1-events_unbound
+02:18:27 PM     0    205963    0.00    0.00    0.00    0.00    0.00     2  kworker/2:2-events_power_efficient
+02:18:27 PM     0       761    0.00    0.00    0.00    0.00    0.00     2  kworker/2:1H-xfs-log/dm-0
+02:18:27 PM     0      2171    0.00    0.00    0.00    0.00    0.00     2  gsettings-helpe
+02:18:27 PM     0    214958    0.00    0.00    0.00    0.00    0.00     2  bash
+02:18:27 PM     0      1982    0.00    0.00    0.00    0.00    0.00     2  at-spi2-registr
+02:18:27 PM     0       967    0.00    0.00    0.00    0.00    0.00     1  xfsaild/sda2
+02:18:27 PM     0      1026    0.00    0.00    0.00    0.00    0.00     1  udisksd
+02:18:27 PM     0      1118    0.00    0.00    0.00    0.01    0.00     1  sssd_pam
+02:18:27 PM     0      1369    0.00    0.00    0.00    0.00    0.00     1  sshd
+02:18:27 PM     0      1912    0.00    0.00    0.00    0.00    0.00     1  ssh-agent
+02:18:27 PM   996      1008    0.00    0.00    0.00    0.00    0.00     1  lsmd
+02:18:27 PM     0       577    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1H-kblockd
+02:18:27 PM     0    181654    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1-events
+02:18:27 PM     0    206513    0.00    0.00    0.00    0.00    0.00     1  kworker/1:0-events
+02:18:27 PM     0        16    0.00    0.00    0.00    0.01    0.00     1  ksoftirqd/1
+02:18:27 PM     0      2452    0.00    0.00    0.00    0.00    0.00     1  gvfsd-trash
+02:18:27 PM     0       798    0.00    0.00    0.00    0.00    0.00     0  systemd-udevd
+02:18:27 PM     0      1023    0.00    0.00    0.00    0.00    0.00     0  sssd
+02:18:27 PM     0      2515    0.00    0.00    0.00    0.00    0.00     0  mate-panel
+02:18:27 PM     0       740    0.00    0.00    0.00    0.00    0.00     0  kworker/0:1H-xfs-log/dm-0
+02:18:27 PM     0    209805    0.00    0.00    0.00    0.00    0.00     0  kworker/0:0-events
+02:18:27 PM     0      2103    0.00    0.00    0.00    0.00    0.00     0  gvfs-gphoto2-vo
+02:18:27 PM     0      2128    0.00    0.00    0.00    0.00    0.00     0  gvfs-goa-volume
+02:18:27 PM     0      2208    0.00    0.00    0.00    0.00    0.00     0  gconfd-2
+
+02:18:28 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:18:28 PM     0      1435    2.73    1.56    0.00    0.42    4.29     0  Xorg
+02:18:28 PM     0     14495    0.81    0.82    0.00    0.13    1.63     0  mate-system-mon
+02:18:28 PM     0      2527    0.11    0.29    0.00    0.07    0.40     2  mate-indicators
+02:18:28 PM     0      1988    0.04    0.25    0.00    0.65    0.29     1  marco
+02:18:28 PM     0        10    0.00    0.11    0.00    0.36    0.11     5  rcu_sched
+02:18:28 PM    81       997    0.04    0.05    0.00    0.04    0.09     7  dbus-daemon
+02:18:28 PM     0      1980    0.01    0.06    0.00    0.03    0.07     1  mate-settings-d
+02:18:28 PM     0      2523    0.02    0.03    0.00    0.00    0.05     6  python2
+02:18:28 PM     0        60    0.00    0.04    0.00    0.00    0.04     7  khugepaged
+02:18:28 PM     0      1748    0.01    0.03    0.00    0.04    0.04     6  dbus-daemon
+02:18:28 PM     0         1    0.00    0.03    0.00    0.00    0.04     5  systemd
+02:18:28 PM     0      1117    0.00    0.02    0.00    0.04    0.02     7  sssd_nss
+02:18:28 PM     0       780    0.00    0.02    0.00    0.01    0.02     5  systemd-journal
+02:18:28 PM     0       669    0.00    0.02    0.00    0.12    0.02     4  xfsaild/dm-0
+02:18:28 PM     0        20    0.00    0.02    0.00    0.01    0.02     2  migration/2
+02:18:28 PM     0    191121    0.00    0.01    0.00    0.01    0.02     1  ukui-screensave
+02:18:28 PM     0      2045    0.00    0.01    0.00    0.04    0.02     0  pulseaudio
+02:18:28 PM     0        45    0.00    0.01    0.00    0.00    0.01     7  migration/7
+02:18:28 PM     0        46    0.00    0.01    0.00    0.01    0.01     7  ksoftirqd/7
+02:18:28 PM     0        40    0.00    0.01    0.00    0.00    0.01     6  migration/6
+02:18:28 PM     0        35    0.00    0.01    0.00    0.02    0.01     5  migration/5
+02:18:28 PM     0        30    0.00    0.01    0.00    0.01    0.01     4  migration/4
+02:18:28 PM     0        31    0.00    0.01    0.00    0.02    0.01     4  ksoftirqd/4
+02:18:28 PM     0      1368    0.00    0.01    0.00    0.00    0.01     3  rsyslogd
+02:18:28 PM     0        25    0.00    0.01    0.00    0.00    0.01     3  migration/3
+02:18:28 PM     0      2007    0.00    0.00    0.00    0.01    0.01     3  mate-power-mana
+02:18:28 PM     0      1021    0.00    0.00    0.00    0.00    0.01     3  irqbalance
+02:18:28 PM     0      1105    0.00    0.00    0.00    0.00    0.01     2  sssd_be
+02:18:28 PM     0        21    0.00    0.01    0.00    0.02    0.01     2  ksoftirqd/2
+02:18:28 PM   172      1016    0.00    0.01    0.00    0.00    0.01     1  rtkit-daemon
+02:18:28 PM     0        15    0.00    0.01    0.00    0.00    0.01     1  migration/1
+02:18:28 PM     0      2048    0.00    0.00    0.00    0.00    0.01     0  nm-applet
+02:18:28 PM     0        12    0.00    0.01    0.00    0.00    0.01     0  migration/0
+02:18:28 PM     0         9    0.00    0.01    0.00    0.02    0.01     0  ksoftirqd/0
+02:18:28 PM     0    210907    0.00    0.00    0.00    0.00    0.00     7  ukui-screensave
+02:18:28 PM     0      1161    0.00    0.00    0.00    0.00    0.00     7  systemd-logind
+02:18:28 PM     0      2712    0.00    0.00    0.00    0.00    0.00     7  sshd
+02:18:28 PM     0      2783    0.00    0.00    0.00    0.00    0.00     7  sftp-server
+02:18:28 PM     0      2028    0.00    0.00    0.00    0.00    0.00     7  polkit-mate-aut
+02:18:28 PM     0      2014    0.00    0.00    0.00    0.00    0.00     7  mate-volume-con
+02:18:28 PM     0      1734    0.00    0.00    0.00    0.00    0.00     7  mate-session
+02:18:28 PM     0    209813    0.00    0.00    0.00    0.00    0.00     7  kworker/7:3-events
+02:18:28 PM     0       573    0.00    0.00    0.00    0.00    0.00     7  kworker/7:1H-kblockd
+02:18:28 PM     0    159575    0.00    0.00    0.00    0.00    0.00     7  kworker/7:0-cgroup_pidlist_destroy
+02:18:28 PM     0      1960    0.00    0.00    0.00    0.00    0.00     7  dbus-daemon
+02:18:28 PM     0    215233    0.00    0.00    0.00    0.00    0.00     6  top
+02:18:28 PM     0    214946    0.00    0.00    0.00    0.00    0.00     6  sshd
+02:18:28 PM     0      1019    0.00    0.00    0.00    0.00    0.00     6  smartd
+02:18:28 PM     0    215168    0.00    0.00    0.00    0.00    0.00     6  python3
+02:18:28 PM     0      2550    0.00    0.00    0.00    0.00    0.00     6  pxgsettings
+02:18:28 PM   995      1120    0.00    0.00    0.00    0.00    0.00     6  polkitd
+02:18:28 PM     0    191164    0.00    0.00    0.00    0.00    0.00     6  kworker/u256:2-xfs-cil/dm-0
+02:18:28 PM     0       792    0.00    0.00    0.00    0.00    0.00     6  kworker/6:1H-kblockd
+02:18:28 PM     0    128012    0.00    0.00    0.00    0.01    0.00     6  kworker/6:0-cgroup_pidlist_destroy
+02:18:28 PM     0        41    0.00    0.00    0.00    0.02    0.00     6  ksoftirqd/6
+02:18:28 PM     0      2425    0.00    0.00    0.00    0.00    0.00     6  gvfs-afc-volume
+02:18:28 PM     0      1966    0.00    0.00    0.00    0.00    0.00     6  dconf-service
+02:18:28 PM     0      2105    0.00    0.00    0.00    0.00    0.00     5  upowerd
+02:18:28 PM     0      2778    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:28 PM     0    214938    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:28 PM     0      1391    0.00    0.00    0.00    0.00    0.00     5  lightdm
+02:18:28 PM     0    208685    0.00    0.00    0.00    0.00    0.00     5  kworker/5:3-mm_percpu_wq
+02:18:28 PM     0       603    0.00    0.00    0.00    0.00    0.00     5  kworker/5:1H-kblockd
+02:18:28 PM     0         2    0.00    0.00    0.00    0.00    0.00     5  kthreadd
+02:18:28 PM     0        36    0.00    0.00    0.00    0.02    0.00     5  ksoftirqd/5
+02:18:28 PM     0      2151    0.00    0.00    0.00    0.00    0.00     5  goa-daemon
+02:18:28 PM     0      2457    0.00    0.00    0.00    0.00    0.00     5  fcitx
+02:18:28 PM     0      1389    0.00    0.00    0.00    0.00    0.00     5  crond
+02:18:28 PM     0       995    0.00    0.00    0.00    0.00    0.00     5  bluetoothd
+02:18:28 PM     0      1724    0.00    0.00    0.00    0.00    0.00     4  systemd
+02:18:28 PM     0    215013    0.00    0.00    0.00    0.00    0.00     4  sshd
+02:18:28 PM     0       467    0.00    0.00    0.00    0.00    0.00     4  scsi_eh_0
+02:18:28 PM     0      1701    0.00    0.00    0.00    0.00    0.00     4  lightdm
+02:18:28 PM     0    211030    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1-mm_percpu_wq
+02:18:28 PM     0       670    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1H-kblockd
+02:18:28 PM     0    201979    0.00    0.00    0.00    0.00    0.00     4  kworker/4:0-events
+02:18:28 PM     0      1970    0.00    0.00    0.00    0.00    0.00     4  gnome-keyring-d
+02:18:28 PM     0    161437    0.00    0.00    0.00    0.00    0.00     4  dhclient
+02:18:28 PM     0      2468    0.00    0.00    0.00    0.00    0.00     4  dbus-daemon
+02:18:28 PM   987    185513    0.00    0.00    0.00    0.00    0.00     4  chronyd
+02:18:28 PM     0      1138    0.00    0.00    0.00    0.00    0.00     4  accounts-daemon
+02:18:28 PM     0    214950    0.00    0.00    0.00    0.00    0.00     3  sshd
+02:18:28 PM     0       469    0.00    0.00    0.00    0.00    0.00     3  scsi_eh_1
+02:18:28 PM     0      1159    0.00    0.00    0.00    0.00    0.00     3  NetworkManager
+02:18:28 PM     0      1005    0.00    0.00    0.00    0.00    0.00     3  kylin_sock_serv
+02:18:28 PM     0    184227    0.00    0.00    0.00    0.00    0.00     3  kworker/3:2-cgroup_destroy
+02:18:28 PM     0       832    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1H-xfs-log/dm-0
+02:18:28 PM     0    153259    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1-cgroup_pidlist_destroy
+02:18:28 PM     0        26    0.00    0.00    0.00    0.02    0.00     3  ksoftirqd/3
+02:18:28 PM     0      1758    0.00    0.00    0.00    0.00    0.00     3  imsettings-daem
+02:18:28 PM     0      2036    0.00    0.00    0.00    0.00    0.00     3  gvfs-udisks2-vo
+02:18:28 PM     0      1761    0.00    0.00    0.00    0.00    0.00     3  gvfsd
+02:18:28 PM     0      2407    0.00    0.00    0.00    0.00    0.00     3  goa-identity-se
+02:18:28 PM     0      1993    0.00    0.00    0.00    0.00    0.00     3  caja
+02:18:28 PM     0      2675    0.00    0.00    0.00    0.00    0.00     3  bamfdaemon
+02:18:28 PM     0      2525    0.00    0.00    0.00    0.00    0.00     2  wnck-applet
+02:18:28 PM     0      2071    0.00    0.00    0.00    0.00    0.00     2  ukui-screensave
+02:18:28 PM     0      1015    0.00    0.00    0.00    0.00    0.00     2  rngd
+02:18:28 PM     0      1013    0.00    0.00    0.00    0.00    0.00     2  rasdaemon
+02:18:28 PM     0       994    0.00    0.00    0.00    0.00    0.00     2  ModemManager
+02:18:28 PM     0    202587    0.00    0.00    0.00    0.00    0.00     2  kworker/u256:1-flush-253:0
+02:18:28 PM     0    205963    0.00    0.00    0.00    0.00    0.00     2  kworker/2:2-events_power_efficient
+02:18:28 PM     0       761    0.00    0.00    0.00    0.00    0.00     2  kworker/2:1H-kblockd
+02:18:28 PM     0      2171    0.00    0.00    0.00    0.00    0.00     2  gsettings-helpe
+02:18:28 PM     0    214958    0.00    0.00    0.00    0.00    0.00     2  bash
+02:18:28 PM     0      1982    0.00    0.00    0.00    0.00    0.00     2  at-spi2-registr
+02:18:28 PM     0       967    0.00    0.00    0.00    0.00    0.00     1  xfsaild/sda2
+02:18:28 PM     0      1026    0.00    0.00    0.00    0.00    0.00     1  udisksd
+02:18:28 PM     0      1118    0.00    0.00    0.00    0.01    0.00     1  sssd_pam
+02:18:28 PM     0      1369    0.00    0.00    0.00    0.00    0.00     1  sshd
+02:18:28 PM     0      1912    0.00    0.00    0.00    0.00    0.00     1  ssh-agent
+02:18:28 PM   996      1008    0.00    0.00    0.00    0.00    0.00     1  lsmd
+02:18:28 PM     0       577    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1H-kblockd
+02:18:28 PM     0    181654    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1-events
+02:18:28 PM     0    206513    0.00    0.00    0.00    0.00    0.00     1  kworker/1:0-events
+02:18:28 PM     0        16    0.00    0.00    0.00    0.01    0.00     1  ksoftirqd/1
+02:18:28 PM     0      2452    0.00    0.00    0.00    0.00    0.00     1  gvfsd-trash
+02:18:28 PM     0       798    0.00    0.00    0.00    0.00    0.00     0  systemd-udevd
+02:18:28 PM     0      1023    0.00    0.00    0.00    0.00    0.00     0  sssd
+02:18:28 PM     0      2515    0.00    0.00    0.00    0.00    0.00     0  mate-panel
+02:18:28 PM     0       740    0.00    0.00    0.00    0.00    0.00     0  kworker/0:1H-xfs-log/dm-0
+02:18:28 PM     0    209805    0.00    0.00    0.00    0.00    0.00     0  kworker/0:0-mm_percpu_wq
+02:18:28 PM     0      2103    0.00    0.00    0.00    0.00    0.00     0  gvfs-gphoto2-vo
+02:18:28 PM     0      2128    0.00    0.00    0.00    0.00    0.00     0  gvfs-goa-volume
+02:18:28 PM     0      2208    0.00    0.00    0.00    0.00    0.00     0  gconfd-2
+
+02:18:29 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:18:29 PM     0      1435    2.73    1.56    0.00    0.42    4.29     0  Xorg
+02:18:29 PM     0     14495    0.81    0.82    0.00    0.13    1.63     0  mate-system-mon
+02:18:29 PM     0      2527    0.11    0.29    0.00    0.07    0.40     2  mate-indicators
+02:18:29 PM     0      1988    0.04    0.25    0.00    0.65    0.29     1  marco
+02:18:29 PM     0        10    0.00    0.11    0.00    0.36    0.11     6  rcu_sched
+02:18:29 PM    81       997    0.04    0.05    0.00    0.04    0.09     7  dbus-daemon
+02:18:29 PM     0      1980    0.01    0.06    0.00    0.03    0.07     1  mate-settings-d
+02:18:29 PM     0      2523    0.02    0.03    0.00    0.00    0.05     6  python2
+02:18:29 PM     0        60    0.00    0.04    0.00    0.00    0.04     7  khugepaged
+02:18:29 PM     0      1748    0.01    0.03    0.00    0.04    0.04     6  dbus-daemon
+02:18:29 PM     0         1    0.00    0.03    0.00    0.00    0.04     5  systemd
+02:18:29 PM     0      1117    0.00    0.02    0.00    0.04    0.02     7  sssd_nss
+02:18:29 PM     0       780    0.00    0.02    0.00    0.01    0.02     5  systemd-journal
+02:18:29 PM     0       669    0.00    0.02    0.00    0.12    0.02     4  xfsaild/dm-0
+02:18:29 PM     0        20    0.00    0.02    0.00    0.01    0.02     2  migration/2
+02:18:29 PM     0    191121    0.00    0.01    0.00    0.01    0.02     1  ukui-screensave
+02:18:29 PM     0      2045    0.00    0.01    0.00    0.04    0.02     0  pulseaudio
+02:18:29 PM     0        45    0.00    0.01    0.00    0.00    0.01     7  migration/7
+02:18:29 PM     0        46    0.00    0.01    0.00    0.01    0.01     7  ksoftirqd/7
+02:18:29 PM     0        40    0.00    0.01    0.00    0.00    0.01     6  migration/6
+02:18:29 PM     0        35    0.00    0.01    0.00    0.02    0.01     5  migration/5
+02:18:29 PM     0        30    0.00    0.01    0.00    0.01    0.01     4  migration/4
+02:18:29 PM     0        31    0.00    0.01    0.00    0.02    0.01     4  ksoftirqd/4
+02:18:29 PM     0      1368    0.00    0.01    0.00    0.00    0.01     3  rsyslogd
+02:18:29 PM     0        25    0.00    0.01    0.00    0.00    0.01     3  migration/3
+02:18:29 PM     0      2007    0.00    0.00    0.00    0.01    0.01     3  mate-power-mana
+02:18:29 PM     0      1021    0.00    0.00    0.00    0.00    0.01     3  irqbalance
+02:18:29 PM     0      1105    0.00    0.00    0.00    0.00    0.01     2  sssd_be
+02:18:29 PM     0        21    0.00    0.01    0.00    0.02    0.01     2  ksoftirqd/2
+02:18:29 PM   172      1016    0.00    0.01    0.00    0.00    0.01     1  rtkit-daemon
+02:18:29 PM     0        15    0.00    0.01    0.00    0.00    0.01     1  migration/1
+02:18:29 PM     0      2048    0.00    0.00    0.00    0.00    0.01     0  nm-applet
+02:18:29 PM     0        12    0.00    0.01    0.00    0.00    0.01     0  migration/0
+02:18:29 PM     0         9    0.00    0.01    0.00    0.02    0.01     0  ksoftirqd/0
+02:18:29 PM     0    210907    0.00    0.00    0.00    0.00    0.00     7  ukui-screensave
+02:18:29 PM     0      1161    0.00    0.00    0.00    0.00    0.00     7  systemd-logind
+02:18:29 PM     0      2712    0.00    0.00    0.00    0.00    0.00     7  sshd
+02:18:29 PM     0      2783    0.00    0.00    0.00    0.00    0.00     7  sftp-server
+02:18:29 PM     0      2028    0.00    0.00    0.00    0.00    0.00     7  polkit-mate-aut
+02:18:29 PM     0      2014    0.00    0.00    0.00    0.00    0.00     7  mate-volume-con
+02:18:29 PM     0      1734    0.00    0.00    0.00    0.00    0.00     7  mate-session
+02:18:29 PM     0    209813    0.00    0.00    0.00    0.00    0.00     7  kworker/7:3-events
+02:18:29 PM     0       573    0.00    0.00    0.00    0.00    0.00     7  kworker/7:1H-kblockd
+02:18:29 PM     0    159575    0.00    0.00    0.00    0.00    0.00     7  kworker/7:0-cgroup_pidlist_destroy
+02:18:29 PM     0      1960    0.00    0.00    0.00    0.00    0.00     7  dbus-daemon
+02:18:29 PM     0    215233    0.00    0.00    0.00    0.00    0.00     6  top
+02:18:29 PM     0    214946    0.00    0.00    0.00    0.00    0.00     6  sshd
+02:18:29 PM     0      1019    0.00    0.00    0.00    0.00    0.00     6  smartd
+02:18:29 PM     0    215168    0.00    0.00    0.00    0.00    0.00     6  python3
+02:18:29 PM     0      2550    0.00    0.00    0.00    0.00    0.00     6  pxgsettings
+02:18:29 PM   995      1120    0.00    0.00    0.00    0.00    0.00     6  polkitd
+02:18:29 PM     0    191164    0.00    0.00    0.00    0.00    0.00     6  kworker/u256:2-xfs-cil/dm-0
+02:18:29 PM     0       792    0.00    0.00    0.00    0.00    0.00     6  kworker/6:1H-kblockd
+02:18:29 PM     0    128012    0.00    0.00    0.00    0.01    0.00     6  kworker/6:0-cgroup_pidlist_destroy
+02:18:29 PM     0        41    0.00    0.00    0.00    0.02    0.00     6  ksoftirqd/6
+02:18:29 PM     0      2425    0.00    0.00    0.00    0.00    0.00     6  gvfs-afc-volume
+02:18:29 PM     0      1966    0.00    0.00    0.00    0.00    0.00     6  dconf-service
+02:18:29 PM     0      2105    0.00    0.00    0.00    0.00    0.00     5  upowerd
+02:18:29 PM     0      2778    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:29 PM     0    214938    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:29 PM     0      1391    0.00    0.00    0.00    0.00    0.00     5  lightdm
+02:18:29 PM     0    208685    0.00    0.00    0.00    0.00    0.00     5  kworker/5:3-mm_percpu_wq
+02:18:29 PM     0       603    0.00    0.00    0.00    0.00    0.00     5  kworker/5:1H-kblockd
+02:18:29 PM     0         2    0.00    0.00    0.00    0.00    0.00     5  kthreadd
+02:18:29 PM     0        36    0.00    0.00    0.00    0.02    0.00     5  ksoftirqd/5
+02:18:29 PM     0      2151    0.00    0.00    0.00    0.00    0.00     5  goa-daemon
+02:18:29 PM     0      2457    0.00    0.00    0.00    0.00    0.00     5  fcitx
+02:18:29 PM     0      1389    0.00    0.00    0.00    0.00    0.00     5  crond
+02:18:29 PM     0       995    0.00    0.00    0.00    0.00    0.00     5  bluetoothd
+02:18:29 PM     0      1724    0.00    0.00    0.00    0.00    0.00     4  systemd
+02:18:29 PM     0    215013    0.00    0.00    0.00    0.00    0.00     4  sshd
+02:18:29 PM     0       467    0.00    0.00    0.00    0.00    0.00     4  scsi_eh_0
+02:18:29 PM     0      1701    0.00    0.00    0.00    0.00    0.00     4  lightdm
+02:18:29 PM     0       670    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1H-kblockd
+02:18:29 PM     0    211030    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1-events_freezable_power_
+02:18:29 PM     0    201979    0.00    0.00    0.00    0.00    0.00     4  kworker/4:0-events
+02:18:29 PM     0      1970    0.00    0.00    0.00    0.00    0.00     4  gnome-keyring-d
+02:18:29 PM     0    161437    0.00    0.00    0.00    0.00    0.00     4  dhclient
+02:18:29 PM     0      2468    0.00    0.00    0.00    0.00    0.00     4  dbus-daemon
+02:18:29 PM   987    185513    0.00    0.00    0.00    0.00    0.00     4  chronyd
+02:18:29 PM     0      1138    0.00    0.00    0.00    0.00    0.00     4  accounts-daemon
+02:18:29 PM     0    214950    0.00    0.00    0.00    0.00    0.00     3  sshd
+02:18:29 PM     0       469    0.00    0.00    0.00    0.00    0.00     3  scsi_eh_1
+02:18:29 PM     0      1159    0.00    0.00    0.00    0.00    0.00     3  NetworkManager
+02:18:29 PM     0      1005    0.00    0.00    0.00    0.00    0.00     3  kylin_sock_serv
+02:18:29 PM     0    184227    0.00    0.00    0.00    0.00    0.00     3  kworker/3:2-cgroup_destroy
+02:18:29 PM     0       832    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1H-xfs-log/dm-0
+02:18:29 PM     0    153259    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1-cgroup_pidlist_destroy
+02:18:29 PM     0        26    0.00    0.00    0.00    0.02    0.00     3  ksoftirqd/3
+02:18:29 PM     0      1758    0.00    0.00    0.00    0.00    0.00     3  imsettings-daem
+02:18:29 PM     0      2036    0.00    0.00    0.00    0.00    0.00     3  gvfs-udisks2-vo
+02:18:29 PM     0      1761    0.00    0.00    0.00    0.00    0.00     3  gvfsd
+02:18:29 PM     0      2407    0.00    0.00    0.00    0.00    0.00     3  goa-identity-se
+02:18:29 PM     0      1993    0.00    0.00    0.00    0.00    0.00     3  caja
+02:18:29 PM     0      2675    0.00    0.00    0.00    0.00    0.00     3  bamfdaemon
+02:18:29 PM     0      2525    0.00    0.00    0.00    0.00    0.00     2  wnck-applet
+02:18:29 PM     0      2071    0.00    0.00    0.00    0.00    0.00     2  ukui-screensave
+02:18:29 PM     0      1015    0.00    0.00    0.00    0.00    0.00     2  rngd
+02:18:29 PM     0      1013    0.00    0.00    0.00    0.00    0.00     2  rasdaemon
+02:18:29 PM     0       994    0.00    0.00    0.00    0.00    0.00     2  ModemManager
+02:18:29 PM     0    202587    0.00    0.00    0.00    0.00    0.00     2  kworker/u256:1-flush-253:0
+02:18:29 PM     0    205963    0.00    0.00    0.00    0.00    0.00     2  kworker/2:2-events_power_efficient
+02:18:29 PM     0       761    0.00    0.00    0.00    0.00    0.00     2  kworker/2:1H-kblockd
+02:18:29 PM     0      2171    0.00    0.00    0.00    0.00    0.00     2  gsettings-helpe
+02:18:29 PM     0    214958    0.00    0.00    0.00    0.00    0.00     2  bash
+02:18:29 PM     0      1982    0.00    0.00    0.00    0.00    0.00     2  at-spi2-registr
+02:18:29 PM     0       967    0.00    0.00    0.00    0.00    0.00     1  xfsaild/sda2
+02:18:29 PM     0      1026    0.00    0.00    0.00    0.00    0.00     1  udisksd
+02:18:29 PM     0      1118    0.00    0.00    0.00    0.01    0.00     1  sssd_pam
+02:18:29 PM     0      1369    0.00    0.00    0.00    0.00    0.00     1  sshd
+02:18:29 PM     0      1912    0.00    0.00    0.00    0.00    0.00     1  ssh-agent
+02:18:29 PM   996      1008    0.00    0.00    0.00    0.00    0.00     1  lsmd
+02:18:29 PM     0       577    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1H-kblockd
+02:18:29 PM     0    181654    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1-events
+02:18:29 PM     0    206513    0.00    0.00    0.00    0.00    0.00     1  kworker/1:0-events
+02:18:29 PM     0        16    0.00    0.00    0.00    0.01    0.00     1  ksoftirqd/1
+02:18:29 PM     0      2452    0.00    0.00    0.00    0.00    0.00     1  gvfsd-trash
+02:18:29 PM     0       798    0.00    0.00    0.00    0.00    0.00     0  systemd-udevd
+02:18:29 PM     0      1023    0.00    0.00    0.00    0.00    0.00     0  sssd
+02:18:29 PM     0      2515    0.00    0.00    0.00    0.00    0.00     0  mate-panel
+02:18:29 PM     0       740    0.00    0.00    0.00    0.00    0.00     0  kworker/0:1H-xfs-log/dm-0
+02:18:29 PM     0    209805    0.00    0.00    0.00    0.00    0.00     0  kworker/0:0-mm_percpu_wq
+02:18:29 PM     0      2103    0.00    0.00    0.00    0.00    0.00     0  gvfs-gphoto2-vo
+02:18:29 PM     0      2128    0.00    0.00    0.00    0.00    0.00     0  gvfs-goa-volume
+02:18:29 PM     0      2208    0.00    0.00    0.00    0.00    0.00     0  gconfd-2
+
+02:18:30 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:18:30 PM     0      1435    2.73    1.56    0.00    0.42    4.29     3  Xorg
+02:18:30 PM     0     14495    0.81    0.82    0.00    0.13    1.63     0  mate-system-mon
+02:18:30 PM     0      2527    0.11    0.29    0.00    0.07    0.40     2  mate-indicators
+02:18:30 PM     0      1988    0.04    0.25    0.00    0.65    0.29     1  marco
+02:18:30 PM     0        10    0.00    0.11    0.00    0.36    0.11     6  rcu_sched
+02:18:30 PM    81       997    0.04    0.05    0.00    0.04    0.09     7  dbus-daemon
+02:18:30 PM     0      1980    0.01    0.06    0.00    0.03    0.07     1  mate-settings-d
+02:18:30 PM     0      2523    0.02    0.03    0.00    0.00    0.05     6  python2
+02:18:30 PM     0        60    0.00    0.04    0.00    0.00    0.04     7  khugepaged
+02:18:30 PM     0      1748    0.01    0.03    0.00    0.04    0.04     6  dbus-daemon
+02:18:30 PM     0         1    0.00    0.03    0.00    0.00    0.04     5  systemd
+02:18:30 PM     0      1117    0.00    0.02    0.00    0.04    0.02     7  sssd_nss
+02:18:30 PM     0       780    0.00    0.02    0.00    0.01    0.02     5  systemd-journal
+02:18:30 PM     0       669    0.00    0.02    0.00    0.12    0.02     4  xfsaild/dm-0
+02:18:30 PM     0        20    0.00    0.02    0.00    0.01    0.02     2  migration/2
+02:18:30 PM     0    191121    0.00    0.01    0.00    0.01    0.02     1  ukui-screensave
+02:18:30 PM     0      2045    0.00    0.01    0.00    0.04    0.02     0  pulseaudio
+02:18:30 PM     0        45    0.00    0.01    0.00    0.00    0.01     7  migration/7
+02:18:30 PM     0        46    0.00    0.01    0.00    0.01    0.01     7  ksoftirqd/7
+02:18:30 PM     0        40    0.00    0.01    0.00    0.00    0.01     6  migration/6
+02:18:30 PM     0        35    0.00    0.01    0.00    0.02    0.01     5  migration/5
+02:18:30 PM     0        30    0.00    0.01    0.00    0.01    0.01     4  migration/4
+02:18:30 PM     0        31    0.00    0.01    0.00    0.02    0.01     4  ksoftirqd/4
+02:18:30 PM     0      1368    0.00    0.01    0.00    0.00    0.01     3  rsyslogd
+02:18:30 PM     0        25    0.00    0.01    0.00    0.00    0.01     3  migration/3
+02:18:30 PM     0      2007    0.00    0.00    0.00    0.01    0.01     3  mate-power-mana
+02:18:30 PM     0      1021    0.00    0.00    0.00    0.00    0.01     3  irqbalance
+02:18:30 PM     0      1105    0.00    0.00    0.00    0.00    0.01     2  sssd_be
+02:18:30 PM     0        21    0.00    0.01    0.00    0.02    0.01     2  ksoftirqd/2
+02:18:30 PM   172      1016    0.00    0.01    0.00    0.00    0.01     1  rtkit-daemon
+02:18:30 PM     0        15    0.00    0.01    0.00    0.00    0.01     1  migration/1
+02:18:30 PM     0      2048    0.00    0.00    0.00    0.00    0.01     0  nm-applet
+02:18:30 PM     0        12    0.00    0.01    0.00    0.00    0.01     0  migration/0
+02:18:30 PM     0         9    0.00    0.01    0.00    0.02    0.01     0  ksoftirqd/0
+02:18:30 PM     0    210907    0.00    0.00    0.00    0.00    0.00     7  ukui-screensave
+02:18:30 PM     0      1161    0.00    0.00    0.00    0.00    0.00     7  systemd-logind
+02:18:30 PM     0      2712    0.00    0.00    0.00    0.00    0.00     7  sshd
+02:18:30 PM     0      2783    0.00    0.00    0.00    0.00    0.00     7  sftp-server
+02:18:30 PM     0      2028    0.00    0.00    0.00    0.00    0.00     7  polkit-mate-aut
+02:18:30 PM     0      2014    0.00    0.00    0.00    0.00    0.00     7  mate-volume-con
+02:18:30 PM     0      1734    0.00    0.00    0.00    0.00    0.00     7  mate-session
+02:18:30 PM     0    209813    0.00    0.00    0.00    0.00    0.00     7  kworker/7:3-events
+02:18:30 PM     0       573    0.00    0.00    0.00    0.00    0.00     7  kworker/7:1H-kblockd
+02:18:30 PM     0    159575    0.00    0.00    0.00    0.00    0.00     7  kworker/7:0-cgroup_pidlist_destroy
+02:18:30 PM     0      1960    0.00    0.00    0.00    0.00    0.00     7  dbus-daemon
+02:18:30 PM     0    215233    0.00    0.00    0.00    0.00    0.00     6  top
+02:18:30 PM     0    214946    0.00    0.00    0.00    0.00    0.00     6  sshd
+02:18:30 PM     0      1019    0.00    0.00    0.00    0.00    0.00     6  smartd
+02:18:30 PM     0    215168    0.00    0.00    0.00    0.00    0.00     6  python3
+02:18:30 PM     0      2550    0.00    0.00    0.00    0.00    0.00     6  pxgsettings
+02:18:30 PM   995      1120    0.00    0.00    0.00    0.00    0.00     6  polkitd
+02:18:30 PM     0    191164    0.00    0.00    0.00    0.00    0.00     6  kworker/u256:2-xfs-cil/dm-0
+02:18:30 PM     0       792    0.00    0.00    0.00    0.00    0.00     6  kworker/6:1H-kblockd
+02:18:30 PM     0    128012    0.00    0.00    0.00    0.01    0.00     6  kworker/6:0-cgroup_pidlist_destroy
+02:18:30 PM     0        41    0.00    0.00    0.00    0.02    0.00     6  ksoftirqd/6
+02:18:30 PM     0      2425    0.00    0.00    0.00    0.00    0.00     6  gvfs-afc-volume
+02:18:30 PM     0      1966    0.00    0.00    0.00    0.00    0.00     6  dconf-service
+02:18:30 PM     0      2105    0.00    0.00    0.00    0.00    0.00     5  upowerd
+02:18:30 PM     0      2778    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:30 PM     0    214938    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:30 PM     0      1391    0.00    0.00    0.00    0.00    0.00     5  lightdm
+02:18:30 PM     0    208685    0.00    0.00    0.00    0.00    0.00     5  kworker/5:3-mm_percpu_wq
+02:18:30 PM     0       603    0.00    0.00    0.00    0.00    0.00     5  kworker/5:1H-kblockd
+02:18:30 PM     0         2    0.00    0.00    0.00    0.00    0.00     5  kthreadd
+02:18:30 PM     0        36    0.00    0.00    0.00    0.02    0.00     5  ksoftirqd/5
+02:18:30 PM     0      2151    0.00    0.00    0.00    0.00    0.00     5  goa-daemon
+02:18:30 PM     0      2457    0.00    0.00    0.00    0.00    0.00     5  fcitx
+02:18:30 PM     0      1389    0.00    0.00    0.00    0.00    0.00     5  crond
+02:18:30 PM     0       995    0.00    0.00    0.00    0.00    0.00     5  bluetoothd
+02:18:30 PM     0      1724    0.00    0.00    0.00    0.00    0.00     4  systemd
+02:18:30 PM     0    215013    0.00    0.00    0.00    0.00    0.00     4  sshd
+02:18:30 PM     0       467    0.00    0.00    0.00    0.00    0.00     4  scsi_eh_0
+02:18:30 PM     0      1701    0.00    0.00    0.00    0.00    0.00     4  lightdm
+02:18:30 PM     0    211030    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1-mm_percpu_wq
+02:18:30 PM     0       670    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1H-kblockd
+02:18:30 PM     0    201979    0.00    0.00    0.00    0.00    0.00     4  kworker/4:0-events
+02:18:30 PM     0      1970    0.00    0.00    0.00    0.00    0.00     4  gnome-keyring-d
+02:18:30 PM     0    161437    0.00    0.00    0.00    0.00    0.00     4  dhclient
+02:18:30 PM     0      2468    0.00    0.00    0.00    0.00    0.00     4  dbus-daemon
+02:18:30 PM   987    185513    0.00    0.00    0.00    0.00    0.00     4  chronyd
+02:18:30 PM     0      1138    0.00    0.00    0.00    0.00    0.00     4  accounts-daemon
+02:18:30 PM     0    214950    0.00    0.00    0.00    0.00    0.00     3  sshd
+02:18:30 PM     0       469    0.00    0.00    0.00    0.00    0.00     3  scsi_eh_1
+02:18:30 PM     0      1159    0.00    0.00    0.00    0.00    0.00     3  NetworkManager
+02:18:30 PM     0      1005    0.00    0.00    0.00    0.00    0.00     3  kylin_sock_serv
+02:18:30 PM     0    184227    0.00    0.00    0.00    0.00    0.00     3  kworker/3:2-cgroup_destroy
+02:18:30 PM     0       832    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1H-xfs-log/dm-0
+02:18:30 PM     0    153259    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1-cgroup_pidlist_destroy
+02:18:30 PM     0        26    0.00    0.00    0.00    0.02    0.00     3  ksoftirqd/3
+02:18:30 PM     0      1758    0.00    0.00    0.00    0.00    0.00     3  imsettings-daem
+02:18:30 PM     0      2036    0.00    0.00    0.00    0.00    0.00     3  gvfs-udisks2-vo
+02:18:30 PM     0      1761    0.00    0.00    0.00    0.00    0.00     3  gvfsd
+02:18:30 PM     0      2407    0.00    0.00    0.00    0.00    0.00     3  goa-identity-se
+02:18:30 PM     0      1993    0.00    0.00    0.00    0.00    0.00     3  caja
+02:18:30 PM     0      2675    0.00    0.00    0.00    0.00    0.00     3  bamfdaemon
+02:18:30 PM     0      2525    0.00    0.00    0.00    0.00    0.00     2  wnck-applet
+02:18:30 PM     0      2071    0.00    0.00    0.00    0.00    0.00     2  ukui-screensave
+02:18:30 PM     0      1015    0.00    0.00    0.00    0.00    0.00     2  rngd
+02:18:30 PM     0      1013    0.00    0.00    0.00    0.00    0.00     2  rasdaemon
+02:18:30 PM     0       994    0.00    0.00    0.00    0.00    0.00     2  ModemManager
+02:18:30 PM     0    202587    0.00    0.00    0.00    0.00    0.00     2  kworker/u256:1-flush-253:0
+02:18:30 PM     0    205963    0.00    0.00    0.00    0.00    0.00     2  kworker/2:2-events_power_efficient
+02:18:30 PM     0       761    0.00    0.00    0.00    0.00    0.00     2  kworker/2:1H-kblockd
+02:18:30 PM     0      2171    0.00    0.00    0.00    0.00    0.00     2  gsettings-helpe
+02:18:30 PM     0    214958    0.00    0.00    0.00    0.00    0.00     2  bash
+02:18:30 PM     0      1982    0.00    0.00    0.00    0.00    0.00     2  at-spi2-registr
+02:18:30 PM     0       967    0.00    0.00    0.00    0.00    0.00     1  xfsaild/sda2
+02:18:30 PM     0      1026    0.00    0.00    0.00    0.00    0.00     1  udisksd
+02:18:30 PM     0      1118    0.00    0.00    0.00    0.01    0.00     1  sssd_pam
+02:18:30 PM     0      1369    0.00    0.00    0.00    0.00    0.00     1  sshd
+02:18:30 PM     0      1912    0.00    0.00    0.00    0.00    0.00     1  ssh-agent
+02:18:30 PM   996      1008    0.00    0.00    0.00    0.00    0.00     1  lsmd
+02:18:30 PM     0       577    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1H-kblockd
+02:18:30 PM     0    181654    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1-events
+02:18:30 PM     0    206513    0.00    0.00    0.00    0.00    0.00     1  kworker/1:0-events
+02:18:30 PM     0        16    0.00    0.00    0.00    0.01    0.00     1  ksoftirqd/1
+02:18:30 PM     0      2452    0.00    0.00    0.00    0.00    0.00     1  gvfsd-trash
+02:18:30 PM     0       798    0.00    0.00    0.00    0.00    0.00     0  systemd-udevd
+02:18:30 PM     0      1023    0.00    0.00    0.00    0.00    0.00     0  sssd
+02:18:30 PM     0      2515    0.00    0.00    0.00    0.00    0.00     0  mate-panel
+02:18:30 PM     0       740    0.00    0.00    0.00    0.00    0.00     0  kworker/0:1H-xfs-log/dm-0
+02:18:30 PM     0    209805    0.00    0.00    0.00    0.00    0.00     0  kworker/0:0-events
+02:18:30 PM     0      2103    0.00    0.00    0.00    0.00    0.00     0  gvfs-gphoto2-vo
+02:18:30 PM     0      2128    0.00    0.00    0.00    0.00    0.00     0  gvfs-goa-volume
+02:18:30 PM     0      2208    0.00    0.00    0.00    0.00    0.00     0  gconfd-2
+
+02:18:31 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:18:31 PM     0      1435    2.73    1.56    0.00    0.42    4.29     3  Xorg
+02:18:31 PM     0     14495    0.81    0.82    0.00    0.13    1.63     0  mate-system-mon
+02:18:31 PM     0      2527    0.11    0.29    0.00    0.07    0.40     2  mate-indicators
+02:18:31 PM     0      1988    0.04    0.25    0.00    0.65    0.29     1  marco
+02:18:31 PM     0        10    0.00    0.11    0.00    0.36    0.11     5  rcu_sched
+02:18:31 PM    81       997    0.04    0.05    0.00    0.04    0.09     7  dbus-daemon
+02:18:31 PM     0      1980    0.01    0.06    0.00    0.03    0.07     1  mate-settings-d
+02:18:31 PM     0      2523    0.02    0.03    0.00    0.00    0.05     6  python2
+02:18:31 PM     0        60    0.00    0.04    0.00    0.00    0.04     7  khugepaged
+02:18:31 PM     0      1748    0.01    0.03    0.00    0.04    0.04     6  dbus-daemon
+02:18:31 PM     0         1    0.00    0.03    0.00    0.00    0.04     5  systemd
+02:18:31 PM     0      1117    0.00    0.02    0.00    0.04    0.02     7  sssd_nss
+02:18:31 PM     0       780    0.00    0.02    0.00    0.01    0.02     5  systemd-journal
+02:18:31 PM     0       669    0.00    0.02    0.00    0.12    0.02     4  xfsaild/dm-0
+02:18:31 PM     0        20    0.00    0.02    0.00    0.01    0.02     2  migration/2
+02:18:31 PM     0    191121    0.00    0.01    0.00    0.01    0.02     1  ukui-screensave
+02:18:31 PM     0      2045    0.00    0.01    0.00    0.04    0.02     0  pulseaudio
+02:18:31 PM     0        45    0.00    0.01    0.00    0.00    0.01     7  migration/7
+02:18:31 PM     0        46    0.00    0.01    0.00    0.01    0.01     7  ksoftirqd/7
+02:18:31 PM     0        40    0.00    0.01    0.00    0.00    0.01     6  migration/6
+02:18:31 PM     0        35    0.00    0.01    0.00    0.02    0.01     5  migration/5
+02:18:31 PM     0        30    0.00    0.01    0.00    0.01    0.01     4  migration/4
+02:18:31 PM     0        31    0.00    0.01    0.00    0.02    0.01     4  ksoftirqd/4
+02:18:31 PM     0      1368    0.00    0.01    0.00    0.00    0.01     3  rsyslogd
+02:18:31 PM     0        25    0.00    0.01    0.00    0.00    0.01     3  migration/3
+02:18:31 PM     0      2007    0.00    0.00    0.00    0.01    0.01     3  mate-power-mana
+02:18:31 PM     0      1021    0.00    0.00    0.00    0.00    0.01     3  irqbalance
+02:18:31 PM     0      1105    0.00    0.00    0.00    0.00    0.01     2  sssd_be
+02:18:31 PM     0        21    0.00    0.01    0.00    0.02    0.01     2  ksoftirqd/2
+02:18:31 PM   172      1016    0.00    0.01    0.00    0.00    0.01     1  rtkit-daemon
+02:18:31 PM     0        15    0.00    0.01    0.00    0.00    0.01     1  migration/1
+02:18:31 PM     0      2048    0.00    0.00    0.00    0.00    0.01     0  nm-applet
+02:18:31 PM     0        12    0.00    0.01    0.00    0.00    0.01     0  migration/0
+02:18:31 PM     0         9    0.00    0.01    0.00    0.02    0.01     0  ksoftirqd/0
+02:18:31 PM     0    210907    0.00    0.00    0.00    0.00    0.00     7  ukui-screensave
+02:18:31 PM     0      1161    0.00    0.00    0.00    0.00    0.00     7  systemd-logind
+02:18:31 PM     0      2712    0.00    0.00    0.00    0.00    0.00     7  sshd
+02:18:31 PM     0      2783    0.00    0.00    0.00    0.00    0.00     7  sftp-server
+02:18:31 PM     0      2028    0.00    0.00    0.00    0.00    0.00     7  polkit-mate-aut
+02:18:31 PM     0      2014    0.00    0.00    0.00    0.00    0.00     7  mate-volume-con
+02:18:31 PM     0      1734    0.00    0.00    0.00    0.00    0.00     7  mate-session
+02:18:31 PM     0    209813    0.00    0.00    0.00    0.00    0.00     7  kworker/7:3-events
+02:18:31 PM     0       573    0.00    0.00    0.00    0.00    0.00     7  kworker/7:1H-kblockd
+02:18:31 PM     0    159575    0.00    0.00    0.00    0.00    0.00     7  kworker/7:0-cgroup_pidlist_destroy
+02:18:31 PM     0      1960    0.00    0.00    0.00    0.00    0.00     7  dbus-daemon
+02:18:31 PM     0    214946    0.00    0.00    0.00    0.00    0.00     6  sshd
+02:18:31 PM     0      1019    0.00    0.00    0.00    0.00    0.00     6  smartd
+02:18:31 PM     0    215168    0.00    0.00    0.00    0.00    0.00     6  python3
+02:18:31 PM     0      2550    0.00    0.00    0.00    0.00    0.00     6  pxgsettings
+02:18:31 PM   995      1120    0.00    0.00    0.00    0.00    0.00     6  polkitd
+02:18:31 PM     0    191164    0.00    0.00    0.00    0.00    0.00     6  kworker/u256:2-xfs-cil/dm-0
+02:18:31 PM     0       792    0.00    0.00    0.00    0.00    0.00     6  kworker/6:1H-kblockd
+02:18:31 PM     0    128012    0.00    0.00    0.00    0.01    0.00     6  kworker/6:0-cgroup_pidlist_destroy
+02:18:31 PM     0        41    0.00    0.00    0.00    0.02    0.00     6  ksoftirqd/6
+02:18:31 PM     0      2425    0.00    0.00    0.00    0.00    0.00     6  gvfs-afc-volume
+02:18:31 PM     0      1966    0.00    0.00    0.00    0.00    0.00     6  dconf-service
+02:18:31 PM     0      2105    0.00    0.00    0.00    0.00    0.00     5  upowerd
+02:18:31 PM     0      2778    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:31 PM     0    214938    0.00    0.00    0.00    0.00    0.00     5  sshd
+02:18:31 PM     0      1391    0.00    0.00    0.00    0.00    0.00     5  lightdm
+02:18:31 PM     0    208685    0.00    0.00    0.00    0.00    0.00     5  kworker/5:3-mm_percpu_wq
+02:18:31 PM     0       603    0.00    0.00    0.00    0.00    0.00     5  kworker/5:1H-kblockd
+02:18:31 PM     0         2    0.00    0.00    0.00    0.00    0.00     5  kthreadd
+02:18:31 PM     0        36    0.00    0.00    0.00    0.02    0.00     5  ksoftirqd/5
+02:18:31 PM     0      2151    0.00    0.00    0.00    0.00    0.00     5  goa-daemon
+02:18:31 PM     0      2457    0.00    0.00    0.00    0.00    0.00     5  fcitx
+02:18:31 PM     0      1389    0.00    0.00    0.00    0.00    0.00     5  crond
+02:18:31 PM     0       995    0.00    0.00    0.00    0.00    0.00     5  bluetoothd
+02:18:31 PM     0      1724    0.00    0.00    0.00    0.00    0.00     4  systemd
+02:18:31 PM     0    215013    0.00    0.00    0.00    0.00    0.00     4  sshd
+02:18:31 PM     0       467    0.00    0.00    0.00    0.00    0.00     4  scsi_eh_0
+02:18:31 PM     0      1701    0.00    0.00    0.00    0.00    0.00     4  lightdm
+02:18:31 PM     0    211030    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1-mm_percpu_wq
+02:18:31 PM     0       670    0.00    0.00    0.00    0.00    0.00     4  kworker/4:1H-kblockd
+02:18:31 PM     0    201979    0.00    0.00    0.00    0.00    0.00     4  kworker/4:0-events
+02:18:31 PM     0      1970    0.00    0.00    0.00    0.00    0.00     4  gnome-keyring-d
+02:18:31 PM     0    161437    0.00    0.00    0.00    0.00    0.00     4  dhclient
+02:18:31 PM     0      2468    0.00    0.00    0.00    0.00    0.00     4  dbus-daemon
+02:18:31 PM   987    185513    0.00    0.00    0.00    0.00    0.00     4  chronyd
+02:18:31 PM     0      1138    0.00    0.00    0.00    0.00    0.00     4  accounts-daemon
+02:18:31 PM     0    214950    0.00    0.00    0.00    0.00    0.00     3  sshd
+02:18:31 PM     0       469    0.00    0.00    0.00    0.00    0.00     3  scsi_eh_1
+02:18:31 PM     0      1159    0.00    0.00    0.00    0.00    0.00     3  NetworkManager
+02:18:31 PM     0      1005    0.00    0.00    0.00    0.00    0.00     3  kylin_sock_serv
+02:18:31 PM     0    184227    0.00    0.00    0.00    0.00    0.00     3  kworker/3:2-cgroup_destroy
+02:18:31 PM     0       832    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1H-xfs-log/dm-0
+02:18:31 PM     0    153259    0.00    0.00    0.00    0.00    0.00     3  kworker/3:1-cgroup_pidlist_destroy
+02:18:31 PM     0        26    0.00    0.00    0.00    0.02    0.00     3  ksoftirqd/3
+02:18:31 PM     0      1758    0.00    0.00    0.00    0.00    0.00     3  imsettings-daem
+02:18:31 PM     0      2036    0.00    0.00    0.00    0.00    0.00     3  gvfs-udisks2-vo
+02:18:31 PM     0      1761    0.00    0.00    0.00    0.00    0.00     3  gvfsd
+02:18:31 PM     0      2407    0.00    0.00    0.00    0.00    0.00     3  goa-identity-se
+02:18:31 PM     0      1993    0.00    0.00    0.00    0.00    0.00     3  caja
+02:18:31 PM     0      2675    0.00    0.00    0.00    0.00    0.00     3  bamfdaemon
+02:18:31 PM     0      2525    0.00    0.00    0.00    0.00    0.00     2  wnck-applet
+02:18:31 PM     0      2071    0.00    0.00    0.00    0.00    0.00     2  ukui-screensave
+02:18:31 PM     0      1015    0.00    0.00    0.00    0.00    0.00     2  rngd
+02:18:31 PM     0      1013    0.00    0.00    0.00    0.00    0.00     2  rasdaemon
+02:18:31 PM     0       994    0.00    0.00    0.00    0.00    0.00     2  ModemManager
+02:18:31 PM     0    202587    0.00    0.00    0.00    0.00    0.00     2  kworker/u256:1-flush-253:0
+02:18:31 PM     0    205963    0.00    0.00    0.00    0.00    0.00     2  kworker/2:2-events_power_efficient
+02:18:31 PM     0       761    0.00    0.00    0.00    0.00    0.00     2  kworker/2:1H-kblockd
+02:18:31 PM     0      2171    0.00    0.00    0.00    0.00    0.00     2  gsettings-helpe
+02:18:31 PM     0    214958    0.00    0.00    0.00    0.00    0.00     2  bash
+02:18:31 PM     0      1982    0.00    0.00    0.00    0.00    0.00     2  at-spi2-registr
+02:18:31 PM     0       967    0.00    0.00    0.00    0.00    0.00     1  xfsaild/sda2
+02:18:31 PM     0      1026    0.00    0.00    0.00    0.00    0.00     1  udisksd
+02:18:31 PM     0      1118    0.00    0.00    0.00    0.01    0.00     1  sssd_pam
+02:18:31 PM     0      1369    0.00    0.00    0.00    0.00    0.00     1  sshd
+02:18:31 PM     0      1912    0.00    0.00    0.00    0.00    0.00     1  ssh-agent
+02:18:31 PM   996      1008    0.00    0.00    0.00    0.00    0.00     1  lsmd
+02:18:31 PM     0       577    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1H-kblockd
+02:18:31 PM     0    181654    0.00    0.00    0.00    0.00    0.00     1  kworker/1:1-events
+02:18:31 PM     0    206513    0.00    0.00    0.00    0.00    0.00     1  kworker/1:0-events
+02:18:31 PM     0        16    0.00    0.00    0.00    0.01    0.00     1  ksoftirqd/1
+02:18:31 PM     0      2452    0.00    0.00    0.00    0.00    0.00     1  gvfsd-trash
+02:18:31 PM     0       798    0.00    0.00    0.00    0.00    0.00     0  systemd-udevd
+02:18:31 PM     0      1023    0.00    0.00    0.00    0.00    0.00     0  sssd
+02:18:31 PM     0      2515    0.00    0.00    0.00    0.00    0.00     0  mate-panel
+02:18:31 PM     0       740    0.00    0.00    0.00    0.00    0.00     0  kworker/0:1H-xfs-log/dm-0
+02:18:31 PM     0    209805    0.00    0.00    0.00    0.00    0.00     0  kworker/0:0-mm_percpu_wq
+02:18:31 PM     0      2103    0.00    0.00    0.00    0.00    0.00     0  gvfs-gphoto2-vo
+02:18:31 PM     0      2128    0.00    0.00    0.00    0.00    0.00     0  gvfs-goa-volume
+02:18:31 PM     0      2208    0.00    0.00    0.00    0.00    0.00     0  gconfd-2
+
+=========================kylin=========================
+Command: sar
+SubCommand: sar 3 1
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:18:27 PM     all      0.04      0.00      0.42      0.04      0.00     99.50
+Average:        all      0.04      0.00      0.42      0.04      0.00     99.50
+-------------------------kylin-------------------------
+Command: sar
+SubCommand: sar -u ALL -P ALL -q -r -B -W -d -p -n DEV -n EDEV 2 5
+Linux 4.19.90-89.11.v2401.ky10.x86_64 (localhost.localdomain) 	08/13/2025 	_x86_64_	(8 CPU)
+
+02:18:24 PM     CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+02:18:26 PM     all      0.06      0.00      0.50      0.06      0.00      0.06      0.00      0.00      0.00     99.31
+02:18:26 PM       0      0.50      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:26 PM       1      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:26 PM       2      0.00      0.00      1.01      0.00      0.00      0.00      0.00      0.00      0.00     98.99
+02:18:26 PM       3      0.00      0.00      0.50      0.50      0.00      0.00      0.00      0.00      0.00     99.00
+02:18:26 PM       4      0.00      0.00      1.00      0.00      0.00      0.00      0.00      0.00      0.00     99.00
+02:18:26 PM       5      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:26 PM       6      0.00      0.00      0.50      0.00      0.00      0.50      0.00      0.00      0.00     99.00
+02:18:26 PM       7      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+
+02:18:24 PM  pswpin/s pswpout/s
+02:18:26 PM      0.00      0.00
+
+02:18:24 PM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+02:18:26 PM      0.00    218.50   3724.00      0.00   2482.00      0.00      0.00      0.00      0.00
+
+02:18:24 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:18:26 PM   4882576   5727276    723192     10.61      6408   1024140   2291288     20.81   1093328    406148       316
+
+02:18:24 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+02:18:26 PM         1       493      0.26      0.18      0.17         1
+
+02:18:24 PM       DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+02:18:26 PM       sda     86.00      0.00    218.50      0.00      2.54      0.02      0.34      3.05
+02:18:26 PM       sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:26 PM klas-root     86.00      0.00    218.50      0.00      2.54      0.00      0.31      3.05
+02:18:26 PM klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:24 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:26 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:26 PM    ens160      1.50      3.00      0.13      0.35      0.00      0.00      0.00      0.00
+
+02:18:24 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:26 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:26 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:26 PM     CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+02:18:28 PM     all      0.00      0.00      0.25      0.00      0.00      0.00      0.00      0.00      0.00     99.75
+02:18:28 PM       0      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:28 PM       1      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:28 PM       2      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:28 PM       3      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:28 PM       4      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:28 PM       5      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:28 PM       6      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:28 PM       7      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:18:26 PM  pswpin/s pswpout/s
+02:18:28 PM      0.00      0.00
+
+02:18:26 PM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+02:18:28 PM      0.00     11.94   1009.95      0.00   2798.51      0.00      0.00      0.00      0.00
+
+02:18:26 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:18:28 PM   4890980   5735684    714688     10.49      6408   1024144   2239728     20.34   1083008    406144       296
+
+02:18:26 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+02:18:28 PM         0       474      0.26      0.18      0.17         0
+
+02:18:26 PM       DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+02:18:28 PM       sda      2.99      0.00     11.94      0.00      4.00      0.00      0.83      0.15
+02:18:28 PM       sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:28 PM klas-root      2.99      0.00     11.94      0.00      4.00      0.00      0.83      0.15
+02:18:28 PM klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:26 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:28 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:28 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:26 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:28 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:28 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:28 PM     CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+02:18:30 PM     all      0.00      0.00      0.12      0.00      0.00      0.06      0.00      0.00      0.00     99.81
+02:18:30 PM       0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:30 PM       1      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:30 PM       2      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:30 PM       3      0.00      0.00      0.50      0.00      0.00      0.50      0.00      0.00      0.00     99.01
+02:18:30 PM       4      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:30 PM       5      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:30 PM       6      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:30 PM       7      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:18:28 PM  pswpin/s pswpout/s
+02:18:30 PM      0.00      0.00
+
+02:18:28 PM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+02:18:30 PM      0.00      0.00   1325.87      0.00   1995.52      0.00      0.00      0.00      0.00
+
+02:18:28 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:18:30 PM   4891092   5735796    714672     10.49      6408   1024144   2230408     20.26   1082804    406136       296
+
+02:18:28 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+02:18:30 PM         0       471      0.26      0.18      0.17         0
+
+02:18:28 PM       DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+02:18:30 PM       sda      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:30 PM       sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:30 PM klas-root      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:30 PM klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:28 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:30 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:30 PM    ens160      0.50      0.50      0.03      0.02      0.00      0.00      0.00      0.00
+
+02:18:28 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:30 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:30 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:30 PM     CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+02:18:32 PM     all      0.06      0.00      0.12      0.00      0.00      0.06      0.00      0.00      0.00     99.75
+02:18:32 PM       0      0.00      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.50
+02:18:32 PM       1      0.00      0.00      0.00      0.00      0.00      0.50      0.00      0.00      0.00     99.50
+02:18:32 PM       2      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:32 PM       3      0.50      0.00      0.50      0.00      0.00      0.00      0.00      0.00      0.00     99.00
+02:18:32 PM       4      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:32 PM       5      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:32 PM       6      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:32 PM       7      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:18:30 PM  pswpin/s pswpout/s
+02:18:32 PM      0.00      0.00
+
+02:18:30 PM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+02:18:32 PM      0.00      0.00    955.72      0.00   1944.78      0.00      0.00      0.00      0.00
+
+02:18:30 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:18:32 PM   4891864   5736596    713872     10.48      6408   1024172   2213628     20.11   1082240    406164       324
+
+02:18:30 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+02:18:32 PM         0       468      0.32      0.20      0.18         0
+
+02:18:30 PM       DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+02:18:32 PM       sda      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:32 PM       sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:32 PM klas-root      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:32 PM klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:30 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:32 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:32 PM    ens160      1.49      1.49      0.23      0.12      0.00      0.00      0.00      0.00
+
+02:18:30 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:32 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:32 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:32 PM     CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+02:18:34 PM     all      0.00      0.00      0.00      0.00      0.00      0.00      0.06      0.00      0.00     99.94
+02:18:34 PM       0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       1      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       2      0.00      0.00      0.00      0.00      0.00      0.00      0.50      0.00      0.00     99.50
+02:18:34 PM       3      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       4      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       5      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       6      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+02:18:34 PM       7      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:18:32 PM  pswpin/s pswpout/s
+02:18:34 PM      0.00      0.00
+
+02:18:32 PM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+02:18:34 PM      0.00      0.00      8.46      0.00      5.97      0.00      0.00      0.00      0.00
+
+02:18:32 PM kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:18:34 PM   4891864   5736656    713812     10.47      6408   1024232   2205092     20.03   1082332    406224       384
+
+02:18:32 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+02:18:34 PM         1       467      0.32      0.20      0.18         0
+
+02:18:32 PM       DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+02:18:34 PM       sda      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:34 PM       sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:34 PM klas-root      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:34 PM klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:32 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+02:18:34 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:34 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+02:18:32 PM     IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+02:18:34 PM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+02:18:34 PM    ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        CPU      %usr     %nice      %sys   %iowait    %steal      %irq     %soft    %guest    %gnice     %idle
+Average:        all      0.02      0.00      0.20      0.01      0.00      0.04      0.01      0.00      0.00     99.71
+Average:          0      0.10      0.00      0.20      0.00      0.00      0.00      0.00      0.00      0.00     99.70
+Average:          1      0.00      0.00      0.20      0.00      0.00      0.10      0.00      0.00      0.00     99.70
+Average:          2      0.00      0.00      0.30      0.00      0.00      0.00      0.10      0.00      0.00     99.60
+Average:          3      0.10      0.00      0.30      0.10      0.00      0.10      0.00      0.00      0.00     99.40
+Average:          4      0.00      0.00      0.20      0.00      0.00      0.00      0.00      0.00      0.00     99.80
+Average:          5      0.00      0.00      0.10      0.00      0.00      0.00      0.00      0.00      0.00     99.90
+Average:          6      0.00      0.00      0.20      0.00      0.00      0.10      0.00      0.00      0.00     99.70
+Average:          7      0.00      0.00      0.10      0.00      0.00      0.00      0.00      0.00      0.00     99.90
+
+Average:     pswpin/s pswpout/s
+Average:         0.00      0.00
+
+Average:     pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+Average:         0.00     45.92   1402.49      0.00   1844.72      0.00      0.00      0.00      0.00
+
+Average:    kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+Average:      4889675   5734402    716047     10.51      6408   1024166   2236029     20.31   1084742    406163       323
+
+Average:      runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
+Average:            0       475      0.28      0.19      0.17         0
+
+Average:          DEV       tps     rkB/s     wkB/s     dkB/s   areq-sz    aqu-sz     await     %util
+Average:          sda     17.73      0.00     45.92      0.00      2.59      0.00      0.36      0.64
+Average:          sr0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:    klas-root     17.73      0.00     45.92      0.00      2.59      0.00      0.33      0.64
+Average:    klas-swap      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:       ens160      0.70      1.00      0.08      0.10      0.00      0.00      0.00      0.00
+
+Average:        IFACE   rxerr/s   txerr/s    coll/s  rxdrop/s  txdrop/s  txcarr/s  rxfram/s  rxfifo/s  txfifo/s
+Average:           lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+Average:       ens160      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+=========================kylin=========================

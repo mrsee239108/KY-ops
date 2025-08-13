@@ -104,6 +104,7 @@ class AIChatInterface {
         this.conversations = [];
         this.updateInterval = null;
         this.currentConversationId = null;
+        this.contextMode = true;
         this.messageHistory = [];
         this.currentAlerts = new Map(); // 存储当前活动的告警
         this.alertTypeMap = {
@@ -127,6 +128,10 @@ class AIChatInterface {
         this.loadAlertNotification();
         this.loadPerformanceData();
         this.loadSystemLog();
+        
+        // 检查是否有预填充的提示词
+        this.checkPrefillPrompt();
+        
         // 检查AI模型状态
         setTimeout(() => {
             this.checkInitialAIStatus();
@@ -138,8 +143,43 @@ class AIChatInterface {
         setTimeout(() => {
            this.updateThemeIcon();
         }, 100);
+
+        this.loadConversations();
         
         console.log(languageManager ? languageManager.translate('ai-chat-interface-initialized') : 'AI 对话界面已初始化');
+
+        setTimeout(() => {
+            this.updateContextModeUI();
+            this.checkHashAndAskAI();
+        }, 100);
+
+    }
+
+    checkHashAndAskAI() {
+        const hash = window.location.hash;
+        if (hash === '#askAI') {
+            // 设置上下文模式为false
+            this.contextMode = false;
+            this.updateContextModeUI();
+
+            // 清除哈希值避免重复触发
+            history.replaceState(null, null, ' ');
+
+            // 延迟执行以确保UI更新完成
+            setTimeout(() => {
+                this.autoAskAI();
+            }, 300);
+        }
+    }
+
+    autoAskAI() {
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        // 自动发送消息
+        if (sendBtn && !sendBtn.disabled) {
+            this.sendMessage();
+        }
     }
     
     // 切换主题
@@ -187,6 +227,14 @@ class AIChatInterface {
                 if (e.ctrlKey && e.key === 'Enter') {
                     this.sendMessage();
                 }
+            });
+        }
+
+        // 上下文切换按钮事件
+        const contextToggleBtn = document.getElementById('context-toggle-btn');
+        if (contextToggleBtn) {
+            contextToggleBtn.addEventListener('click', () => {
+                this.toggleContextMode();
             });
         }
     }
@@ -393,6 +441,65 @@ class AIChatInterface {
         }, 1000);
     }
 
+    // 上下文模式切换
+    toggleContextMode() {
+        // 如果正在生成内容，不切换
+        const sendBtn = document.getElementById('send-btn');
+        if (sendBtn && sendBtn.disabled) return;
+
+        this.contextMode = !this.contextMode;
+        this.updateContextModeUI();
+
+        // 当开启上下文模式时清除当前消息
+
+        this.clearMessagesContainer();
+    }
+
+    // 更新上下文模式UI
+    updateContextModeUI() {
+        const contextBtn = document.getElementById('context-toggle-btn');
+        if (contextBtn) {
+            if (this.contextMode) {
+                contextBtn.classList.add('active');
+                contextBtn.title = '上下文模式已开启';
+                contextBtn.querySelector('i').className = 'fas fa-comments';
+            } else {
+                contextBtn.classList.remove('active');
+                contextBtn.title = '上下文模式已关闭';
+                contextBtn.querySelector('i').className = 'fas fa-comment-slash';
+            }
+        }
+
+        // 禁用/启用历史记录相关元素
+        const historyList = document.getElementById('history-list');
+        const clearHistoryBtn = document.querySelector('.clear-history-btn');
+        const historyItems = historyList ? historyList.querySelectorAll('.history-item') : [];
+
+        if (historyList) historyList.classList.toggle('disabled', !this.contextMode);
+        if (clearHistoryBtn) clearHistoryBtn.disabled = !this.contextMode;
+
+        historyItems.forEach(item => {
+            item.style.pointerEvents = this.contextMode ? 'auto' : 'none';
+            item.style.opacity = this.contextMode ? '1' : '0.5';
+        });
+    }
+
+    // 清除消息容器内容
+    clearMessagesContainer() {
+        const messagesContainer = document.getElementById('messages-container');
+        if (messagesContainer) {
+            messagesContainer.innerHTML = `
+                <div class="welcome-message">
+                    <div class="ai-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="welcome-content">
+                        <h3>👋 上下文模式已切换</h3>
+                        <p>当前上下文模式: ${this.contextMode ? '开启' : '关闭'}</p>
+                        <p>${this.contextMode ? '您可以继续之前的对话' : '每次对话将是独立的新对话'}</p>
+                    </div>
+                </div>
+            `;
+        }
+    }
 
     // 发送消息
     async sendMessage() {
@@ -431,7 +538,7 @@ class AIChatInterface {
             if (response.status === 202) {
                 // 模型正在加载
                 const data = await response.json();
-                this.addMessage('ai', data.error || (languageManager ? languageManager.getText('ai-chat-model-loading') : '模型正在加载中，请稍后再试...'), true);
+                this.addMessage('ai', data.error || (languageManager ? languageManager.t('ai-chat-model-loading') : '模型正在加载中，请稍后再试...'), true);
                 this.showModelInitButton();
                 return;
             }
@@ -449,10 +556,15 @@ class AIChatInterface {
             
             // 处理流式响应
             await this.handleStreamResponse(response, message);
+
+            // 如果上下文模式关闭，创建新对话
+            if (!this.contextMode) {
+                this.currentConversationId = null;
+            }
             
         } catch (error) {
-            console.error(languageManager ? languageManager.getText('ai-chat-send-failed') : '发送消息失败:', error);
-            this.addMessage('ai', languageManager ? languageManager.getText('ai-chat-reply-error') : '抱歉，我现在无法回复您的消息。请稍后再试。', true);
+            console.error(languageManager ? languageManager.t('ai-chat-send-failed') : '发送消息失败:', error);
+            this.addMessage('ai', languageManager ? languageManager.t('ai-chat-reply-error') : '抱歉，我现在无法回复您的消息。请稍后再试。', true);
         } finally {
             if (sendBtn) {
                 sendBtn.disabled = false;
@@ -474,56 +586,60 @@ class AIChatInterface {
         
         try {
             while (true) {
-                const { done, value } = await reader.read();
-                
+                const {done, value} = await reader.read();
+
                 if (done) break;
-                
+
                 const chunk = decoder.decode(value);
                 const lines = chunk.split('\n');
-                
+
                 for (const line of lines) {
                     if (line.startsWith('data: ')) {
                         const data = line.slice(6);
-                        
+
                         if (data === '[DONE]') {
                             // 流式输出结束
                             this.finalizeStreamingMessage(aiMessageDiv);
-                            
+
                             // 更新对话历史
                             if (fullResponse) {
                                 this.updateConversationHistory(userMessage, fullResponse);
                             }
                             return;
                         }
-                        
+
                         try {
                             const parsed = JSON.parse(data);
-                            
+
                             if (parsed.error) {
                                 throw new Error(parsed.error);
                             }
-                            
+
                             if (parsed.content) {
                                 fullResponse += parsed.content;
                                 textDiv.innerHTML = this.formatMessage(fullResponse);
-                                
+
                                 // 滚动到底部
                                 const messagesContainer = document.getElementById('messages-container');
                                 if (messagesContainer) {
                                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
                                 }
                             }
-                            
+
                             if (parsed.conversation_id) {
                                 conversationId = parsed.conversation_id;
                                 this.currentConversationId = conversationId;
                             }
-                            
+
                         } catch (parseError) {
                             console.warn('解析流式数据失败:', parseError);
                         }
                     }
                 }
+            }
+
+            if (!this.contextMode && conversationId) {
+                this.currentConversationId = null;
             }
         } catch (error) {
             console.error('处理流式响应失败:', error);
@@ -745,22 +861,52 @@ class AIChatInterface {
     }
 
     // 复制代码功能
-    copyCode(button) {
-        const code = button.getAttribute('data-code');
-        if (code) {
-            navigator.clipboard.writeText(code).then(() => {
-                const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> 已复制';
-                button.style.background = '#28a745';
-                
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.style.background = '';
-                }, 2000);
-            }).catch(err => {
-                console.error('复制失败:', err);
-                alert('复制失败，请手动复制代码');
-            });
+    async copyCode(button) {
+        const rawCode = button.getAttribute('data-code');
+        if (!rawCode) return;
+
+        // 新增：解码HTML实体（解决 &quot; 等转义问题）
+        const decodeHtmlEntities = (html) => {
+            const textArea = document.createElement('textarea');
+            textArea.innerHTML = html;
+            return textArea.value;
+        };
+        const code = decodeHtmlEntities(rawCode); // 使用解码后的内容
+
+        const originalText = button.innerHTML;
+
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(code);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = code; // 使用解码后的内容
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = 0;
+                document.body.appendChild(textArea);
+                textArea.select();
+                textArea.setSelectionRange(0, 99999);
+
+                if (!document.execCommand('copy')) {
+                    throw new Error('复制命令执行失败');
+                }
+                document.body.removeChild(textArea);
+            }
+
+            button.innerHTML = '<i class="fas fa-check"></i> 已复制';
+            button.style.background = '#28a745';
+
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+
+        } catch (err) {
+            console.error('复制失败:', err);
+            const manualCopy = confirm('复制失败，是否手动复制代码？');
+            if (manualCopy) {
+                prompt('请按Ctrl+C复制以下代码', code); // 提示框显示解码后的内容
+            }
         }
     }
 
@@ -768,14 +914,12 @@ class AIChatInterface {
     newConversation() {
         this.currentConversationId = null;
         this.messageHistory = [];
-        
+
         const messagesContainer = document.getElementById('messages-container');
         if (messagesContainer) {
             messagesContainer.innerHTML = `
                 <div class="welcome-message">
-                    <div class="ai-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
+                    <div class="ai-avatar"><i class="fas fa-robot"></i></div>
                     <div class="welcome-content">
                         <h3>👋 欢迎使用 AI 智能助手</h3>
                         <p>我是您的专业运维助手，可以帮助您：</p>
@@ -791,8 +935,41 @@ class AIChatInterface {
                 </div>
             `;
         }
-        
+
         this.updateChatTitle('AI 智能助手', '随时为您提供专业的运维支持');
+        this.loadConversations(); // 刷新对话列表
+    }
+
+    // 检查预填充提示词
+    checkPrefillPrompt() {
+        try {
+            const prefillPrompt = sessionStorage.getItem('ai_prefill_prompt');
+            if (prefillPrompt) {
+                // 清除sessionStorage中的数据
+                sessionStorage.removeItem('ai_prefill_prompt');
+                
+                // 获取消息输入框
+                const messageInput = document.getElementById('message-input');
+                if (messageInput) {
+                    // 设置预填充内容
+                    messageInput.value = prefillPrompt;
+                    
+                    // 更新字符计数和自动调整高度
+                    this.updateCharCount();
+                    this.autoResizeTextarea();
+                    
+                    // 聚焦到输入框
+                    messageInput.focus();
+                    
+                    // 将光标移到文本末尾
+                    messageInput.setSelectionRange(prefillPrompt.length, prefillPrompt.length);
+                    
+                    console.log('已预填充AI询问内容');
+                }
+            }
+        } catch (error) {
+            console.error('处理预填充提示词时出错:', error);
+        }
     }
 
     // 更新对话标题
@@ -1082,16 +1259,19 @@ ${systemSummary()}`;
     }
 
     // 加载对话历史
-    loadConversations() {
-        // 从本地存储加载对话历史
-        const saved = localStorage.getItem('ai_conversations');
-        if (saved) {
-            try {
-                this.conversations = JSON.parse(saved);
-                this.renderConversationHistory();
-            } catch (error) {
-                console.error(languageManager ? languageManager.getText('ai-chat-load-history-failed') : '加载对话历史失败:', error);
-            }
+    async loadConversations() {
+        try {
+            const response = await fetch('/api/ai-chat/conversations');
+            if (!response.ok) throw new Error('网络响应错误');
+
+            const conversations = await response.json();
+            this.conversations = conversations;
+            this.renderConversationHistory();
+        } catch (error) {
+            console.error('加载对话历史失败:', error);
+            // 使用模拟数据作为后备
+            this.conversations = [];
+            this.renderConversationHistory();
         }
     }
 
@@ -1123,26 +1303,45 @@ ${systemSummary()}`;
     }
 
     // 加载指定对话
-    loadConversation(conversationId) {
-        const conversation = this.conversations.find(c => c.id === conversationId);
-        if (!conversation) return;
-        
-        this.currentConversationId = conversationId;
-        this.messageHistory = conversation.messages || [];
-        
-        // 清空消息容器
-        const messagesContainer = document.getElementById('messages-container');
-        if (messagesContainer) {
-            messagesContainer.innerHTML = '';
-            
-            // 重新渲染消息
-            this.messageHistory.forEach(msg => {
-                this.addMessage(msg.sender, msg.content);
+    async loadConversation(conversationId) {
+        try {
+            this.showLoading();
+
+            // 从后端加载对话消息
+            const response = await fetch(`/api/ai-chat/history-messages?conversation_id=${conversationId}`);
+            if (!response.ok) throw new Error('加载对话失败');
+
+            const messages = await response.json();
+
+            // 清空当前消息
+            this.messageHistory = [];
+            const messagesContainer = document.getElementById('messages-container');
+            if (messagesContainer) messagesContainer.innerHTML = '';
+
+            // 渲染消息
+            messages.forEach(msg => {
+                const sender = msg.role === 'user' ? 'user' : 'ai';
+                this.addMessage(sender, msg.content);
             });
+
+            // 更新当前对话ID
+            this.currentConversationId = conversationId;
+
+            // 查找对话标题
+            const conversation = this.conversations.find(c => c.id === conversationId);
+            if (conversation) {
+                this.updateChatTitle(conversation.title, `更新于 ${conversation.last_modified}`);
+            } else {
+                this.updateChatTitle("历史对话", "加载的对话记录");
+            }
+
+            this.renderConversationHistory();
+        } catch (error) {
+            console.error('加载对话失败:', error);
+            this.addMessage('ai', '加载对话失败，请重试。', true);
+        } finally {
+            this.hideLoading();
         }
-        
-        this.updateChatTitle(conversation.title, `更新于 ${new Date(conversation.updated_at).toLocaleString()}`);
-        this.renderConversationHistory();
     }
 
     // 更新对话历史
@@ -1158,6 +1357,7 @@ ${systemSummary()}`;
                 messages: []
             };
             this.conversations.unshift(newConversation);
+            this.loadConversations(); // 刷新对话列表
         }
         
         // 更新对话
@@ -1173,10 +1373,18 @@ ${systemSummary()}`;
     }
 
     // 清空对话历史
-    clearHistory() {
-        if (confirm(languageManager ? languageManager.getText('ai-chat-clear-history-confirm') : '确定要清空所有对话历史吗？此操作不可撤销。')) {
+    async clearHistory() {
+        if (confirm(languageManager ? languageManager.t('ai-chat-clear-history-confirm') : '确定要清空所有对话历史吗？此操作不可撤销。')) {
             this.conversations = [];
             localStorage.removeItem('ai_conversations');
+            try {
+                const response = await fetch('/api/ai-chat/clear');
+                if (!response.ok) throw new Error('网络响应错误');
+                this.addMessage('ai', '对话历史已清空。', true);
+            } catch (error) {
+                console.error('清空对话历史失败:', error);
+                this.addMessage('ai', '清空对话历史失败，请重试。', true);
+            }
             this.renderConversationHistory();
             this.newConversation();
         }
@@ -1185,17 +1393,17 @@ ${systemSummary()}`;
     // 导出对话
     exportChat() {
         if (this.messageHistory.length === 0) {
-            alert(languageManager ? languageManager.getText('ai-chat-export-empty') : '当前对话为空，无法导出。');
+            alert(languageManager ? languageManager.t('ai-chat-export-empty') : '当前对话为空，无法导出。');
             return;
         }
         
-        const exportTitle = languageManager ? languageManager.getText('ai-chat-export-title') : 'AI 对话记录';
-        const exportTime = languageManager ? languageManager.getText('ai-chat-export-time') : '导出时间';
+        const exportTitle = languageManager ? languageManager.t('ai-chat-export-title') : 'AI 对话记录';
+        const exportTime = languageManager ? languageManager.t('ai-chat-export-time') : '导出时间';
         let content = `${exportTitle}\n${exportTime}: ${new Date().toLocaleString()}\n\n`;
         
         this.messageHistory.forEach(msg => {
-            const userLabel = languageManager ? languageManager.getText('ai-chat-export-user') : '用户';
-            const assistantLabel = languageManager ? languageManager.getText('ai-chat-export-assistant') : 'AI助手';
+            const userLabel = languageManager ? languageManager.t('ai-chat-export-user') : '用户';
+            const assistantLabel = languageManager ? languageManager.t('ai-chat-export-assistant') : 'AI助手';
             const sender = msg.sender === 'user' ? userLabel : assistantLabel;
             const time = new Date(msg.timestamp).toLocaleTimeString();
             content += `[${time}] ${sender}: ${msg.content}\n\n`;
@@ -1205,7 +1413,7 @@ ${systemSummary()}`;
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        const filename = languageManager ? languageManager.getText('ai-chat-export-filename') : 'AI对话记录';
+        const filename = languageManager ? languageManager.t('ai-chat-export-filename') : 'AI对话记录';
         a.download = `${filename}_${new Date().toISOString().split('T')[0]}.txt`;
         document.body.appendChild(a);
         a.click();
@@ -1216,13 +1424,13 @@ ${systemSummary()}`;
     // 分享对话
     shareChat() {
         if (this.messageHistory.length === 0) {
-            alert(languageManager ? languageManager.getText('ai-chat-share-empty') : '当前对话为空，无法分享。');
+            alert(languageManager ? languageManager.t('ai-chat-share-empty') : '当前对话为空，无法分享。');
             return;
         }
         
         const shareData = {
-            title: languageManager ? languageManager.getText('ai-chat-share-title') : 'AI 对话记录',
-            text: languageManager ? languageManager.getText('ai-chat-share-text') : '查看我与AI助手的对话记录',
+            title: languageManager ? languageManager.t('ai-chat-share-title') : 'AI 对话记录',
+            text: languageManager ? languageManager.t('ai-chat-share-text') : '查看我与AI助手的对话记录',
             url: window.location.href
         };
         
@@ -1232,9 +1440,9 @@ ${systemSummary()}`;
             // 复制到剪贴板
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
-                alert(languageManager ? languageManager.getText('ai-chat-share-copied') : '对话链接已复制到剪贴板！');
+                alert(languageManager ? languageManager.t('ai-chat-share-copied') : '对话链接已复制到剪贴板！');
             }).catch(() => {
-                alert(languageManager ? languageManager.getText('ai-chat-share-unavailable') : '分享功能暂不可用。');
+                alert(languageManager ? languageManager.t('ai-chat-share-unavailable') : '分享功能暂不可用。');
             });
         }
     }
@@ -1390,4 +1598,16 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         aiChat = new AIChatInterface();
     }, 100);
+
+    // 监听消息输入框变化
+    const messageInput = document.getElementById('message-input');
+    if (messageInput) {
+        messageInput.addEventListener('input', function() {
+            const sendBtn = document.getElementById('send-btn');
+            const contextBtn = document.getElementById('context-toggle-btn');
+            if (sendBtn && contextBtn) {
+                contextBtn.disabled = sendBtn.disabled;
+            }
+        });
+    }
 });
